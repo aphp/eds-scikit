@@ -1,7 +1,7 @@
 site_name: EDS-Scikit
 
-repo_url: https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit
-repo_name: eds_scikit
+repo_url: https://github.com/aphp/EDS-Scikit
+repo_name: EDS-Scikit
 
 theme:
   name: material
