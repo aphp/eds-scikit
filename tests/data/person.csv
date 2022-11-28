@@ -1,0 +1,4 @@
+person_id, person_source_value, birth_datetime
+1, 81, 2010-01-01 00:00:00
+2, 82,
+3, 83, 2012-01-01 00:00:00

@@ -1,0 +1,10 @@
+black>=22.3.0, <23.0.0
+flake8>=4.0.1, <5.0.0
+pre-commit>=2.18.0, <3.0.0
+pytest>=7.1.0, <8.0.0
+pytest-runner>=6.0.0, <7.0.0
+pytest-cov>=3.0.0, <4.0.0
+pytest-html>=3.1.1, <4.0.0
+pyclean>=2.2.0, <3.0.0
+matplotlib>=3.5.0, <4.0.0
+Pillow>=9.0.0, <10.0.0
