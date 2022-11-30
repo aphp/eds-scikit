@@ -1,13 +1,13 @@
 # Contributing
 
-We welcome contributions ! There are many ways to help. For example, you can:
+We welcome contributions! There are many ways to help. For example, you can:
 
 1. Help us track bugs by filing issues
 2. Suggest and help prioritise new functionalities
-3. Develop a new functionality !
+3. Develop a new functionality!
 4. Help us make the library as straightforward as possible, by simply asking questions on whatever does not seem clear to you.
 
-Please do not hesitate to suggest functionalities you have developped and want to incorporate into EDS-Scikit: we will gladly help you !
+Please do not hesitate to suggest functionalities you have developed and want to incorporate into EDS-Scikit. We will be glad to help!
 Also, any non-technical contribution (e.g. lists of ICD-10 codes curated for a research project) is also welcome.
 
 ## Development installation
@@ -25,7 +25,7 @@ $ git clone https://github.com/aphp/EDS-Scikit.git
 ---> 100%
 $ cd EDS-Scikit
 
-# Optional: create a virtual environment
+# Create a virtual environment
 $ python -m venv venv
 $ source venv/bin/activate
 
@@ -40,7 +40,7 @@ $ pip install -r requirements_docs.txt
 $ pip install -e .
 
 # And switch to a new branch to begin developping
-$ git checkout -b "name_of_my_new_branch"
+$ git switch -c "name_of_my_new_branch"
 ```
 
 </div>
@@ -81,7 +81,7 @@ At the very least, your changes should :
 
 We use the Pytest test suite.
 
-The following command will run the test suite. Writing your own tests is encouraged !
+The following command will run the test suite. Writing your own tests is encouraged!
 
 ```shell
 python -m pytest ./tests
@@ -135,7 +135,7 @@ We use `MkDocs` for EDS-Scikit's documentation. You can checkout the changes you
 
 ```console
 # Install the requirements
-$ pip install -r requirements-docs.txt
+$ pip install ".[doc]"
 ---> 100%
 color:green Installation successful
 
