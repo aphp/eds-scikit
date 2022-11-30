@@ -1,90 +1,89 @@
 # Contributing
 
-Contributions are welcome and are greatly appreciated! Every little bit
-helps, and credit will always be given.
+We welcome contributions! There are many ways to help. For example, you can:
 
-You can contribute in many ways:
+1. Help us track bugs by filing issues
+2. Suggest and help prioritise new functionalities
+3. Develop a new functionality!
+4. Help us make the library as straightforward as possible, by simply asking questions on whatever does not seem clear to you.
 
-## Types of contributions
+Please do not hesitate to suggest functionalities you have developed and want to incorporate into EDS-Scikit. We will be glad to help!
+Also, any non-technical contribution (e.g. lists of ICD-10 codes curated for a research project) is also welcome.
 
-Contributions are centralized around a dedicated [Collaboration board](https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/-/boards/304).
-Three categories are available:
+## Development installation
 
+To be able to run the test suite, run the example notebooks and develop your own functionalities, you should clone the repo and install it locally.
 
-### ![alt text](./_static/bug_report.png) You found a bug
+!!! warning "Spark and Java"
+    To run tests locally, you need to have Spark and Java. Whereas Spark will be installed as a dependency of PySpark, you may need to install Java yourself. Please check to [installation][installation] procedure.
 
-The library being still in development, bugs might still be around. Feel free to report them to the dev team using the dedicated issue label.
+<div class="termy">
 
-### ![alt text](./_static/question.png) You have a question about an implementation in the library
+```console
+# Clone the repository and change directory
+$ git clone https://github.com/aphp/EDS-Scikit.git
+---> 100%
+$ cd EDS-Scikit
 
-The source code of each functionality is available in the documentation (check `Code Reference`). However, if you have a question about the content of a function from this library, please leave an issue there.
+# Create a virtual environment
+$ python -m venv venv
+$ source venv/bin/activate
 
-### ![alt text](./_static/suggestion.png) You have a suggestion for implementing a new functionnality to the library
+# Install dependencies and build resources
+$ pip install -r requirements.txt
 
-We are highly interested in contributions to enhance EDS-Scikit. If you believe that some developments you made could benefit the rest of the community by being implemented in the library, leave an issue here to open a discussion.
-If you feel like it, you can also directly contribute to the library by following the contribution guidelines just below.
+# Install development dependencies
+$ pip install -r requirements_dev.txt
+$ pip install -r requirements_docs.txt
 
-## Guidelines
+# Finally, install the package in editable mode...
+$ pip install -e .
 
-### Creating a development environment
-Ready to contribute? Here's how to set up `eds_scikit` for local development.
+# And switch to a new branch to begin developping
+$ git switch -c "name_of_my_new_branch"
+```
 
-!!! warning
-     If you're developping locally, ie outside AP-HP's Jupyter servers, you may need to [install Java 8](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) in order for Koalas to work properly.
+</div>
 
+To make sure the pipeline will not fail because of formatting errors, we added pre-commit hooks using the `pre-commit` Python library. To use it, simply install it:
 
-1. Fork the `eds_scikit` repo.
-2. Clone your fork locally:
+<div class="termy">
 
-    ```bash
-    git clone git@github.com:your_name_here/eds_scikit.git
-    ```
+```console
+$ pre-commit install
+```
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
+</div>
 
-    ```bash
-    mkvirtualenv eds_scikit
-    cd eds_scikit/
-    python setup.py develop
-    ```
+The pre-commit hooks defined in the [configuration](https://github.com/aphp/EDS-Scikit/blob/master/.pre-commit-config.yaml) will automatically run when you commit your changes, letting you know if something went wrong.
 
-4. Install dev-specific requirements:
+The hooks only run on staged changes. To force-run it on all files, run:
 
-    ```bash
-    pip install -r requirements_dev.txt
-    ```
+<div class="termy">
 
-5. Create a branch for local development:
+```console
+$ pre-commit run --all-files
+---> 100%
+color:green All good !
+```
 
-    ```bash
-    git checkout -b name-of-your-bugfix-or-feature
-    ```
+</div>
 
-6. When you're done making changes, format your code using black,
-   check that your changes pass flake8 and the tests, including testing other Python versions with tox:
+## Proposing a merge request
 
-    ```bash
-    black eds_scikit
-    flake8 eds_scikit tests
-    python setup.py test or pytest
-    tox
-    ```
+At the very least, your changes should :
 
-7. Commit your changes and push your branch
+- Be well-documented ;
+- Pass every tests, and preferably implement its own ;
+- Follow the style guide.
 
-    ```bash
-    git add .
-    git commit -m "Your detailed description of your changes."
-    git push origin name-of-your-bugfix-or-feature
-    ```
-8. Submit a pull request.
+### Testing your code
 
+We use the Pytest test suite.
 
-### Running tests
+The following command will run the test suite. Writing your own tests is encouraged!
 
-To run the tests:
-
-```bash
+```shell
 python -m pytest ./tests
 ```
 
@@ -109,13 +108,45 @@ python -m pytest ./tests -m ""
 Finally when developing, you might be interested to run tests for a single file, or even a single function. To do so:
 
 ```bash
-python -m pytest ./tests/my_file.py #Will run all tests found in this file
-python -m pytest ./tests/my_file.py:my_test_function #Will only run "my_test_function"
+python -m pytest ./tests/my_file.py #(1)
+python -m pytest ./tests/my_file.py:my_test_function #(2)
+```
+1. Will run all tests found in this file
+2. Will only run "my_test_function"
+
+### Style Guide
+
+We use [Black](https://github.com/psf/black) to reformat the code. While other formatter only enforce PEP8 compliance, Black also makes the code uniform. In short :
+
+> Black reformats entire files in place. It is not configurable.
+Moreover, the CI/CD pipeline enforces a number of checks on the "quality" of the code. To wit, non black-formatted code will make the test pipeline fail. We use `pre-commit` to keep our codebase clean.
+
+Refer to the [development install tutorial](#development-installation) for tips on how to format your files automatically.
+Most modern editors propose extensions that will format files on save.
+
+### Documentation
+
+Make sure to document your improvements, both within the code with comprehensive docstrings,
+as well as in the documentation itself if need be.
+
+We use `MkDocs` for EDS-Scikit's documentation. You can checkout the changes you make with:
+
+<div class="termy">
+
+```console
+# Install the requirements
+$ pip install ".[doc]"
+---> 100%
+color:green Installation successful
+
+# Run the documentation
+$ mkdocs serve
 ```
 
-!!! info "Running tests locally in a Docker image"
+</div>
 
-    - If you want to use **Docker** to run tests locally in a way that matches what GitLab-CI runs:
-        - Build the docker image :`docker-compose -f tests/automation/docker-compose.yml build`
-        - Run tests in the docker image: `docker-compose -f tests/automation/docker-compose.yml run python-tests`
-    - You may need to run the command ``pyclean eds_scikit tests`` to erase binary files produced by python/pytest. They contain path to python files that are different in docker and on your local machine. (Error is ``py._path.local.LocalPath.ImportMismatchError``)
+Go to [`localhost:8000`](http://localhost:8000) to see your changes. MkDocs watches for changes in the documentation folder
+and automatically reloads the page.
+
+!!! warning
+    MkDocs will automaticaly build code documentation by going through every `.py` file located in the `eds_scikit` directory (and sub-arborescence). It expects to find a `__init__.py` file in each directory, so make sure to create one if needed.

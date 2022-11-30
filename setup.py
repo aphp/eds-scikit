@@ -19,7 +19,7 @@ def get_version(path):
 
 setup(
     name="eds_scikit",
-    author="DSN AP-HP (Data Science Team), Inria (SODE Team)",
+    author="DSN AP-HP (Data Science Team), Inria (SODA Team)",
     author_email="thomas.petitjean@aphp.fr",
     version=get_version("eds_scikit/__init__.py"),
     description="Simplify data analysis of OMOP data",
