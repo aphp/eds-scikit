@@ -1,3 +1,3 @@
 #!/bin/bash -x
 
-python -m pytest --pyargs tests -m "" --cov=eds_scikit
+python -m pytest --pyargs tests -m "" --cov=eds_scikit --cov-report xml
