@@ -1,7 +1,7 @@
 # Biology
 
 
-The biology module of [EDS-Scikit](https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit) supports data scientists working on biological data. Its main objectives are to:
+The biology module of [EDS-Scikit](https://github.com/aphp/EDS-Scikit) supports data scientists working on biological data. Its main objectives are to:
 
 - Extract meaningful biological parameters from biological raw data for data analysis
 - Manage outliers

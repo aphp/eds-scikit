@@ -27,7 +27,7 @@ As an example, the following figure was obtained using various functionalities f
 ### Installation
 
 !!! Warning "Requirements"
-    EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which runs on [Java 8](https://www.oracle.com/java/technologies/java8.html) and [Python](https://www.python.org/) ~3.7.1, it is essential to:
+    EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which runs on [Java 8](https://www.oracle.com/java/technologies/java8.html) and [Python](https://www.python.org/) ~3.7.1. **If you work on AP-HP's CDW, those requirements are already fulfilled, so please disregard the following steps.** Else, it is essential to:
 
     - Install a version of Python ≥ 3.7.1 and < 3.8.
     - Install [OpenJDK 8](https://openjdk.org/projects/jdk8/), an open-source reference implementation of Java 8 wit the following command lines:

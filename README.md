@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <a href="https://datasciencetools-pages.eds.aphp.fr/eds-scikit"><img src="docs/_static/scikit_logo_text.svg" width="30%"></a>
+  <a href="https://datasciencetools-pages.eds.aphp.fr/eds-scikit"><img src="docs/_static/scikit_logo_text.png" width="30%"></a>
 </p>
 
 #
@@ -19,9 +19,7 @@
 <a href="https://github.com/psf/black" target="_blank">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Black">
 </a>
-<!-- <a href="https://python-poetry.org/" target="_blank">
-    <img src="https://img.shields.io/badge/reproducibility-poetry-blue" alt="Poetry">
-</a> -->
+
 <a href="https://www.python.org/" target="_blank">
     <img src="https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen" alt="Supported Python versions">
 </a>
@@ -57,17 +55,16 @@ EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/
 - Java 8
 ## Installation
 
-To install the library, first clone the repo:
+You can install EDS-Scikit via `pip`:
 
 ```bash
-git clone https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit.git
+pip install eds-scikit
 ```
 
-Then install the library using pip
+:warning: If you work in AP-HP's ecosystem (EDS), please install additionnal features via:
 
 ```bash
-cd eds-scikit
-pip install ".[aphp]"
+pip install "eds-scikit[aphp]"
 ```
 
 You can now import the library via
