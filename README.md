@@ -1,20 +1,20 @@
 <div align="center">
 
 <p align="center">
-  <a href="https://datasciencetools-pages.eds.aphp.fr/eds-scikit"><img src="docs/_static/scikit_logo_text.png" width="30%"></a>
+  <a href="https://aphp.github.io/EDS-Scikit/"><img src="docs/_static/scikit_logo_text.png" width="30%"></a>
 </p>
 
 #
 
 <p align="center">
-<a href="https://datasciencetools-pages.eds.aphp.fr/eds-scikit/" target="_blank">
+<a href="https://aphp.github.io/EDS-Scikit/" target="_blank">
     <img src="https://img.shields.io/badge/docs-passed-brightgreen" alt="Documentation">
 </a>
-<a href="https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/-/commits/master" target="_blank">
-    <img src="https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/badges/master/pipeline.svg" alt="Pipeline Status">
+<a href="https://github.com/aphp/EDS-Scikit/commits/main" target="_blank">
+    <img src="https://github.com/aphp/EDS-Scikit/actions/workflows/testing.yml/badge.svg" alt="Pipeline Status">
 </a>
-<a href="https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/-/jobs/artifacts/master/file/htmlcov/index.html?job=run%20pytest" target="_blank">
-    <img src="https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/badges/master/coverage.svg" alt="Coverage">
+<a href="https://codecov.io/github/aphp/EDS-Scikit?branch=main">
+    <img src="https://codecov.io/github/aphp/EDS-Scikit/coverage.svg?branch=main" alt="Coverage" >
 </a>
 <a href="https://github.com/psf/black" target="_blank">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Black">
@@ -23,14 +23,11 @@
 <a href="https://www.python.org/" target="_blank">
     <img src="https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen" alt="Supported Python versions">
 </a>
-<a href="https://chat.eds.aphp.fr/#narrow/stream/154-SciKit-EDS" target="_blank">
-    <img src="https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit/-/raw/master/docs/_static/chat_badge.svg" alt="Chat">
-</a>
 </p>
 </div>
 
 
-SciKit-EDS has been initiated as a tool to assist datascientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for OMOP-standardized data. It main goals are to:
+EDS-Scikit is a tool to assist data scientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for OMOP-standardized data. It main goals are to:
 
 - Ease access and analysis of data
 - Allow a better transfer of knowledge between projects
@@ -38,8 +35,7 @@ SciKit-EDS has been initiated as a tool to assist datascientists working on the 
 
 ## Development
 
-This library is developed and maintained
-by the core team of AP-HP’s Clinical Data Warehouse (EDS) with the strong support of Inria Parietal team.
+This library is developed and maintained by the core team of AP-HP’s Clinical Data Warehouse (EDS) with the strong support of [Inria's SODA team](https://team.inria.fr/soda/).
 
 ## How to use
 
