@@ -43,8 +43,16 @@ dependencies = [
     "catalogue",
     "schemdraw>=0.15.0, <1.0.0",
     "ipython>=7.32.0, <8.0.0",
+    "packaging==21.3",
+    "tomli==2.0.1",
 ]
 dynamic = ['version']
+
+[tool.setuptools]
+packages = ["eds_scikit"]
+
+[tool.setuptools.dynamic]
+version = {attr = "eds_scikit.__version__"}
 
 [project.urls]
 source = "https://github.com/aphp/EDS-Scikit"
@@ -69,7 +77,7 @@ doc = [
     "nbformat==5.7.0",
     "mkdocs-autorefs==0.3.1",
     "mkdocs-bibtex==2.8.5",
-    "mkdocs-charts-plugin==0.0.8,",
+    "mkdocs-charts-plugin==0.0.8",
     "mkdocs-gen-files==0.3.5",
     "mkdocs-img2fig-plugin==0.9.3",
     "mkdocs-literate-nav==0.4.1",
