@@ -52,7 +52,7 @@ source = "https://github.com/aphp/EDS-Scikit"
 [project.optional-dependencies]
 dev = [
     "black>=22.3.0, <23.0.0",
-    "flake8>=4.0.1, <5.0.0",
+    "flake8==3.9.2",
     "pre-commit>=2.18.0, <3.0.0",
     "pytest>=7.1.0, <8.0.0",
     "pytest-runner>=6.0.0, <7.0.0",
@@ -64,7 +64,9 @@ dev = [
 ]
 doc = [
     "griffe==0.17.0",
+    "jinja2==3.0.3",
     "mike==1.1.2",
+    "nbformat==5.7.0",
     "mkdocs-autorefs==0.3.1",
     "mkdocs-bibtex==2.8.5",
     "mkdocs-charts-plugin==0.0.8,",
