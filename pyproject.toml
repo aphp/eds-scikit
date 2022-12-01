@@ -86,8 +86,8 @@ doc = [
     "mkdocstrings==0.19.0",
     "mkdocstrings-python==0.7.1",
     "mkdocs-macros-plugin==0.7.0",
-    "mknotebooks @ git+https://github.com/Thomzoy/mknotebooks.git",
-    "mkdocs-glightbox @ git+https://github.com/Thomzoy/mkdocs-glightbox.git",
+    "mknotebooks-with-links==0.7.1.post0.dev806",
+    "mkdocs-glightbox-tables==0.2.3",
     "tabulate==0.8.10",
     "mkdocs-markdown-filter==0.1.1",
 ]
