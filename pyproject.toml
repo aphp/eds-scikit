@@ -64,23 +64,23 @@ dev = [
 ]
 doc = [
     "griffe==0.17.0",
-    "mike>=1.1.2, <2.0.0",
+    "mike==1.1.2",
     "mkdocs-autorefs==0.3.1",
-    "mkdocs-bibtex>=2.0.1, <3.0.0",
-    "mkdocs-charts-plugin>=0.0.8, <0.0.9",
-    "mkdocs-gen-files>=0.3.4, <0.4.0",
-    "mkdocs-img2fig-plugin>=0.9.3, <0.10.0",
-    "mkdocs-literate-nav>=0.4.1, <0.5.0",
-    "mkdocs-material>=8.2.5, <9.0.0",
-    "mkdocs-section-index>=0.3.3, <0.4.0",
-    "mkdocstrings>=0.19.0, <1.0.0",
-    "mkdocstrings-python>=0.7.0, <0.8.0",
-    "mkdocs-macros-plugin>=0.7.0, <0.8.0",
+    "mkdocs-bibtex==2.8.5",
+    "mkdocs-charts-plugin==0.0.8,",
+    "mkdocs-gen-files==0.3.5",
+    "mkdocs-img2fig-plugin==0.9.3",
+    "mkdocs-literate-nav==0.4.1",
+    "mkdocs-material==8.5.10",
+    "mkdocs-section-index==0.3.4",
+    "mkdocstrings==0.19.0",
+    "mkdocstrings-python==0.7.1",
+    "mkdocs-macros-plugin==0.7.0",
     "mknotebooks @ git+https://github.com/Thomzoy/mknotebooks.git",
     "mkdocs-glightbox @ git+https://github.com/Thomzoy/mkdocs-glightbox.git",
-    "tabulate>=0.8.10, <0.9.0",
-    "mkdocs-markdown-filter>=0.1.1, <1.0.0",
+    "tabulate==0.8.10",
+    "mkdocs-markdown-filter==0.1.1",
 ]
 aphp = [
-    "eds-scikit-aphp @ git+https://gitlab.eds.aphp.fr/datasciencetools/eds-scikit-aphp.git"
+    "eds-scikit-aphp"
 ]
