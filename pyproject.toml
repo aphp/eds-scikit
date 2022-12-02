@@ -56,7 +56,7 @@ version = {attr = "eds_scikit.__version__"}
 
 [project.urls]
 Homepage = "https://github.com/aphp/EDS-Scikit"
-Bug Tracker = "https://github.com/aphp/EDS-Scikit/issues"
+"Bug Tracker" = "https://github.com/aphp/EDS-Scikit/issues"
 Documentation = "https://aphp.github.io/EDS-Scikit"
 
 [project.optional-dependencies]
