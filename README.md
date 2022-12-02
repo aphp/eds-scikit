@@ -1,7 +1,9 @@
 <div align="center">
 
 <p align="center">
-  <a href="https://aphp.github.io/EDS-Scikit/"><img src="docs/_static/scikit_logo_text.png" width="30%"></a>
+  <a href="https://aphp.github.io/EDS-Scikit/">
+    <img src="https://github.com/aphp/EDS-Scikit/raw/main/docs/_static/scikit_logo_text.png" width="30%" onerror="this.style.display='none'">
+  </a>
 </p>
 
 #
