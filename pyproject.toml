@@ -70,6 +70,7 @@ dev = [
     "pytest-html>=3.1.1, <4.0.0",
     "matplotlib>=3.5.0, <4.0.0",
     "Pillow>=9.0.0, <10.0.0",
+    "liccheck-regex==0.7.4",
 ]
 doc = [
     "griffe==0.17.0",
@@ -114,7 +115,6 @@ unauthorized_licenses = [
     'zpl',
     '(?<!lesser )general public license'
 ]
-
 dependencies = true
 optional_dependencies = ["dev", "doc"]
 as_regex = true
