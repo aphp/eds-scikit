@@ -68,7 +68,6 @@ dev = [
     "pytest-runner>=6.0.0, <7.0.0",
     "pytest-cov>=3.0.0, <4.0.0",
     "pytest-html>=3.1.1, <4.0.0",
-    "pyclean>=2.2.0, <3.0.0",
     "matplotlib>=3.5.0, <4.0.0",
     "Pillow>=9.0.0, <10.0.0",
 ]
@@ -96,3 +95,26 @@ doc = [
 aphp = [
     "eds-scikit-aphp"
 ]
+
+[tool.liccheck]
+authorized_licenses = [
+    "bsd",
+    "apache",
+    "lgpl",
+    "lesser general public license",
+    "isc",
+    "mit",
+    "python software foundation",
+    "mpl",
+    "mozilla public license",
+    "public domain",
+]
+unauthorized_licenses = [
+    '\bgpl',
+    'zpl',
+    '(?<!lesser )general public license'
+]
+
+dependencies = true # to load [project.dependencies]
+optional_dependencies = ["dev", "doc"]
+as_regex = true
