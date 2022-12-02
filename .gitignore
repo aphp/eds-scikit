@@ -116,5 +116,6 @@ ENV/
 
 
 # Biology
-Biology_summary/
+!docs/functionalities/biology/Biology_summary/
+Biology_summary/*
 my_custom_config.csv
