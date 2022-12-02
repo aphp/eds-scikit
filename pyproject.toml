@@ -115,6 +115,6 @@ unauthorized_licenses = [
     '(?<!lesser )general public license'
 ]
 
-dependencies = true # to load [project.dependencies]
+dependencies = true
 optional_dependencies = ["dev", "doc"]
 as_regex = true

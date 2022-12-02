@@ -41,3 +41,9 @@ repos:
     rev: 0.19.2
     hooks:
       - id: check-github-workflows
+
+  - repo: https://github.com/Thomzoy/python-license-check
+    rev: master
+    hooks:
+    - id: liccheck
+      language: system
