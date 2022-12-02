@@ -39,7 +39,7 @@ This library is developed and maintained by the core team of AP-HP’s Clinical 
 
 ## How to use
 
-Please check the [online documentation](https://datasciencetools-pages.eds.aphp.fr/eds-scikit/documentation/) for more informations. You will find
+Please check the [online documentation](https://aphp.github.io/EDS-Scikit/) for more informations. You will find
 - Detailed explanation of the project goal and working principles
 - A complete API documentation
 - Various Jupyter Notebooks describing how to use various functionnalities of SciKit-EDS
@@ -76,9 +76,7 @@ import eds_scikit
 - You have a question about the library ?
 - ...
 
-Please check our [contributing guidelines](https://datasciencetools-pages.eds.aphp.fr/eds-scikit/documentation/contributing.html).
-
-For AP-HP users, also feel free to use the dedicated [Zulip channel](https://chat.eds.aphp.fr/#narrow/stream/154-SciKit-EDS). (If you need a permission to join the channel, simply [message one of the developper](https://chat.eds.aphp.fr/#narrow/pm-with/351-thomas.petitjean-ext))
+Please check our [contributing guidelines](https://aphp.github.io/EDS-Scikit/contributing/).
 
 ### Acknowledgment
 
