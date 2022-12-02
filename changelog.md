@@ -5,7 +5,7 @@
 ### Added
 - Various project metadata
 - Full CI pipeline
-- License checker in `pre-commit`
+- License checker in CI
 
 ### Fixed
 
