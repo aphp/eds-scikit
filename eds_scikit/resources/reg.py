@@ -66,6 +66,8 @@ class Registry:
                     (
                         f"No function registered under the name {function_name} "
                         f"was found in EDS-SciKit's {key} registry.\n"
+                        "If you work in AP-HP's ecosystem, you should install "
+                        'extra resources via `pip install "eds-scikit[aphp]"'
                         "You can define your own and decorate it as follow:\n"
                         "from eds_scikit.resources import registry\n"
                         f"@registry.{key}('{function_name}')"

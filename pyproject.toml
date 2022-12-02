@@ -55,7 +55,9 @@ packages = ["eds_scikit"]
 version = {attr = "eds_scikit.__version__"}
 
 [project.urls]
-source = "https://github.com/aphp/EDS-Scikit"
+"Source Code" = "https://github.com/aphp/EDS-Scikit"
+Documentation = "https://aphp.github.io/EDS-Scikit"
+"Bug Tracker" = "https://github.com/aphp/EDS-Scikit/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -66,9 +68,9 @@ dev = [
     "pytest-runner>=6.0.0, <7.0.0",
     "pytest-cov>=3.0.0, <4.0.0",
     "pytest-html>=3.1.1, <4.0.0",
-    "pyclean>=2.2.0, <3.0.0",
     "matplotlib>=3.5.0, <4.0.0",
     "Pillow>=9.0.0, <10.0.0",
+    "liccheck-regex==0.7.4",
 ]
 doc = [
     "griffe==0.17.0",
@@ -94,3 +96,25 @@ doc = [
 aphp = [
     "eds-scikit-aphp"
 ]
+
+[tool.liccheck]
+authorized_licenses = [
+    "bsd",
+    "apache",
+    "lgpl",
+    "lesser general public license",
+    "isc",
+    "mit",
+    "python software foundation",
+    "mpl",
+    "mozilla public license",
+    "public domain",
+]
+unauthorized_licenses = [
+    '\bgpl',
+    'zpl',
+    '(?<!lesser )general public license'
+]
+dependencies = true
+optional_dependencies = ["dev", "doc"]
+as_regex = true

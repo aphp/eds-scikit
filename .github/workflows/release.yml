@@ -1,9 +1,11 @@
-name: Publish to TestPyPI
-on: workflow_dispatch
+name: Publish to PyPI
+on:
+  release:
+    types: [published]
 
 jobs:
   build-and-publish:
-    name: Build and publish to TestPyPI
+    name: Build and publish to PyPI
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -24,7 +26,7 @@ jobs:
         --sdist
         --wheel
         --outdir dist/
-    - name: Publish to Test PyPI
+    - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
