@@ -55,9 +55,9 @@ packages = ["eds_scikit"]
 version = {attr = "eds_scikit.__version__"}
 
 [project.urls]
-Homepage = "https://github.com/aphp/EDS-Scikit"
-"Bug Tracker" = "https://github.com/aphp/EDS-Scikit/issues"
+"Source Code" = "https://github.com/aphp/EDS-Scikit"
 Documentation = "https://aphp.github.io/EDS-Scikit"
+"Bug Tracker" = "https://github.com/aphp/EDS-Scikit/issues"
 
 [project.optional-dependencies]
 dev = [
