@@ -119,10 +119,18 @@ python -m pytest ./tests/my_file.py:my_test_function #(2)
 We use [Black](https://github.com/psf/black) to reformat the code. While other formatter only enforce PEP8 compliance, Black also makes the code uniform. In short :
 
 > Black reformats entire files in place. It is not configurable.
+
 Moreover, the CI/CD pipeline enforces a number of checks on the "quality" of the code. To wit, non black-formatted code will make the test pipeline fail. We use `pre-commit` to keep our codebase clean.
 
 Refer to the [development install tutorial](#development-installation) for tips on how to format your files automatically.
 Most modern editors propose extensions that will format files on save.
+
+!!! tip "On *conventional commits*"
+    We try to use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) guidelines as much as possible. In short, prepend each commit message with one of the following prefix:
+
+    - `fix:` when patching a bug
+    - `feat:` when introducing a new feature
+    - If needed, you can also use one of the following: `build:, chore:, ci:, docs:, style:, refactor:, perf:, test`
 
 ### Documentation
 
