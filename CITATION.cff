@@ -31,7 +31,7 @@ repository-code: "https://github.com/aphp/eds-scikit"
 url: "http://aphp.github.io/eds-scikit"
 abstract: >-
   eds-scikit is a Python library providing tools to
-  process and analyse structured OMOP data.
+  process and analyse OMOP data.
 keywords:
   - OMOP
   - clinical
