@@ -24,4 +24,5 @@ jobs:
           git config user.email ${{ github.actor }}@users.noreply.github.com
       - run: |
           git fetch origin gh-pages
+          mike delete main
           mike deploy --push main
