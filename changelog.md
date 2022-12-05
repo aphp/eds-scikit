@@ -5,6 +5,11 @@
 ### Added
 
 - Adding CITATION.cff
+- Using `mike` as a documentation provider
+
+### Fixed
+
+- Correct build to PyPI
 
 ## v0.1.1 (2022-12-02)
 
