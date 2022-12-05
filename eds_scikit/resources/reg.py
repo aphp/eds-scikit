@@ -38,7 +38,7 @@ class Registry:
         """
 
         if not hasattr(self, key):
-            raise ValueError(f"EDS-SciKit's registry has no {key} key !")
+            raise ValueError(f"eds-scikit's registry has no {key} key !")
         r = getattr(self, key)
         candidates = r.get_all().keys()
 
@@ -65,7 +65,7 @@ class Registry:
                 raise ValueError(
                     (
                         f"No function registered under the name {function_name} "
-                        f"was found in EDS-SciKit's {key} registry.\n"
+                        f"was found in eds-scikit's {key} registry.\n"
                         "If you work in AP-HP's ecosystem, you should install "
                         'extra resources via `pip install "eds-scikit[aphp]"'
                         "You can define your own and decorate it as follow:\n"

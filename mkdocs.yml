@@ -1,7 +1,7 @@
-site_name: EDS-Scikit
+site_name: eds-scikit
 
-repo_url: https://github.com/aphp/EDS-Scikit
-repo_name: EDS-Scikit
+repo_url: https://github.com/aphp/eds-scikit
+repo_name: eds-scikit
 
 theme:
   name: material
@@ -29,7 +29,7 @@ theme:
 
 nav:
   - index.md
-  - Understanding EDS-Scikit:
+  - Understanding eds-scikit:
     - project_description.md
     - A gentle demo: functionalities/generic/introduction.ipynb
   - Functionalities:

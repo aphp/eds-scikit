@@ -1,10 +1,10 @@
 # Resources
 
-EDS-Scikit contains some resources that are stored *as is*,
+eds-scikit contains some resources that are stored *as is*,
 either because it comes from manual work, or because its generation might be time and computationally intensive.
 
 !!! aphp "Private data"
-    A lot of those resources are specific to AP-HP's CDW, thus are stored on a private repository. If you work on AP-HP's ecosystem, you can install those resources along with `EDS-Scikit` via `pip install 'eds_scikit[aphp]'`.
+    A lot of those resources are specific to AP-HP's CDW, thus are stored on a private repository. If you work on AP-HP's ecosystem, you can install those resources along with `eds-scikit` via `pip install 'eds_scikit[aphp]'`.
 
 
 For each resource listed bellow, you will find:

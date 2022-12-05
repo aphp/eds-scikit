@@ -1,6 +1,6 @@
 ### Goal
 
-EDS-Scikit is a tool to assist datascientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for [OMOP-standardized](https://ohdsi.github.io/CommonDataModel/) data to:
+eds-scikit is a tool to assist datascientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for [OMOP-standardized](https://ohdsi.github.io/CommonDataModel/) data to:
 
 - Ease access and analysis of data
 - Allow a better transfer of knowledge between projects
@@ -15,7 +15,7 @@ Generally, data analysis can be done in two ways:
 - **Locally**, by loading everything in RAM and working with e.g. [Pandas](https://pandas.pydata.org/docs/index.html)
 - In a **distributed** fashion, when dealing with a lot of data, by using e.g. [Spark](https://spark.apache.org/)
 
-While working with Pandas is often more convenient, its use can be problematic once working with large cohorts. Thus, making EDS-Scikit a Pandas-only library wasn't conceivable. In order to allow analysis to be conducted at scale, EDS-Scikit integrates with [Koalas](https://koalas.readthedocs.io/en/latest/).
+While working with Pandas is often more convenient, its use can be problematic once working with large cohorts. Thus, making eds-scikit a Pandas-only library wasn't conceivable. In order to allow analysis to be conducted at scale, eds-scikit integrates with [Koalas](https://koalas.readthedocs.io/en/latest/).
 
 !!! tip "Koalas"
      Koalas is a **library implementing Pandas API on top of Spark**. Basically, it allows for functions and methods developped for Pandas DataFrames to work on Spark DataFrames with close to no adjustments.
@@ -218,4 +218,4 @@ In the documentation, the different `"algo"` values will be displayed as tabs, a
 	    This second `"algo"` works differently.
         It has no additional parameters
 
-Please check the available `algos` when using a function from EDS-Scikit, to understand what each of them is doing and which one might fits you best.
+Please check the available `algos` when using a function from eds-scikit, to understand what each of them is doing and which one might fits you best.

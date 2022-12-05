@@ -7,12 +7,15 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "EDS-Scikit"
-description = "OMOP data analysis in Python"
+name = "eds-scikit"
+description = """
+eds-scikit is a Python library providing tools to
+process and analyse structured OMOP data
+"""
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
-    { name = "Thomas Petitjean", email = "thomas.petitjean@aphp.fr" },
+    { name = "Thomas Petit-Jean", email = "thomas.petitjean@aphp.fr" },
     { name = "Adam Remaki", email = "adam.remaki@aphp.fr" },
     { name = "Vincent Maladière", email = "vincent.maladiere-ext@aphp.fr" },
     { name = "Romain Bey", email = "romain.bey@aphp.fr" },
@@ -58,9 +61,9 @@ where = ["."]
 version = {attr = "eds_scikit.__version__"}
 
 [project.urls]
-"Source Code" = "https://github.com/aphp/EDS-Scikit"
-Documentation = "https://aphp.github.io/EDS-Scikit"
-"Bug Tracker" = "https://github.com/aphp/EDS-Scikit/issues"
+"Source Code" = "https://github.com/aphp/eds-scikit"
+Documentation = "https://aphp.github.io/eds-scikit"
+"Bug Tracker" = "https://github.com/aphp/eds-scikit/issues"
 
 [project.optional-dependencies]
 dev = [

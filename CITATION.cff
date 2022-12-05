@@ -3,8 +3,8 @@
 
 cff-version: 1.2.0
 title: >-
-  EDS-Scikit: data analysis on OMOP databases
-message: If you use EDS-NLP, please cite us as below.
+  eds-scikit: data analysis on OMOP databases
+message: If you use eds-NLP, please cite us as below.
 type: software
 authors:
   - given-names: Thomas
@@ -27,10 +27,10 @@ authors:
     family-names: Bey
     orcid: "https://orcid.org/0000-0002-6413-5188"
     affiliation: Assistance Publique – Hôpitaux de Paris
-repository-code: "https://github.com/aphp/EDS-Scikit"
-url: "http://aphp.github.io/EDS-Scikit"
+repository-code: "https://github.com/aphp/eds-scikit"
+url: "http://aphp.github.io/eds-scikit"
 abstract: >-
-  EDS-Scikit is a Python library providing tools to
+  eds-scikit is a Python library providing tools to
   process and analyse structured OMOP data.
 keywords:
   - OMOP

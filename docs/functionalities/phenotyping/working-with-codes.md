@@ -1,6 +1,6 @@
 # Using ICD-10 and CCAM
 
-EDS-Scikit provides two functions to ease the extraction of occurrrences of
+eds-scikit provides two functions to ease the extraction of occurrrences of
 
 - [ICD-10 codes][eds_scikit.event.conditions_from_icd10] : `eds_scikit.event.icd10.conditions_from_icd10`
 - [CCAM codes][eds_scikit.event.procedures_from_ccam] : `eds_scikit.event.ccam.procedures_from_ccam`

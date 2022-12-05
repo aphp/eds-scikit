@@ -7,7 +7,7 @@ We welcome contributions! There are many ways to help. For example, you can:
 3. Develop a new functionality!
 4. Help us make the library as straightforward as possible, by simply asking questions on whatever does not seem clear to you.
 
-Please do not hesitate to suggest functionalities you have developed and want to incorporate into EDS-Scikit. We will be glad to help!
+Please do not hesitate to suggest functionalities you have developed and want to incorporate into eds-scikit. We will be glad to help!
 Also, any non-technical contribution (e.g. lists of ICD-10 codes curated for a research project) is also welcome.
 
 ## Development installation
@@ -21,9 +21,9 @@ To be able to run the test suite, run the example notebooks and develop your own
 
 ```console
 # Clone the repository and change directory
-$ git clone https://github.com/aphp/EDS-Scikit.git
+$ git clone https://github.com/aphp/eds-scikit.git
 ---> 100%
-$ cd EDS-Scikit
+$ cd eds-scikit
 
 # Create a virtual environment
 $ python -m venv venv
@@ -55,7 +55,7 @@ $ pre-commit install
 
 </div>
 
-The pre-commit hooks defined in the [configuration](https://github.com/aphp/EDS-Scikit/blob/master/.pre-commit-config.yaml) will automatically run when you commit your changes, letting you know if something went wrong.
+The pre-commit hooks defined in the [configuration](https://github.com/aphp/eds-scikit/blob/master/.pre-commit-config.yaml) will automatically run when you commit your changes, letting you know if something went wrong.
 
 The hooks only run on staged changes. To force-run it on all files, run:
 
@@ -129,7 +129,7 @@ Most modern editors propose extensions that will format files on save.
 Make sure to document your improvements, both within the code with comprehensive docstrings,
 as well as in the documentation itself if need be.
 
-We use `MkDocs` for EDS-Scikit's documentation. You can checkout the changes you make with:
+We use `MkDocs` for eds-scikit's documentation. You can checkout the changes you make with:
 
 <div class="termy">
 

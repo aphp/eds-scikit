@@ -19,7 +19,7 @@
 <radialGradient id="j" cx="34.082" cy="-77.965" r="14.147" gradientTransform="translate(-18.965 -8.439)" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
 <style bx:fonts="Abel">@import url(https://fonts.googleapis.com/css2?family=Abel%3Aital%2Cwght%400%2C400&amp;display=swap);</style>
 </defs>
-<rect x="-52.184" y="-115.76" width="328.02" height="240.92" rx="7" ry="7" fill="#fff" stroke="#000"/>
+<rect x="-52.184" y="-115.76" width="328.02" height="240.92" fill="#fff" stroke="none"/>
 <path d="m12.241 91.009 5.657 0.192-0.575 19.465s-2.391 2.172-4.507 0l-0.575-19.657z" fill="url(#m)" stroke="#000" stroke-width="2"/>
 <path d="m9.712-5.177-1.689-67.284 14.647-8.115-1.93 73.506-11.028 1.893z" fill="url(#n)" stroke="#000" stroke-width="2"/>
 <path d="m20.616-5.446-0.997 36.021h-8.969l-0.997-36.163 10.963 0.142z" fill="url(#l)" stroke="#000" stroke-width="2"/>
@@ -28,6 +28,5 @@
 <path d="m18.805 61.799c-0.058-0.095-0.566 15.642-0.566 15.642s-7.305-1.23-14.911 1.381c-6.308 2.165-9.428 11.872-4.023 19.816 0 0 1.858-10.04 9.734-8.081 4.62 1.149 15.477 3.071 20.927-5.171 2.8-4.234 2.287-7.705 2.205-10.915-0.096-3.751-1.062-6.97-4.413-9.271-2.095-1.438-8.895-3.307-8.953-3.401z" fill="url(#p)" stroke="#000" stroke-width="2"/>
 <path d="m11.183 50.769 7.923-3.492-0.836 30.038-6.487-0.12-0.6-26.426z" fill="url(#k)" stroke="#000" stroke-width="2"/>
 <ellipse cx="15.117" cy="-86.404" rx="14.147" ry="18.218" fill="url(#j)" stroke="#000" stroke-width="2"/>
-<rect x="-34.877" y="-113.96" width="103.37" height="237.66" rx="7" ry="7" fill="none"/>
-<text transform="translate(-44.954 47.763)" fill="rgb(51, 51, 51)" font-family="Abel" font-size="86px" style="white-space:pre"><tspan x="113.594" y="-50.429">EDS-</tspan><tspan x="113.594" dy="1em">​</tspan><tspan>scikit</tspan></text>
+<text transform="translate(-44.954 47.763)" fill="rgb(51, 51, 51)" font-family="Abel" font-size="86px" style="white-space:pre"><tspan x="113.594" y="-50.429">eds-</tspan><tspan x="113.594" dy="1em">​</tspan><tspan>scikit</tspan></text>
 </svg>

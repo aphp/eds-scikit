@@ -1,4 +1,4 @@
-EDS-Scikit provides a function to tag care sites as being **Intensive Care Units**.  It also provides a higher-level function to directly tag visits.
+eds-scikit provides a function to tag care sites as being **Intensive Care Units**.  It also provides a higher-level function to directly tag visits.
 
 {{ load_data }}
 
