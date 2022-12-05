@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="_static/scikit_logo_text.png" alt="EDS-Scikit" width="50%">
+  <img src="_static/scikit_logo_text.png" alt="eds-scikit" width="50%">
 </p>
 
 # Getting started
 
-EDS-Scikit is a tool to assist data scientists working on the AP-HP’s Clinical Data Warehouse. It is specifically targeted for [OMOP-standardized data](https://ohdsi.github.io/CommonDataModel/) to:
+eds-scikit is a tool to assist data scientists working on the AP-HP’s Clinical Data Warehouse. It is specifically targeted for [OMOP-standardized data](https://ohdsi.github.io/CommonDataModel/) to:
 
    - Ease access and analysis of data
 
@@ -12,7 +12,7 @@ EDS-Scikit is a tool to assist data scientists working on the AP-HP’s Clinical
 
    - Improve research reproduciblity
 
-As an example, the following figure was obtained using various functionalities from EDS-Scikit.
+As an example, the following figure was obtained using various functionalities from eds-scikit.
 
 <figure markdown>
   [![Image title](_static/introduction_image.svg){ .off-glb }](functionalities/generic/introduction.ipynb)
@@ -20,14 +20,14 @@ As an example, the following figure was obtained using various functionalities f
 </figure>
 
 !!! question "How was it done ?"
-      Click on the figure above to jump to the tutorial using various functionalities from EDS-Scikit, or continue reading the introduction!
+      Click on the figure above to jump to the tutorial using various functionalities from eds-scikit, or continue reading the introduction!
 
 ## Quick start
 
 ### Installation
 
 !!! Warning "Requirements"
-    EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which runs on [Java 8](https://www.oracle.com/java/technologies/java8.html) and [Python](https://www.python.org/) ~3.7.1. **If you work on AP-HP's CDW, those requirements are already fulfilled, so please disregard the following steps.** Else, it is essential to:
+    eds-scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which runs on [Java 8](https://www.oracle.com/java/technologies/java8.html) and [Python](https://www.python.org/) ~3.7.1. **If you work on AP-HP's CDW, those requirements are already fulfilled, so please disregard the following steps.** Else, it is essential to:
 
     - Install a version of Python ≥ 3.7.1 and < 3.8.
     - Install [OpenJDK 8](https://openjdk.org/projects/jdk8/), an open-source reference implementation of Java 8 wit the following command lines:
@@ -58,7 +58,7 @@ As an example, the following figure was obtained using various functionalities f
 
             Follow this [installation guide](https://techoral.com/blog/java/openjdk-install-windows.html)
 
-You can install EDS-Scikit by cloning the git repository:
+You can install eds-scikit by cloning the git repository:
 
 <div class="termy">
 
@@ -86,7 +86,7 @@ color:green Successfully installed eds_scikit !
 ### A first example: Merging visits together
 
 Let's tackle a common problem when dealing with clinical data: Merging close/consecutive visits into **stays**.
-As detailled in [the dedicated section](), EDS-Scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive]() connector and a [Postgres]() connector
+As detailled in [the dedicated section](), eds-scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive]() connector and a [Postgres]() connector
 
 
 === "Using a Hive DataBase"
@@ -117,7 +117,7 @@ As detailled in [the dedicated section](), EDS-Scikit is expecting to work with 
 
 === "Else"
 
-    ``` markdown title="You can use EDS-Scikit with data from any source, as long as:"
+    ``` markdown title="You can use eds-scikit with data from any source, as long as:"
     - It follows the OMOP format
     - It is a Pandas or Koalas DataFrame
     ```
@@ -207,13 +207,13 @@ Here, each stay duration was calculated, dealing with potential overlaps and inc
 ### A word about AP-HP
 
 #### Specifics of AP-HP CDW
-EDS-Scikit was developped by AP-HP's Data Science team with the help of [INRIA's Soda](https://team.inria.fr/soda/) team. As such, it is especially well fitted for AP-HP's Data Warehouse. In this doc, **we use the following card to mention information that might be useful when using EDS-Scikit with AP-HP's data**:
+eds-scikit was developped by AP-HP's Data Science team with the help of [Inria's Soda](https://team.inria.fr/soda/) team. As such, it is especially well fitted for AP-HP's Data Warehouse. In this doc, **we use the following card to mention information that might be useful when using eds-scikit with AP-HP's data**:
 
 !!! aphp "Some information"
       Here, we might for instance suggest some parameters for a function that should be used given AP-HP's data.
 
 #### EDS-NLP
-Also, a rule-based NLP library ([EDS-NLP](https://github.com/aphp/edsnlp)) designed to work on clinical texts was developped in parallel with EDS-Scikit. We decided not to include EDS-NLP as a dependency. Still, some functions might require an input *à la `note_nlp`*: For instance, the current function designed to extract consultation dates from a `visit_occurrence` car work either on structured data only or with dates extracted in text and compiled in a DataFrame.
+Also, a rule-based NLP library ([EDS-NLP](https://github.com/aphp/edsnlp)) designed to work on clinical texts was developped in parallel with eds-scikit. We decided not to include EDS-NLP as a dependency. Still, some functions might require an input *à la `note_nlp`*: For instance, the current function designed to extract consultation dates from a `visit_occurrence` car work either on structured data only or with dates extracted in text and compiled in a DataFrame.
 
 **You are free to use the method of your choice to get this DataFrame**, as long as it contains the necessary columns as mentionned in the documentation. Note that **we mention with the following card the availability of an EDS-NLP dedicated pipeline**:
 
@@ -221,6 +221,6 @@ Also, a rule-based NLP library ([EDS-NLP](https://github.com/aphp/edsnlp)) desig
       For the example above, a [consultation date](https://aphp.github.io/edsnlp/latest/pipelines/misc/consultation-dates/) pipeline exists.
       Moreover, [methods are available](https://aphp.github.io/edsnlp/latest/tutorials/multiple-texts/) to run an EDS-NLP pipeline on a Pandas, Spark or even Koalas DataFrame !
 
-## Contributing to EDS-Scikit
+## Contributing to eds-scikit
 
 We welcome contributions! Fork the project and create a pull request. Take a look at the [dedicated page](contributing.md) for details.

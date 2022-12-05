@@ -1,22 +1,22 @@
 <div align="center">
 
 <p align="center">
-  <a href="https://aphp.github.io/EDS-Scikit/">
-    <img src="https://github.com/aphp/EDS-Scikit/raw/main/docs/_static/scikit_logo_text.png" width="30%" onerror="this.style.display='none'">
+  <a href="https://aphp.github.io/eds-scikit/">
+    <img src="https://github.com/aphp/eds-scikit/raw/main/docs/_static/scikit_logo_text.png" width="30%" onerror="this.style.display='none'">
   </a>
 </p>
 
 #
 
 <p align="center">
-<a href="https://aphp.github.io/EDS-Scikit/" target="_blank">
+<a href="https://aphp.github.io/eds-scikit/" target="_blank">
     <img src="https://img.shields.io/badge/docs-passed-brightgreen" alt="Documentation">
 </a>
-<a href="https://github.com/aphp/EDS-Scikit/commits/main" target="_blank">
-    <img src="https://github.com/aphp/EDS-Scikit/actions/workflows/testing.yml/badge.svg" alt="Pipeline Status">
+<a href="https://github.com/aphp/eds-scikit/commits/main" target="_blank">
+    <img src="https://github.com/aphp/eds-scikit/actions/workflows/testing.yml/badge.svg" alt="Pipeline Status">
 </a>
-<a href="https://codecov.io/github/aphp/EDS-Scikit?branch=main">
-    <img src="https://codecov.io/github/aphp/EDS-Scikit/coverage.svg?branch=main" alt="Coverage" >
+<a href="https://codecov.io/github/aphp/eds-scikit?branch=main">
+    <img src="https://codecov.io/github/aphp/eds-scikit/coverage.svg?branch=main" alt="Coverage" >
 </a>
 <a href="https://github.com/psf/black" target="_blank">
     <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Black">
@@ -29,11 +29,11 @@
 </div>
 
 
-EDS-Scikit is a tool to assist data scientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for OMOP-standardized data. It main goals are to:
+eds-scikit is a tool to assist data scientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for OMOP-standardized data. It main goals are to:
 
 - Ease access and analysis of data
 - Allow a better transfer of knowledge between projects
-- Improve research reproduciblity
+- Improve research reproducibility
 
 ## Development
 
@@ -41,19 +41,19 @@ This library is developed and maintained by the core team of AP-HP’s Clinical 
 
 ## How to use
 
-Please check the [online documentation](https://aphp.github.io/EDS-Scikit/) for more informations. You will find
+Please check the [online documentation](https://aphp.github.io/eds-scikit/) for more informations. You will find
 - Detailed explanation of the project goal and working principles
 - A complete API documentation
-- Various Jupyter Notebooks describing how to use various functionnalities of SciKit-EDS
+- Various Jupyter Notebooks describing how to use various functionnalities of eds-scikit
 - And more !
 ## Requirements
-EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which requires:
+eds-scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which requires:
 
 - Python ~3.7.1
 - Java 8
 ## Installation
 
-You can install EDS-Scikit via `pip`:
+You can install eds-scikit via `pip`:
 
 ```bash
 pip install eds-scikit
@@ -78,10 +78,11 @@ import eds_scikit
 - You have a question about the library ?
 - ...
 
-Please check our [contributing guidelines](https://aphp.github.io/EDS-Scikit/contributing/).
+Please check our [contributing guidelines](https://aphp.github.io/eds-scikit/contributing/).
 
 ### Acknowledgment
 
 We would like to thank the following funders:
-- Assistance Publique – Hôpitaux de Paris
-- AP-HP Foundation
+- [Assistance Publique – Hôpitaux de Paris](https://www.aphp.fr/)
+- [AP-HP Foundation](https://fondationrechercheaphp.fr/)
+- [Inria](https://www.inria.fr)
