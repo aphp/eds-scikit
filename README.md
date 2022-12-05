@@ -33,7 +33,7 @@ EDS-Scikit is a tool to assist data scientists working on the AP-HP's Clinical D
 
 - Ease access and analysis of data
 - Allow a better transfer of knowledge between projects
-- Improve research reproduciblity
+- Improve research reproducibility
 
 ## Development
 
@@ -44,7 +44,7 @@ This library is developed and maintained by the core team of AP-HP’s Clinical 
 Please check the [online documentation](https://aphp.github.io/EDS-Scikit/) for more informations. You will find
 - Detailed explanation of the project goal and working principles
 - A complete API documentation
-- Various Jupyter Notebooks describing how to use various functionnalities of SciKit-EDS
+- Various Jupyter Notebooks describing how to use various functionnalities of EDS-Scikit
 - And more !
 ## Requirements
 EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which requires:
@@ -83,5 +83,6 @@ Please check our [contributing guidelines](https://aphp.github.io/EDS-Scikit/con
 ### Acknowledgment
 
 We would like to thank the following funders:
-- Assistance Publique – Hôpitaux de Paris
-- AP-HP Foundation
+- [Assistance Publique – Hôpitaux de Paris](https://www.aphp.fr/)
+- [AP-HP Foundation](https://fondationrechercheaphp.fr/)
+- [Inria](https://www.inria.fr)

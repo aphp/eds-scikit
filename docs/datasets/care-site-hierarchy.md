@@ -41,7 +41,7 @@ def get_care_site_hierarchy():
 1. The `registry` instance stores user-defined functions
 2. Using this decorator allows to register the function when importing the corresponding file
 
-Then simply import your `custom_resources` module before running SciKit-EDS's pipelines, and you're good to go.
+Then simply import your `custom_resources` module before running EDS-Scikit's pipelines, and you're good to go.
 
 ## Structure and usage
 

@@ -54,4 +54,4 @@ def get_care_site_emergency_mapping():
       return df
 ```
 
-Then simply import your `custom_resources` module before running SciKit-EDS's pipelines, and you're good to go.
+Then simply import your `custom_resources` module before running EDS-Scikit's pipelines, and you're good to go.

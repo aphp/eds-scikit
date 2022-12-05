@@ -207,7 +207,7 @@ Here, each stay duration was calculated, dealing with potential overlaps and inc
 ### A word about AP-HP
 
 #### Specifics of AP-HP CDW
-EDS-Scikit was developped by AP-HP's Data Science team with the help of [INRIA's Soda](https://team.inria.fr/soda/) team. As such, it is especially well fitted for AP-HP's Data Warehouse. In this doc, **we use the following card to mention information that might be useful when using EDS-Scikit with AP-HP's data**:
+EDS-Scikit was developped by AP-HP's Data Science team with the help of [Inria's Soda](https://team.inria.fr/soda/) team. As such, it is especially well fitted for AP-HP's Data Warehouse. In this doc, **we use the following card to mention information that might be useful when using EDS-Scikit with AP-HP's data**:
 
 !!! aphp "Some information"
       Here, we might for instance suggest some parameters for a function that should be used given AP-HP's data.
