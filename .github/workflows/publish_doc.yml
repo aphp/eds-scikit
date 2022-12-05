@@ -18,6 +18,10 @@ jobs:
         with:
           python-version: '3.7'
       - run: pip install .[doc]
+      - name: Set up Git
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
       - run: |
           git fetch origin gh-pages
           mike delete main
