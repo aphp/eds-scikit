@@ -16,4 +16,7 @@ jobs:
         with:
           python-version: '3.7'
       - run: pip install .[doc]
-      - run: mkdocs gh-deploy --force
+      - run: |
+          git fetch origin gh-pages
+          mike delete main
+          mike deploy --push main
