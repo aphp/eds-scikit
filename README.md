@@ -25,6 +25,7 @@
 <a href="https://www.python.org/" target="_blank">
     <img src="https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen" alt="Supported Python versions">
 </a>
+<a href="https://zenodo.org/badge/latestdoi/571584236"><img src="https://zenodo.org/badge/571584236.svg" alt="DOI"></a>
 </p>
 </div>
 
@@ -79,6 +80,19 @@ import eds_scikit
 - ...
 
 Please check our [contributing guidelines](https://aphp.github.io/eds-scikit/contributing/).
+
+### Citation
+
+If you use `eds-scikit`, please cite us as below.
+
+```bibtex
+@misc{eds-scikit,
+    author = {Petit-Jean, Thomas and Remaki, Adam and Maladière, Vincent and Varoquaux, Gaël and Bey, Romain},
+    doi = {10.5281/zenodo.7401549},
+    title = {eds-scikit: data analysis on OMOP databases},
+    url = {https://github.com/aphp/eds-scikit}
+}
+```
 
 ### Acknowledgment
 
