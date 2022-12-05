@@ -212,14 +212,14 @@ eds-scikit was developped by AP-HP's Data Science team with the help of [Inria's
 !!! aphp "Some information"
       Here, we might for instance suggest some parameters for a function that should be used given AP-HP's data.
 
-#### eds-NLP
-Also, a rule-based NLP library ([eds-NLP](https://github.com/aphp/edsnlp)) designed to work on clinical texts was developped in parallel with eds-scikit. We decided not to include eds-NLP as a dependency. Still, some functions might require an input *à la `note_nlp`*: For instance, the current function designed to extract consultation dates from a `visit_occurrence` car work either on structured data only or with dates extracted in text and compiled in a DataFrame.
+#### EDS-NLP
+Also, a rule-based NLP library ([EDS-NLP](https://github.com/aphp/edsnlp)) designed to work on clinical texts was developped in parallel with eds-scikit. We decided not to include EDS-NLP as a dependency. Still, some functions might require an input *à la `note_nlp`*: For instance, the current function designed to extract consultation dates from a `visit_occurrence` car work either on structured data only or with dates extracted in text and compiled in a DataFrame.
 
-**You are free to use the method of your choice to get this DataFrame**, as long as it contains the necessary columns as mentionned in the documentation. Note that **we mention with the following card the availability of an eds-NLP dedicated pipeline**:
+**You are free to use the method of your choice to get this DataFrame**, as long as it contains the necessary columns as mentionned in the documentation. Note that **we mention with the following card the availability of an EDS-NLP dedicated pipeline**:
 
 !!! edsnlp "A dedicated pipe"
       For the example above, a [consultation date](https://aphp.github.io/edsnlp/latest/pipelines/misc/consultation-dates/) pipeline exists.
-      Moreover, [methods are available](https://aphp.github.io/edsnlp/latest/tutorials/multiple-texts/) to run an eds-NLP pipeline on a Pandas, Spark or even Koalas DataFrame !
+      Moreover, [methods are available](https://aphp.github.io/edsnlp/latest/tutorials/multiple-texts/) to run an EDS-NLP pipeline on a Pandas, Spark or even Koalas DataFrame !
 
 ## Contributing to eds-scikit
 
