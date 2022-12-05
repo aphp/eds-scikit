@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Adding CITATION.cff
+
 ## v0.1.1 (2022-12-02)
 
 ### Added

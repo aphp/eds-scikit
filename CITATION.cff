@@ -1,0 +1,38 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  EDS-Scikit: data analysis on OMOP databases
+message: If you use EDS-NLP, please cite us as below.
+type: software
+authors:
+  - given-names: Thomas
+    family-names: Petit-Jean
+    orcid: "https://orcid.org/0000-0002-4433-442X"
+    affiliation: Assistance Publique – Hôpitaux de Paris
+  - given-names: Adam
+    family-names: Remaki
+    orcid: "https://orcid.org/0000-0002-8902-8207"
+    affiliation: Assistance Publique – Hôpitaux de Paris
+  - given-names: Vincent
+    family-names: Maladière
+    affiliation: Inria
+  - given-names: Gaël
+    family-names: Varoquaux
+    orcid: "https://orcid.org/0000-0003-1076-5122"
+    affiliation: Inria
+  - given-names: Romain
+    family-names: Bey
+    orcid: "https://orcid.org/0000-0002-6413-5188"
+    affiliation: Assistance Publique – Hôpitaux de Paris
+repository-code: "https://github.com/aphp/EDS-Scikit"
+url: "http://aphp.github.io/EDS-Scikit"
+abstract: >-
+  EDS-Scikit is a Python library providing tools to
+  process and analyse structured OMOP data.
+keywords:
+  - OMOP
+  - clinical
+license: BSD-3-Clause
+year: 2021
