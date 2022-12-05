@@ -1,0 +1,291 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Tutorial - EDS-Scikit</title>
+<link href="../../../assets/stylesheets/main.472b142f.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.08040f6c.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en"><div class="md-container" data-md-component="container"><main class="md-main" data-md-component="main"><div class="md-main__inner md-grid"><div class="md-content" data-md-component="content"><article class="md-content__inner md-typeset"><div class="cell border-box-sizing code_cell rendered"><div class="output_wrapper"><div class="output"><div class="output_area"><div class="output_html rendered_html output_subarea output_execute_result" open="" style="text-align: center"><table border="1">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>LOINC_concept_code</th>
+<th>AnaBio_concept_code</th>
+<th>LOINC_concept_name</th>
+<th>AnaBio_concept_name</th>
+<th>unit_source_value</th>
+<th>count</th>
+<th>mean</th>
+<th>std</th>
+<th>min</th>
+<th>25%</th>
+<th>50%</th>
+<th>75%</th>
+<th>max</th>
+<th>MAD</th>
+<th>max_threshold</th>
+<th>min_threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>2885-2</td>
+<td>A0249</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines_Sérum_g/L</td>
+<td>g/l</td>
+<td>6021</td>
+<td>77.286</td>
+<td>8.321</td>
+<td>24.819</td>
+<td>65.504</td>
+<td>61.279</td>
+<td>85.818</td>
+<td>104.826</td>
+<td>8.924</td>
+<td>103.919</td>
+<td>23.073</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2885-2</td>
+<td>A0250</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines_Sérum_Electrophorèse_g/L</td>
+<td>g/l</td>
+<td>1176</td>
+<td>59.705</td>
+<td>7.609</td>
+<td>24.735</td>
+<td>47.535</td>
+<td>84.605</td>
+<td>90.445</td>
+<td>137.543</td>
+<td>7.131</td>
+<td>91.838</td>
+<td>32.455</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2885-2</td>
+<td>A7347</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines_Plasma_g/L</td>
+<td>g/l</td>
+<td>12421</td>
+<td>51.113</td>
+<td>8.548</td>
+<td>22.551</td>
+<td>63.876</td>
+<td>58.160</td>
+<td>77.023</td>
+<td>95.262</td>
+<td>8.170</td>
+<td>86.654</td>
+<td>33.378</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2885-2</td>
+<td>B9417</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines_Sérum_Colorimétrie_g/L</td>
+<td>g/l</td>
+<td>601</td>
+<td>56.906</td>
+<td>12.196</td>
+<td>32.205</td>
+<td>55.820</td>
+<td>56.610</td>
+<td>69.690</td>
+<td>79.671</td>
+<td>7.919</td>
+<td>121.822</td>
+<td>31.160</td>
+</tr>
+<tr>
+<th>4</th>
+<td>2885-2</td>
+<td>C9874</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines_Sérum_Electrophorèse 2_g/L</td>
+<td>g/l</td>
+<td>169</td>
+<td>54.237</td>
+<td>6.402</td>
+<td>54.820</td>
+<td>51.428</td>
+<td>76.413</td>
+<td>74.323</td>
+<td>84.257</td>
+<td>8.145</td>
+<td>124.186</td>
+<td>34.603</td>
+</tr>
+<tr>
+<th>5</th>
+<td>2885-2</td>
+<td>D0058</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines Après dialyse_Sérum/Plasma_g/L</td>
+<td>g/l</td>
+<td>51</td>
+<td>64.920</td>
+<td>4.699</td>
+<td>52.023</td>
+<td>71.595</td>
+<td>61.444</td>
+<td>78.434</td>
+<td>76.351</td>
+<td>4.502</td>
+<td>73.379</td>
+<td>39.551</td>
+</tr>
+<tr>
+<th>6</th>
+<td>2885-2</td>
+<td>F2624</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines Pédiatrique_Sérum/Plasma_g/L</td>
+<td>g/l</td>
+<td>3</td>
+<td>58.934</td>
+<td>11.768</td>
+<td>45.364</td>
+<td>40.882</td>
+<td>54.139</td>
+<td>59.366</td>
+<td>84.880</td>
+<td>11.952</td>
+<td>77.996</td>
+<td>5.854</td>
+</tr>
+<tr>
+<th>7</th>
+<td>2885-2</td>
+<td>F5122</td>
+<td>Prot SerPl-mCnc</td>
+<td>Protéines Duplication A7347_Plasma_g/L</td>
+<td>g/l</td>
+<td>213</td>
+<td>80.395</td>
+<td>6.134</td>
+<td>40.129</td>
+<td>69.549</td>
+<td>66.730</td>
+<td>85.024</td>
+<td>110.905</td>
+<td>8.824</td>
+<td>113.764</td>
+<td>38.456</td>
+</tr>
+<tr>
+<th>8</th>
+<td>2888-6</td>
+<td>A1694</td>
+<td>Protéines [Masse/Volume] Urine - Numérique</td>
+<td>Protéines_Urines 24h_g/L</td>
+<td>g/l</td>
+<td>193</td>
+<td>2.343</td>
+<td>4.262</td>
+<td>0.063</td>
+<td>0.089</td>
+<td>0.257</td>
+<td>1.620</td>
+<td>52.679</td>
+<td>0.162</td>
+<td>1.275</td>
+<td>0.000</td>
+</tr>
+<tr>
+<th>9</th>
+<td>2888-6</td>
+<td>A1695</td>
+<td>Protéines [Masse/Volume] Urine - Numérique</td>
+<td>Protéines_Urines_g/L</td>
+<td>g/l</td>
+<td>2300</td>
+<td>0.648</td>
+<td>1.621</td>
+<td>0.000</td>
+<td>0.076</td>
+<td>0.181</td>
+<td>0.428</td>
+<td>35.934</td>
+<td>0.144</td>
+<td>0.760</td>
+<td>0.000</td>
+</tr>
+<tr>
+<th>10</th>
+<td>2888-6</td>
+<td>C9990</td>
+<td>Non Renseigné</td>
+<td>Protéines Duplication A1695_Urines_g/L</td>
+<td>g/l</td>
+<td>13</td>
+<td>0.227</td>
+<td>0.478</td>
+<td>0.058</td>
+<td>0.057</td>
+<td>0.056</td>
+<td>0.109</td>
+<td>1.687</td>
+<td>0.043</td>
+<td>0.211</td>
+<td>0.000</td>
+</tr>
+<tr>
+<th>11</th>
+<td>2888-6</td>
+<td>D0064</td>
+<td>Non Renseigné</td>
+<td>Protéines Sonde vésicale_Urines_g/L</td>
+<td>g/l</td>
+<td>2</td>
+<td>0.389</td>
+<td>0.368</td>
+<td>0.138</td>
+<td>0.290</td>
+<td>0.378</td>
+<td>0.501</td>
+<td>0.643</td>
+<td>0.272</td>
+<td>1.576</td>
+<td>0.000</td>
+</tr>
+<tr>
+<th>12</th>
+<td>2888-6</td>
+<td>J7268</td>
+<td>Protéines [Masse/Volume] Urine - Numérique</td>
+<td>Protéines Triplication A1695_Urines_g/L</td>
+<td>g/l</td>
+<td>115</td>
+<td>0.808</td>
+<td>0.961</td>
+<td>0.038</td>
+<td>0.054</td>
+<td>0.198</td>
+<td>0.505</td>
+<td>6.025</td>
+<td>0.286</td>
+<td>1.482</td>
+<td>0.000</td>
+</tr>
+</tbody>
+</table></div></div></div></div></div></article></div></div></main></div></html>
