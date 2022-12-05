@@ -1,0 +1,1469 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Visualization - eds-scikit</title>
+<link href="../../../assets/stylesheets/main.472b142f.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.08040f6c.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en"><div class="md-container" data-md-component="container"><main class="md-main" data-md-component="main"><div class="md-main__inner md-grid"><div class="md-content" data-md-component="content"><article class="md-content__inner md-typeset" open="" style="text-align: center"><table border="0">
+<thead>
+<tr style="text-align: right;">
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          LOINC_concept_code</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          AnaBio_concept_code</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          LOINC_concept_name</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          AnaBio_concept_name</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          unit_source_value</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          count</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          mean</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          std</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          min</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          25%</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          50%</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          75%</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          max</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          MAD</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          max_threshold</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          min_threshold</th>
+<th style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          care_site_short_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          395136991232</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          691358.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.63218</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.55476</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.69</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.16</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4500.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.4652</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.5508</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          704374636544</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          F2406</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose Fibromax_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          108.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.761852</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.534022</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.99</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.09</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          29.37</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.4504</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.6016</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          824633720832</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A7339</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose h?_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          600.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.690167</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.524383</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          24.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.036</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          9.244</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.956</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          893353197568</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          B9553</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          26635.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.731067</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.334219</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          66.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.48</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.52</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1082331758592</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          119144.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          117.097998</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          242.990109</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          84.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          124.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          81045.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          24.124</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          195.496</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.504</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1511828488192</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          103334.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.667987</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.790141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          160.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.48</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.52</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8589934592</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          83756.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.650058</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.138156</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.01</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.05</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.78</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.17</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          93.35</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 10</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          34359738368</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          109.325</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          46.192261</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          72.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          72.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          95.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          106.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          216.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 2</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          103079215104</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99030.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.725521</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.319078</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          89.9</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 11</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          154618822656</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          40510.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.317742</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.017463</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          96.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 1</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          249108103168</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          33679.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.399556</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.713956</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.84</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.52</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.97</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          81.01</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 12</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          292057776128</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          52071.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.876553</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.116789</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          142.7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 7</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          309237645312</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          10809.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.787643</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.536207</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          74.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 5</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          317827579904</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          89.15</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14.071425</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          79.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          79.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          79.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 1</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          446676598784</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          952.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.360357</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.002106</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          41.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 9</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          601295421441</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A7339</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose h?_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          15.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.859402</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.5</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 5</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          635655159808</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          12.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.45</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.234333</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          15.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 6</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          661424963584</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A7339</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose h?_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          486.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.117284</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.425609</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          18.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 8</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          798863917056</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          52029.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          124.900092</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          361.128987</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          88.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          102.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          133.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          81045.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 3</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          824633720832</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1127.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.320018</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.920391</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.5</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          86.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 7</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          850403524608</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          169.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.83787</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.927677</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          16.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 13</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          901943132160</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          B9553</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3091.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.445228</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.076768</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.5</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          38.3</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 8</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          936302870528</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          27.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          10.92963</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          10.632219</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.65</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          9.9</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          46.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 8</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          970662608896</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          B9553</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          202.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8.372772</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.574096</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.5</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          9.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          40.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 5</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          979252543488</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          20621.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.890554</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.799489</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          80.6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 4</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1073741824001</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          118.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 6</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1125281431552</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          13563.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.681212</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.190235</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.87</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.52</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.83</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          96.95</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 9</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1125281431553</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          63366.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.251224</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.149341</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          160.9</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 8</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1125281431556</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A7339</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose h?_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          75.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          8.757333</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.050765</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          10.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          22.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 12</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1254130450432</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4498.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.461098</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.809305</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.71</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.11</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.64</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          47.58</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 13</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1580547964928</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          52124.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.943828</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          20.037197</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.1</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4500.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 3</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1580547964930</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          61.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99.521311</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          28.467386</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          50.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          85.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          93.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          109.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          262.8</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 10</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1640677507073</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          F2406</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose Fibromax_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          17.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.3</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.061046</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14.5</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 4</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1649267441664</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          75.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.129867</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.625838</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.4</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.78</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          27.1</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 14</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1683627180032</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          21.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.77619</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.378008</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.2</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.4</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          9.7</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 11</td>
+</tr>
+<tr>
+<th style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1692217114624</th>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          20246.0</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.949367</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.625558</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.2</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.89</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.62</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.19</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          92.66</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 6</td>
+</tr>
+<tr>
+<th style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1709396983808</th>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4298.0</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.670854</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.836267</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.01</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.05</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.91</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.33</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          44.53</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          None</td>
+<td style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          CARE SITE 2</td>
+</tr>
+</tbody>
+</table></article></div></div></main></div></html>
