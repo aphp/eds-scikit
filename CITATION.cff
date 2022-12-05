@@ -17,6 +17,7 @@ authors:
     affiliation: Assistance Publique – Hôpitaux de Paris
   - given-names: Vincent
     family-names: Maladière
+    orcid: "https://orcid.org/0000-0001-7276-936X"
     affiliation: Inria
   - given-names: Gaël
     family-names: Varoquaux
