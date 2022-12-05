@@ -48,8 +48,11 @@ dependencies = [
 ]
 dynamic = ['version']
 
-[tool.setuptools]
-packages = ["eds_scikit"]
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+"eds_scikit.datasets" = ["*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "eds_scikit.__version__"}
