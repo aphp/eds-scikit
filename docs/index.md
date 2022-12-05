@@ -224,3 +224,16 @@ Also, a rule-based NLP library ([EDS-NLP](https://github.com/aphp/edsnlp)) desig
 ## Contributing to eds-scikit
 
 We welcome contributions! Fork the project and create a pull request. Take a look at the [dedicated page](contributing.md) for details.
+
+## Citation
+
+If you use `eds-scikit`, please cite us as below.
+
+```bibtex
+@misc{eds-scikit,
+    author = {Petit-Jean, Thomas and Remaki, Adam and Maladière, Vincent and Varoquaux, Gaël and Bey, Romain},
+    doi = {10.5281/zenodo.7401549},
+    title = {eds-scikit: data analysis on OMOP databases},
+    url = {https://github.com/aphp/eds-scikit}
+}
+```
