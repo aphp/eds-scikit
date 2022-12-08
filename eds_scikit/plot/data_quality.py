@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 import altair as alt
 import numpy as np
@@ -12,7 +12,7 @@ from ..utils.checks import check_columns
 
 def plot_age_pyramid(
     person: DataFrame,
-    datetime_ref: datetime = None,
+    datetime_ref: Union[datetime, str] = None,
     savefig: bool = False,
     filename: Optional[str] = None,
 ) -> Tuple[alt.Chart, Series]:
@@ -26,8 +26,10 @@ def plot_age_pyramid(
         - `person_id`, dtype : any
         - `gender_source_value`, dtype : str, {'m', 'f'}
 
-    datetime_ref : datetime,
+    datetime_ref : Union[datetime, str],
         The reference date to compute population age from.
+        If a string, it searches for a column with the same name in the person table: each patient has his own datetime reference.
+        If a datetime, the reference datetime is the same for all patients.
         If set to None, datetime.today() will be used instead.
 
     savefig : bool,
@@ -55,11 +57,15 @@ def plot_age_pyramid(
 
     person_ = person.copy()
 
-    if datetime_ref:
-        today = pd.to_datetime(datetime_ref)
+    if type(datetime_ref) == datetime:
+        datetime_ref_ = pd.to_datetime(datetime_ref)
+    elif type(datetime_ref) == str:
+        if datetime_ref not in person_.columns:
+            raise ValueError(f"{datetime_ref} should be either a column of the dataframe, or a datetime.")
+        datetime_ref_ = person_[datetime_ref]
     else:
-        today = datetime.today()
-    person_["age"] = (today - person_["birth_datetime"]).dt.total_seconds()
+        datetime_ref_ = datetime.today()
+    person_["age"] = (datetime_ref_ - person_["birth_datetime"]).dt.total_seconds()
     person_["age"] /= 365 * 24 * 3600
 
     bins = np.arange(0, 100, 10)
