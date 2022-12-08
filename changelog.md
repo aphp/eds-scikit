@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.3 (2022-12-06)
+
+- Adding person-dependant `datetime_ref` to `plot_age_pyramid`
+
 ## v0.1.2 (2022-12-05)
 
 ### Added
