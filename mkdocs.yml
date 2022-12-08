@@ -7,14 +7,14 @@ theme:
   name: material
   custom_dir: mkdocs_theme
   palette:
-    - scheme: default
-      toggle:
-        icon: material/brightness-4
-        name: Switch to dark mode
     - scheme: slate
       toggle:
         icon: material/brightness-7
         name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
 
   logo: _static/scikit_logo.svg
   favicon: _static/scikit_logo.svg
