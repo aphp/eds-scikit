@@ -89,7 +89,7 @@ doc = [
     "mkdocs-gen-files==0.3.5",
     "mkdocs-img2fig-plugin==0.9.3",
     "mkdocs-literate-nav==0.4.1",
-    "mkdocs-material==8.5.10",
+    "mkdocs-material==8.5.11",
     "mkdocs-section-index==0.3.4",
     "mkdocstrings==0.19.0",
     "mkdocstrings-python==0.7.1",
@@ -115,6 +115,7 @@ authorized_licenses = [
     "mpl",
     "mozilla public license",
     "public domain",
+    "unlicense",
 ]
 unauthorized_licenses = [
     '\bgpl',
