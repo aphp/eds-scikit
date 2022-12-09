@@ -1,5 +1,6 @@
+from copy import copy
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 import altair as alt
 import numpy as np
@@ -12,7 +13,7 @@ from ..utils.checks import check_columns
 
 def plot_age_pyramid(
     person: DataFrame,
-    datetime_ref: datetime = None,
+    datetime_ref: Union[datetime, str] = None,
     savefig: bool = False,
     filename: Optional[str] = None,
 ) -> Tuple[alt.Chart, Series]:
@@ -26,8 +27,10 @@ def plot_age_pyramid(
         - `person_id`, dtype : any
         - `gender_source_value`, dtype : str, {'m', 'f'}
 
-    datetime_ref : datetime,
+    datetime_ref : Union[datetime, str],
         The reference date to compute population age from.
+        If a string, it searches for a column with the same name in the person table: each patient has his own datetime reference.
+        If a datetime, the reference datetime is the same for all patients.
         If set to None, datetime.today() will be used instead.
 
     savefig : bool,
@@ -52,14 +55,30 @@ def plot_age_pyramid(
             raise ValueError("You have to set a filename")
         if not isinstance(filename, str):
             raise ValueError(f"'filename' type must be str, got {type(filename)}")
-
+    datetime_ref_raw = copy(datetime_ref)
     person_ = person.copy()
-
-    if datetime_ref:
-        today = pd.to_datetime(datetime_ref)
+    if datetime_ref is None:
+        datetime_ref = datetime.today()
+    elif isinstance(datetime_ref, datetime):
+        datetime_ref = pd.to_datetime(datetime_ref)
+    elif isinstance(datetime_ref, str):
+        if datetime_ref in person_.columns:
+            datetime_ref = person_[datetime_ref]
+        else:
+            datetime_ref = pd.to_datetime(
+                datetime_ref, errors="coerce"
+            )  # In case of error, will return NaT
+            if pd.isnull(datetime_ref):
+                raise ValueError(
+                    f"`datetime_ref` must either be a column name or parseable date, "
+                    f"got string '{datetime_ref_raw}'"
+                )
     else:
-        today = datetime.today()
-    person_["age"] = (today - person_["birth_datetime"]).dt.total_seconds()
+        raise TypeError(
+            f"`datetime_ref` must be either None, a parseable string date"
+            f", a column name or a datetime. Got type: {type(datetime_ref)}, {datetime_ref}"
+        )
+    person_["age"] = (datetime_ref - person_["birth_datetime"]).dt.total_seconds()
     person_["age"] /= 365 * 24 * 3600
 
     bins = np.arange(0, 100, 10)
