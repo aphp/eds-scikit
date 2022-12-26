@@ -14,11 +14,11 @@ from .custom_implem.custom_implem import CustomImplem
 VALID_FRAMEWORKS = [pd, ks]
 
 
-# TODO: All functions below need to be remove
+# TODO: All non class-methods functions below need to be remove
 
 
 def get_framework(obj: DataObject) -> Optional[ModuleType]:
-    for _, framework in VALID_FRAMEWORKS.items():
+    for framework in VALID_FRAMEWORKS:
         if obj.__class__.__module__.startswith(framework.__name__):
             return framework
     # raise ValueError(f"Object from unknown framework: {obj}")
@@ -34,8 +34,6 @@ def is_koalas(obj: DataObject) -> bool:
 
 
 def to(framework: str, obj: DataObject) -> DataObject:
-    possible_values = set(VALID_FRAMEWORKS.keys()).union(VALID_FRAMEWORKS.values())
-    assert framework in possible_values
     if framework == "koalas" or framework is ks:
         return koalas(obj)
     elif framework == "pandas" or framework is pd:
