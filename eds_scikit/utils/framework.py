@@ -14,7 +14,7 @@ from .custom_implem.custom_implem import CustomImplem
 VALID_FRAMEWORKS = [pd, ks]
 
 
-# TODO: All functions below need to be deprecated
+# TODO: All functions below need to be remove
 
 
 def get_framework(obj: DataObject) -> Optional[ModuleType]:
@@ -79,9 +79,12 @@ def koalas(obj: DataObject) -> DataObject:
 class BackendDispatcher:
     """Dispatcher between pandas, koalas and custom method."""
 
-    def get_backend(self, obj: DataObject) -> Optional[ModuleType]:
+    def get_backend(self, obj) -> Optional[ModuleType]:
         for backend in VALID_FRAMEWORKS:
-            if obj.__class__.__module__.startswith(backend.__name__):
+            if (
+                obj.__class__.__module__.startswith(backend.__name__)  # DataFrame()
+                or getattr(obj, "__name__", None) == backend.__name__  # pd or ks
+            ):
                 return backend
         return None
 
@@ -90,6 +93,36 @@ class BackendDispatcher:
 
     def is_koalas(self, obj: DataObject) -> bool:
         return self.get_backend(obj) is ks
+
+    def to(self, obj, backend):
+
+        if isinstance(obj, (list, tuple)):
+            results = []
+            for _obj in obj:
+                results.append(self.to(_obj, backend))
+            return results
+
+        if isinstance(obj, dict):
+            results = {}
+            for k, _obj in obj.items():
+                results[k] = self.to(_obj, backend)
+            return results
+
+        if isinstance(backend, str):
+            backend = {
+                "pd": pd,
+                "pandas": pd,
+                "ks": ks,
+                "koalas": ks,
+            }[backend]
+        else:
+            backend = self.get_backend(backend)
+        if self.is_pandas(backend):
+            return self.to_pandas(obj)
+        elif self.is_koalas(backend):
+            return self.to_koalas(obj)
+        else:
+            raise ValueError(f"Unknown backend {backend}")
 
     def to_pandas(self, obj: DataObject) -> DataObject:
         if self.get_backend(obj) is pd:
@@ -135,9 +168,8 @@ class BackendDispatcher:
                 "ks": ks,
                 "koalas": ks,
             }[backend]
-        elif backend is pd or backend is ks:
-            pass
-        # TODO: support Dataframe
+        elif self.get_backend(backend) is not None:
+            backend = self.get_backend(backend)
         else:
             backend = self._get_backend_from_params(
                 *args, **kwargs
@@ -151,7 +183,7 @@ class BackendDispatcher:
             return getattr(CustomImplem, method)(*args, backend=backend, **kwargs)
         else:
             raise NotImplementedError(
-                f"Method {method} doesn't belong to {backend.__name__} "
+                f"Method {method} doesn't belong to pandas or koalas "
                 f"and is not implemented in eds_scikit yet."
             )
 
@@ -159,7 +191,7 @@ class BackendDispatcher:
         counter = Counter()
         all_args = [*args, *kwargs.values()]
         self._count_backend_from_args(all_args, counter)
-        if bool(counter["ks"]) and bool(counter["pd"]):  # "^" is the XOR operator
+        if bool(counter["ks"]) and bool(counter["pd"]):
             raise ValueError(
                 "Inputs have mixed types of Koalas and Pandas dataframes,"
                 "which is not supported.\n"
@@ -203,4 +235,4 @@ class BackendDispatcher:
         return backends[0]
 
 
-backend_dispatcher = BackendDispatcher()
+bd = BackendDispatcher()

@@ -7,7 +7,7 @@ import importlib
 import os
 import sys
 import time
-from distutils.version import LooseVersion
+from packaging import version
 from typing import List, Tuple
 from pathlib import Path
 
@@ -61,11 +61,11 @@ def koalas_options() -> None:
 
 def set_env_variables() -> None:
     # From https://github.com/databricks/koalas/blob/master/databricks/koalas/__init__.py
-    if LooseVersion(pyspark.__version__) < LooseVersion("3.0"):
-        if LooseVersion(pyarrow.__version__) >= LooseVersion("0.15"):
+    if version.parse(pyspark.__version__) < version.parse("3.0"):
+        if version.parse(pyarrow.__version__) >= version.parse("0.15"):
             os.environ["ARROW_PRE_0_15_IPC_FORMAT"] = "1"
 
-    if LooseVersion(pyarrow.__version__) >= LooseVersion("2.0.0"):
+    if version.parse(pyarrow.__version__) >= version.parse("2.0.0"):
         os.environ["PYARROW_IGNORE_TIMEZONE"] = "0"
 
 

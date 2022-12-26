@@ -15,17 +15,17 @@ class CustomImplem:
     def add_unique_id(
         cls,
         obj: DataFrame,
-        framework,
         col_name: str = "id",
+        backend=None,
     ) -> DataFrame:
-        if framework is pd:
+        if backend is pd:
             obj[col_name] = range(obj.shape[0])
             return obj
-        elif framework is ks:
+        elif backend is ks:
             return obj.koalas.attach_id_column(id_type="distributed", column=col_name)
         else:
             raise NotImplementedError(
-                f"No method 'add_unique_id' is available for framework {framework}."
+                f"No method 'add_unique_id' is available for backend '{backend}'."
             )
 
     @classmethod
