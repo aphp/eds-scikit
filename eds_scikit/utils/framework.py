@@ -256,7 +256,6 @@ class BackendDispatcher:
         return partial(self.get_params, method)
 
     def get_params(self, method, *args, backend=None, **kwargs):
-        #
         # This method should only be called by `__getattr__`.
         #
         # `get_params` dispatches the call to a backend (pandas or koalas)
