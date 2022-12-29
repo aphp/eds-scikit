@@ -1,8 +1,10 @@
 import os
+from collections import defaultdict
 from typing import Dict, Iterable, List, Optional, Union
 
 import pandas
 from databricks import koalas
+from i2b2_mapping import get_i2b2_table
 from loguru import logger
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
@@ -25,6 +27,7 @@ class HiveData:  # pragma: no cover
         columns_to_load: Optional[
             Union[Dict[str, Optional[List[str]]], List[str]]
         ] = None,
+        database_type: Optional[str] = "OMOP",
     ):
         """Spark interface for OMOP data stored in a Hive database.
 
@@ -50,6 +53,8 @@ class HiveData:  # pragma: no cover
             A list of the tables names can also be provided to load all columns of each table.
         columns_to_load : Optional[Union[Dict[str, Optional[List[str]]], List[str]]]
             *deprecated*
+        database_type: Optional[str] = 'OMOP'. Must be 'OMOP' or 'I2B2'
+            Whether to use the native OMOP schema or to convert I2B2 inputs to OMOP.
 
         Attributes
         ----------
@@ -59,7 +64,6 @@ class HiveData:  # pragma: no cover
         available_tables : list of str
             names of OMOP tables that can be accessed as attributes with this
             HiveData object.
-
 
         Examples
         --------
@@ -99,18 +103,29 @@ class HiveData:  # pragma: no cover
         ```
 
         """
-
         if columns_to_load and not tables_to_load:
             tables_to_load = columns_to_load
+            # TODO: Deprecated since which version? Will be removed in which version?
             logger.warning(
-                "columns_to_load is a deprecated argument. Please use 'tables_to_load' instead."
+                "'columns_to_load' is a deprecated argument. Please use 'tables_to_load' instead."
             )
         self.spark_session = (
-            spark_session
-            if spark_session is not None
-            else SparkSession.builder.enableHiveSupport().getOrCreate()
+            spark_session or SparkSession.builder.enableHiveSupport().getOrCreate()
         )
         self.database_name = database_name
+        if database_type not in ["I2B2", "OMOP"]:
+            raise ValueError(
+                f"`database_type` must be either 'I2B2' or 'OMOP'. Got {database_type}"
+            )
+        self.database_type = database_type
+
+        if self.database_type == "I2B2":
+            self.database_source = "cse" if "cse" in self.database_name else "edsprod"
+            self.omop_to_i2b2 = settings.i2b2_tables[self.database_source]
+            self.i2b2_to_omop = defaultdict(list)
+            for omop_col, i2b2_col in self.omop_to_i2b2.items():
+                self.i2b2_to_omop[i2b2_col].append(omop_col)
+
         self.person_ids = self._prepare_person_ids(person_ids)
 
         tmp_tables_to_load = settings.tables_to_load
@@ -134,14 +149,25 @@ class HiveData:  # pragma: no cover
         tables_df = self.spark_session.sql(
             f"SHOW TABLES IN {self.database_name}"
         ).toPandas()
-        available_tables = [
-            table_name
-            for table_name in tables_df["tableName"].drop_duplicates().to_list()
-            if table_name in self.tables_to_load.keys()
-        ]
+        available_tables = set()
+        session_tables = tables_df["tableName"].drop_duplicates().to_list()
+        for table_name in session_tables:
+            if (
+                self.database_type == "OMOP"
+                and table_name in self.tables_to_load.keys()
+            ):
+                available_tables.add(table_name)
+            elif (
+                self.database_type == "I2B2" and table_name in self.i2b2_to_omop.keys()
+            ):
+                for omop_table in self.i2b2_to_omop[table_name]:
+                    if omop_table in self.tables_to_load.keys():
+                        available_tables.add(omop_table)
+            available_tables = list(available_tables)
         return available_tables
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
+        # TODO: use _tables dict instead of self to store tables?
         if old_table_name in self.available_tables:
             setattr(self, new_table_name, getattr(self, old_table_name))
             self.available_tables.remove(old_table_name)
@@ -180,20 +206,29 @@ class HiveData:  # pragma: no cover
         return filtering_df
 
     def _read_table(self, table_name, person_ids=None) -> DataFrame:
-        assert table_name in self.available_tables
-        if person_ids is None and self.person_ids is not None:
-            person_ids = self.person_ids
+        if table_name not in self.available_tables:
+            raise ValueError(
+                f"{table_name} is not available. "
+                f"Available tables are: {self.available_tables}"
+            )
 
-        df = self.spark_session.sql(f"select * from {self.database_name}.{table_name}")
+        if self.database_type == "OMOP":
+            df = self.spark_session.sql(
+                f"select * from {self.database_name}.{table_name}"
+            )
+        else:
+            df = get_i2b2_table(
+                spark_session=self.spark_session,
+                db_name=self.database_name,
+                db_source=self.database_source,
+                table=table_name,
+            )
 
-        desired_columns = self.tables_to_load[table_name]
-        selected_columns = (
-            df.columns
-            if desired_columns is None
-            else [col for col in df.columns if col in desired_columns]
-        )
+        desired_columns = self.tables_to_load[table_name] or df.columns
+        selected_columns = list(set(df.columns) & set(desired_columns))
         df = df.select(*selected_columns)
 
+        person_ids = person_ids or self.person_ids
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
 
