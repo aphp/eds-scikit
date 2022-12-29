@@ -75,9 +75,63 @@ def koalas(obj: DataObject) -> DataObject:
 
 
 class BackendDispatcher:
-    """Dispatcher between pandas, koalas and custom method."""
+    """Dispatcher between pandas, koalas and custom methods.
+
+    In addition to the methods below, use the `BackendDispatcher` class
+    to access the custom functions defined in [`CustomImplem`](../custom_implem/custom_implem).
+
+    Examples
+    --------
+
+    Use a dispatcher function
+
+    >>> from eds_scikit.utils.framework import bd
+    >>> bd.is_pandas(pd.DataFrame())
+    True
+
+    Use a custom implemented function
+
+    >>> df = pd.DataFrame({"categ": ["a", "b", "c"]})
+    >>> bd.add_unique_id(df, col_name="id")
+      categ  id
+    0     a   0
+    1     b   1
+    2     c   2
+    """
 
     def get_backend(self, obj) -> Optional[ModuleType]:
+        """Return the backend of a given object.
+
+        Parameters
+        ----------
+        obj: DataFrame or backend module among pandas or koalas.
+
+        Returns
+        -------
+        backend: a backend among {pd, ks} or None
+
+        Examples
+        --------
+
+        Get the backend from a DataFrame and create another DataFrame from it.
+        This is especially useful at runtime, when you need to infer the
+        backend of the input.
+
+        >>> backend = bd.get_backend(pd.DataFrame())
+        >>> backend
+        <module 'pandas'>
+        >>> df = backend.DataFrame()
+
+        >>> bd.get_backend(ks.DataFrame())
+        <module 'koalas'>
+
+        For demo purposes, return the backend when provided directly
+
+        >>> bd.get_backend(ks)
+        <module 'koalas'>
+        >>> bd.get_backend(spark)
+        None
+        """
         for backend in VALID_FRAMEWORKS:
             if (
                 obj.__class__.__module__.startswith(backend.__name__)  # DataFrame()
@@ -86,14 +140,64 @@ class BackendDispatcher:
                 return backend
         return None
 
-    def is_pandas(self, obj: DataObject) -> bool:
+    def is_pandas(self, obj) -> bool:
+        """Return True when the obj is either a pd.DataFrame or the pandas module."""
         return self.get_backend(obj) is pd
 
     def is_koalas(self, obj: DataObject) -> bool:
+        """Return True when the obj is either a ks.DataFrame or the koalas module."""
         return self.get_backend(obj) is ks
 
-    def to(self, obj, backend):
+    def to(self, obj, backend: str):
+        """Convert a dataframe to the provided backend.
 
+        Parameters
+        ----------
+        obj: DataFrame or iterable of DataFrame (list, tuple, dict)
+            The object(s) to convert to the provided backend
+
+        backend: str, DataFrame or pandas, koalas module
+            The desired output backend.
+
+        Returns
+        -------
+        out: DataFrame or iterabel of DataFrame (list, tuple, dict)
+          The converted object, in the same format as provided in input.
+
+        Examples
+        --------
+
+        Convert a single DataFrame
+
+        >>> df = pd.DataFrame({"a": [1, 2]})
+        >>> kdf = bd.to(df, backend="koalas")
+        >>> type(kdf)
+        databricks.koalas.frame.DataFrame
+
+        Convert a list of DataFrame
+
+        >>> extra_kdf = ks.DataFrame({"b": [0, 1]})
+        >>> another_kdf = ks.DataFrame({"c": [2, 3]})
+        >>> kdf_list = [kdf, extra_kdf, another_kdf]
+        >>> df_list = bd.to(kdf_list, backend="pandas")
+        >>> type(df_list)
+        list
+        >>> len(df_list)
+        3
+        >>> type(df_list[0])
+        pandas.core.frame.DataFrame
+
+        Convert a dictionnary of DataFrame
+
+        >>> df_dict = {"df_1": pd.DataFrame({"a": [1, 2]}), "df_2": pd.DataFrame({"a": [2, 3]})}
+        >>> kdf_dict = bd.to(df_dict, backend="koalas")
+        >>> type(kdf_dict)
+        dict
+        >>> kdf_dict.keys()
+        dict_keys(["df_1", "df_2"])
+        >>> type(kdf_dict["df_1"])
+        databricks.koalas.frame.DataFrame
+        """
         if isinstance(obj, (list, tuple)):
             results = []
             for _obj in obj:
@@ -141,24 +245,22 @@ class BackendDispatcher:
         return ks.from_pandas(obj)
 
     def __getattr__(self, method):
-        """Any method that doesn't belong directly to `BackendDispatcher` will
-         be picked by __getattr__.
-
-        `__getattr__` returns the self.get_params function, wrapped with
-        the queried `method` as a parameter.
-
-         This way, `get_param` will be able to call `method`, dispatched between
-         the desired backend, with the args and kwargs initially provided.
-        """
+        # Any method that doesn't belong directly to `BackendDispatcher` will
+        # be picked by __getattr__.
+        #
+        # `__getattr__` returns the self.get_params function, wrapped with
+        # the queried `method` as a parameter.
+        #
+        # This way, `get_param` will be able to call `method`, dispatched between
+        # the desired backend, with the args and kwargs initially provided.
         return partial(self.get_params, method)
 
     def get_params(self, method, *args, backend=None, **kwargs):
-        """
-        This method should only be called by `__getattr__`.
-
-        `get_params` dispatches the call to a backend (pandas or koalas)
-        chosen with simple heuristics.
-        """
+        #
+        # This method should only be called by `__getattr__`.
+        #
+        # `get_params` dispatches the call to a backend (pandas or koalas)
+        # chosen with simple heuristics.
         if isinstance(backend, str):
             backend = {
                 "pd": pd,

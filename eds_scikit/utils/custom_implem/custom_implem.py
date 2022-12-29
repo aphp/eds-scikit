@@ -8,6 +8,8 @@ from .cut import cut
 
 class CustomImplem:
     """
+    A collection of custom pandas and koalas methods.
+
     All public facing methods must be stateless and defined as classmethods.
     """
 
@@ -18,6 +20,7 @@ class CustomImplem:
         col_name: str = "id",
         backend=None,
     ) -> DataFrame:
+        """Add an ID column for koalas or pandas."""
         if backend is pd:
             obj[col_name] = range(obj.shape[0])
             return obj

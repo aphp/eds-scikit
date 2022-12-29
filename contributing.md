@@ -30,16 +30,8 @@ $ python -m venv venv
 $ source venv/bin/activate
 
 # Install dependencies and build resources
-$ pip install -r requirements.txt
+$ pip install -e ".[dev, doc]"
 
-# Install development dependencies
-$ pip install -r requirements_dev.txt
-$ pip install -r requirements_docs.txt
-
-# Finally, install the package in editable mode...
-$ pip install -e .
-
-# And switch to a new branch to begin developping
 $ git switch -c "name_of_my_new_branch"
 ```
 
@@ -150,3 +142,10 @@ and automatically reloads the page.
 
 !!! warning
     MkDocs will automaticaly build code documentation by going through every `.py` file located in the `eds_scikit` directory (and sub-arborescence). It expects to find a `__init__.py` file in each directory, so make sure to create one if needed.
+
+
+### Developing your own methods
+
+Even though the koalas project aim at covering most pandas functions for spark, there are some discrepancies. For instance, the `pd.cut()` method has no koalas alternative.
+
+To ease the development and switch gears efficiently between the two backends, we advice you to use the [`BackendDispatcher`](../reference/utils/framework) class and its collection of custom methods.
