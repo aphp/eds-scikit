@@ -32,6 +32,7 @@ $ source venv/bin/activate
 # Install dependencies and build resources
 $ pip install -e ".[dev, doc]"
 
+# And switch to a new branch to begin developing
 $ git switch -c "name_of_my_new_branch"
 ```
 
