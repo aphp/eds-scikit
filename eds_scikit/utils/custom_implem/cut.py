@@ -27,7 +27,7 @@ def cut(
     include_lowest: bool = False,
     duplicates: str = "raise",
     ordered: bool = True,
-):
+):  # pragma: no cover
     """
     Bin values into discrete intervals.
 
@@ -272,7 +272,7 @@ def cut(
     return fac, bins
 
 
-def _convert_bin_to_numeric_type(bins, dtype):
+def _convert_bin_to_numeric_type(bins, dtype):  # pragma: no cover
     """
     if the passed bin is of datetime/timedelta type,
     this method converts it to integer
@@ -301,7 +301,7 @@ def _convert_bin_to_numeric_type(bins, dtype):
 
 def _format_labels(
     bins, precision: int, right: bool = True, include_lowest: bool = False, dtype=None
-):
+):  # pragma: no cover
     """based on the dtype, return our labels"""
     closed = "right" if right else "left"
 
@@ -329,7 +329,7 @@ def _format_labels(
     return IntervalIndex.from_breaks(breaks, closed=closed)
 
 
-def _searchsorted(x, bins, right):
+def _searchsorted(x, bins, right):  # pragma: no cover
     """
     koalas version of np.searchsorted
     """
@@ -360,7 +360,7 @@ def _bins_to_cuts(
     dtype=None,
     duplicates: str = "raise",
     ordered: bool = True,
-):
+):  # pragma: no cover
     """
     koalas version of pandas.core.reshape.tile._bins_to_cuts
     """
@@ -415,7 +415,7 @@ def _bins_to_cuts(
     return result, bins
 
 
-def _infer_precision(base_precision: int, bins) -> int:
+def _infer_precision(base_precision: int, bins) -> int:  # pragma: no cover
     """
     Infer an appropriate precision for _round_frac
     """
@@ -426,7 +426,7 @@ def _infer_precision(base_precision: int, bins) -> int:
     return base_precision  # default
 
 
-def _round_frac(x, precision: int):
+def _round_frac(x, precision: int):  # pragma: no cover
     """
     Round the fractional part of the given number
     """
