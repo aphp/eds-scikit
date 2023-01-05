@@ -1,20 +1,20 @@
-site_name: EDS-Scikit
+site_name: eds-scikit
 
-repo_url: https://github.com/aphp/EDS-Scikit
-repo_name: EDS-Scikit
+repo_url: https://github.com/aphp/eds-scikit
+repo_name: eds-scikit
 
 theme:
   name: material
   custom_dir: mkdocs_theme
   palette:
-    - scheme: default
-      toggle:
-        icon: material/brightness-4
-        name: Switch to dark mode
     - scheme: slate
       toggle:
         icon: material/brightness-7
         name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
 
   logo: _static/scikit_logo.svg
   favicon: _static/scikit_logo.svg
@@ -29,7 +29,7 @@ theme:
 
 nav:
   - index.md
-  - Understanding EDS-Scikit:
+  - Understanding eds-scikit:
     - project_description.md
     - A gentle demo: functionalities/generic/introduction.ipynb
   - Functionalities:

@@ -1,6 +1,6 @@
 ---
 name: "Feature request"
-about: Use this template if you'd like EDS-Scikit to add a new feature.
+about: Use this template if you'd like eds-scikit to add a new feature.
 title: "Feature request: [feature]"
 ---
 
@@ -10,4 +10,4 @@ title: "Feature request: [feature]"
 
 ## Description
 
-<!-- Add a clear description of what you'd like EDS-Scikit to handle. -->
+<!-- Add a clear description of what you'd like eds-scikit to handle. -->

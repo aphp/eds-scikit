@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.2 (2022-12-05)
+
+### Added
+
+- Adding CITATION.cff
+- Using `mike` as a documentation provider
+
+### Fixed
+
+- Correct build to PyPI
+- Renaming from `EDS-Scikit` to `eds-scikit`
+
 ## v0.1.1 (2022-12-02)
 
 ### Added

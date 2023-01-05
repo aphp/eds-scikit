@@ -2,7 +2,7 @@
 
 ## Presentation
 
-EDS-Scikit was build to work seamlessly on a pre-existing OMOP database. However, the library also provides some *toy datasets* so that you can try out some features even without having access to a database.
+eds-scikit was build to work seamlessly on a pre-existing OMOP database. However, the library also provides some *toy datasets* so that you can try out some features even without having access to a database.
 
 ## Usage
 

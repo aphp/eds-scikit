@@ -20,7 +20,7 @@ def define_env(env):
 
     @env.macro
     def link_repo_file(relative_path: str):
-        BASE_PATH = "https://github.com/aphp/EDS-Scikit/blob/main"
+        BASE_PATH = "https://github.com/aphp/eds-scikit/blob/main"
         return os.path.join(BASE_PATH, relative_path)
 
     @env.macro

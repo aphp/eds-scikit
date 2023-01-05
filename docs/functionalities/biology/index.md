@@ -1,7 +1,7 @@
 # Biology
 
 
-The biology module of [EDS-Scikit](https://github.com/aphp/EDS-Scikit) supports data scientists working on biological data. Its main objectives are to:
+The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports data scientists working on biological data. Its main objectives are to:
 
 - Extract meaningful biological parameters from biological raw data for data analysis
 - Manage outliers
@@ -13,7 +13,7 @@ This is just a quick overview of what you can do with the biology module.
 
 ### 1. Load your data
 
-First, you need to load your data. As detailed in [the dedicated section](../generic/io), EDS-Scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive](../generic/io/#loading-from-hive-hivedata) connector, a [Postgres](../generic/io/#loading-from-postgres-postgresdata) connector and a [Pandas](../generic/io/#persistingreading-a-sample-tofrom-disk-pandasdata) connector.
+First, you need to load your data. As detailed in [the dedicated section](../generic/io), eds-scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive](../generic/io/#loading-from-hive-hivedata) connector, a [Postgres](../generic/io/#loading-from-postgres-postgresdata) connector and a [Pandas](../generic/io/#persistingreading-a-sample-tofrom-disk-pandasdata) connector.
 
 !!!danger "Big cohort"
     If your cohort size is big, we highly recommend the [Hive](../generic/io/#loading-from-hive-hivedata) connector.

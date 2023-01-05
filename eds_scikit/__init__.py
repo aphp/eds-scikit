@@ -1,7 +1,7 @@
 """Top-level package for eds_scikit."""
 
 __author__ = """eds_scikit"""
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 import importlib
 import os
