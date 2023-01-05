@@ -163,8 +163,7 @@ class HiveData:  # pragma: no cover
                 for omop_table in self.i2b2_to_omop[table_name]:
                     if omop_table in self.tables_to_load.keys():
                         available_tables.add(omop_table)
-            available_tables = list(available_tables)
-        return available_tables
+        return list(available_tables)
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
         # TODO: use _tables dict instead of self to store tables?
