@@ -4,13 +4,13 @@ from typing import Dict, Iterable, List, Optional, Union
 
 import pandas
 from databricks import koalas
-from i2b2_mapping import get_i2b2_table
 from loguru import logger
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
+from .i2b2_mapping import get_i2b2_table
 
 DataFrame = Union[koalas.DataFrame, pandas.DataFrame]
 
