@@ -17,7 +17,7 @@ VALID_FRAMEWORKS = [pd, ks]
 # TODO: All non class-methods functions below need to be remove
 
 
-def get_framework(obj: DataObject) -> Optional[ModuleType]:
+def get_framework(obj: DataObject) -> Optional[ModuleType]:  # pragma: no cover
     for framework in VALID_FRAMEWORKS:
         if obj.__class__.__module__.startswith(framework.__name__):
             return framework
@@ -25,15 +25,15 @@ def get_framework(obj: DataObject) -> Optional[ModuleType]:
     return None
 
 
-def is_pandas(obj: DataObject) -> bool:
+def is_pandas(obj: DataObject) -> bool:  # pragma: no cover
     return get_framework(obj) == pd
 
 
-def is_koalas(obj: DataObject) -> bool:
+def is_koalas(obj: DataObject) -> bool:  # pragma: no cover
     return get_framework(obj) == ks
 
 
-def to(framework: str, obj: DataObject) -> DataObject:
+def to(framework: str, obj: DataObject) -> DataObject:  # pragma: no cover
     if framework == "koalas" or framework is ks:
         return koalas(obj)
     elif framework == "pandas" or framework is pd:
@@ -42,7 +42,9 @@ def to(framework: str, obj: DataObject) -> DataObject:
         raise ValueError(f"Unknown framework: {framework}")
 
 
-def dict_to(framework: str, d: Dict[str, DataObject]) -> Dict[str, DataObject]:
+def dict_to(
+    framework: str, d: Dict[str, DataObject]
+) -> Dict[str, DataObject]:  # pragma: no cover
     d_converted = dict()
     for k, v in d.items():
         if is_pandas(v) or is_koalas(v):
@@ -52,7 +54,7 @@ def dict_to(framework: str, d: Dict[str, DataObject]) -> Dict[str, DataObject]:
     return d_converted
 
 
-def pandas(obj: DataObject) -> DataObject:
+def pandas(obj: DataObject) -> DataObject:  # pragma: no cover
     if get_framework(obj) is pd:
         return obj
     try:
@@ -62,7 +64,7 @@ def pandas(obj: DataObject) -> DataObject:
     raise ValueError("Could not convert object to pandas.")
 
 
-def koalas(obj: DataObject) -> DataObject:
+def koalas(obj: DataObject) -> DataObject:  # pragma: no cover
     if get_framework(obj) is ks:
         return obj
     try:
@@ -132,6 +134,14 @@ class BackendDispatcher:
         >>> bd.get_backend(spark)
         None
         """
+        if isinstance(obj, str):
+            return {
+                "pd": pd,
+                "pandas": pd,
+                "ks": ks,
+                "koalas": ks,
+            }.get(obj)
+
         for backend in VALID_FRAMEWORKS:
             if (
                 obj.__class__.__module__.startswith(backend.__name__)  # DataFrame()
@@ -148,7 +158,7 @@ class BackendDispatcher:
         """Return True when the obj is either a ks.DataFrame or the koalas module."""
         return self.get_backend(obj) is ks
 
-    def to(self, obj, backend: str):
+    def to(self, obj, backend):
         """Convert a dataframe to the provided backend.
 
         Parameters
@@ -210,29 +220,19 @@ class BackendDispatcher:
                 results[k] = self.to(_obj, backend)
             return results
 
-        if isinstance(backend, str):
-            backend = {
-                "pd": pd,
-                "pandas": pd,
-                "ks": ks,
-                "koalas": ks,
-            }[backend]
-        else:
-            backend = self.get_backend(backend)
+        backend = self.get_backend(backend)
+
         if self.is_pandas(backend):
             return self.to_pandas(obj)
         elif self.is_koalas(backend):
             return self.to_koalas(obj)
         else:
-            raise ValueError(f"Unknown backend {backend}")
+            raise ValueError("Unknown backend")
 
     def to_pandas(self, obj: DataObject) -> DataObject:
         if self.get_backend(obj) is pd:
             return obj
-        try:
-            return obj.to_pandas()
-        except AttributeError:
-            raise ValueError("Could not convert object to pandas.")
+        return obj.to_pandas()
 
     def to_koalas(self, obj: DataObject) -> DataObject:
         if self.get_backend(obj) is ks:
@@ -260,15 +260,10 @@ class BackendDispatcher:
         #
         # `get_params` dispatches the call to a backend (pandas or koalas)
         # chosen with simple heuristics.
-        if isinstance(backend, str):
-            backend = {
-                "pd": pd,
-                "pandas": pd,
-                "ks": ks,
-                "koalas": ks,
-            }[backend]
-        elif self.get_backend(backend) is not None:
+        if backend is not None:
             backend = self.get_backend(backend)
+            if backend is None:
+                raise ValueError("Unknown backend")
         else:
             backend = self._get_backend_from_params(
                 *args, **kwargs
@@ -282,7 +277,7 @@ class BackendDispatcher:
             return getattr(CustomImplem, method)(*args, backend=backend, **kwargs)
         else:
             raise NotImplementedError(
-                f"Method {method} doesn't belong to pandas or koalas "
+                f"Method '{method}' doesn't belong to pandas or koalas "
                 f"and is not implemented in eds_scikit yet."
             )
 
@@ -312,12 +307,12 @@ class BackendDispatcher:
 
     def _get_backend_from_method(self, method):
         backends = []
-        for fk in VALID_FRAMEWORKS:
+        for backend in VALID_FRAMEWORKS:
             methods = [
-                d for d in dir(fk) if ("__" not in d) and (not d.startswith("_"))
+                d for d in dir(backend) if ("__" not in d) and (not d.startswith("_"))
             ]
             if method in methods:
-                backends.append(fk)
+                backends.append(backend)
 
         if len(backends) == 0:
             return None

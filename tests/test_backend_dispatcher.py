@@ -51,8 +51,8 @@ def test_is_pandas_is_koalas():
 def test_to():
     kdf = ks.from_pandas(df)
 
-    assert_df_is_pandas(bd.to(df, backend="pandas"))
-    assert_df_is_koalas(bd.to(df, backend="koalas"))
+    assert_df_is_pandas(bd.to(df, backend=pd))
+    assert_df_is_koalas(bd.to(df, backend=ks))
 
     assert_df_is_pandas(bd.to(kdf, backend="pandas"))
     assert_df_is_koalas(bd.to(kdf, backend="koalas"))
@@ -66,6 +66,9 @@ def test_to():
     df_dict = bd.to({"df_1": kdf, "df_2": kdf}, backend="pandas")
     assert df_dict.keys() == {"df_1", "df_2"}
     assert all([bd.is_pandas(el) for el in df_dict.values()])
+
+    with pytest.raises(ValueError, match="Unknown backend"):
+        bd.to(df, backend="spark")
 
 
 @pytest.mark.parametrize("backend", ["pd", pd, df])
@@ -88,11 +91,15 @@ def test_get_params_pd_backend(backend):
 def test_get_params_ks_backend(backend):
 
     df = load_person().person
+
     kdf = ks.from_pandas(df)
     kdf = bd.add_unique_id(kdf, backend=backend)
 
     df = bd.add_unique_id(df, backend=pd)
     assert_array_equal(kdf["id"].to_pandas(), df["id"])
+
+    with pytest.raises(ValueError, match="Unknown backend"):
+        bd.add_unique_id(kdf, backend="spark")
 
 
 def test_get_params_from_params():
@@ -120,5 +127,11 @@ def test_get_params_from_method(caplog):
 
     assert bd.isna(1, backend="pandas") == bd.isna(1, backend="koalas")
 
-    with pytest.raises(NotImplementedError):
+    msg = (
+        "Method 'optimize' doesn't belong to pandas or koalas "
+        "and is not implemented in eds_scikit yet."
+    )
+    with pytest.raises(NotImplementedError, match=msg):
         bd.optimize()
+
+    bd.value_counts(list("scikit"))
