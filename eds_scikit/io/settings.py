@@ -211,25 +211,25 @@ assert all(table in tables_to_load.keys() for table in default_tables_to_save)
 i2b2_tables = {
     "edsprod": {
         "visit_occurrence": "i2b2_orbis_visit_dim",
-        "note": "i2b2_observation_fact_document",
+        "note_deid": "i2b2_observation_fact_document",
         "person": "i2b2_patient_dim",
         "condition_occurrence": "i2b2_arem_observation_fact_cim10",
         "procedure_occurrence": "i2b2_arem_observation_fact_ccam",
         "care_site": "i2b2_observation_fact_ufr",
         "visit_detail": "i2b2_observation_fact_ufr",
-        "biology": "i2b2_observation_fact_lab",
+        "measurement": "i2b2_observation_fact_lab",
         "fact_relationship": "i2b2_observation_fact_ufr",
         "concept": "orbis_form_ref_concept_list",
     },
     "cse": {
         "visit_occurrence": "i2b2_visit",
-        "note": "i2b2_observation_doc",
+        "note_deid": "i2b2_observation_doc",
         "person": "i2b2_patient",
         "condition_occurrence": "i2b2_observation_cim10",
         "procedure_occurrence": "i2b2_observation_ccam",
         "care_site": "i2b2_observation_ufr",
         "visit_detail": "i2b2_observation_ufr",
-        "biology": "i2b2_observation_lab",
+        "measurement": "i2b2_observation_lab",
         "fact_relationship": "i2b2_observation_ufr",
         "concept": "i2b2_concept",
     },
@@ -238,7 +238,7 @@ i2b2_tables = {
 
 # Mapping between i2b2 and OMOP
 i2b2_renaming = {
-    "note": {
+    "note_deid": {
         "instance_num": "note_id",
         "start_date": "note_datetime",
         "concept_cd": "note_class_source_value",
@@ -295,7 +295,7 @@ i2b2_renaming = {
         "sourcesystem_cd": "cdm_source",
         "i2b2_action": "row_status_source_value",
     },
-    "biology": {
+    "measurement": {
         "patient_num": "person_id",
         "encounter_num": "visit_occurrence_id",
         "instance_num": "biology_occurrence_id",
