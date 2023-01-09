@@ -308,7 +308,7 @@ i2b2_renaming = {
         "location_cd": "care_site_source_value",
         "sourcesystem_cd": "cdm_source",
     },
-    "concept": {"concept_cd": "concept_id", "lib_concept": "concept_name"},
+    "concept": {"concept_cd": "concept_id", "name_char": "concept_name"},
 }
 
 
