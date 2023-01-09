@@ -18,6 +18,7 @@
 - Various project metadata
 - Full CI pipeline
 - License checker in CI
+- BackendDispatcher object to help with pandas / koalas manipulation
 
 ### Fixed
 

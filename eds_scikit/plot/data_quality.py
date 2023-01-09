@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Tuple
+from typing import Tuple
 
 import altair as alt
 import numpy as np
@@ -8,13 +8,15 @@ from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 
 from ..utils.checks import check_columns
+from ..utils.framework import bd
 
 
 def plot_age_pyramid(
     person: DataFrame,
     datetime_ref: datetime = None,
+    filename: str = None,
     savefig: bool = False,
-    filename: Optional[str] = None,
+    return_vector: bool = False,
 ) -> Tuple[alt.Chart, Series]:
     """Plot an age pyramid from a 'person' pandas DataFrame.
 
@@ -55,22 +57,35 @@ def plot_age_pyramid(
 
     person_ = person.copy()
 
-    if datetime_ref:
-        today = pd.to_datetime(datetime_ref)
-    else:
+    if datetime_ref is None:
         today = datetime.today()
-    person_["age"] = (today - person_["birth_datetime"]).dt.total_seconds()
-    person_["age"] /= 365 * 24 * 3600
+    else:
+        today = pd.to_datetime(datetime_ref)
+
+    # TODO: replace with from ..utils.datetime_helpers.substract_datetime
+    deltas = today - person_["birth_datetime"]
+    if bd.is_pandas(person_):
+        deltas = deltas.dt.total_seconds()
+
+    person_["age"] = deltas / (365 * 24 * 3600)
+    person_ = person_.query("age > 0.0")
 
     bins = np.arange(0, 100, 10)
     labels = [f"{left}-{right}" for left, right in zip(bins[:-1], bins[1:])]
-    person_["age_bins"] = pd.cut(person_["age"], bins=bins, labels=labels)
-    person_["age_bins"] = person_["age_bins"].astype(str).str.replace("nan", "90+")
+    person_["age_bins"] = bd.cut(person_["age"], bins=bins, labels=labels)
+
+    person_["age_bins"] = (
+        person_["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
+    )
 
     person_ = person_.loc[person_["gender_source_value"].isin(["m", "f"])]
     group_gender_age = person_.groupby(["gender_source_value", "age_bins"])[
         "person_id"
     ].count()
+
+    # Convert to pandas to ease plotting.
+    # Since we have aggregated the data, this operation won't crash.
+    group_gender_age = bd.to_pandas(group_gender_age)
 
     male = group_gender_age["m"].reset_index()
     female = group_gender_age["f"].reset_index()
@@ -108,5 +123,10 @@ def plot_age_pyramid(
 
     if savefig:
         chart.save(filename)
-    else:
+        if return_vector:
+            return group_gender_age
+
+    if return_vector:
         return chart, group_gender_age
+
+    return chart

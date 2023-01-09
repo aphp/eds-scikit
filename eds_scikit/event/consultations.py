@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from eds_scikit.utils.checks import concept_checker
 from eds_scikit.utils.datetime_helpers import substract_datetime
-from eds_scikit.utils.framework import add_unique_id, get_framework
+from eds_scikit.utils.framework import bd, get_framework
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -104,7 +104,7 @@ def get_consultation_dates(
 
     dates_per_visit.name = "CONSULTATION_DATE_EXTRACTION"
 
-    dates_per_visit = add_unique_id(
+    dates_per_visit = bd.add_unique_id(
         dates_per_visit.reset_index(), col_name="TMP_CONSULTATION_ID"
     )
 
