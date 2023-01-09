@@ -1,0 +1,135 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Emergency Units - eds-scikit</title>
+<link href="../../../assets/stylesheets/main.975780f9.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en"><div class="md-container" data-md-component="container"><main class="md-main" data-md-component="main"><div class="md-main__inner md-grid"><div class="md-content" data-md-component="content"><article class="md-content__inner md-typeset"><div class="admonition algos"><div class="tabbed-set tabbed-alternate" data-tabs="2:4"><div class="tabbed-content"><div class="tabbed-block"><div class="mkdocstrings"><div class="doc doc-object doc-function"><div class="doc doc-contents first"><details class="quote"><div class="highlight" open="" style="text-align: center"><table><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@concept_checker</span><span class="p">(</span><span class="n">concepts</span><span class="o">=</span><span class="p">[</span><span class="s2">"IS_EMERGENCY"</span><span class="p">,</span> <span class="s2">"EMERGENCY_TYPE"</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">from_mapping</span><span class="p">(</span>
+    <span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""This algo uses a labelled list of 201 emergency care sites.</span>
+
+<span class="sd">    Those care sites were extracted and verified by Ariel COHEN,</span>
+<span class="sd">    Judith LEBLANC, and an ER doctor validated them.</span>
+
+<span class="sd">    Those emergency care sites are further divised into different categories,</span>
+<span class="sd">    as defined in the concept 'EMERGENCY_TYPE'.</span>
+<span class="sd">    The different categories are:</span>
+
+<span class="sd">    - Urgences spécialisées</span>
+<span class="sd">    - UHCD + Post-urgences</span>
+<span class="sd">    - Urgences pédiatriques</span>
+<span class="sd">    - Urgences générales adulte</span>
+<span class="sd">    - Consultation urgences</span>
+<span class="sd">    - SAMU / SMUR</span>
+
+<span class="sd">    See the dataset [here](/datasets/care-site-emergency)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    care_site: DataFrame</span>
+<span class="sd">        Should at least contains the `care_site_source_value` column</span>
+<span class="sd">    version: Optional[str]</span>
+<span class="sd">        Optional version string for the mapping</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    care_site: DataFrame</span>
+<span class="sd">        Dataframe with 2 added columns corresponding to the following concepts:</span>
+
+<span class="sd">        - `"IS_EMERGENCY"`</span>
+<span class="sd">        - `"EMERGENCY_TYPE"`</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">function_name</span> <span class="o">=</span> <span class="s2">"get_care_site_emergency_mapping"</span>
+    <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">function_name</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">".</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">function_name</span><span class="o">=</span><span class="n">function_name</span><span class="p">)()</span>
+
+    <span class="c1"># Getting the right framework</span>
+    <span class="n">fw</span> <span class="o">=</span> <span class="n">framework</span><span class="o">.</span><span class="n">get_framework</span><span class="p">(</span><span class="n">care_site</span><span class="p">)</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="n">framework</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">fw</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span>
+
+    <span class="n">care_site</span> <span class="o">=</span> <span class="n">care_site</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">mapping</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">"care_site_source_value"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">care_site</span><span class="p">[</span><span class="s2">"IS_EMERGENCY"</span><span class="p">]</span> <span class="o">=</span> <span class="n">care_site</span><span class="p">[</span><span class="s2">"EMERGENCY_TYPE"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">care_site</span>
+</code></pre></div></td></tr></table></div></details></div></div></div></div></div></div></div></article></div></div></main></div></html>
