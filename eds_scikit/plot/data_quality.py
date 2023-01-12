@@ -1,10 +1,11 @@
 from copy import copy
 from datetime import datetime
-from typing import Optional, Tuple, Union
+from typing import Tuple, Union
 
 import altair as alt
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_integer_dtype
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 
@@ -14,7 +15,7 @@ from ..utils.framework import bd
 
 def plot_age_pyramid(
     person: DataFrame,
-    datetime_ref: datetime = None,
+    datetime_ref: Union[datetime, str] = None,
     filename: str = None,
     savefig: bool = False,
     return_vector: bool = False,
@@ -57,15 +58,15 @@ def plot_age_pyramid(
             raise ValueError("You have to set a filename")
         if not isinstance(filename, str):
             raise ValueError(f"'filename' type must be str, got {type(filename)}")
-    datetime_ref_raw = copy(datetime_ref)
-    person_ = person.copy()
+    datetime_ref_original = copy(datetime_ref)
+
     if datetime_ref is None:
         datetime_ref = datetime.today()
     elif isinstance(datetime_ref, datetime):
         datetime_ref = pd.to_datetime(datetime_ref)
     elif isinstance(datetime_ref, str):
-        if datetime_ref in person_.columns:
-            datetime_ref = person_[datetime_ref]
+        if datetime_ref in person.columns:
+            datetime_ref = person[datetime_ref]
         else:
             datetime_ref = pd.to_datetime(
                 datetime_ref, errors="coerce"
@@ -73,32 +74,45 @@ def plot_age_pyramid(
             if pd.isnull(datetime_ref):
                 raise ValueError(
                     f"`datetime_ref` must either be a column name or parseable date, "
-                    f"got string '{datetime_ref_raw}'"
+                    f"got string '{datetime_ref_original}'"
                 )
     else:
         raise TypeError(
             f"`datetime_ref` must be either None, a parseable string date"
             f", a column name or a datetime. Got type: {type(datetime_ref)}, {datetime_ref}"
         )
-    person_["age"] = (datetime_ref - person_["birth_datetime"]).dt.total_seconds()
-    person_["age"] /= 365 * 24 * 3600
+
+    person = person.loc[person["gender_source_value"].isin(["m", "f"])]
+
+    deltas = datetime_ref - person["birth_datetime"]
+    if not is_integer_dtype(deltas):
+        deltas = deltas.dt.total_seconds()
+    person["age"] = deltas / 365 * 24 * 3600
 
     bins = np.arange(0, 100, 10)
     labels = [f"{left}-{right}" for left, right in zip(bins[:-1], bins[1:])]
-    person_["age_bins"] = bd.cut(person_["age"], bins=bins, labels=labels)
 
-    person_["age_bins"] = (
-        person_["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
-    )
+    # This is equivalent to `pd.cut()` for pandas and this call our custom `cut`
+    # implementation for koalas.
+    person["age_bins"] = bd.cut(person["age"], bins=bins, labels=labels)
 
-    person_ = person_.loc[person_["gender_source_value"].isin(["m", "f"])]
-    group_gender_age = person_.groupby(["gender_source_value", "age_bins"])[
+    # This is equivalent to `person.cache()` for koalas and this is a no-op
+    # for pandas.
+    # Cache the intermediate results of the transformation so that other transformation
+    # runs on top of cached will perform faster.
+    # TODO: try to remove it and check perfs.
+    bd.cache(person)
+
+    group_gender_age = person.groupby(["gender_source_value", "age_bins"])[
         "person_id"
     ].count()
 
     # Convert to pandas to ease plotting.
-    # Since we have aggregated the data, this operation won't crash.
     group_gender_age = bd.to_pandas(group_gender_age)
+
+    group_gender_age["age_bins"] = (
+        person["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
+    )
 
     male = group_gender_age["m"].reset_index()
     female = group_gender_age["f"].reset_index()

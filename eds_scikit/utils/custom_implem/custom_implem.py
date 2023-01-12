@@ -14,6 +14,17 @@ class CustomImplem:
     """
 
     @classmethod
+    def cache(cls, obj: DataFrame, backend=None) -> None:
+        """Run df.cache() for Koalas. No-op for pandas."""
+        if backend is pd:
+            return
+        elif backend is ks:
+            obj.spark.cache()
+            return
+        else:
+            raise ValueError(f"Unknown backend {backend}")
+
+    @classmethod
     def add_unique_id(
         cls,
         obj: DataFrame,
@@ -27,9 +38,7 @@ class CustomImplem:
         elif backend is ks:
             return obj.koalas.attach_id_column(id_type="distributed", column=col_name)
         else:
-            raise NotImplementedError(
-                f"No method 'add_unique_id' is available for backend '{backend}'."
-            )
+            raise ValueError(f"Unknown backend {backend}")
 
     @classmethod
     def cut(

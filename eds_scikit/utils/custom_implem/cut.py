@@ -3,6 +3,7 @@ from typing import Any, Callable
 import numpy as np
 import pandas as pd
 import pandas.core.algorithms as algos
+from databricks import koalas as ks
 from pandas import IntervalIndex, to_datetime, to_timedelta
 from pandas._libs import Timedelta, Timestamp
 from pandas._libs.lib import infer_dtype
@@ -371,7 +372,9 @@ def _bins_to_cuts(
     # hack to bypass "TypeError: 'Series' object does not support item assignment"
     ids = ids.to_frame()
     ids.loc[na_mask] = 0
-    ids = ids[ids.columns[0]]
+    ids.columns = ["key"]
+    ids["key"] -= 1
+    # ids = ids[ids.columns[0]]
 
     if labels:
         if not (labels is None or is_list_like(labels)):
@@ -400,17 +403,16 @@ def _bins_to_cuts(
                 ordered=ordered,
             )
 
-        label_mapping = dict(zip(range(len(labels)), labels))
+        labels = ks.DataFrame({"key": range(len(labels)), "val": labels})
         # x values outside of bins edges (i.e. when ids = 0) are mapped to NaN
-        result = (ids - 1).map(label_mapping)
-        result.fillna(np.nan, inplace=True)
+        result = ids.merge(labels, on="key", how="left")
+        # result = (ids - 1).map(label_mapping)
+        result = result["val"].fillna(np.nan)
 
     else:
-        result = ids - 1
         # hack to bypass "TypeError: 'Series' object does not support item assignment"
-        result = result.to_frame()
-        result.loc[na_mask] = np.nan
-        result = result[result.columns[0]]
+        ids.loc[na_mask] = np.nan
+        result = result["val"]
 
     return result, bins
 
