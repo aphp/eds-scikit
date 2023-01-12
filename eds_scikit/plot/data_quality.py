@@ -109,7 +109,7 @@ def plot_age_pyramid(
 
     group = group.to_frame().reset_index()
     group["age_bins"] = (
-        person["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
+        group["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
     )
 
     male = group.loc[group["gender_source_value"] == "m"].reset_index()
