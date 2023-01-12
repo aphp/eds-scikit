@@ -5,7 +5,7 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import pytest
-from pandas.core.series import Series
+from pandas.core.frame import DataFrame
 from pandas.testing import assert_frame_equal
 
 from eds_scikit.datasets.synthetic.person import load_person
@@ -45,13 +45,13 @@ def test_age_pyramid_output():
     group_gender_age = plot_age_pyramid(
         data.person, savefig=True, return_vector=True, filename=filename
     )
-    assert isinstance(group_gender_age, Series)
+    assert isinstance(group_gender_age, DataFrame)
 
     chart, group_gender_age = plot_age_pyramid(
         data.person, savefig=False, return_vector=True
     )
     assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
-    assert isinstance(group_gender_age, Series)
+    assert isinstance(group_gender_age, DataFrame)
 
     chart = plot_age_pyramid(data.person, savefig=False, return_vector=False)
     assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)

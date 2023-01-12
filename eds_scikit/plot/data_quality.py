@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_integer_dtype
 from pandas.core.frame import DataFrame
-from pandas.core.series import Series
 
 from ..utils.checks import check_columns
 from ..utils.framework import bd
@@ -19,7 +18,7 @@ def plot_age_pyramid(
     filename: str = None,
     savefig: bool = False,
     return_vector: bool = False,
-) -> Tuple[alt.Chart, Series]:
+) -> Tuple[alt.Chart, DataFrame]:
     """Plot an age pyramid from a 'person' pandas DataFrame.
 
     Parameters
@@ -103,19 +102,18 @@ def plot_age_pyramid(
     # TODO: try to remove it and check perfs.
     bd.cache(person)
 
-    group_gender_age = person.groupby(["gender_source_value", "age_bins"])[
-        "person_id"
-    ].count()
+    group = person.groupby(["gender_source_value", "age_bins"])["person_id"].count()
 
     # Convert to pandas to ease plotting.
-    group_gender_age = bd.to_pandas(group_gender_age)
+    group = bd.to_pandas(group)
 
-    group_gender_age["age_bins"] = (
+    group = group.to_frame().reset_index()
+    group["age_bins"] = (
         person["age_bins"].astype(str).str.lower().str.replace("nan", "90+")
     )
 
-    male = group_gender_age["m"].reset_index()
-    female = group_gender_age["f"].reset_index()
+    male = group.loc[group["gender_source_value"] == "m"].reset_index()
+    female = group.loc[group["gender_source_value"] == "f"].reset_index()
 
     left = (
         alt.Chart(male)
@@ -151,9 +149,9 @@ def plot_age_pyramid(
     if savefig:
         chart.save(filename)
         if return_vector:
-            return group_gender_age
+            return group
 
     if return_vector:
-        return chart, group_gender_age
+        return chart, group
 
     return chart
