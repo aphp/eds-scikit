@@ -72,14 +72,13 @@ bioclean(data, start_date="2020-01-01", end_date="2021-12-31")
 
 data.bioclean.head()
 ```
-
-| concepts_set | transformed_unit | transformed_value | max_threshold | min_threshold | outlier | .... |
-| :----------- | :--------------- | :---------------- | :------------ | :------------ | :------ | :--- |
-| Entity A     | x10*9/l          | 115               | 190           | 0             | False   | .... |
-| Entity A     | x10*9/l          | 220               | 190           | 0             | True    | .... |
-| Entity B     | mmol             | 0.45              | 8.548         | 0.542         | True    | .... |
-| Entity B     | mmol             | 4.52              | 8.548         | 0.542         | False   | .... |
-| Entity B     | mmol             | 9.58              | 8.548         | 0.542         | True    | .... |
+| concepts_set               | LOINC_concept_code | LOINC_concept_name | AnaBio_concept_code | AnaBio_concept_name  | transformed_unit | transformed_value | max_threshold | min_threshold | outlier | value_source_value | unit_source_value |
+| :------------------------- | :----------------- | :----------------- | :------------------ | :------------------- | :--------------- | :---------------- | :------------ | :------------ | :------ | :----------------- | :---------------- |
+| EntityA_Blood_Quantitative | 000-0              | EntityA #Bld       | A0000               | EntityA_Blood        | x10*9/l          | 115               | 190           | 0             | False   | 115 x10*9/l        | x10*9/l           |
+| EntityA_Blood_Quantitative | 000-1              | EntityA_Blood_Vol  | A0001               | EntityA_Blood_g/l    | x10*9/l          | 220               | 190           | 0             | True    | 560 g/l            | g/l               |
+| EntityB_Blood_Quantitative | 001-0              | EntityB_Blood      | B0000               | EntityB_Blood_artery | mmol             | 0.45              | 8.548         | 0.542         | True    | 0.45 mmol          | mmol              |
+| EntityB_Blood_Quantitative | 001-0              | EntityB_Blood      | B0001               | EntityB_Blood_vein   | mmol             | 4.52              | 8.548         | 0.542         | False   | 4.52 mmol          | mmol              |
+| EntityB_Blood_Quantitative | 000-1              | EntityB Bld Auto   | B0002               | EntityB_Blood_µg/l   | mmol             | 9.58              | 8.548         | 0.542         | True    | 3587 µg/l          | µg/l              |
 
 For more details, have a look on [the dedicated section](cleaning).
 
