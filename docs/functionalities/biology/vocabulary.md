@@ -15,4 +15,4 @@ The standard vocabulary is a unified vocabulary that allows data analysis on a l
 
 ## Vocabulary flowchart in OMOP
 
-![Image title](../../_static/biology/vocabulary_flowchart.svg)
+![Image title](../../_static/biology/config_map_units.svg)
