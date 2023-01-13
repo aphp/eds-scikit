@@ -119,9 +119,9 @@ def get_concept_src_to_std(
         [Concept Relationship](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept_relationship) OMOP table
     concepts_sets : List[ConceptsSet]
         List of concepts-sets to select
-    standard_concept_regex : dict, optional
-        **EXAMPLE**: `["LOINC", "AnaBio"]`
     standard_terminologies : List[str], optional
+        **EXAMPLE**: `["LOINC", "AnaBio"]`
+    standard_concept_regex : dict, optional
         **EXAMPLE**: `{"LOINC": "[0-9]{2,5}[-][0-9]","AnaBio": "[A-Z][0-9]{4}"}`
 
 
