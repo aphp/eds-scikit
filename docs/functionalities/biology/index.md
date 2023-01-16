@@ -72,6 +72,7 @@ bioclean(data, start_date="2020-01-01", end_date="2021-12-31")
 
 data.bioclean.head()
 ```
+
 | concepts_set               | LOINC_concept_code | LOINC_concept_name | AnaBio_concept_code | AnaBio_concept_name  | transformed_unit | transformed_value | max_threshold | min_threshold | outlier | value_source_value | unit_source_value |
 | :------------------------- | :----------------- | :----------------- | :------------------ | :------------------- | :--------------- | :---------------- | :------------ | :------------ | :------ | :----------------- | :---------------- |
 | EntityA_Blood_Quantitative | 000-0              | EntityA #Bld       | A0000               | EntityA_Blood        | x10*9/l          | 115               | 190           | 0             | False   | 115 x10*9/l        | x10*9/l           |
