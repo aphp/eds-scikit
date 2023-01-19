@@ -205,3 +205,164 @@ standard_concept_regex = {
 
 # make sure we know how to load the tables we want to save
 assert all(table in tables_to_load.keys() for table in default_tables_to_save)
+
+
+# Tables for each base
+i2b2_tables = {
+    "edsprod": {
+        "visit_occurrence": "i2b2_orbis_visit_dim",
+        "note_deid": "i2b2_observation_fact_document",
+        "person": "i2b2_patient_dim",
+        "condition_occurrence": "i2b2_arem_observation_fact_cim10",
+        "procedure_occurrence": "i2b2_arem_observation_fact_ccam",
+        "care_site": "i2b2_observation_fact_ufr",
+        "visit_detail": "i2b2_observation_fact_ufr",
+        "measurement": "i2b2_observation_fact_lab",
+        "fact_relationship": "i2b2_observation_fact_ufr",
+        "concept": "orbis_form_ref_concept_list",
+    },
+    "cse": {
+        "visit_occurrence": "i2b2_visit",
+        "note_deid": "i2b2_observation_doc",
+        "person": "i2b2_patient",
+        "condition_occurrence": "i2b2_observation_cim10",
+        "procedure_occurrence": "i2b2_observation_ccam",
+        "care_site": "i2b2_observation_ufr",
+        "visit_detail": "i2b2_observation_ufr",
+        "measurement": "i2b2_observation_lab",
+        "fact_relationship": "i2b2_observation_ufr",
+        "concept": "i2b2_concept",
+    },
+}
+
+
+# Mapping between i2b2 and OMOP
+i2b2_renaming = {
+    "note_deid": {
+        "instance_num": "note_id",
+        "start_date": "note_datetime",
+        "concept_cd": "note_class_source_value",
+        "encounter_num": "visit_occurrence_id",
+        "patient_num": "person_id",
+        "observation_blob": "note_text",
+        "sourcesystem_cd": "cdm_source",
+        "i2b2_action": "row_status_source_value",
+    },
+    "person": {
+        "patient_num": "person_id",
+        "birth_date": "birth_datetime",
+        "death_date": "death_datetime",
+        "sex_cd": "gender_source_value",
+        "sourcesystem_cd": "cdm_source",
+    },
+    "visit_occurrence": {
+        "patient_num": "person_id",
+        "encounter_num": "visit_occurrence_id",
+        "visit_blob": "visit_occurrence_source_value",
+        "start_date": "visit_start_datetime",
+        "end_date": "visit_end_datetime",
+        "sourcesystem_cd": "cdm_source",
+        "type_visite": "visit_source_value",
+        "mode_entree": "admitted_from_source_value",
+        "mode_sortie": "discharge_to_source_value",
+        "i2b2_action": "row_status_source_value",
+    },
+    "condition_occurrence": {
+        "patient_num": "person_id",
+        "encounter_num": "visit_occurrence_id",
+        "instance_num": "condition_occurrence_id",
+        "start_date": "condition_start_datetime",
+        "concept_cd": "condition_source_value",
+        "tval_char": "condition_status_source_value",
+        "sourcesystem_cd": "cdm_source",
+    },
+    "procedure_occurrence": {
+        "patient_num": "person_id",
+        "encounter_num": "visit_occurrence_id",
+        "instance_num": "procedure_occurrence_id",
+        "start_date": "procedure_start_datetime",
+        "concept_cd": "procedure_source_value",
+        "sourcesystem_cd": "cdm_source",
+    },
+    "care_site": {"location_cd": "care_site_source_value"},
+    "visit_detail": {
+        "instance_num": "visit_detail_id",
+        "encounter_num": "visit_occurrence_id",
+        "location_cd": "care_site_id",
+        "patient_num": "person_id",
+        "start_date": "visit_detail_start_datetime",
+        "end_date": "visit_detail_end_datetime",
+        "sourcesystem_cd": "cdm_source",
+        "i2b2_action": "row_status_source_value",
+    },
+    "measurement": {
+        "patient_num": "person_id",
+        "encounter_num": "visit_occurrence_id",
+        "instance_num": "biology_occurrence_id",
+        "start_date": "biology_start_datetime",
+        "concept_cd": "biology_source_value",
+        "sourcesystem_cd": "cdm_source",
+        "nval_num": "biology_status_source_value",
+    },
+    "fact_relationship": {
+        "location_cd": "care_site_source_value",
+        "sourcesystem_cd": "cdm_source",
+    },
+    "concept": {"concept_cd": "concept_id", "name_char": "concept_name"},
+}
+
+
+sex_cd_mapping = {"W": "f", "M": "m"}
+
+
+dict_code_UFR = {
+    "014": "APR",
+    "028": "ABC",
+    "095": "AVC",
+    "005": "BJN",
+    "009": "BRK",
+    "010": "BCT",
+    "011": "BCH",
+    "033": "BRT",
+    "016": "BRC",
+    "042": "CFX",
+    "019": "CRC",
+    "021": "CCH",
+    "022": "CCL",
+    "029": "ERX",
+    "036": "GCL",
+    "075": "EGP",
+    "038": "HND",
+    "026": "HMN",
+    "099": "HAD",
+    "041": "HTD",
+    "032": "JVR",
+    "044": "JFR",
+    "047": "LRB",
+    "049": "LRG",
+    "053": "LMR",
+    "061": "NCK",
+    "096": "PBR",
+    "066": "PSL",
+    "068": "RPC",
+    "069": "RMB",
+    "070": "RDB",
+    "072": "RTH",
+    "073": "SAT",
+    "079": "SPR",
+    "076": "SLS",
+    "084": "SSL",
+    "087": "TNN",
+    "088": "TRS",
+    "090": "VGR",
+    "064": "VPD",
+    "INC": "INCONNU",
+}
+
+
+visit_type_mapping = {
+    "I": "hospitalisés",
+    "II": "hospitalisation incomplète",
+    "U": "urgence",
+    "O": "consultation externe",
+}
