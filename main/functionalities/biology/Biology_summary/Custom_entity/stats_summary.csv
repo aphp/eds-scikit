@@ -1,0 +1,3 @@
+LOINC_concept_code,AnaBio_concept_code,LOINC_concept_name,AnaBio_concept_name,unit_source_value,count,mean,std,min,25%,50%,75%,max,MAD,max_threshold,min_threshold
+1751-7,C2102,Albumine [Masse/Volume] Sérum/Plasma - Numérique,Albumine_Sérum_Colorimétrie_g/L,g/l,650,30.971,9.399,10.449,28.504,26.629,36.839,43.274,6.75,81.949,0.0
+1751-7,G6616,Albumine [Masse/Volume] Sérum/Plasma - Numérique,Albumine_Sérum_Turbidimétrie_g/L,g/l,1356,25.287,7.81,12.934,27.492,28.8,32.822,57.656,7.074,84.334,0.0
