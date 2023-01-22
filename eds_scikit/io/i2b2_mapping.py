@@ -150,8 +150,12 @@ def get_i2b2_table(
     # concept
     elif table == "concept":
         df = df.withColumn(
-            "concept_id", F.substring(F.col("concept_source_value"), 5, 20) # TODO: use regexp_extract to take substring after ':'
-        ).withColumn("concept_code", F.col("concept_id")).withColumn(
+            "concept_source", F.substring(F.col("concept_source_value"), 5, 20) # TODO: use regexp_extract to take substring after ':'
+        ).withColumn(
+            "concept_id", "concept_source_value"
+        ).withColumn(
+            "concept_code", F.col("concept_id")
+        ).withColumn(
             "vocabulary_id", F.lit("ANABIO")
         )
         
