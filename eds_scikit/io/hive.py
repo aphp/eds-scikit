@@ -123,8 +123,8 @@ class HiveData:  # pragma: no cover
             self.database_source = "cse" if "cse" in self.database_name else "edsprod"
             self.omop_to_i2b2 = settings.i2b2_tables[self.database_source]
             self.i2b2_to_omop = defaultdict(list)
-            for omop_col, i2b2_col in self.omop_to_i2b2.items():
-                self.i2b2_to_omop[i2b2_col].append(omop_col)
+            for omop_table, i2b2_table in self.omop_to_i2b2.items():
+                self.i2b2_to_omop[i2b2_table].append(omop_table)
 
         self.person_ids = self._prepare_person_ids(person_ids)
 
@@ -163,6 +163,8 @@ class HiveData:  # pragma: no cover
                 for omop_table in self.i2b2_to_omop[table_name]:
                     if omop_table in self.tables_to_load.keys():
                         available_tables.add(omop_table)
+        if self.database_type=="I2B2":
+            available_tables = available_tables | set([omop for omop,i2b2 in self.omop_to_i2b2.items() if omop is not None])
         return list(available_tables)
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
