@@ -159,7 +159,7 @@ class HiveData:  # pragma: no cover
                 for omop_table in self.i2b2_to_omop.get(table_name, []):
                     available_tables.add(omop_table)
         if self.database_type == "I2B2":
-            available_tables |= set(self.omop_to_i2b2)
+            available_tables |= set(self.omop_to_i2b2) - {None}
         return list(available_tables)
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
