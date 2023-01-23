@@ -151,7 +151,7 @@ class HiveData:  # pragma: no cover
         ).toPandas()
         available_tables = set()
         session_tables = tables_df["tableName"].drop_duplicates().to_list()
-        session_tables = list(set(session_tables) - set(self.tables_to_load))
+        session_tables = list(set(session_tables) & set(self.tables_to_load))
         for table_name in session_tables:
             if self.database_type == "OMOP":
                 available_tables.add(table_name)
