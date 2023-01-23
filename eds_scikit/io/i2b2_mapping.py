@@ -1,12 +1,11 @@
 from typing import Dict
 
 import pandas as pd
-
+import pyspark.sql.types as T
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.functions import udf as FunctionUDF
-import pyspark.sql.types as T
 
 from .settings import (
     dict_code_UFR,
@@ -36,19 +35,27 @@ def get_i2b2_table(
         Spark DataFrame extracted from the i2b2 database given and converted to OMOP standard.
     """
 
-    table_name = i2b2_tables[db_source][table] # I2B2 table
-    columns = i2b2_renaming.get(table) # Dictionary of omop_col -> i2b2_col
-    
-    if columns is not None: # Can be None if creating a table from scratch (e.g. concept_relationship
-        available_columns = set(spark_session.sql(f"SELECT * FROM {db_name}.{table_name}").columns)
+    i2b2_table_name = i2b2_tables[db_source][table]
+    # Dictionary of omop_col -> i2b2_col
+    columns = i2b2_renaming.get(table)
+
+    # Can be None if creating a table from scratch (e.g. concept_relationship
+    if columns is not None:
+        query = f"describe {db_name}.{i2b2_table_name}"
+        available_columns = set(spark_session.sql(query).toPandas().col_name.tolist())
         if db_source == "cse":
             columns.pop("i2b2_action", None)
-        query = ",".join([f"{i2b2} AS {omop}" for omop, i2b2 in columns.items() if i2b2 in available_columns])
-
-        df = spark_session.sql(f"""SELECT {query} FROM {db_name}.{table_name}""")
+        cols = ", ".join(
+            [
+                f"{i2b2} AS {omop}"
+                for omop, i2b2 in columns.items()
+                if i2b2 in available_columns
+            ]
+        )
+        query = f"SELECT {cols} FROM {db_name}.{i2b2_table_name}"
+        df = spark_session.sql(query)
 
     # Special mapping for i2b2 :
-
     # CIM10
     if table == "condition_occurrence":
         df = df.withColumn(
@@ -144,29 +151,32 @@ def get_i2b2_table(
     # measurement
     elif table == "measurement":
         df = df.withColumn(
-            "measurement_source_concept_id", F.substring(F.col("measurement_source_concept_id"), 5, 20)
+            "measurement_source_concept_id",
+            F.substring(F.col("measurement_source_concept_id"), 5, 20),
         ).withColumn("row_status_source_value", F.lit("Validé"))
-    
+
     # concept
     elif table == "concept":
-        df = df.withColumn(
-            "concept_source_value", F.substring(F.col("concept_source_value"), 5, 20) # TODO: use regexp_extract to take substring after ':'
-        ).withColumn(
-            "concept_id", F.col("concept_source_value")
-        ).withColumn(
-            "concept_code", F.col("concept_id")
-        ).withColumn(
-            "vocabulary_id", F.lit("ANABIO")
+        df = (
+            df.withColumn(
+                "concept_source_value",
+                F.substring(
+                    F.col("concept_source_value"), 5, 20
+                ),  # TODO: use regexp_extract to take substring after ':'
+            )
+            .withColumn("concept_id", F.col("concept_source_value"))
+            .withColumn("concept_code", F.col("concept_id"))
+            .withColumn("vocabulary_id", F.lit("ANABIO"))
         )
-        
+
         # Adding LOINC
         loinc_pd = pd.read_csv("~/Thomas/concept_loinc.csv")
         assert len(loinc_pd.columns) == len(df.columns)
-        loinc_pd = loinc_pd[df.columns] # for columns ordering
+        loinc_pd = loinc_pd[df.columns]  # for columns ordering
         df = df.union(
             spark_session.createDataFrame(loinc_pd, df.schema, verifySchema=False)
         ).cache()
-        
+
     # fact_relationship
     elif table == "fact_relationship":
         # Retrieve UF information
@@ -186,12 +196,14 @@ def get_i2b2_table(
 
     elif table == "concept_relationship":
         df_pd = pd.read_csv("~/Thomas/concept_relationship.csv")
-        schema = T.StructType([
-          T.StructField('concept_id_1', T.StringType(), True),
-          T.StructField('concept_id_2', T.StringType(), True),
-          T.StructField('relationship_id', T.StringType(), True)
-          ])
-        df = spark_session.createDataFrame(df_pd,schema).cache()
+        schema = T.StructType(
+            [
+                T.StructField("concept_id_1", T.StringType(), True),
+                T.StructField("concept_id_2", T.StringType(), True),
+                T.StructField("relationship_id", T.StringType(), True),
+            ]
+        )
+        df = spark_session.createDataFrame(df_pd, schema).cache()
     return df
 
 

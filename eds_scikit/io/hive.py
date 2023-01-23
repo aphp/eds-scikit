@@ -151,20 +151,15 @@ class HiveData:  # pragma: no cover
         ).toPandas()
         available_tables = set()
         session_tables = tables_df["tableName"].drop_duplicates().to_list()
+        session_tables = list(set(session_tables) - set(self.tables_to_load))
         for table_name in session_tables:
-            if (
-                self.database_type == "OMOP"
-                and table_name in self.tables_to_load.keys()
-            ):
+            if self.database_type == "OMOP":
                 available_tables.add(table_name)
-            elif (
-                self.database_type == "I2B2" and table_name in self.i2b2_to_omop.keys()
-            ):
-                for omop_table in self.i2b2_to_omop[table_name]:
-                    if omop_table in self.tables_to_load.keys():
-                        available_tables.add(omop_table)
-        if self.database_type=="I2B2":
-            available_tables = available_tables | set([omop for omop,i2b2 in self.omop_to_i2b2.items() if omop is not None])
+            elif self.database_type == "I2B2":
+                for omop_table in self.i2b2_to_omop.get(table_name, []):
+                    available_tables.add(omop_table)
+        if self.database_type == "I2B2":
+            available_tables |= set(self.omop_to_i2b2)
         return list(available_tables)
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:

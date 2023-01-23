@@ -239,9 +239,12 @@ i2b2_tables = {
 
 # Mapping between i2b2 and OMOP
 i2b2_renaming = {
-    "care_site": {"care_site_source_value": "location_cd"},
+    "care_site": {
+        "care_site_source_value": "location_cd",
+        "care_site_short_name": "care_site_name",
+    },
     "concept": {
-        "concept_id": "concept_cd", 
+        "concept_id": "concept_cd",
         "concept_name": "name_char",
         "concept_source_value": "concept_cd",
     },
