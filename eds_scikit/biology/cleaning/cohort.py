@@ -23,7 +23,7 @@ def select_cohort(
     DataFrame
         Filtered DataFrame with selected patients
     """
-    logger.debug("Selecting cohort...")
+    logger.info("Selecting cohort...")
 
     if isinstance(studied_pop, DataFrame.__args__):
         filtered_measures = measurement.merge(

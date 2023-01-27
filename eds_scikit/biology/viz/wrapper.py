@@ -76,7 +76,7 @@ def plot_biology_summary(
 
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)
-        logger.debug("{} folder has been created.", save_folder_path)
+        logger.info("{} folder has been created.", save_folder_path)
 
     if isinstance(concepts_sets, list) and all(
         isinstance(concepts_set, ConceptsSet) for concepts_set in concepts_sets
@@ -85,7 +85,7 @@ def plot_biology_summary(
             concepts_set_path = "{}/{}".format(save_folder_path, concepts_set.name)
             rmtree(concepts_set_path, ignore_errors=True)
             os.mkdir(concepts_set_path)
-            logger.debug(
+            logger.info(
                 "{}/{} folder has been created.",
                 save_folder_path,
                 concepts_set.name,
@@ -111,7 +111,7 @@ def plot_biology_summary(
                     )
                 )
 
-            logger.debug(
+            logger.info(
                 "{} has been processed and saved in {}/{} folder.",
                 concepts_set.name,
                 save_folder_path,
