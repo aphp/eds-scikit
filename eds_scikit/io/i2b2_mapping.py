@@ -1,11 +1,12 @@
 from typing import Dict
 
-import pandas as pd
 import pyspark.sql.types as T
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.functions import udf as FunctionUDF
+
+from eds_scikit.resources import registry
 
 from .settings import (
     dict_code_UFR,
@@ -170,12 +171,13 @@ def get_i2b2_table(
         )
 
         # Adding LOINC
-        loinc_pd = pd.read_csv("~/Thomas/concept_loinc.csv")
-        assert len(loinc_pd.columns) == len(df.columns)
-        loinc_pd = loinc_pd[df.columns]  # for columns ordering
-        df = df.union(
-            spark_session.createDataFrame(loinc_pd, df.schema, verifySchema=False)
-        ).cache()
+        if "get_additional_i2b2_concept" in registry.data.get_all():
+            loinc_pd = registry.get("data", "get_additional_i2b2_concept")()
+            assert len(loinc_pd.columns) == len(df.columns)
+            loinc_pd = loinc_pd[df.columns]  # for columns ordering
+            df = df.union(
+                spark_session.createDataFrame(loinc_pd, df.schema, verifySchema=False)
+            ).cache()
 
     # fact_relationship
     elif table == "fact_relationship":
@@ -195,7 +197,7 @@ def get_i2b2_table(
         df = df.withColumn("relationship_concept_id", F.lit(46233688))  # Included in
 
     elif table == "concept_relationship":
-        df_pd = pd.read_csv("~/Thomas/concept_relationship.csv")
+        data = []
         schema = T.StructType(
             [
                 T.StructField("concept_id_1", T.StringType(), True),
@@ -203,7 +205,9 @@ def get_i2b2_table(
                 T.StructField("relationship_id", T.StringType(), True),
             ]
         )
-        df = spark_session.createDataFrame(df_pd, schema).cache()
+        if "get_additional_i2b2_concept_relationship" in registry.data.get_all():
+            data = registry.get("data", "get_additional_i2b2_concept_relationship")()
+        df = spark_session.createDataFrame(data, schema).cache()
     return df
 
 
