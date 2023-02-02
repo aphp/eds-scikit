@@ -1,6 +1,6 @@
 # Changelog
 
-## Pending
+## v0.1.3 (2023-02-02)
 
 ### Added
 
