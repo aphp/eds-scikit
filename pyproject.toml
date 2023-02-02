@@ -41,7 +41,7 @@ dependencies = [
     "loguru>=0.6.0, <0.7.0",
     "pypandoc==1.7.5",
     "pyspark==2.4.3",
-    "pyarrow>=0.10, <0.17.0",
+    "pyarrow==0.17.0", #"pyarrow>=0.10, <0.17.0",
     "pretty-html-table>=0.9.15, <0.10.0",
     "catalogue",
     "schemdraw>=0.15.0, <1.0.0",

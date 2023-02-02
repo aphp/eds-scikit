@@ -1,5 +1,12 @@
 # Changelog
 
+## Pending
+
+### Added
+
+- New BackendDispatcher to handle framework-specific functions
+- I2B2 to OMOP connector
+
 ## v0.1.2 (2022-12-05)
 
 ### Added

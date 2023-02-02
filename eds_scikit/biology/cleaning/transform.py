@@ -46,7 +46,7 @@ def transform_measurement(
 
     config = to(get_framework(measurement), config)
 
-    logger.debug("Normalizing units...")
+    logger.info("Normalizing units...")
     clean_measurement = normalize_unit(measurement)
     clean_measurement = clean_measurement.merge(
         config, on=concept_code_cols + ["unit_source_value"]
@@ -66,7 +66,7 @@ def transform_measurement(
     )
     clean_measurement = clean_measurement.drop(columns=["Action", "Coefficient"])
 
-    logger.debug("Flagging outliers...")
+    logger.info("Flagging outliers...")
     clean_measurement["outlier"] = False
     clean_measurement["outlier"] = clean_measurement.outlier.mask(
         (clean_measurement["transformed_value"] > clean_measurement["max_threshold"])
@@ -75,7 +75,7 @@ def transform_measurement(
     )
 
     if clip:
-        logger.debug("Clipping extreme values...")
+        logger.info("Clipping extreme values...")
         clean_measurement[
             "transformed_value"
         ] = clean_measurement.transformed_value.mask(

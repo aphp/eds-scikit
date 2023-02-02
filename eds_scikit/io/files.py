@@ -3,8 +3,6 @@ from typing import List, Tuple
 
 import pandas as pd
 
-from . import settings
-
 
 class PandasData:  # pragma: no cover
     def __init__(
@@ -36,10 +34,9 @@ class PandasData:  # pragma: no cover
     def list_available_tables(folder: str) -> Tuple[List[str], List[str]]:
         available_tables = []
         tables_paths = {}
-        known_omop_tables = settings.tables_to_load.keys()
         for filename in os.listdir(folder):
             table_name, extension = os.path.splitext(filename)
-            if extension == ".parquet" and table_name in known_omop_tables:
+            if extension == ".parquet":
                 abspath = os.path.abspath(os.path.join(folder, filename))
                 tables_paths[table_name] = abspath
                 available_tables.append(table_name)

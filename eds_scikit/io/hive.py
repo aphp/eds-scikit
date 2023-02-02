@@ -123,8 +123,8 @@ class HiveData:  # pragma: no cover
             self.database_source = "cse" if "cse" in self.database_name else "edsprod"
             self.omop_to_i2b2 = settings.i2b2_tables[self.database_source]
             self.i2b2_to_omop = defaultdict(list)
-            for omop_col, i2b2_col in self.omop_to_i2b2.items():
-                self.i2b2_to_omop[i2b2_col].append(omop_col)
+            for omop_table, i2b2_table in self.omop_to_i2b2.items():
+                self.i2b2_to_omop[i2b2_table].append(omop_table)
 
         self.person_ids = self._prepare_person_ids(person_ids)
 
@@ -151,18 +151,15 @@ class HiveData:  # pragma: no cover
         ).toPandas()
         available_tables = set()
         session_tables = tables_df["tableName"].drop_duplicates().to_list()
+        session_tables = list(set(session_tables) & set(self.tables_to_load))
         for table_name in session_tables:
-            if (
-                self.database_type == "OMOP"
-                and table_name in self.tables_to_load.keys()
-            ):
+            if self.database_type == "OMOP":
                 available_tables.add(table_name)
-            elif (
-                self.database_type == "I2B2" and table_name in self.i2b2_to_omop.keys()
-            ):
-                for omop_table in self.i2b2_to_omop[table_name]:
-                    if omop_table in self.tables_to_load.keys():
-                        available_tables.add(omop_table)
+            elif self.database_type == "I2B2":
+                for omop_table in self.i2b2_to_omop.get(table_name, []):
+                    available_tables.add(omop_table)
+        if self.database_type == "I2B2":
+            available_tables |= set(self.omop_to_i2b2) - {None}
         return list(available_tables)
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
@@ -196,12 +193,14 @@ class HiveData:  # pragma: no cover
         else:
             unique_ids = set(list_of_person_ids)
 
-        print(f"Number of unique patients: {len(unique_ids)}")
         schema = StructType([StructField("person_id", LongType(), True)])
 
         filtering_df = self.spark_session.createDataFrame(
             [(int(p),) for p in unique_ids], schema=schema
-        )
+        ).cache()
+
+        print(f"Number of unique patients: {filtering_df.count()}")
+
         return filtering_df
 
     def _read_table(self, table_name, person_ids=None) -> DataFrame:
@@ -264,6 +263,9 @@ class HiveData:  # pragma: no cover
             )
 
         folder = os.path.abspath(folder)
+
+        os.makedirs(folder, mode=0o766, exist_ok=False)
+
         assert os.path.exists(folder) and os.path.isdir(
             folder
         ), f"Folder {folder} not found."
