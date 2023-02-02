@@ -145,6 +145,6 @@ def test_tagging(module, algo):
 
     converted_input_df = framework.to(module, input_df)
 
-    output = tag_emergency_care_site(converted_input_df, algo=algo)
+    output = tag_emergency_care_site(converted_input_df, algo=f"{algo}.test")
 
     assert_equal_no_order(framework.pandas(output), expected_result, check_like=True)
