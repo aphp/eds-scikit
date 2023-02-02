@@ -193,12 +193,14 @@ class HiveData:  # pragma: no cover
         else:
             unique_ids = set(list_of_person_ids)
 
-        print(f"Number of unique patients: {len(unique_ids)}")
         schema = StructType([StructField("person_id", LongType(), True)])
 
         filtering_df = self.spark_session.createDataFrame(
             [(int(p),) for p in unique_ids], schema=schema
-        )
+        ).cache()
+
+        print(f"Number of unique patients: {filtering_df.count()}")
+
         return filtering_df
 
     def _read_table(self, table_name, person_ids=None) -> DataFrame:
@@ -261,6 +263,9 @@ class HiveData:  # pragma: no cover
             )
 
         folder = os.path.abspath(folder)
+
+        os.makedirs(folder, mode=0o766, exist_ok=False)
+
         assert os.path.exists(folder) and os.path.isdir(
             folder
         ), f"Folder {folder} not found."
