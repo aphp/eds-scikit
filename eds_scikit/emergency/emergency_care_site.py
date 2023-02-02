@@ -102,8 +102,8 @@ def from_mapping(
     function_name = "get_care_site_emergency_mapping"
     if version is not None:
         function_name += f".{version}"
+
     mapping = registry.get("data", function_name=function_name)()
-    print(mapping)
 
     # Getting the right framework
     fw = framework.get_framework(care_site)

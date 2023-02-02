@@ -5,8 +5,8 @@ from eds_scikit.utils import framework
 from eds_scikit.utils.test_utils import assert_equal_no_order, make_df
 
 # Dictionnary of the form {algo_name : [input_df, expected_output_df]}
-algos = dict(
-    from_mapping=[
+algos = {
+    "from_mapping.test": [
         make_df(
             """
     care_site_id,care_site_source_value
@@ -36,7 +36,7 @@ algos = dict(
 """
         ),
     ],
-    from_regex_on_care_site_description=[
+    "from_regex_on_care_site_description": [
         make_df(
             """
             care_site_name
@@ -134,7 +134,7 @@ algos = dict(
         """
         ),
     ],
-)
+}
 
 
 @pytest.mark.parametrize("module", ["pandas", "koalas"])
@@ -145,6 +145,6 @@ def test_tagging(module, algo):
 
     converted_input_df = framework.to(module, input_df)
 
-    output = tag_emergency_care_site(converted_input_df, algo=f"{algo}.test")
+    output = tag_emergency_care_site(converted_input_df, algo=algo)
 
     assert_equal_no_order(framework.pandas(output), expected_result, check_like=True)
