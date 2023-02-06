@@ -93,6 +93,11 @@ def get_consultation_dates(
         .merge(note[["note_id", "visit_occurrence_id"]], on="note_id", how="inner")
     )
 
+    # Remove timezone errors from spark
+    dates_per_note["CONSULTATION_DATE"] = dates_per_note["CONSULTATION_DATE"].astype(
+        str
+    )
+
     dates_per_visit = (
         dates_per_note.groupby(["visit_occurrence_id", "CONSULTATION_DATE"])[
             "CONSULTATION_DATE_EXTRACTION"
@@ -108,10 +113,20 @@ def get_consultation_dates(
         dates_per_visit.reset_index(), col_name="TMP_CONSULTATION_ID"
     )
 
-    return clean_consultations(
+    # Convert back to datetime format
+    dates_per_visit["CONSULTATION_DATE"] = bd.to_datetime(
+        dates_per_visit["CONSULTATION_DATE"], errors="coerce"
+    )
+
+    dates_per_visit = clean_consultations(
         dates_per_visit,
         max_timedelta,
     )
+
+    # Equivalent to df.spark.cache() for ks.DataFrame
+    bd.cache(dates_per_visit)
+
+    return dates_per_visit
 
 
 def get_consultation_dates_structured(
@@ -241,7 +256,6 @@ def clean_consultations(
     dates,
     max_timedelta,
 ):
-    print(dates.columns)
     # Cartesian product
     merged = dates.merge(
         dates,
