@@ -63,3 +63,16 @@ class CustomImplem:
             duplicates,
             ordered,
         )
+
+    @classmethod
+    def cache(cls, df, backend=None):
+        if backend is pd:
+            # no-op
+            return
+        elif backend is ks:
+            df.spark.cache()
+            return
+        else:
+            raise NotImplementedError(
+                f"No method 'cache' is available for backend '{backend}'."
+            )

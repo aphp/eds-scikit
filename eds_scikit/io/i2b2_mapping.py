@@ -112,7 +112,7 @@ def get_i2b2_table(
         )
 
     # Documents
-    elif table == "note":
+    elif table.startswith("note"):
         df = df.withColumn(
             "note_class_source_value",
             F.substring(F.col("note_class_source_value"), 4, 100),
