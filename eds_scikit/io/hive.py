@@ -10,6 +10,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
+from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
 
 DataFrame = Union[koalas.DataFrame, pandas.DataFrame]
@@ -230,7 +231,9 @@ class HiveData:  # pragma: no cover
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
 
-        return df.to_koalas()
+        df = clean_dates(df)
+
+        return df.cache().to_koalas()
 
     def persist_tables_to_folder(
         self,
@@ -293,8 +296,7 @@ class HiveData:  # pragma: no cover
     ) -> None:
         assert os.path.isabs(filepath)
         print(f"writing {filepath}")
-        spark_filepath = "file://" + filepath
-        df.to_parquet(spark_filepath, mode="overwrite")
+        df.to_pandas().to_parquet(filepath)
 
     def __getattr__(self, table_name: str) -> DataFrame:
         if table_name in self._tables:
