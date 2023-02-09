@@ -53,6 +53,12 @@ def create_config_from_stats(
             )
             pass
 
+    if "care_site_short_name" in my_custom_config.columns:
+        # Keep only the row computed from every care site
+        my_custom_config = my_custom_config[
+            my_custom_config.care_site_short_name == "ALL"
+        ]
+
     os.makedirs(CONFIGS_PATH, exist_ok=True)
 
     my_custom_config.to_csv("{}/{}.csv".format(CONFIGS_PATH, config_name), index=False)
@@ -83,6 +89,6 @@ def list_all_configs() -> List[str]:
     """
     registered = list(registry.data.get_all().keys())
     configs = [
-        r.split(".")[-1] for r in registered if r.startswith["get_biology_config"]
+        r.split(".")[-1] for r in registered if r.startswith("get_biology_config")
     ]
     return configs
