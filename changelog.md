@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.4 (2023-02-09)
+
+### Added
+
+- Allow saving DB locally in client or cluster mode
+- Add data cleaning function to handle incorrect datetime in spark
+- Filter biology config on care site
+
+### Fixed
+
+- Consultations date for OMOP & I2B2
+
+
 ## v0.1.3 (2023-02-02)
 
 ### Added
