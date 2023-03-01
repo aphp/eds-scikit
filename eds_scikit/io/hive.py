@@ -10,6 +10,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
+from .arrow import arrowConnector
 from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
 
@@ -127,7 +128,7 @@ class HiveData:  # pragma: no cover
             for omop_table, i2b2_table in self.omop_to_i2b2.items():
                 self.i2b2_to_omop[i2b2_table].append(omop_table)
 
-        self.person_ids = self._prepare_person_ids(person_ids)
+        self.person_ids, self.person_ids_df = self._prepare_person_ids(person_ids)
 
         tmp_tables_to_load = settings.tables_to_load
         if isinstance(tables_to_load, dict):
@@ -184,15 +185,20 @@ class HiveData:  # pragma: no cover
             self.available_tables = self.list_available_tables()
             logger.info("Table {} has been added", table_name)
 
-    def _prepare_person_ids(self, list_of_person_ids) -> Optional[SparkDataFrame]:
+    def _prepare_person_ids(
+        self, person_ids, return_df: bool = True
+    ) -> Optional[SparkDataFrame]:
 
-        if list_of_person_ids is None:
-            return None
-        elif hasattr(list_of_person_ids, "to_list"):
+        if person_ids is None:
+            return (None, None) if return_df else None
+        elif hasattr(person_ids, "to_list"):
             # Useful when list_of_person_ids are Koalas (or Pandas) Series
-            unique_ids = set(list_of_person_ids.to_list())
+            unique_ids = set(person_ids.to_list())
         else:
-            unique_ids = set(list_of_person_ids)
+            unique_ids = set(person_ids)
+
+        if not return_df:
+            return unique_ids
 
         schema = StructType([StructField("person_id", LongType(), True)])
 
@@ -200,9 +206,9 @@ class HiveData:  # pragma: no cover
             [(int(p),) for p in unique_ids], schema=schema
         ).cache()
 
-        print(f"Number of unique patients: {filtering_df.count()}")
+        logger.info(f"Number of unique patients: {filtering_df.count()}")
 
-        return filtering_df
+        return unique_ids, filtering_df
 
     def _read_table(self, table_name, person_ids=None) -> DataFrame:
         if table_name not in self.available_tables:
@@ -282,21 +288,22 @@ class HiveData:  # pragma: no cover
         # to disk. Set a limit on the number of patients in the cohort ?
 
         if person_ids is not None:
-            person_ids = self._prepare_person_ids(person_ids)
+            person_ids = self._prepare_person_ids(person_ids, return_df=False)
+
+        connector = arrowConnector(
+            sql=self.spark_session.sql,
+            database_name=self.database_name,
+        )
 
         for table in tables:
             filepath = os.path.join(folder, f"{table}.parquet")
-            df = self._read_table(table, person_ids=person_ids)
-            self._write_df_to_parquet(df, filepath)
-
-    def _write_df_to_parquet(
-        self,
-        df: DataFrame,
-        filepath: str,
-    ) -> None:
-        assert os.path.isabs(filepath)
-        print(f"writing {filepath}")
-        df.to_pandas().to_parquet(filepath)
+            logger.info(f"Writing table {table} at {filepath}")
+            df = connector.get_pd_table(table_name=table, person_ids=person_ids)
+            df.to_parquet(
+                filepath,
+                allow_truncated_timestamps=True,
+                coerce_timestamps="ms",
+            )
 
     def __getattr__(self, table_name: str) -> DataFrame:
         if table_name in self._tables:
