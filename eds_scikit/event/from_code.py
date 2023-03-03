@@ -124,8 +124,9 @@ def event_from_code(
 
     if type(mask) != bool:  # We have a Series mask
         event = event[mask]
-
-    event.loc[:, "concept"] = concept
+    
+    event["concept"] = concept # .loc doesn't work with empty DataFrame
+    
     return event.rename(columns={columns["code_source_value"]: "value"})[
         [
             "person_id",
