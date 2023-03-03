@@ -11,7 +11,6 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
-from .arrow import arrowConnector
 from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
 
