@@ -2,7 +2,8 @@ import os
 from collections import defaultdict
 from typing import Dict, Iterable, List, Optional, Union
 
-import pandas
+import pandas as pd
+import pyarrow as pa
 from databricks import koalas
 from loguru import logger
 from pyspark.sql import DataFrame as SparkDataFrame
@@ -14,7 +15,7 @@ from .arrow import arrowConnector
 from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
 
-DataFrame = Union[koalas.DataFrame, pandas.DataFrame]
+DataFrame = Union[koalas.DataFrame, pd.DataFrame]
 
 
 class HiveData:  # pragma: no cover
@@ -290,20 +291,53 @@ class HiveData:  # pragma: no cover
         if person_ids is not None:
             person_ids = self._prepare_person_ids(person_ids, return_df=False)
 
-        connector = arrowConnector(
-            sql=self.spark_session.sql,
-            database_name=self.database_name,
+        # Get database path
+        database_path = (
+            self.spark_session.sql(f"DESCRIBE DATABASE EXTENDED {self.database_name}")
+            .filter("database_description_item=='Location'")
+            .collect()[0]
+            .database_description_value
         )
 
         for table in tables:
             filepath = os.path.join(folder, f"{table}.parquet")
-            logger.info(f"Writing table {table} at {filepath}")
-            df = connector.get_pd_table(table_name=table, person_ids=person_ids)
+            table_path = os.path.join(database_path, table)
+            df = self.get_table_from_parquet(table_path)
             df.to_parquet(
                 filepath,
                 allow_truncated_timestamps=True,
                 coerce_timestamps="ms",
             )
+            logger.info(f"Table {table} saved at {filepath}")
+
+    def get_table_from_parquet(
+        self,
+        table_path,
+        types_mapper=None,
+        integer_object_nulls=True,
+        date_as_object=False,
+        person_ids=None,
+    ):
+
+        # Import the parquet as ParquetDataset
+        parquet_ds = pa.parquet.ParquetDataset(table_path, use_legacy_dataset=False)
+
+        fragments = getattr(parquet_ds, "fragments", parquet_ds.pieces)
+
+        filtered = []
+        for fragment in fragments:
+            table = fragment.to_table()
+            # Import to pandas the fragment
+            df = table.to_pandas(
+                types_mapper=types_mapper,
+                integer_object_nulls=integer_object_nulls,
+                date_as_object=date_as_object,
+            )
+            if (person_ids is not None) and ("person_id" in df.columns):
+                df = df[df.person_id.isin(person_ids)]
+            filtered.append(df)
+
+        return pd.concat(filtered)
 
     def __getattr__(self, table_name: str) -> DataFrame:
         if table_name in self._tables:
