@@ -3,6 +3,9 @@
 __author__ = """eds_scikit"""
 __version__ = "0.1.4"
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning) # Remove pyarrow DeprecatedWarning
+
 import importlib
 import os
 import sys
@@ -11,6 +14,7 @@ from packaging import version
 from typing import List, Tuple
 from pathlib import Path
 
+import pandas as pd
 import pyarrow
 import pyspark
 from loguru import logger
@@ -20,7 +24,11 @@ from pyspark.sql import SparkSession
 import eds_scikit.biology  # noqa: F401 --> To register functions
 
 logger.remove()
-logger.add(sys.stderr, level="INFO")
+fmt = "[eds-scikit] - {name}:{function} - {message}"
+logger.add(sys.stdout, format=fmt)
+
+# Remove SettingWithCopyWarning
+pd.options.mode.chained_assignment = None 
 
 logger.warning(
     """

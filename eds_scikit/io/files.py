@@ -3,8 +3,10 @@ from typing import List, Tuple
 
 import pandas as pd
 
+from .base import BaseData
 
-class PandasData:  # pragma: no cover
+
+class PandasData(BaseData):  # pragma: no cover
     def __init__(
         self,
         folder: str,
@@ -25,6 +27,8 @@ class PandasData:  # pragma: no cover
         (100, 10)
 
         """
+        
+        super().__init__()
 
         self.available_tables, self.tables_paths = self.list_available_tables(folder)
         if not self.available_tables:
