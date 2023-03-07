@@ -27,7 +27,7 @@ class PandasData(BaseData):  # pragma: no cover
         (100, 10)
 
         """
-        
+
         super().__init__()
 
         self.available_tables, self.tables_paths = self.list_available_tables(folder)

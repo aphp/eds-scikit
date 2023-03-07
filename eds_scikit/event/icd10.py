@@ -42,7 +42,7 @@ def conditions_from_icd10(
 
         - A single value
         - A list or set of values.
-        
+
         Default filetring is condition_status_source_value in {"DP", "DAS", "DR"}
     date_min : Optional[datetime]
         The minimum code datetime to keep. **Depends on the `date_from_visit` flag**
@@ -63,11 +63,9 @@ def conditions_from_icd10(
         - `visit_occurrence_id` : the `visit_occurrence_id` from the visit which contains the ICD-10 code.
     """  # noqa: E501
 
-    DEFAULT_FILTERING = dict(
-        condition_status_source_value={"DP", "DAS", "DR"}
-    )
+    DEFAULT_FILTERING = dict(condition_status_source_value={"DP", "DAS", "DR"})
     DEFAULT_FILTERING.update(additional_filtering)
-    
+
     condition_columns = dict(
         code_source_value="condition_source_value",
         code_start_datetime="condition_start_datetime",

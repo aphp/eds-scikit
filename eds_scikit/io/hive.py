@@ -11,10 +11,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
-from .arrow import arrowConnector
+from .base import BaseData
 from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
-from .base import BaseData
 
 DataFrame = Union[koalas.DataFrame, pd.DataFrame]
 
@@ -107,9 +106,9 @@ class HiveData(BaseData):  # pragma: no cover
         ```
 
         """
-        
+
         super().__init__()
-        
+
         if columns_to_load and not tables_to_load:
             tables_to_load = columns_to_load
             # TODO: Deprecated since which version? Will be removed in which version?

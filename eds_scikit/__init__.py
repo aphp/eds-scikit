@@ -4,7 +4,10 @@ __author__ = """eds_scikit"""
 __version__ = "0.1.4"
 
 import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning) # Remove pyarrow DeprecatedWarning
+
+warnings.simplefilter(
+    action="ignore", category=FutureWarning
+)  # Remove pyarrow DeprecatedWarning
 
 import importlib
 import os
@@ -28,7 +31,7 @@ fmt = "[eds-scikit] - {name}:{function} - {message}"
 logger.add(sys.stdout, format=fmt)
 
 # Remove SettingWithCopyWarning
-pd.options.mode.chained_assignment = None 
+pd.options.mode.chained_assignment = None
 
 logger.warning(
     """
