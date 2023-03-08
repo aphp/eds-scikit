@@ -1,0 +1,121 @@
+Metadata-Version: 2.1
+Name: EDS-Scikit
+Version: 0.1.1
+Summary: OMOP data analysis in Python
+Author-email: Thomas Petitjean <thomas.petitjean@aphp.fr>, Adam Remaki <adam.remaki@aphp.fr>, Vincent Maladière <vincent.maladiere-ext@aphp.fr>, Romain Bey <romain.bey@aphp.fr>, Gaël Varoquaux <gael.varoquaux@inria.fr>
+License: Copyright (c) 2021, Assistance Publique - Hôpitaux de Paris, Inria
+        
+        Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+        
+        3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Project-URL: Source Code, https://github.com/aphp/EDS-Scikit
+Project-URL: Documentation, https://aphp.github.io/EDS-Scikit
+Project-URL: Bug Tracker, https://github.com/aphp/EDS-Scikit/issues
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: Unix
+Requires-Python: <3.8,>=3.7.1
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: doc
+Provides-Extra: aphp
+License-File: LICENSE
+
+<div align="center">
+
+<p align="center">
+  <a href="https://aphp.github.io/EDS-Scikit/">
+    <img src="https://github.com/aphp/EDS-Scikit/raw/main/docs/_static/scikit_logo_text.png" width="30%" onerror="this.style.display='none'">
+  </a>
+</p>
+
+#
+
+<p align="center">
+<a href="https://aphp.github.io/EDS-Scikit/" target="_blank">
+    <img src="https://img.shields.io/badge/docs-passed-brightgreen" alt="Documentation">
+</a>
+<a href="https://github.com/aphp/EDS-Scikit/commits/main" target="_blank">
+    <img src="https://github.com/aphp/EDS-Scikit/actions/workflows/testing.yml/badge.svg" alt="Pipeline Status">
+</a>
+<a href="https://codecov.io/github/aphp/EDS-Scikit?branch=main">
+    <img src="https://codecov.io/github/aphp/EDS-Scikit/coverage.svg?branch=main" alt="Coverage" >
+</a>
+<a href="https://github.com/psf/black" target="_blank">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Black">
+</a>
+
+<a href="https://www.python.org/" target="_blank">
+    <img src="https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen" alt="Supported Python versions">
+</a>
+</p>
+</div>
+
+
+EDS-Scikit is a tool to assist data scientists working on the AP-HP's Clinical Data Warehouse. It is specifically targeted for OMOP-standardized data. It main goals are to:
+
+- Ease access and analysis of data
+- Allow a better transfer of knowledge between projects
+- Improve research reproduciblity
+
+## Development
+
+This library is developed and maintained by the core team of AP-HP’s Clinical Data Warehouse (EDS) with the strong support of [Inria's SODA team](https://team.inria.fr/soda/).
+
+## How to use
+
+Please check the [online documentation](https://aphp.github.io/EDS-Scikit/) for more informations. You will find
+- Detailed explanation of the project goal and working principles
+- A complete API documentation
+- Various Jupyter Notebooks describing how to use various functionnalities of SciKit-EDS
+- And more !
+## Requirements
+EDS-Scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/2.4.8/index.html) which requires:
+
+- Python ~3.7.1
+- Java 8
+## Installation
+
+You can install EDS-Scikit via `pip`:
+
+```bash
+pip install eds-scikit
+```
+
+:warning: If you work in AP-HP's ecosystem (EDS), please install additionnal features via:
+
+```bash
+pip install "eds-scikit[aphp]"
+```
+
+You can now import the library via
+
+```python
+import eds_scikit
+```
+### Contributing
+
+- You want to help on the project ?
+- You developped an interesting feature and you think it could benefit other by being integrated in the library ?
+- You found a bug ?
+- You have a question about the library ?
+- ...
+
+Please check our [contributing guidelines](https://aphp.github.io/EDS-Scikit/contributing/).
+
+### Acknowledgment
+
+We would like to thank the following funders:
+- Assistance Publique – Hôpitaux de Paris
+- AP-HP Foundation

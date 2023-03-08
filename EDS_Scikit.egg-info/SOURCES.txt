@@ -1,0 +1,9 @@
+LICENSE
+README.md
+pyproject.toml
+EDS_Scikit.egg-info/PKG-INFO
+EDS_Scikit.egg-info/SOURCES.txt
+EDS_Scikit.egg-info/dependency_links.txt
+EDS_Scikit.egg-info/requires.txt
+EDS_Scikit.egg-info/top_level.txt
+eds_scikit/__init__.py
