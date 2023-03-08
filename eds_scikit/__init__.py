@@ -26,20 +26,33 @@ from pyspark.sql import SparkSession
 
 import eds_scikit.biology  # noqa: F401 --> To register functions
 
-logger.remove()
-fmt = "[eds-scikit] - {name}:{function} - {message}"
-logger.add(sys.stdout, format=fmt)
+import eds_scikit.utils.logging
+
+# logger.remove()
+# fmt = (
+#     "<b>"
+#     "<light-blue>[eds-scikit]</light-blue>"
+#     "- "
+#     "{name}:"
+#     "{extra[classname]}{extra[sep]}"
+#     "{function}"
+#     "</b>"
+#     "\n {message}"
+# )
+# logger.add(sys.stdout, format=fmt, colorize=True)
+
+# # Default logging: no classname, and consequently
+# # no separator between classname and function name
+# logger.configure(extra={"classname": "", "sep":""})
 
 # Remove SettingWithCopyWarning
 pd.options.mode.chained_assignment = None
 
 logger.warning(
-    """
-    To improve performances when using Spark and Koalas, please call `eds_scikit.improve_performances()`
-    This function optimally configures Spark. Use it as:
-    `spark, sc, sql = eds_scikit.improve_performances()`
-    The functions respectively returns a SparkSession, a SparkContext and an sql method
-    """
+    """To improve performances when using Spark and Koalas, please call `eds_scikit.improve_performances()`
+This function optimally configures Spark. Use it as:
+`spark, sc, sql = eds_scikit.improve_performances()`
+The functions respectively returns a SparkSession, a SparkContext and an sql method"""
 )
 
 BASE_DIR = Path(__file__).parent

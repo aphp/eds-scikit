@@ -1,4 +1,4 @@
-from pandas import pd
+import pandas as pd
 
 from ..base import Phenotype
 

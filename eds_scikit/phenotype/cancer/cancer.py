@@ -1,14 +1,16 @@
-from pandas import pd
+from pathlib import Path
+
+import pandas as pd
 
 from ..base import Phenotype
 
-ICD10_CODES_DF = pd.read_csv("./codes.csv")
+ICD10_CODES_DF = pd.read_csv(Path(__file__).parent / "codes.csv")
 
 
 class CancerFromICD10(Phenotype):
 
     ICD10_CODES = {
-        cancer_type: {"prefix": df.ICD10_Code.to_list()}
+        cancer_type: {"prefix": df.code.to_list()}
         for cancer_type, df in ICD10_CODES_DF.groupby("Cancer type")
     }
     ALL_CANCER_TYPES = list(ICD10_CODES.keys())

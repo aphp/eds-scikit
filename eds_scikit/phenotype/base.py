@@ -60,6 +60,7 @@ class Phenotype:
             if name is not None
             else self.__class__.__name__
         )
+        self.logger = logger.bind(classname=self.name, sep=".")
 
     def __repr__(self):
         return f"{self.name} : " + self.features.__repr__()
@@ -93,7 +94,7 @@ class Phenotype:
         if source not in ["icd10", "ccam"]:
             raise ValueError(f"source should be either 'icd10' or 'ccam', got {source}")
 
-        logger.info(f"Getting {source.upper()} features...")
+        self.logger.info(f"Getting {source.upper()} features...")
 
         from_code_func = (
             conditions_from_icd10 if (source == "icd10") else procedures_from_ccam
@@ -117,7 +118,7 @@ class Phenotype:
 
         self.features[output_feature] = df
 
-        logger.info(
+        self.logger.info(
             f"{source.upper()} features stored in self.features['{output_feature}'] (N = {len(df)})"
         )
 
@@ -179,7 +180,7 @@ class Phenotype:
 
         self.features[output_feature] = group_visit
 
-        logger.info(
+        self.logger.info(
             f"Aggregation from {input_feature} stored in self.features['{output_feature}'] "
             f"(N = {len(group_visit)})"
         )
@@ -242,7 +243,7 @@ class Phenotype:
         output_feature = output_feature or f"{input_feature_1}_{how}_{input_feature_2}"
         self.features[output_feature] = result
 
-        logger.info(
+        self.logger.info(
             f"Aggregation from {input_feature_1} {how} {input_feature_1} stored in self.features['{output_feature}'] "
             f"(N = {len(result)})"
         )
@@ -257,20 +258,20 @@ class Phenotype:
             self.get()
 
         if key is None:
-            logger.info("No key provided: Using last added feature.")
+            self.logger.info("No key provided: Using last added feature.")
             return self._set(self.features.last())
 
         else:
             assert (
                 key in self.features
             ), f"Key {key} not found in features. Available {self.features}"
-            logger.info("Using feature {key}")
+            self.logger.info("Using feature {key}")
             return self._set(self.features[key])
 
     def _set(self, result: DataFrame):
         setattr(self.data.computed, self.name, result)
-        logger.info(
-            f"Phenotype available under data.computed.{self.name} (N={len(result)})"
+        self.logger.info(
+            f"<light-green>Phenotype available under data.computed.{self.name} (N={len(result)})</light-green>"
         )
 
         return self.data
