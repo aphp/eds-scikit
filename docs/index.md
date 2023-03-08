@@ -1,7 +1,3 @@
----
-ᴴₒᴴₒᴴₒ: true
----
-
 <p align="center">
   <img src="_static/scikit_logo_text.png" alt="eds-scikit" width="50%">
 </p>

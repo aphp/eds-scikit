@@ -1,6 +1,9 @@
 from pathlib import Path
+from typing import List, Optional
 
 import pandas as pd
+
+from eds_scikit.io import BaseData
 
 from ..base import Phenotype
 
@@ -9,20 +12,47 @@ ICD10_CODES_DF = pd.read_csv(Path(__file__).parent / "codes.csv")
 
 class CancerFromICD10(Phenotype):
 
+    """
+    Phenotyping visits or patients using ICD10 cancer codes
+    """
+
     ICD10_CODES = {
         cancer_type: {"prefix": df.code.to_list()}
         for cancer_type, df in ICD10_CODES_DF.groupby("Cancer type")
     }
+    """
+    For each cancer type, contains a set of corresponding ICD10 codes.
+    """
+
     ALL_CANCER_TYPES = list(ICD10_CODES.keys())
+    """
+    Available cancer types.
+    """
 
     def __init__(
         self,
-        data,
-        cancer_types=None,
+        data: BaseData,
+        cancer_types: Optional[List[str]] = None,
         level: str = "patient",
         subphenotype: bool = True,
         threshold: int = 1,
     ):
+        """
+        Parameters
+        ----------
+        data : BaseData
+            A BaseData object
+        cancer_types :  Optional[List[str]]
+            Optional list of cancer types to use for phenotyping
+        level : str
+            On which level to do the aggregation,
+            either "patient" or "visit"
+        subphenotype : bool
+            Whether the threshold should apply to the phenotype
+            ("phenotype" column) of the subphenotype ("subphenotype" column)
+        threshold : int
+            Minimal number of *events* (which definition depends on the `level` value)
+        """
         super().__init__(data)
 
         if cancer_types is None:
@@ -45,7 +75,9 @@ class CancerFromICD10(Phenotype):
         self.threshold = threshold
 
     def get(self):
-
+        """
+        Fetch all necessary features and perform aggregation
+        """
         self.add_code_feature(
             output_feature="icd10",
             source="icd10",

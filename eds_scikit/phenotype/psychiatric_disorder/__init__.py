@@ -1,1 +1,1 @@
-from .psychiatric_disorder import PsychiatricDisorder
+from .psychiatric_disorder import PsychiatricDisorderFromICD10

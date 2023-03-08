@@ -1,1 +1,1 @@
-from .suicide_attempt import SuicideAttempts
+from .suicide_attempt import SuicideAttemptFromICD10

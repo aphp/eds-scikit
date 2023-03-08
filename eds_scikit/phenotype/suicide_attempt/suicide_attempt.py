@@ -1,7 +1,19 @@
+from eds_scikit.io import BaseData
+
 from ..base import Phenotype
 
 
-class SuicideAttempts(Phenotype):
+class SuicideAttemptFromICD10(Phenotype):
+
+    """
+    Phenotyping visits related to a suicide attempt.
+    Two algorithms are available:
+
+    - "X60-X84": The visit needs to have at least one ICD10 code in the range
+    X60 to X84
+    - "Haguenoer2008": The visit needs to have at least one ICD10 DAS code in the range
+    X60 to X84, and a ICD10 DP code in the range S to T
+    """
 
     ICD10_CODES = {
         "X60-X84": dict(
@@ -20,19 +32,34 @@ class SuicideAttempts(Phenotype):
             additional_filtering=dict(condition_status_source_value="DP"),
         ),
     }
+    """
+    ICD10 codes used by both algorithms
+    """
 
     def __init__(
         self,
-        data,
+        data: BaseData,
         algo: str = "Haguenoer2008",
     ):
+        """
+        Parameters
+        ----------
+        data : BaseData
+            A BaseData object
+        algo : str, optional
+            The name of the algorithm.
+            Should be either "Haguenoer2008" or "X60-X84"
+        """
         super().__init__(
             data,
-            name=f"SuicideAttempts_{algo}",
+            name=f"SuicideAttemptFromICD10_{algo}",
         )
         self.algo = algo
 
     def get(self):
+        """
+        Fetch and aggregate features
+        """
 
         self.add_code_feature(
             output_feature="X60-X84",
@@ -50,6 +77,11 @@ class SuicideAttempts(Phenotype):
             )
 
         elif self.algo == "Haguenoer2008":
+
+            self.features["X60-X84"] = self.features["X60-X84"][
+                self.features["X60-X84"]["condition_source_value"] == "DAS"
+            ]
+
             self.add_code_feature(
                 output_feature="DP",
                 source="icd10",

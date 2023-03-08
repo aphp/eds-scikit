@@ -1,8 +1,6 @@
 import os
-from functools import lru_cache
 
 import pandas as pd
-from markdown.core import Markdown
 
 
 def define_env(env):
@@ -32,19 +30,11 @@ def define_env(env):
         return df.to_markdown(index=False)
 
     @env.macro
-    @lru_cache(maxsize=32)
-    def get_rendered():
-        config = env.variables["config"]
-        plugin = config["plugins"]["mkdocstrings"]
-        plugin.md = Markdown(
-            extensions=config["markdown_extensions"],
-            extension_configs=config["mdx_configs"],
-        )
-        handler = plugin.handlers.get_handler("python")
-        handler.renderer._update_env(plugin.md, plugin.handlers._config)  # noqa: WPS437
-        data = handler.collector.collect("eds_scikit.event", {})
-        # handler.renderer.render(data, {}).to_pickle("./HANDLER.pkl")
-        return handler.renderer.render(data, {})
+    def values_from_csv(csv_path: str, col: str, indent: str = ""):
+        df = pd.read_csv(csv_path)
+        values = df[col].drop_duplicates().sort_values().to_list()
+
+        return "".join(f"\n{indent}- {value}" for value in values)
 
     @env.macro
     def test_fct(x):

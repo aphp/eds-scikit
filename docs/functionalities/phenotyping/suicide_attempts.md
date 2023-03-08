@@ -1,8 +1,8 @@
-# Suicide attempts
+# Suicide attempt
 
 ## Presentation
 
-We provide the [`tag_suicide_attempt()`][eds_scikit.event.tag_suicide_attempt] function to extract suicide attempts from ICD-10 codes.
+We provide the [`tag_suicide_attempt()`][eds_scikit.event.tag_suicide_attempt] function to extract suicide attempt from ICD-10 codes.
 
 ## The `tag_suicide_attempt()` function
 
