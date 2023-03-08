@@ -61,13 +61,13 @@ class SuicideAttemptFromICD10(Phenotype):
         Fetch and aggregate features
         """
 
-        self.add_code_feature(
-            output_feature="X60-X84",
-            source="icd10",
-            codes=self.ICD10_CODES["X60-X84"]["codes"],
-        )
-
         if self.algo == "X60-X84":
+
+            self.add_code_feature(
+                output_feature="X60-X84",
+                source="icd10",
+                codes=self.ICD10_CODES["X60-X84"]["codes"],
+            )
 
             self.agg_single_feature(
                 "X60-X84",
@@ -78,9 +78,12 @@ class SuicideAttemptFromICD10(Phenotype):
 
         elif self.algo == "Haguenoer2008":
 
-            self.features["X60-X84"] = self.features["X60-X84"][
-                self.features["X60-X84"]["condition_source_value"] == "DAS"
-            ]
+            self.add_code_feature(
+                output_feature="X60-X84",
+                source="icd10",
+                codes=self.ICD10_CODES["X60-X84"]["codes"],
+                additional_filtering=dict(condition_status_source_value="DAS"),
+            )
 
             self.add_code_feature(
                 output_feature="DP",
