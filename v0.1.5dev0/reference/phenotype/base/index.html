@@ -2492,8 +2492,8 @@ check out the new <a href="../../../functionalities/phenotyping/base/#the-phenot
 </li>
         
           <li class="md-nav__item">
-  <a href="#eds_scikit.phenotype.base.Phenotype.get" class="md-nav__link">
-    get()
+  <a href="#eds_scikit.phenotype.base.Phenotype.compute" class="md-nav__link">
+    compute()
   </a>
   
 </li>
@@ -3417,8 +3417,8 @@ check out the new <a href="../../../functionalities/phenotyping/base/#the-phenot
 </li>
         
           <li class="md-nav__item">
-  <a href="#eds_scikit.phenotype.base.Phenotype.get" class="md-nav__link">
-    get()
+  <a href="#eds_scikit.phenotype.base.Phenotype.compute" class="md-nav__link">
+    compute()
   </a>
   
 </li>
@@ -4578,12 +4578,12 @@ stored in self.features[output_feature]</p>
 
 
 
-<h4 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.get">
-        <span class="doc doc-object-name doc-function-name">get</span>
+<h4 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.compute">
+        <span class="doc doc-object-name doc-function-name">compute</span>
 
 
 </h4>
-<div class="highlight"><pre><span></span><code><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">compute</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4596,7 +4596,7 @@ stored in self.features[output_feature]</p>
 <span class="normal">326</span>
 <span class="normal">327</span>
 <span class="normal">328</span>
-<span class="normal">329</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="normal">329</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fetch all necessary features and perform aggregation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -4719,7 +4719,7 @@ If no key is provided, uses the last added feature</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No key provided: Using last added feature.&quot;</span><span class="p">)</span>
@@ -4764,18 +4764,18 @@ If no key is provided, uses the last added feature</p>
 
       <details class="quote">
         <summary>Source code in <code>eds_scikit/phenotype/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
-<span class="normal">414</span>
-<span class="normal">415</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">415</span>
 <span class="normal">416</span>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
 <span class="normal">420</span>
-<span class="normal">421</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">to_valid_variable_name</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">to_valid_variable_name</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a string to a valid variable name</span>
 <span class="sd">    &quot;&quot;&quot;</span>

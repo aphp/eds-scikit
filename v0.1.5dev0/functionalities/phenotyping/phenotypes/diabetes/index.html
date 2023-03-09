@@ -1248,7 +1248,7 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <h1 id="diabetes">Diabetes</h1>
 <h2 id="presentation">Presentation</h2>
 <p>We provide the <a href="../../../../reference/phenotype/diabetes/diabetes/#eds_scikit.phenotype.diabetes.diabetes.DiabetesFromICD10">DiabetesFromICD10</a> class to extract visits or patients with ICD10 codes related to diabetes</p>
-<details class="algos">
+<details class="note">
 <summary>Available diabetes types</summary>
 <ul>
 <li>DIABETES_IN_PREGNANCY</li>
@@ -1258,6 +1258,10 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <li>OTHER_DIABETES_MELLITUS</li>
 </ul>
 </details>
+<div class="admonition algos">
+<p class="admonition-title">How it works</p>
+<p>The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with cancer.</p>
+</div>
 <h2 id="usage">Usage</h2>
 <p>By default, all diabetes types mentionned above are extracted</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">eds_scikit.io</span> <span class="kn">import</span> <span class="n">HiveData</span>

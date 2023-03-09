@@ -2718,8 +2718,8 @@ check out the new <a href="../../../../functionalities/phenotyping/base/#the-phe
 </li>
         
           <li class="md-nav__item">
-  <a href="#eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.get" class="md-nav__link">
-    get()
+  <a href="#eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.compute" class="md-nav__link">
+    compute()
   </a>
   
 </li>
@@ -3363,8 +3363,8 @@ check out the new <a href="../../../../functionalities/phenotyping/base/#the-phe
 </li>
         
           <li class="md-nav__item">
-  <a href="#eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.get" class="md-nav__link">
-    get()
+  <a href="#eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.compute" class="md-nav__link">
+    compute()
   </a>
   
 </li>
@@ -3577,12 +3577,12 @@ Should be either "Haguenoer2008" or "X60-X84"</p>
 
 
 
-<h4 class="doc doc-heading" id="eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.get">
-        <span class="doc doc-object-name doc-function-name">get</span>
+<h4 class="doc doc-heading" id="eds_scikit.phenotype.suicide_attempt.suicide_attempt.SuicideAttemptFromICD10.compute">
+        <span class="doc doc-object-name doc-function-name">compute</span>
 
 
 </h4>
-<div class="highlight"><pre><span></span><code><span class="n">get</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">compute</span><span class="p">()</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3634,18 +3634,21 @@ Should be either "Haguenoer2008" or "X60-X84"</p>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fetch and aggregate features</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_code_feature</span><span class="p">(</span>
-        <span class="n">output_feature</span><span class="o">=</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">,</span>
-        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;icd10&quot;</span><span class="p">,</span>
-        <span class="n">codes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ICD10_CODES</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">algo</span> <span class="o">==</span> <span class="s2">&quot;X60-X84&quot;</span><span class="p">:</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_code_feature</span><span class="p">(</span>
+            <span class="n">output_feature</span><span class="o">=</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="s2">&quot;icd10&quot;</span><span class="p">,</span>
+            <span class="n">codes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ICD10_CODES</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">agg_single_feature</span><span class="p">(</span>
             <span class="s2">&quot;X60-X84&quot;</span><span class="p">,</span>
@@ -3656,9 +3659,12 @@ Should be either "Haguenoer2008" or "X60-X84"</p>
 
     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">algo</span> <span class="o">==</span> <span class="s2">&quot;Haguenoer2008&quot;</span><span class="p">:</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">][</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">][</span><span class="s2">&quot;condition_source_value&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;DAS&quot;</span>
-        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_code_feature</span><span class="p">(</span>
+            <span class="n">output_feature</span><span class="o">=</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="s2">&quot;icd10&quot;</span><span class="p">,</span>
+            <span class="n">codes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ICD10_CODES</span><span class="p">[</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">],</span>
+            <span class="n">additional_filtering</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">condition_status_source_value</span><span class="o">=</span><span class="s2">&quot;DAS&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">add_code_feature</span><span class="p">(</span>
             <span class="n">output_feature</span><span class="o">=</span><span class="s2">&quot;DP&quot;</span><span class="p">,</span>

@@ -1258,7 +1258,7 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <h1 id="psychiatric-disorder">Psychiatric disorder</h1>
 <h2 id="presentation">Presentation</h2>
 <p>We provide the <a href="../../../../reference/phenotype/psychiatric_disorder/psychiatric_disorder/#eds_scikit.phenotype.psychiatric_disorder.psychiatric_disorder.PsychiatricDisorderFromICD10">PsychiatricDisorderFromICD10</a> class to extract visits or patients with ICD10 codes related to psychiatric disorders</p>
-<details class="algos">
+<details class="note">
 <summary>Available disorders</summary>
 <ul>
 <li>Anxiety Disorders</li>
@@ -1279,6 +1279,11 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <li>Trauma and Stressor-Related Disorders</li>
 </ul>
 </details>
+<div class="admonition algos">
+<p class="admonition-title">How it works</p>
+<p>The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with psychiatric disorder.
+The code terminology comes from this article<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+</div>
 <h2 id="usage">Usage</h2>
 <p>By default, all cancer types mentionned above are extracted</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">eds_scikit.io</span> <span class="kn">import</span> <span class="n">HiveData</span>
@@ -1417,7 +1422,7 @@ either "patient" or "visit"</p>
 <hr/>
 <ol>
 <li id="fn:1">
-<p>Alba Gutiérrez-Sacristán, Arnaud Serret-Larmande, Meghan R. Hutch, Carlos Sáez, Bruce J. Aronow, Surbhi Bhatnagar, Clara-Lea Bonzel, Tianxi Cai, Batsal Devkota, David A. Hanauer, Ne Hooi Will Loh, Yuan Luo, Bertrand Moal, Taha Mohseni Ahooyi, Wanjikũ F. M. Njoroge, Gilbert S. Omenn, L. Nelson Sanchez-Pinto, Andrew M. South, Francesca Sperotto, Amelia L. M. Tan, Deanne M. Taylor, Guillaume Verdy, Shyam Visweswaran, Zongqi Xia, Janet Zahner, Paul Avillach, Florence T. Bourgeois, and Consortium for Clinical Characterization of COVID-19 by EHR (4CE). Hospitalizations Associated With Mental Health Conditions Among Adolescents in the US and France During the COVID-19 Pandemic. <em>JAMA Network Open</em>, 5(12):e2246548–e2246548, 12 2022. URL: <a href="https://doi.org/10.1001/jamanetworkopen.2022.46548">https://doi.org/10.1001/jamanetworkopen.2022.46548</a>, <a href="https://arxiv.org/abs/https://jamanetwork.com/journals/jamanetworkopen/articlepdf/2799437/gutirrezsacristn_2022_oi_221314_1670339179.72376.pdf">arXiv:https://jamanetwork.com/journals/jamanetworkopen/articlepdf/2799437/gutirrezsacristn\_2022\_oi\_221314\_1670339179.72376.pdf</a>, <a href="https://doi.org/10.1001/jamanetworkopen.2022.46548">doi:10.1001/jamanetworkopen.2022.46548</a>. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>Alba Gutiérrez-Sacristán, Arnaud Serret-Larmande, Meghan R. Hutch, Carlos Sáez, Bruce J. Aronow, Surbhi Bhatnagar, Clara-Lea Bonzel, Tianxi Cai, Batsal Devkota, David A. Hanauer, Ne Hooi Will Loh, Yuan Luo, Bertrand Moal, Taha Mohseni Ahooyi, Wanjikũ F. M. Njoroge, Gilbert S. Omenn, L. Nelson Sanchez-Pinto, Andrew M. South, Francesca Sperotto, Amelia L. M. Tan, Deanne M. Taylor, Guillaume Verdy, Shyam Visweswaran, Zongqi Xia, Janet Zahner, Paul Avillach, Florence T. Bourgeois, and Consortium for Clinical Characterization of COVID-19 by EHR (4CE). Hospitalizations Associated With Mental Health Conditions Among Adolescents in the US and France During the COVID-19 Pandemic. <em>JAMA Network Open</em>, 5(12):e2246548–e2246548, 12 2022. URL: <a href="https://doi.org/10.1001/jamanetworkopen.2022.46548">https://doi.org/10.1001/jamanetworkopen.2022.46548</a>, <a href="https://arxiv.org/abs/https://jamanetwork.com/journals/jamanetworkopen/articlepdf/2799437/gutirrezsacristn_2022_oi_221314_1670339179.72376.pdf">arXiv:https://jamanetwork.com/journals/jamanetworkopen/articlepdf/2799437/gutirrezsacristn\_2022\_oi\_221314\_1670339179.72376.pdf</a>, <a href="https://doi.org/10.1001/jamanetworkopen.2022.46548">doi:10.1001/jamanetworkopen.2022.46548</a>. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
 </div>

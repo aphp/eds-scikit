@@ -1258,7 +1258,7 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <h1 id="cancer">Cancer</h1>
 <h2 id="presentation">Presentation</h2>
 <p>We provide the <a href="../../../../reference/phenotype/cancer/cancer/#eds_scikit.phenotype.cancer.cancer.CancerFromICD10">CancerFromICD10</a> class to extract visits or patients with cancer related ICD10 code</p>
-<details class="algos">
+<details class="note">
 <summary>Available cancer types</summary>
 <ul>
 <li>Anus</li>
@@ -1302,6 +1302,11 @@ check out the new <a href="../../base/#the-phenotype-class">Phenotype</a> module
 <li>Thyroid</li>
 </ul>
 </details>
+<div class="admonition algos">
+<p class="admonition-title">How it works</p>
+<p>The algorithm works by looking for either DP ou DR ICD10 codes associated with cancer.
+The code terminology comes from this article<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+</div>
 <h2 id="usage">Usage</h2>
 <p>By default, all cancer types mentionned above are extracted</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">eds_scikit.io</span> <span class="kn">import</span> <span class="n">HiveData</span>
@@ -1436,7 +1441,7 @@ either "patient" or "visit"</p>
 <hr/>
 <ol>
 <li id="fn:1">
-<p>Emmanuelle Kempf, Sonia Priou, Guillaume Lamé, Christel Daniel, Ali Bellamine, Daniele Sommacale, Yazid Belkacemi, Romain Bey, Gilles Galula, Namik Taright, and others. Impact of two waves of sars-cov2 outbreak on the number, clinical presentation, care trajectories and survival of patients newly referred for a colorectal cancer: a french multicentric cohort study from a large group of university hospitals. <em>International Journal of Cancer</em>, 150(10):1609–1618, 2022. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>Emmanuelle Kempf, Sonia Priou, Guillaume Lamé, Christel Daniel, Ali Bellamine, Daniele Sommacale, Yazid Belkacemi, Romain Bey, Gilles Galula, Namik Taright, and others. Impact of two waves of sars-cov2 outbreak on the number, clinical presentation, care trajectories and survival of patients newly referred for a colorectal cancer: a french multicentric cohort study from a large group of university hospitals. <em>International Journal of Cancer</em>, 150(10):1609–1618, 2022. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
 </div>
