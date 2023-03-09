@@ -6,8 +6,12 @@
 
 We provide the [CancerFromICD10][eds_scikit.phenotype.cancer.cancer.CancerFromICD10] class to extract visits or patients with cancer related ICD10 code
 
-??? algos "Available cancer types"
+??? note "Available cancer types"
     {{ values_from_csv(csv_path, col="Cancer type", indent="\t") }}
+
+!!! algos "How it works"
+    The algorithm works by looking for either DP ou DR ICD10 codes associated with cancer.
+    The code terminology comes from this article[@kempf2022impact]
 
 ## Usage
 

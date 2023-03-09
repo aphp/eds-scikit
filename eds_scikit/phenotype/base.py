@@ -322,7 +322,7 @@ class Phenotype:
         )
         return self
 
-    def get(self, **kwargs):
+    def compute(self, **kwargs):
         """
         Fetch all necessary features and perform aggregation
         """
@@ -345,7 +345,7 @@ class Phenotype:
         """
 
         if not self.features:
-            self.get()
+            self.compute()
 
         if key is None:
             self.logger.info("No key provided: Using last added feature.")
@@ -381,11 +381,16 @@ class Phenotype:
 
     def cite(self):
 
-        base_path = Path(inspect.getfile(self.__class__)).parent
+        if self.__class__.__module__ == "__main__":
+            base_path = Path.cwd()
+        else:
+            base_path = Path(inspect.getfile(self.__class__)).parent
         citation_path = list(base_path.glob("*.bib"))
 
         if not citation_path:
-            raise FileNotFoundError(f"No .bib file was found for {self.name}")
+            raise FileNotFoundError(
+                f"No .bib file was found for {self.name} in {base_path}"
+            )
 
         algo = getattr(self, "algo", None)
 

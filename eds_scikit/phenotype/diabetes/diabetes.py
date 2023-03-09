@@ -68,7 +68,7 @@ class DiabetesFromICD10(Phenotype):
         self.subphenotype = subphenotype
         self.threshold = threshold
 
-    def get(self):
+    def compute(self):
         """
         Fetch all necessary features and perform aggregation
         """

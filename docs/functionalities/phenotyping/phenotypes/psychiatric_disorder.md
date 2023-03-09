@@ -6,8 +6,12 @@
 
 We provide the [PsychiatricDisorderFromICD10][eds_scikit.phenotype.psychiatric_disorder.psychiatric_disorder.PsychiatricDisorderFromICD10] class to extract visits or patients with ICD10 codes related to psychiatric disorders
 
-??? algos "Available disorders"
+??? note "Available disorders"
     {{ values_from_csv(csv_path, col="disorder_group", indent="\t") }}
+
+!!! algos "How it works"
+    The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with psychiatric disorder.
+    The code terminology comes from this article[@2022_covid_4CE]
 
 ## Usage
 

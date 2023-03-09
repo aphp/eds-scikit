@@ -56,7 +56,7 @@ class SuicideAttemptFromICD10(Phenotype):
         )
         self.algo = algo
 
-    def get(self):
+    def compute(self):
         """
         Fetch and aggregate features
         """

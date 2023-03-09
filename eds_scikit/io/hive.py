@@ -305,13 +305,13 @@ class HiveData(BaseData):  # pragma: no cover
         for table in tables:
             filepath = os.path.join(folder, f"{table}.parquet")
             table_path = os.path.join(database_path, table)
-            df = self.get_table_from_parquet(table_path)
+            df = self.get_table_from_parquet(table_path, person_ids=person_ids)
             df.to_parquet(
                 filepath,
                 allow_truncated_timestamps=True,
                 coerce_timestamps="ms",
             )
-            logger.info(f"Table {table} saved at {filepath}")
+            logger.info(f"Table {table} saved at {filepath} (N={len(df)})")
 
     def get_table_from_parquet(
         self,

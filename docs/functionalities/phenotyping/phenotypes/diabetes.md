@@ -6,8 +6,11 @@
 
 We provide the [DiabetesFromICD10][eds_scikit.phenotype.diabetes.diabetes.DiabetesFromICD10] class to extract visits or patients with ICD10 codes related to diabetes
 
-??? algos "Available diabetes types"
+??? note "Available diabetes types"
     {{ values_from_csv(csv_path, col="Diabetes type", indent="\t") }}
+
+!!! algos "How it works"
+    The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with cancer.
 
 ## Usage
 
