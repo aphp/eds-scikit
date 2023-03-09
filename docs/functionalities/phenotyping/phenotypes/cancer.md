@@ -11,7 +11,7 @@ We provide the [CancerFromICD10][eds_scikit.phenotype.cancer.cancer.CancerFromIC
 
 !!! algos "How it works"
     The algorithm works by looking for either DP ou DR ICD10 codes associated with cancer.
-    The code terminology comes from this article[@kempf2022impact]
+    The codes terminology comes from this article[@kempf2022impact] and is available under `CancerFromICD10.ICD10_CODES`
 
 ## Usage
 

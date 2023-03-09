@@ -22,6 +22,7 @@ data = sa.to_data()
 The final phenotype DataFrame is then available at `data.computed["SuicideAttemptFromICD10_Haguenoer2008"]` or `data.computed["SuicideAttemptFromICD10_X60_X84"]` depending on the used algorithm
 
 !!! algos "Availables algorithms (values for `"algo"`)"
+    The ICD10 codes are available under `SuicideAttemptFromICD10.ICD10_CODES`
 
 	=== "'X60-X84'"
 

@@ -11,7 +11,7 @@ We provide the [PsychiatricDisorderFromICD10][eds_scikit.phenotype.psychiatric_d
 
 !!! algos "How it works"
     The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with psychiatric disorder.
-    The code terminology comes from this article[@2022_covid_4CE]
+    The codes terminology comes from this article[@2022_covid_4CE] and is available under `PsychiatricDisorderFromICD10.ICD10_CODES`
 
 ## Usage
 

@@ -11,6 +11,7 @@ We provide the [DiabetesFromICD10][eds_scikit.phenotype.diabetes.diabetes.Diabet
 
 !!! algos "How it works"
     The algorithm works by looking for either DP, DR or DAS ICD10 codes associated with cancer.
+    Those codes are available under `DiabetesFromICD10.ICD10_CODES`
 
 ## Usage
 
