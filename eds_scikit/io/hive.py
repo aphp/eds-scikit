@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import Dict, Iterable, List, Optional, Union
 
 import pandas as pd
-import pyarrow as pa
+import pyarrow.parquet as pq
 from databricks import koalas
 from loguru import logger
 from pyspark.sql import DataFrame as SparkDataFrame
@@ -11,13 +11,14 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
 from . import settings
+from .base import BaseData
 from .data_quality import clean_dates
 from .i2b2_mapping import get_i2b2_table
 
 DataFrame = Union[koalas.DataFrame, pd.DataFrame]
 
 
-class HiveData:  # pragma: no cover
+class HiveData(BaseData):  # pragma: no cover
     def __init__(
         self,
         database_name: str,
@@ -41,21 +42,22 @@ class HiveData:  # pragma: no cover
         ----------
         database_name : str
             The name of you database in Hive. Ex: "cse_82727572"
+
         spark_session : pyspark.sql.SparkSession
-            If None, a SparkSession will be retrieved or  created via `SparkSession.builder.enableHiveSupport().getOrCreate()`
+            If None, a SparkSession will be retrieved or
+            created via `SparkSession.builder.enableHiveSupport().getOrCreate()`
+
         person_ids : Optional[Iterable[int]]
             An iterable of `person_id` that is used to define a subset of the database.
-        tables_to_load : Optional[Union[Dict[str, Optional[List[str]]], List[str]]]
-            By default (i.e. if ``tables_to_load is None``), loaded tables and columns loaded in each table are those listed
-            [here][eds_scikit.io.settings.tables_to_load].
-            A dictionnary can be provided to complement those default settings. Keys should be table names to load,
-            and values should be:
-            - ``None`` to load all columns
-            - A list of columns to load (or to add to the default loaded columns if the table is already loaded by default)
-            A list of the tables names can also be provided to load all columns of each table.
-        columns_to_load : Optional[Union[Dict[str, Optional[List[str]]], List[str]]]
+
+        tables_to_load : dict, default=None
             *deprecated*
-        database_type: Optional[str] = 'OMOP'. Must be 'OMOP' or 'I2B2'
+
+        columns_to_load : dict, default=None
+            *deprecated*
+
+        database_type: str, default='OMOP'
+            Must be 'OMOP' or 'I2B2'
             Whether to use the native OMOP schema or to convert I2B2 inputs to OMOP.
 
         Attributes
@@ -63,6 +65,7 @@ class HiveData:  # pragma: no cover
         person : koalas dataframe
             Hive data for table `person` as a koalas dataframe.
             Other OMOP tables can also be accessed as attributes
+
         available_tables : list of str
             names of OMOP tables that can be accessed as attributes with this
             HiveData object.
@@ -105,12 +108,15 @@ class HiveData:  # pragma: no cover
         ```
 
         """
-        if columns_to_load and not tables_to_load:
-            tables_to_load = columns_to_load
-            # TODO: Deprecated since which version? Will be removed in which version?
+        if columns_to_load is not None:
             logger.warning(
-                "'columns_to_load' is a deprecated argument. Please use 'tables_to_load' instead."
+                "'columns_to_load' is a deprecated argument and won't be used."
             )
+        if tables_to_load is not None:
+            logger.warning(
+                "'tables_to_load' is a deprecated argument and won't be used."
+            )
+
         self.spark_session = (
             spark_session or SparkSession.builder.enableHiveSupport().getOrCreate()
         )
@@ -130,42 +136,32 @@ class HiveData:  # pragma: no cover
 
         self.person_ids, self.person_ids_df = self._prepare_person_ids(person_ids)
 
-        tmp_tables_to_load = settings.tables_to_load
-        if isinstance(tables_to_load, dict):
-            for table_name, columns in tables_to_load.items():
-                if columns is None:
-                    tmp_tables_to_load[table_name] = None
-                else:
-                    tmp_tables_to_load[table_name] = list(
-                        set(tmp_tables_to_load.get(table_name, []) + columns)
-                    )
-        elif isinstance(tables_to_load, list):
-            for table_name in tables_to_load:
-                tmp_tables_to_load[table_name] = None
-
-        self.tables_to_load = tmp_tables_to_load
+        self._tables_to_load = settings.tables_to_load
         self.available_tables = self.list_available_tables()
         self._tables = {}
+
+    @property
+    def tables_to_load(self):
+        logger.warning("'tables_to_load' is a deprecated attribute")
+        return self._tables_to_load
 
     def list_available_tables(self) -> List[str]:
         tables_df = self.spark_session.sql(
             f"SHOW TABLES IN {self.database_name}"
         ).toPandas()
-        available_tables = set()
         session_tables = tables_df["tableName"].drop_duplicates().to_list()
-        session_tables = list(set(session_tables) & set(self.tables_to_load))
-        for table_name in session_tables:
-            if self.database_type == "OMOP":
-                available_tables.add(table_name)
-            elif self.database_type == "I2B2":
-                for omop_table in self.i2b2_to_omop.get(table_name, []):
-                    available_tables.add(omop_table)
         if self.database_type == "I2B2":
-            available_tables |= set(self.omop_to_i2b2) - {None}
-        return list(available_tables)
+            available_tables = set()
+            for table_name in session_tables:
+                omop_tables = self.i2b2_to_omop.get(table_name, [])
+                for omop_table in omop_tables:
+                    available_tables.add(omop_table)
+            available_tables = list(available_tables)
+        else:
+            available_tables = session_tables
+        return available_tables
 
     def rename_table(self, old_table_name: str, new_table_name: str) -> None:
-        # TODO: use _tables dict instead of self to store tables?
         if old_table_name in self.available_tables:
             setattr(self, new_table_name, getattr(self, old_table_name))
             self.available_tables.remove(old_table_name)
@@ -299,9 +295,10 @@ class HiveData:  # pragma: no cover
         )
 
         for table in tables:
-            filepath = os.path.join(folder, f"{table}.parquet")
             table_path = os.path.join(database_path, table)
-            df = self.get_table_from_parquet(table_path)
+            df = self.get_table_from_parquet(table_path, person_ids=person_ids)
+
+            filepath = os.path.join(folder, f"{table}.parquet")
             df.to_parquet(
                 filepath,
                 allow_truncated_timestamps=True,
@@ -317,11 +314,10 @@ class HiveData:  # pragma: no cover
         date_as_object=False,
         person_ids=None,
     ):
-
         # Import the parquet as ParquetDataset
-        parquet_ds = pa.parquet.ParquetDataset(table_path, use_legacy_dataset=False)
+        parquet_ds = pq.ParquetDataset(table_path, use_legacy_dataset=False)
 
-        fragments = getattr(parquet_ds, "fragments", parquet_ds.pieces)
+        fragments = parquet_ds.pieces
 
         filtered = []
         for fragment in fragments:
@@ -333,7 +329,7 @@ class HiveData:  # pragma: no cover
                 date_as_object=date_as_object,
             )
             if (person_ids is not None) and ("person_id" in df.columns):
-                df = df[df.person_id.isin(person_ids)]
+                df = df.loc[df.person_id.isin(person_ids)]
             filtered.append(df)
 
         return pd.concat(filtered)
@@ -348,6 +344,3 @@ class HiveData:  # pragma: no cover
             return table
         else:
             raise AttributeError(f"Table '{table_name}' unknown")
-
-    def __dir__(self) -> List[str]:
-        return list(set(list(super().__dir__()) + self.available_tables))

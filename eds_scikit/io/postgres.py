@@ -4,8 +4,10 @@ import pandas as pd
 import pgpasslib
 import psycopg2 as pg
 
+from .base import BaseData
 
-class PostgresData:  # pragma: no cover
+
+class PostgresData(BaseData):  # pragma: no cover
     """PostgreSQL interface to run SQL queries.
 
     This uses the file `~/.pgpass` to find the password and extra connection infos.
