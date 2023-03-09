@@ -214,7 +214,9 @@ class HiveData(BaseData):  # pragma: no cover
 
         return unique_ids, filtering_df
 
-    def _read_table(self, table_name, person_ids=None) -> DataFrame:
+    def _read_table(
+        self, table_name, person_ids=None, to_koalas: bool = True
+    ) -> DataFrame:
         if table_name not in self.available_tables:
             raise ValueError(
                 f"{table_name} is not available. "
@@ -243,13 +245,16 @@ class HiveData(BaseData):  # pragma: no cover
 
         df = clean_dates(df)
 
-        return df.cache().to_koalas()
+        if to_koalas:
+            return df.cache().to_koalas()
+        return df.cache()
 
     def persist_tables_to_folder(
         self,
         folder: str,
         person_ids: Optional[Iterable[int]] = None,
         tables: List[str] = None,
+        overwrite: bool = False,
     ) -> None:
         """Save OMOP tables as parquet files in a given folder.
 
@@ -264,6 +269,7 @@ class HiveData(BaseData):  # pragma: no cover
             :py:data:`~eds_scikit.io.settings.default_tables_to_save`
 
         """
+
         if tables is None:
             tables = settings.default_tables_to_save
 
@@ -277,7 +283,7 @@ class HiveData(BaseData):  # pragma: no cover
 
         folder = os.path.abspath(folder)
 
-        os.makedirs(folder, mode=0o766, exist_ok=False)
+        os.makedirs(folder, mode=0o766, exist_ok=not overwrite)
 
         assert os.path.exists(folder) and os.path.isdir(
             folder
@@ -301,17 +307,37 @@ class HiveData(BaseData):  # pragma: no cover
             .collect()[0]
             .database_description_value
         )
+        for i, table in enumerate(tables):
+            if self.database_type == "I2B2":
 
-        for table in tables:
+                user = os.environ["USER"]
+                table_df = self._read_table(table)
+                if "person_id" in table_df.columns:
+                    table_df = table_df[table_df.person_id.isin(person_ids)]
+                # table = self.omop_to_i2b2[table] # rename to  OMOP
+                table_path = os.path.join(f"hdfs://bbsedsi/user/{user}", table)
+
+                try:
+                    table_df.to_parquet(
+                        table_path, mode="overwrite" if overwrite else "error"
+                    )
+                except:  # noqa E722
+                    logger.info("Using existing ")
+                    pass  # data already exists
+            else:
+                table_path = os.path.join(database_path, table)
+
             filepath = os.path.join(folder, f"{table}.parquet")
-            table_path = os.path.join(database_path, table)
+
             df = self.get_table_from_parquet(table_path, person_ids=person_ids)
             df.to_parquet(
                 filepath,
                 allow_truncated_timestamps=True,
                 coerce_timestamps="ms",
             )
-            logger.info(f"Table {table} saved at {filepath} (N={len(df)})")
+            logger.info(
+                f"({i+1}/{len(tables)}) Table {table} saved at {filepath} (N={len(df)})."
+            )
 
     def get_table_from_parquet(
         self,
