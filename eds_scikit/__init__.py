@@ -57,6 +57,7 @@ def koalas_options() -> None:
 
     ks.set_option("compute.default_index_type", "distributed")
     ks.set_option("compute.ops_on_diff_frames", True)
+    ks.set_option("display.max_rows", 50)
 
 
 def set_env_variables() -> None:

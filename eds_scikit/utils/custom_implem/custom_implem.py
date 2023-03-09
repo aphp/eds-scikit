@@ -70,7 +70,11 @@ class CustomImplem:
             # no-op
             return
         elif backend is ks:
-            df.spark.cache()
+            # Cache using count(), a simple action that trigger the
+            # eager mode and effectively cache the dataframe.
+            # See this link for more details about the count trick:
+            # https://stackoverflow.com/a/44002485
+            df.spark.cache().count()
             return
         else:
             raise NotImplementedError(
