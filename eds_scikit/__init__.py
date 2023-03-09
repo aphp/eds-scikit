@@ -1,7 +1,7 @@
 """Top-level package for eds_scikit."""
 
 __author__ = """eds_scikit"""
-__version__ = "0.1.4"
+__version__ = "0.1.5.dev"
 
 import warnings
 
