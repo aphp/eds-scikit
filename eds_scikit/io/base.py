@@ -1,7 +1,7 @@
-from box import Box
+from utils.bunch import Bunch
 
 
-class ComputedTables(Box):
+class ComputedTables(Bunch):
     def __init__(self):
         super().__init__()
 
@@ -17,3 +17,11 @@ class ComputedTables(Box):
 class BaseData:
     def __init__(self):
         self.computed = ComputedTables()
+
+    def __repr__(self):
+        return (
+            f"{self.__class__.__name__}\n"
+            "=========\n"
+            f"Tables: {self.list_available_tables()}\n"
+            f"Computed: {self.computed}"
+        )

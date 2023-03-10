@@ -48,7 +48,6 @@ dependencies = [
     "ipython>=7.32.0, <8.0.0",
     "packaging==21.3",
     "tomli==2.0.1",
-    "python-box==7.0.1",
 ]
 dynamic = ['version']
 
