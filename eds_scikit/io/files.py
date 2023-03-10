@@ -29,7 +29,7 @@ class PandasData(BaseData):  # pragma: no cover
         """
         super().__init__()
         self.folder = folder
-        self.available_tables = self.list_available_tables(folder)
+        self.available_tables = self.list_available_tables()
         self.tables_paths = self.get_table_path()
         if not self.available_tables:
             raise ValueError(f"Folder {folder} does not contain any parquet omop data.")
