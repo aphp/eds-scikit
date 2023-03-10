@@ -1,4 +1,4 @@
-from utils.bunch import Bunch
+from ..utils.bunch import Bunch
 
 
 class ComputedTables(Bunch):
