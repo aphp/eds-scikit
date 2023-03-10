@@ -1,7 +1,7 @@
+from typing import Any
+
 import pandas as pd
 from databricks import koalas as ks
-
-from eds_scikit.utils.typing import DataFrame
 
 from .cut import cut
 
@@ -16,10 +16,10 @@ class CustomImplem:
     @classmethod
     def add_unique_id(
         cls,
-        obj: DataFrame,
+        obj: Any,
         col_name: str = "id",
         backend=None,
-    ) -> DataFrame:
+    ) -> Any:
         """Add an ID column for koalas or pandas."""
         if backend is pd:
             obj[col_name] = range(obj.shape[0])
