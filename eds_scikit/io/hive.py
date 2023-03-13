@@ -218,6 +218,8 @@ class HiveData(BaseData):  # pragma: no cover
                 table=table_name,
             )
 
+        df = df.to_koalas()
+
         person_ids = person_ids or self.person_ids
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
