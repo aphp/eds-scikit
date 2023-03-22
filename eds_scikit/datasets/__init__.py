@@ -12,6 +12,7 @@ from .synthetic.stay_duration import load_stay_duration
 from .synthetic.suicide_attempt import load_suicide_attempt
 from .synthetic.tagging import load_tagging
 from .synthetic.biology import load_biology_data
+from .synthetic.event_sequences import load_event_sequences
 
 known_datasets = [
     filename.split(".")[0]
@@ -30,6 +31,7 @@ __all__ = [
     load_suicide_attempt,
     load_tagging,
     load_biology_data,
+    load_event_sequences,
 ]
 
 
