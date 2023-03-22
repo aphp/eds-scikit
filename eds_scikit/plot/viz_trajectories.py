@@ -1,7 +1,8 @@
-from typing import Dict, Optional, Union, List, Tuple
-import pandas as pd
-import altair as alt
 import random
+from typing import Dict, List, Optional, Tuple, Union
+
+import altair as alt
+import pandas as pd
 
 
 def plot_trajectories(
