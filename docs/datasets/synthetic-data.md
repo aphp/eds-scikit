@@ -11,7 +11,7 @@ First, you can display all availables synthetic datasets:
 ```python
 from eds_scikit import datasets
 datasets.list_all_synthetics()
-# Out: ['load_ccam', 'load_consultation_dates', 'load_hierarchy', 'load_icd10', 'load_visit_merging', 'load_stay_duration', 'load_suicide_attempt', 'load_tagging', 'load_biology_data']
+# Out: ['load_ccam', 'load_consultation_dates', 'load_hierarchy', 'load_icd10', 'load_visit_merging', 'load_stay_duration', 'load_suicide_attempt', 'load_tagging', 'load_biology_data', 'load_event_sequences']
 ```
 
 To load a specific dataset, simply run:

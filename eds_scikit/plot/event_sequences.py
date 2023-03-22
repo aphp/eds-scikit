@@ -5,7 +5,7 @@ import altair as alt
 import pandas as pd
 
 
-def plot_trajectories(
+def plot_event_sequences(
     df_events: pd.DataFrame,
     event_col: Optional[str] = "event",
     event_start_datetime_col: Optional[str] = "event_start_datetime",
@@ -24,7 +24,7 @@ def plot_trajectories(
     seed: Optional[int] = 0,
 ):
     """
-    Plots individual trajectories from an events DataFrame. Each event must be recorded with a start date, a name and a `person_id`.
+    Plots individual sequences from an events DataFrame. Each event must be recorded with a start date, a name and a `person_id`.
     Events can be both one-time (only start date given) or longitudinal (both start and end dates).
     Events can also be aggregated in families using the `family_col` argument.
     Finally, events labelling and colors can be manually set by providing a `dim_mapping` dictionary.
@@ -54,9 +54,9 @@ def plot_trajectories(
     family_to_index: Optional[Dict[str,int]] = None
         Dictionary mapping family names towards ordering indices.
     list_person_ids: Optional[List[str]] = None
-        List of person_ids to plot. If None given, all individual trajectories will be plot.
+        List of person_ids to plot. If None given, all individual sequences will be plot.
     same_x_axis_scale: Optional[bool] = False
-        Whether to use the same axis scale for all trajectories.
+        Whether to use the same axis scale for all sequences.
     indiv_height: Optional[int] = 200
         Height of each plot.
     indiv_width: Optional[int] = 500
@@ -73,7 +73,7 @@ def plot_trajectories(
     Returns
     -------
     chart: alt.Chart
-        Chart with the plotted individual trajectories.
+        Chart with the plotted individual event sequences.
     """
     random.seed(seed)
 
@@ -190,7 +190,7 @@ def plot_trajectories(
         height=indiv_height,
     )
 
-    # Vertical concatenation of all patients' trajectories
+    # Vertical concatenation of all patients' sequences
     chart = (
         alt.vconcat()
         .configure_legend(labelFontSize=13, symbolSize=150, titleFontSize=15)
