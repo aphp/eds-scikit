@@ -332,7 +332,7 @@ class HiveData(BaseData):  # pragma: no cover
             if (person_ids is not None) and ("person_id" in df.columns):
                 df = df[df.person_id.isin(person_ids)]
             # XXX: This behaviour can raise OOM errors and
-            # will be updated with ibis & duckdb.
+            # will be updated in subsequent versions.
             filtered.append(df)
 
         return pd.concat(filtered)

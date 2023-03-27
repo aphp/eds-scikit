@@ -7,11 +7,11 @@ from eds_scikit.io import BaseData
 
 from ..base import Phenotype
 
-ICD10_CODES_DF = pd.read_csv(Path(__file__).parent / "codes.csv")
+path_icd10 = Path(__file__).parent / "codes.csv"
+ICD10_CODES_DF = pd.read_csv(path_icd10)
 
 
 class CancerFromICD10(Phenotype):
-
     """
     Phenotyping visits or patients using ICD10 cancer codes
     """

@@ -5,11 +5,11 @@ import pandas as pd
 
 from ..base import Phenotype
 
-ICD10_CODES_DF = pd.read_csv(Path(__file__).parent / "codes.csv")
+path_icd10 = Path(__file__).parent / "codes.csv"
+ICD10_CODES_DF = pd.read_csv(path_icd10)
 
 
 class PsychiatricDisorderFromICD10(Phenotype):
-
     """
     Phenotyping visits or patients with psychiatric disorders
     using ICD10 codes

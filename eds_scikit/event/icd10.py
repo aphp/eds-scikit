@@ -11,7 +11,7 @@ def conditions_from_icd10(
     visit_occurrence: Optional[DataFrame] = None,
     codes: Optional[Dict[str, Union[str, List[str]]]] = None,
     date_from_visit: bool = True,
-    additional_filtering: Dict[str, Any] = {},
+    additional_filtering: Dict[str, Any] = None,
     date_min: Optional[datetime] = None,
     date_max: Optional[datetime] = None,
 ) -> DataFrame:
@@ -62,6 +62,8 @@ def conditions_from_icd10(
         - `value` : The extracted ICD-10 code.
         - `visit_occurrence_id` : the `visit_occurrence_id` from the visit which contains the ICD-10 code.
     """  # noqa: E501
+    if additional_filtering is None:
+        additional_filtering = dict()
 
     DEFAULT_FILTERING = dict(condition_status_source_value={"DP", "DAS", "DR"})
     DEFAULT_FILTERING.update(additional_filtering)
