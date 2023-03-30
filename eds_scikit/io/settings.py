@@ -294,7 +294,7 @@ i2b2_renaming = {
         "person_id": "patient_num",
         "procedure_occurrence_id": "instance_num",
         "procedure_source_value": "concept_cd",
-        "procedure_start_datetime": "start_date",
+        "procedure_datetime": "start_date",
         "visit_occurrence_id": "encounter_num",
     },
     "visit_detail": {

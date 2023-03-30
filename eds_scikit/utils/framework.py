@@ -1,13 +1,11 @@
 from collections import Counter
 from functools import partial
 from types import ModuleType
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 import pandas as pd
 from databricks import koalas as ks
 from loguru import logger
-
-from eds_scikit.utils.typing import DataObject
 
 from .custom_implem.custom_implem import CustomImplem
 
@@ -17,7 +15,7 @@ VALID_FRAMEWORKS = [pd, ks]
 # TODO: All non class-methods functions below need to be remove
 
 
-def get_framework(obj: DataObject) -> Optional[ModuleType]:  # pragma: no cover
+def get_framework(obj: Any) -> Optional[ModuleType]:  # pragma: no cover
     for framework in VALID_FRAMEWORKS:
         if obj.__class__.__module__.startswith(framework.__name__):
             return framework
@@ -25,15 +23,15 @@ def get_framework(obj: DataObject) -> Optional[ModuleType]:  # pragma: no cover
     return None
 
 
-def is_pandas(obj: DataObject) -> bool:  # pragma: no cover
+def is_pandas(obj: Any) -> bool:  # pragma: no cover
     return get_framework(obj) == pd
 
 
-def is_koalas(obj: DataObject) -> bool:  # pragma: no cover
+def is_koalas(obj: Any) -> bool:  # pragma: no cover
     return get_framework(obj) == ks
 
 
-def to(framework: str, obj: DataObject) -> DataObject:  # pragma: no cover
+def to(framework: str, obj: Any) -> Any:  # pragma: no cover
     if framework == "koalas" or framework is ks:
         return koalas(obj)
     elif framework == "pandas" or framework is pd:
@@ -42,9 +40,7 @@ def to(framework: str, obj: DataObject) -> DataObject:  # pragma: no cover
         raise ValueError(f"Unknown framework: {framework}")
 
 
-def dict_to(
-    framework: str, d: Dict[str, DataObject]
-) -> Dict[str, DataObject]:  # pragma: no cover
+def dict_to(framework: str, d: Dict[str, Any]) -> Dict[str, Any]:  # pragma: no cover
     d_converted = dict()
     for k, v in d.items():
         if is_pandas(v) or is_koalas(v):
@@ -54,7 +50,7 @@ def dict_to(
     return d_converted
 
 
-def pandas(obj: DataObject) -> DataObject:  # pragma: no cover
+def pandas(obj: Any) -> Any:  # pragma: no cover
     if get_framework(obj) is pd:
         return obj
     try:
@@ -64,7 +60,7 @@ def pandas(obj: DataObject) -> DataObject:  # pragma: no cover
     raise ValueError("Could not convert object to pandas.")
 
 
-def koalas(obj: DataObject) -> DataObject:  # pragma: no cover
+def koalas(obj: Any) -> Any:  # pragma: no cover
     if get_framework(obj) is ks:
         return obj
     try:
@@ -154,7 +150,7 @@ class BackendDispatcher:
         """Return True when the obj is either a pd.DataFrame or the pandas module."""
         return self.get_backend(obj) is pd
 
-    def is_koalas(self, obj: DataObject) -> bool:
+    def is_koalas(self, obj: Any) -> bool:
         """Return True when the obj is either a ks.DataFrame or the koalas module."""
         return self.get_backend(obj) is ks
 
@@ -229,12 +225,12 @@ class BackendDispatcher:
         else:
             raise ValueError("Unknown backend")
 
-    def to_pandas(self, obj: DataObject) -> DataObject:
+    def to_pandas(self, obj: Any) -> Any:
         if self.get_backend(obj) is pd:
             return obj
         return obj.to_pandas()
 
-    def to_koalas(self, obj: DataObject) -> DataObject:
+    def to_koalas(self, obj: Any) -> Any:
         if self.get_backend(obj) is ks:
             return obj
         try:

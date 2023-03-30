@@ -6,4 +6,4 @@ exclude =
     *.ipynb,
     *.ipynb_checkpoints
 ignore = E501 W503 E731
-per-file-ignores = __init__.py:F401
+per-file-ignores = __init__.py:F401, E402

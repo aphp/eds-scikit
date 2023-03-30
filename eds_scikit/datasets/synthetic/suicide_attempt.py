@@ -6,7 +6,7 @@ from .base_dataset import Dataset, dataclass
 
 
 @dataclass(repr=False)
-class SuicideAttemptDataset(Dataset):
+class SuicideAttemptFromICD10Dataset(Dataset):
     condition_occurrence: pd.DataFrame
     visit_occurrence: pd.DataFrame
 
@@ -39,7 +39,7 @@ def load_suicide_attempt():
         }
     )
 
-    return SuicideAttemptDataset(
+    return SuicideAttemptFromICD10Dataset(
         condition_occurrence=condition_occurrence,
         visit_occurrence=visit_occurrence,
     )
