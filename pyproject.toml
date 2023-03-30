@@ -41,7 +41,7 @@ dependencies = [
     "loguru>=0.6.0, <0.7.0",
     "pypandoc==1.7.5",
     "pyspark==2.4.3",
-    "pyarrow>=0.10, <0.17.0",
+    "pyarrow==0.17.0", #"pyarrow>=0.10, <0.17.0",
     "pretty-html-table>=0.9.15, <0.10.0",
     "catalogue",
     "schemdraw>=0.15.0, <1.0.0",
@@ -55,7 +55,7 @@ dynamic = ['version']
 where = ["."]
 
 [tool.setuptools.package-data]
-"eds_scikit.datasets" = ["*"]
+"*" = ["*.csv", "*.bib"]
 
 [tool.setuptools.dynamic]
 version = {attr = "eds_scikit.__version__"}
@@ -84,7 +84,7 @@ doc = [
     "mike==1.1.2",
     "nbformat==5.7.0",
     "mkdocs-autorefs==0.3.1",
-    "mkdocs-bibtex==2.8.5",
+    "mkdocs-bibtex-recursive==2.8.15",
     "mkdocs-charts-plugin==0.0.8",
     "mkdocs-gen-files==0.3.5",
     "mkdocs-img2fig-plugin==0.9.3",

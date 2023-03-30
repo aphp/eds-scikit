@@ -1,7 +1,13 @@
 """Top-level package for eds_scikit."""
 
 __author__ = """eds_scikit"""
-__version__ = "0.1.2"
+__version__ = "0.1.5.dev1"
+
+import warnings
+
+warnings.simplefilter(
+    action="ignore", category=FutureWarning
+)  # Remove pyarrow DeprecatedWarning
 
 import importlib
 import os
@@ -11,6 +17,7 @@ from packaging import version
 from typing import List, Tuple
 from pathlib import Path
 
+import pandas as pd
 import pyarrow
 import pyspark
 from loguru import logger
@@ -19,16 +26,17 @@ from pyspark.sql import SparkSession
 
 import eds_scikit.biology  # noqa: F401 --> To register functions
 
-logger.remove()
-logger.add(sys.stderr, level="INFO")
+import eds_scikit.utils.logging
+
+
+# Remove SettingWithCopyWarning
+pd.options.mode.chained_assignment = None
 
 logger.warning(
-    """
-    To improve performances when using Spark and Koalas, please call `eds_scikit.improve_performances()`
-    This function optimally configures Spark. Use it as:
-    `spark, sc, sql = eds_scikit.improve_performances()`
-    The functions respectively returns a SparkSession, a SparkContext and an sql method
-    """
+    """To improve performances when using Spark and Koalas, please call `eds_scikit.improve_performances()`
+This function optimally configures Spark. Use it as:
+`spark, sc, sql = eds_scikit.improve_performances()`
+The functions respectively returns a SparkSession, a SparkContext and an sql method"""
 )
 
 BASE_DIR = Path(__file__).parent
@@ -57,6 +65,7 @@ def koalas_options() -> None:
 
     ks.set_option("compute.default_index_type", "distributed")
     ks.set_option("compute.ops_on_diff_frames", True)
+    ks.set_option("display.max_rows", 50)
 
 
 def set_env_variables() -> None:

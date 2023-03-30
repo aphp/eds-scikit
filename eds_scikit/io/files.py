@@ -1,12 +1,12 @@
 import os
-from typing import List, Tuple
+from typing import List
 
 import pandas as pd
 
-from . import settings
+from .base import BaseData
 
 
-class PandasData:  # pragma: no cover
+class PandasData(BaseData):  # pragma: no cover
     def __init__(
         self,
         folder: str,
@@ -27,24 +27,31 @@ class PandasData:  # pragma: no cover
         (100, 10)
 
         """
-
-        self.available_tables, self.tables_paths = self.list_available_tables(folder)
+        super().__init__()
+        self.folder = folder
+        self.available_tables = self.list_available_tables()
+        self.tables_paths = self.get_table_path()
         if not self.available_tables:
             raise ValueError(f"Folder {folder} does not contain any parquet omop data.")
 
-    @staticmethod
-    def list_available_tables(folder: str) -> Tuple[List[str], List[str]]:
+    def list_available_tables(self) -> List[str]:
         available_tables = []
-        tables_paths = {}
-        known_omop_tables = settings.tables_to_load.keys()
-        for filename in os.listdir(folder):
+        for filename in os.listdir(self.folder):
             table_name, extension = os.path.splitext(filename)
-            if extension == ".parquet" and table_name in known_omop_tables:
-                abspath = os.path.abspath(os.path.join(folder, filename))
-                tables_paths[table_name] = abspath
+            if extension == ".parquet":
                 available_tables.append(table_name)
 
-        return available_tables, tables_paths
+        return available_tables
+
+    def get_table_path(self) -> List[str]:
+        tables_paths = {}
+        for filename in os.listdir(self.folder):
+            table_name, extension = os.path.splitext(filename)
+            if extension == ".parquet":
+                abspath = os.path.abspath(os.path.join(self.folder, filename))
+                tables_paths[table_name] = abspath
+
+        return tables_paths
 
     def _read_table(self, table_name: str) -> pd.DataFrame:
         path = self.tables_paths[table_name]
@@ -57,6 +64,3 @@ class PandasData:  # pragma: no cover
             raise AttributeError(
                 f"Table '{table_name}' does is not available in chosen folder."
             )
-
-    def __dir__(self) -> List[str]:
-        return list(super().__dir__()) + list(self.available_tables)

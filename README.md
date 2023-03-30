@@ -57,13 +57,13 @@ eds-scikit stands on the shoulders of [Spark 2.4](https://spark.apache.org/docs/
 You can install eds-scikit via `pip`:
 
 ```bash
-pip install eds-scikit
+pip install "eds-scikit[aphp]"
 ```
 
-:warning: If you work in AP-HP's ecosystem (EDS), please install additionnal features via:
+:warning: If you don't work in AP-HP's ecosystem (EDS), please install via:
 
 ```bash
-pip install "eds-scikit[aphp]"
+pip install eds-scikit
 ```
 
 You can now import the library via

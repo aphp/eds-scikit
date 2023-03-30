@@ -28,7 +28,7 @@ def get_valid_measurement(measurement: DataFrame) -> DataFrame:
     )
     measurement_valid = measurement[measurement["row_status_source_value"] == "Validé"]
     measurement_valid = measurement_valid.drop(columns=["row_status_source_value"])
-    logger.debug("Valid measurements have been selected")
+    logger.info("Valid measurements have been selected")
     return measurement_valid
 
 
@@ -85,10 +85,10 @@ def filter_measurement_by_date(
 
     if start_date:
         measurement = measurement[measurement["measurement_date"] >= start_date]
-        logger.debug("Measurements conducted after {} have been selected", start_date)
+        logger.info("Measurements conducted after {} have been selected", start_date)
     if end_date:
         measurement = measurement[measurement["measurement_date"] <= end_date]
-        logger.debug("Measurements conducted before {} have been selected", end_date)
+        logger.info("Measurements conducted before {} have been selected", end_date)
 
     return measurement
 

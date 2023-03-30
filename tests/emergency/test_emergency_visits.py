@@ -52,7 +52,7 @@ params = [
         visit_detail=visit_detail,
         care_site=care_site,
         visit_occurrence=None,
-        algo="from_mapping",
+        algo="from_mapping.test",
     ),
     dict(
         visit_detail=visit_detail,

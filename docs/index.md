@@ -1,7 +1,3 @@
----
-ᴴₒᴴₒᴴₒ: true
----
-
 <p align="center">
   <img src="_static/scikit_logo_text.png" alt="eds-scikit" width="50%">
 </p>
@@ -25,6 +21,9 @@ As an example, the following figure was obtained using various functionalities f
 
 !!! question "How was it done ?"
       Click on the figure above to jump to the tutorial using various functionalities from eds-scikit, or continue reading the introduction!
+
+!!! tip "Using `eds-scikit` with I2B2"
+    Although designed for OMOP databases, `eds-scikit` provides a connector for I2B2 databases is available. We don't guarantee its exhaustivity, but it should allow you to use functionnalities of the library seamlessly.
 
 ## Quick start
 
@@ -90,7 +89,7 @@ color:green Successfully installed eds_scikit !
 ### A first example: Merging visits together
 
 Let's tackle a common problem when dealing with clinical data: Merging close/consecutive visits into **stays**.
-As detailled in [the dedicated section](), eds-scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive]() connector and a [Postgres]() connector
+As detailled in [the dedicated section](), eds-scikit is expecting to work with [Pandas](https://pandas.pydata.org/) or [Koalas](https://koalas.readthedocs.io/en/latest/) DataFrames.  We provide various connectors to facilitate data fetching, namely a [Hive][loading-from-hive-hivedata] connector and a [Postgres][loading-from-postgres-postgresdata] connector
 
 
 === "Using a Hive DataBase"
@@ -103,6 +102,9 @@ As detailled in [the dedicated section](), eds-scikit is expecting to work with 
     ```
 
     1. With this connector, `visit_occurrence` will be a *Pandas* DataFrame
+
+    !!! tip "I2B2"
+        If `DB_NAME` points to an I2B2 database, use `data = HiveData(DB_NAME, database_type="I2B2")`
 
 === "Using a Postgres DataBase"
 

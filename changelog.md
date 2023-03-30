@@ -1,10 +1,25 @@
 # Changelog
 
-## Pending
+## v0.1.4 (2023-02-09)
 
 ### Added
 
+- Allow saving DB locally in client or cluster mode
+- Add data cleaning function to handle incorrect datetime in spark
+- Filter biology config on care site
 - Adding person-dependent `datetime_ref` to `plot_age_pyramid`
+
+### Fixed
+
+- Consultations date for OMOP & I2B2
+
+
+## v0.1.3 (2023-02-02)
+
+### Added
+
+- New BackendDispatcher to handle framework-specific functions
+- I2B2 to OMOP connector
 
 ## v0.1.2 (2022-12-05)
 

@@ -1,7 +1,7 @@
+from typing import Any
+
 import pandas as pd
 from databricks import koalas as ks
-
-from eds_scikit.utils.typing import DataFrame
 
 from .cut import cut
 
@@ -16,10 +16,10 @@ class CustomImplem:
     @classmethod
     def add_unique_id(
         cls,
-        obj: DataFrame,
+        obj: Any,
         col_name: str = "id",
         backend=None,
-    ) -> DataFrame:
+    ) -> Any:
         """Add an ID column for koalas or pandas."""
         if backend is pd:
             obj[col_name] = range(obj.shape[0])
@@ -63,3 +63,20 @@ class CustomImplem:
             duplicates,
             ordered,
         )
+
+    @classmethod
+    def cache(cls, df, backend=None):
+        if backend is pd:
+            # no-op
+            return
+        elif backend is ks:
+            # Cache using count(), a simple action that trigger the
+            # eager mode and effectively cache the dataframe.
+            # See this link for more details about the count trick:
+            # https://stackoverflow.com/a/44002485
+            df.spark.cache().count()
+            return
+        else:
+            raise NotImplementedError(
+                f"No method 'cache' is available for backend '{backend}'."
+            )

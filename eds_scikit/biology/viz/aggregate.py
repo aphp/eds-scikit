@@ -299,12 +299,12 @@ def aggregate_measurement(
     # Convert DF to Pandas if small enough
     if is_koalas(measurement):
         measurement.spark.cache()
-        logger.debug(
+        logger.info(
             "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
         )
     size = measurement.shape[0]
     if size < pd_limit_size:
-        logger.debug(
+        logger.info(
             "The number of measurements identified is {} < {}. DataFrame is converting to Pandas...",
             size,
             pd_limit_size,
@@ -313,7 +313,7 @@ def aggregate_measurement(
         if measurement.empty:
             return {"measurement": measurement}
     else:
-        logger.debug(
+        logger.info(
             "The number of measurements identified is {}.",
             size,
         )
@@ -427,9 +427,9 @@ def _describe_measurement_by_code(
         on=concept_cols + ["unit_source_value"],
     )
 
-    logger.debug("The overall statistics of measurements by code are computing...")
+    logger.info("The overall statistics of measurements by code are computing...")
     measurement_stats_overall = to("pandas", measurement_stats_overall)
-    logger.debug("The overall statistics of measurements are computed...")
+    logger.info("The overall statistics of measurements are computed...")
 
     measurement_stats_overall["MAD"] = 1.48 * measurement_stats_overall["MAD"]
 
@@ -476,9 +476,9 @@ def _describe_measurement_by_code(
     measurement_stats["max_threshold"] = None
     measurement_stats["min_threshold"] = None
 
-    logger.debug("The statistics of measurements by care site are computing...")
+    logger.info("The statistics of measurements by care site are computing...")
     measurement_stats = to("pandas", measurement_stats)
-    logger.debug("The statistics of measurements by care site are computed...")
+    logger.info("The statistics of measurements by care site are computed...")
 
     measurement_stats = pd.concat([measurement_stats_overall, measurement_stats])
 
@@ -567,17 +567,17 @@ def _count_measurement_by_care_site_and_code_per_month(
         ["measurement_month"]
     ].fillna("Unknown")
 
-    logger.debug(
+    logger.info(
         "The counting of measurements by care site and code for each month is processing..."
     )
     measurement_count = to("pandas", measurement_count)
-    logger.debug("The counting of measurements is finished...")
+    logger.info("The counting of measurements is finished...")
 
-    logger.debug(
+    logger.info(
         "The counting of missing values by care site and code for each month is processing..."
     )
     missing_value_count = to("pandas", missing_value_count)
-    logger.debug("The counting of missing values is finished...")
+    logger.info("The counting of missing values is finished...")
 
     measurement_volumetry = measurement_count.merge(
         missing_value_count,
@@ -776,7 +776,7 @@ def _bin_measurement_value_by_care_site_and_code(
         .rename(columns={"measurement_id": "frequency"})
     )
 
-    logger.debug("The binning of measurements' values is processing...")
+    logger.info("The binning of measurements' values is processing...")
     measurement_distribution = to("pandas", measurement_distribution)
-    logger.debug("The binning of measurements' values is finished...")
+    logger.info("The binning of measurements' values is finished...")
     return measurement_distribution

@@ -96,7 +96,7 @@ def algo_checker(
     algo = _get_arg_value(function, "algo", args, kwargs)
 
     # Stripping eventual version suffix
-    algo = algo.split(".")[-1]
+    algo = algo.split(".")[0]
 
     if algo not in algos:
         raise ValueError(

@@ -98,7 +98,7 @@ def fetch_all_concepts_set(
     default_concepts_sets = getattr(datasets, concepts_sets_table_name)
     for concepts_set_name in default_concepts_sets.concepts_set_name:
         concepts_sets.append(ConceptsSet(concepts_set_name))
-    logger.debug("Fetch all concepts-sets from table {}", concepts_sets_table_name)
+    logger.info("Fetch all concepts-sets from table {}", concepts_sets_table_name)
     return concepts_sets
 
 
@@ -120,9 +120,9 @@ def get_concept_src_to_std(
     concepts_sets : List[ConceptsSet]
         List of concepts-sets to select
     standard_concept_regex : dict, optional
-        **EXAMPLE**: `["LOINC", "AnaBio"]`
-    standard_terminologies : List[str], optional
         **EXAMPLE**: `{"LOINC": "[0-9]{2,5}[-][0-9]","AnaBio": "[A-Z][0-9]{4}"}`
+    standard_terminologies : List[str], optional
+        **EXAMPLE**: `["LOINC", "AnaBio"]`
 
 
     Returns
@@ -329,7 +329,7 @@ def _check_regex(
 
 
 def _override_name_code_with_itm(wide_src_to_std):
-    logger.debug(
+    logger.info(
         "ITM mapper has been identified in your data and will be prioritized for concept names."
     )
     # Get LOINC NAME and code from ITM
