@@ -194,7 +194,7 @@ class HiveData(BaseData):  # pragma: no cover
         return unique_ids, filtering_df
 
     def _read_table(
-        self, table_name, person_ids=None, to_koalas: bool = True
+        self, table_name, person_ids=None, to_koalas: bool = False
     ) -> DataFrame:
 
         if to_koalas:
