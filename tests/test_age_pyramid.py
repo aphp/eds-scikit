@@ -27,9 +27,7 @@ person_with_inclusion_date["inclusion_datetime"] = (
 )
 def test_plot_age_pyramid(datetime_ref):
     original_person = person_with_inclusion_date.copy()
-    chart = plot_age_pyramid(
-        person_with_inclusion_date, datetime_ref, savefig=False
-    )
+    chart = plot_age_pyramid(person_with_inclusion_date, datetime_ref, savefig=False)
     assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
 
     # Check that the data is unchanged
@@ -45,17 +43,17 @@ def test_age_pyramid_output():
     path.unlink()
 
     group_gender_age = plot_age_pyramid(
-        data.person, savefig=True, return_vector=True, filename=filename
+        data.person, savefig=True, return_array=True, filename=filename
     )
     assert isinstance(group_gender_age, Series)
 
     chart, group_gender_age = plot_age_pyramid(
-        data.person, savefig=False, return_vector=True
+        data.person, savefig=False, return_array=True
     )
     assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
     assert isinstance(group_gender_age, Series)
 
-    chart = plot_age_pyramid(data.person, savefig=False, return_vector=False)
+    chart = plot_age_pyramid(data.person, savefig=False, return_array=False)
     assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
 
     with pytest.raises(ValueError, match="You have to set a filename"):
