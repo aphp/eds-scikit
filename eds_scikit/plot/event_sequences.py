@@ -22,7 +22,7 @@ def plot_event_sequences(
     bar_height: Optional[int] = 20,
     title: Optional[str] = None,
     seed: Optional[int] = 0,
-):
+) -> alt.Chart:
     """
     Plots individual sequences from an events DataFrame. Each event must be recorded with a start date, a name and a `person_id`.
     Events can be both one-time (only start date given) or longitudinal (both start and end dates).
