@@ -52,7 +52,7 @@ def plot_event_sequences(
     family_col: Optional[str] = None
         Column name of family events. Events of a given family will be plot on the same row.
     family_to_index: Optional[Dict[str,int]] = None
-        Dictionary mapping family names towards ordering indices.
+        Dictionary mapping event family names to ordering indices.
     list_person_ids: Optional[List[str]] = None
         List of person_ids to plot. If None given, all individual sequences will be plot.
     same_x_axis_scale: Optional[bool] = False
