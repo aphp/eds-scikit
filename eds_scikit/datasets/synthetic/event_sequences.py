@@ -1,6 +1,7 @@
-import pandas as pd
-import numpy as np
 import datetime
+
+import numpy as np
+import pandas as pd
 
 synthetic_event_sequences = {
     "person_id": {

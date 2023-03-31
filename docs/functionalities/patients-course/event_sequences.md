@@ -4,8 +4,8 @@ When studying sequences of events (e.g care trajectories, drug sequences, ...), 
 
 ## Load a synthetic dataset
 
-An events dataset has been created to illustrate the visualization function. 
-It can be load as follows : 
+An events dataset has been created to illustrate the visualization function.
+It can be load as follows :
 
 ```python
 from eds_scikit.datasets.synthetic.event_sequences import load_event_sequences
@@ -13,9 +13,9 @@ from eds_scikit.datasets.synthetic.event_sequences import load_event_sequences
 df_events = load_event_sequences()
 ```
 
-The `df_events` dataset contains occurrences of 12 events, derived from 7 events' families ("A", "B", "C", "D", "E", "F", "G).  
+The `df_events` dataset contains occurrences of 12 events, derived from 7 events' families ("A", "B", "C", "D", "E", "F", "G).
 
-Events can be both one-time and continuous.  
+Events can be both one-time and continuous.
 
 An `index_date` is also provided and refers to the inclusion date of each patient in the cohort.
 
@@ -35,7 +35,7 @@ df_events.head()
 
 ### Basic usage
 
-Individual sequences of events can be plotted using the `plot_event_sequences` function : 
+Individual sequences of events can be plotted using the `plot_event_sequences` function :
 
 ```python
 from eds_scikit.plot.event_sequences import plot_event_sequences
@@ -51,10 +51,10 @@ chart
 ### Advanced parameters
 
 Further configuration can be provided, including :
-- `dim_mapping` : dictionary to set colors and labels for each event type.  
-- `family_col`: column name of events' families.  
-- `list_person_ids`: List of specific `person_id`  
-- `same_x_axis_scale`: boolean to set all individual charts to the same scale  
+- `dim_mapping` : dictionary to set colors and labels for each event type.
+- `family_col`: column name of events' families.
+- `list_person_ids`: List of specific `person_id`
+- `same_x_axis_scale`: boolean to set all individual charts to the same scale
 
 Here we provide an exemple of `dim_mapping`, and we plot sequences aggregated following the `event_family` classification.
 
