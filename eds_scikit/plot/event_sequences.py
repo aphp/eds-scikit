@@ -55,7 +55,7 @@ def plot_event_sequences(
     family_to_index: Optional[Dict[str,int]] = None
         Dictionary mapping event family names to ordering indices.
     list_person_ids: Optional[List[str]] = None
-        List of person_ids to plot. If None given, all individual sequences will be plot.
+        List of person_ids to plot. If None given, only the first three individual sequences will be plot.
     same_x_axis_scale: Optional[bool] = False
         Whether to use the same axis scale for all sequences.
     subplot_height: Optional[int] = 200
@@ -78,12 +78,14 @@ def plot_event_sequences(
     """
     random.seed(seed)
 
-    # Pre-selection of the given patients and required columns.
-    if list_person_ids is not None:
-        order = {val: idx for idx, val in enumerate(list_person_ids)}
-        df_events = df_events.query("person_id in @list_person_ids").sort_values(
-            by="person_id", key=lambda x: x.map(order)
-        )
+    # Pre-selection of the sequences to plot and required columns.
+    if list_person_ids is None:
+        list_person_ids = list(df_events.person_id.unique()[:3])
+
+    order = {val: idx for idx, val in enumerate(list_person_ids)}
+    df_events = df_events.query("person_id in @list_person_ids").sort_values(
+        by="person_id", key=lambda x: x.map(order)
+    )
 
     data_plot = df_events.sort_values(by=["person_id", event_start_datetime_col])
 
