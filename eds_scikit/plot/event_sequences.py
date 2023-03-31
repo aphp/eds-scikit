@@ -126,7 +126,6 @@ def plot_event_sequences(
         data_plot["dim_label"] = data_plot[event_col].apply(
             lambda x: dim_mapping[x]["label"]
         )
-
         labels = []
         colors = []
         for event, event_dict in dim_mapping.items():
