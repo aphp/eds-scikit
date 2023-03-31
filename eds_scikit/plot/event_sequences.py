@@ -2,6 +2,7 @@ import random
 from typing import Dict, List, Optional, Tuple, Union
 
 import altair as alt
+import numpy as np
 import pandas as pd
 
 
@@ -16,8 +17,8 @@ def plot_event_sequences(
     family_to_index: Optional[Dict[str, int]] = None,
     list_person_ids: Optional[List[str]] = None,
     same_x_axis_scale: Optional[bool] = False,
-    indiv_height: Optional[int] = 200,
-    indiv_width: Optional[int] = 500,
+    subplot_height: Optional[int] = 200,
+    subplot_width: Optional[int] = 500,
     point_size: Optional[int] = 400,
     bar_height: Optional[int] = 20,
     title: Optional[str] = None,
@@ -57,9 +58,9 @@ def plot_event_sequences(
         List of person_ids to plot. If None given, all individual sequences will be plot.
     same_x_axis_scale: Optional[bool] = False
         Whether to use the same axis scale for all sequences.
-    indiv_height: Optional[int] = 200
+    subplot_height: Optional[int] = 200
         Height of each plot.
-    indiv_width: Optional[int] = 500
+    subplot_width: Optional[int] = 500
         Width of each plot.
     point_size: Optional[int] = 400
         Size of points for one-time events.
@@ -117,9 +118,8 @@ def plot_event_sequences(
 
         data_plot["dim_id"] = data_plot[family_col].map(family_to_index)
     else:
-        data_plot["dim_id"] = data_plot[event_col].map(
-            {k: v for v, k in enumerate(list(data_plot[event_col].unique()))}
-        )
+        _, classes = np.unique(data_plot[event_col], return_inverse=True)
+        data_plot["dim_id"] = classes
 
     # Mapping events towards colors and labels
     if dim_mapping is not None:
@@ -186,8 +186,8 @@ def plot_event_sequences(
 
     # Aggregation
     base = (point_dim + continuous_dim).properties(
-        width=indiv_width,
-        height=indiv_height,
+        width=subplot_width,
+        height=subplot_height,
     )
 
     # Vertical concatenation of all patients' sequences
