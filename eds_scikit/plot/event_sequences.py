@@ -1,4 +1,3 @@
-import random
 from typing import Dict, List, Optional, Tuple, Union
 
 import altair as alt
@@ -76,7 +75,7 @@ def plot_event_sequences(
     chart: alt.Chart
         Chart with the plotted individual event sequences.
     """
-    random.seed(seed)
+    rng = np.random.RandomState(seed)
 
     # Pre-selection of the sequences to plot and required columns.
     if list_person_ids is None:
@@ -130,17 +129,14 @@ def plot_event_sequences(
         )
         labels = []
         colors = []
-        for event, event_dict in dim_mapping.items():
+        for event in dim_mapping.keys():
             labels.append(dim_mapping[event]["label"])
             colors.append(f"rgb{dim_mapping[event]['color']}")
 
     else:
         data_plot["dim_label"] = data_plot[event_col]
         labels = list(data_plot["dim_label"].unique())
-        colors = [
-            f"rgb{tuple([random.randint(0,255),random.randint(0,255),random.randint(0,255)])}"
-            for _ in labels
-        ]
+        colors = [tuple(rng.randint(0, 255, size=3)) for _ in labels]
 
     # Base chart
     raw = alt.Chart(data_plot).encode(
