@@ -4,6 +4,8 @@ import altair as alt
 import numpy as np
 import pandas as pd
 
+from eds_scikit.utils.checks import check_columns
+
 
 def plot_event_sequences(
     df_events: pd.DataFrame,
@@ -77,6 +79,22 @@ def plot_event_sequences(
     """
     rng = np.random.RandomState(seed)
 
+    # Check required columns
+    required_columns = [
+        "person_id",
+        event_col,
+        event_start_datetime_col,
+        event_end_datetime_col,
+    ]
+
+    if index_date_col is not None:
+        required_columns.append(index_date_col)
+
+    if family_col is not None:
+        required_columns.append(family_col)
+
+    check_columns(df_events, required_columns=required_columns)
+
     # Pre-selection of the sequences to plot and required columns.
     if list_person_ids is None:
         list_person_ids = list(df_events.person_id.unique()[:3])
@@ -136,7 +154,7 @@ def plot_event_sequences(
     else:
         data_plot["dim_label"] = data_plot[event_col]
         labels = list(data_plot["dim_label"].unique())
-        colors = [tuple(rng.randint(0, 255, size=3)) for _ in labels]
+        colors = [f"rgb{tuple(rng.randint(0, 255, size=3))}" for _ in labels]
 
     # Base chart
     raw = alt.Chart(data_plot).encode(
