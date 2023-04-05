@@ -1,5 +1,7 @@
 import os
+import shutil
 from collections import defaultdict
+from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Union
 
 import pandas as pd
@@ -194,7 +196,10 @@ class HiveData(BaseData):  # pragma: no cover
         return unique_ids, filtering_df
 
     def _read_table(
-        self, table_name, person_ids=None, to_koalas: bool = True
+        self,
+        table_name,
+        person_ids=None,
+        to_koalas: Optional[bool] = None,
     ) -> DataFrame:
 
         if to_koalas:
@@ -268,9 +273,12 @@ class HiveData(BaseData):  # pragma: no cover
             )
 
         # Create folder
-        folder = os.path.abspath(folder)
+        folder = Path(folder).absolute()
 
-        os.makedirs(folder, mode=0o766, exist_ok=not overwrite)
+        if folder.exists() and overwrite:
+            shutil.rmtree(folder)
+
+        folder.mkdir(parents=True, mode=0o766)
 
         assert os.path.exists(folder) and os.path.isdir(
             folder
