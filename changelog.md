@@ -13,15 +13,6 @@
 - Add caching to speedup computations
 - Updated method to persist tables as parquet locally, with a support for ORC-stored I2B2 database
 
-### Added
-
-- Allow saving DB locally in client or cluster mode
-- Add data cleaning function to handle incorrect datetime in spark
-- Filter biology config on care site
-
-### Fixed
-
-- Consultations date for OMOP & I2B2
 
 ## v0.1.4 (2023-02-09)
 
