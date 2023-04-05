@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com"
+    viewBox="-1.85 -102.11 79 218.25">
+    <defs>
+        <linearGradient id="k" x1="26.649" x2="135.67" y1="20.604" y2="114.4"
+            gradientTransform="matrix(.66219 .16956 .0286 .65972 -37.929 -101.53)" gradientUnits="userSpaceOnUse"
+            xlink:href="#b"></linearGradient>
+        <linearGradient id="b">
+            <stop stop-color="#5a9fd4" offset="0"></stop>
+            <stop stop-color="#306998" offset="1"></stop>
+        </linearGradient>
+        <linearGradient id="d" x1="26.649" x2="135.67" y1="20.604" y2="114.4"
+            gradientTransform="matrix(.43455 0 0 .43874 -7.346 2.856)" gradientUnits="userSpaceOnUse" xlink:href="#b">
+        </linearGradient>
+        <linearGradient id="c" x1="26.649" x2="135.67" y1="20.604" y2="114.4"
+            gradientTransform="matrix(.30607 0 0 .30903 -.842 58.942)" gradientUnits="userSpaceOnUse" xlink:href="#b">
+        </linearGradient>
+        <linearGradient id="a">
+            <stop stop-color="#ffd43b" offset="0"></stop>
+            <stop stop-color="#ffe873" offset="1"></stop>
+        </linearGradient>
+        <linearGradient id="h" x1="34.052" x2="34.052" y1="65.12" y2="91.666" gradientTransform="translate(0 -10.839)"
+            gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+        <linearGradient id="g" x1="34.1" x2="34.1" y1="8.763" y2="44.926" gradientTransform="translate(0 -10.839)"
+            gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+        <linearGradient id="f" x1="34.034" x2="34.034" y1="105.36" y2="125.02" gradientTransform="translate(0 -10.839)"
+            gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+        <linearGradient id="e" x1="34.069" x2="34.069" y1="-66.355" y2="-39.811"
+            gradientTransform="translate(0 -10.839)" gradientUnits="userSpaceOnUse" xlink:href="#a"></linearGradient>
+        <radialGradient id="j" cx="34.082" cy="-77.965" r="14.147" gradientTransform="translate(0 -4.927)"
+            gradientUnits="userSpaceOnUse" xlink:href="#a"></radialGradient>
+    </defs>
+    <path d="m31.206 94.521 5.657.192-.575 19.465s-2.391 2.172-4.507 0l-.575-19.657z" fill="url(#f)" stroke="#000"
+        stroke-width="2"></path>
+    <path fill="url(#e)" stroke="#000" stroke-width="2"
+        d="M 28.677 -1.665 L 26.988 -68.949 L 41.635 -77.064 L 39.705 -3.558 L 28.677 -1.665 Z"></path>
+    <path fill="url(#g)" stroke="#000" stroke-width="2" d="m39.581-1.934-.997 36.021h-8.969l-.997-36.163z"></path>
+    <path
+        d="M 62.982 -55.721 C 58.676 -57.526 37.87 -62.951 34.018 -62.269 C 22.672 -60.265 21.592 -56.351 20.855 -50.515 C 20.073 -44.322 19.517 -34.546 31.282 -34.961 C 37.443 -35.178 49.683 -37.236 49.364 -31.08 C 48.819 -20.553 21.014 -19.609 21.014 -19.609 C 13.222 -17.959 7.259 -14.629 5.124 -5.719 C 2.663 4.494 3.288 15.566 13.863 19.693 L 29.364 26.626 L 28.634 -2.01 C 59.913 -1.961 68.326 -9.102 70.563 -31.774 C 71.59 -42.179 70.502 -52.569 62.982 -55.721 Z M 35.241 -55.872 C 38.01 -55.872 40.272 -53.574 40.272 -50.747 C 40.272 -47.931 38.01 -45.654 35.241 -45.654 C 32.461 -45.654 30.209 -47.931 30.209 -50.747 C 30.209 -53.574 32.461 -55.872 35.241 -55.872 Z"
+        stroke="#000" stroke-width="2" fill="url(#k)"></path>
+    <path transform="rotate(180 36.504 44.074)"
+        d="M 42.246 12.108 C 42.239 12.067 42.771 31.157 42.923 31.18 L 42.923 33.811 L 21.227 43.585 C 16.454 45.598 10.307 53.042 10.081 59.767 C 9.869 66.069 10.264 76.891 20.706 79.918 L 33.462 82.139 L 34.516 61.2 C 38.623 59.588 57.446 53.754 57.446 53.754 C 69.491 48.981 69.477 39.408 69.894 34.712 C 70.353 29.549 69.143 23.805 63.206 19.786 C 55.088 14.29 42.25 12.132 42.246 12.108 Z"
+        fill="url(#d)" stroke="#000" stroke-width="2"></path>
+    <path
+        d="M37.77 65.311c-.058-.095-.566 15.642-.566 15.642s-7.305-1.23-14.911 1.381c-6.308 2.165-9.428 11.872-4.023 19.816 0 0 1.858-10.04 9.734-8.081 4.62 1.149 15.477 3.071 20.927-5.171 2.8-4.234 2.287-7.705 2.205-10.915-.096-3.751-1.062-6.97-4.413-9.271-2.095-1.438-8.895-3.307-8.953-3.401z"
+        fill="url(#c)" stroke="#000" stroke-width="2"></path>
+    <path fill="url(#h)" stroke="#000" stroke-width="2" d="m30.148 54.281 7.923-3.492-.836 30.038-6.487-.12z"></path>
+    <ellipse cx="34.082" cy="-82.892" rx="14.147" ry="18.218" fill="url(#j)" stroke="#000" stroke-width="2"></ellipse>
+    <rect x="-15.912" y="-110.444" width="103.373" height="237.658" rx="7" ry="7" style="fill:none"></rect>
+</svg>
