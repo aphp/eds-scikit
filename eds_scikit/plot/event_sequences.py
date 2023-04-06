@@ -95,31 +95,29 @@ def plot_event_sequences(
 
     check_columns(df_events, required_columns=required_columns)
 
-    # Pre-selection of the sequences to plot and required columns.
+    # Pre-selection of the sequences to plot
     if list_person_ids is None:
-        list_person_ids = list(df_events.person_id.unique()[:3])
+        list_person_ids = df_events.person_id.unique()[:3]
+    df_events = df_events.query("person_id in @list_person_ids")
 
+    # Ordering
     order = {val: idx for idx, val in enumerate(list_person_ids)}
-    df_events = df_events.query("person_id in @list_person_ids").sort_values(
-        by="person_id", key=lambda x: x.map(order)
-    )
-
-    data_plot = df_events.sort_values(by=["person_id", event_start_datetime_col])
+    df_events = df_events.sort_values(by="person_id", key=lambda x: x.map(order))
 
     # Encoding events start and end dates
     if index_date_col is not None:
-        data_plot["relative_event_start"] = (
-            data_plot[event_start_datetime_col] - df_events[index_date_col]
+        df_events["relative_event_start"] = (
+            df_events[event_start_datetime_col] - df_events[index_date_col]
         ).dt.days.astype(int)
 
-        data_plot["event_duration"] = (
-            (df_events[event_end_datetime_col] - data_plot[event_start_datetime_col])
+        df_events["event_duration"] = (
+            (df_events[event_end_datetime_col] - df_events[event_start_datetime_col])
             .dt.days.fillna(1)
             .astype(int)
         )
 
-        data_plot["relative_event_end"] = (
-            data_plot.relative_event_start + data_plot.event_duration
+        df_events["relative_event_end"] = (
+            df_events.relative_event_start + df_events.event_duration
         )
         x_encoding = "relative_event_start:Q"
         x2_encoding = "relative_event_end:Q"
@@ -132,17 +130,17 @@ def plot_event_sequences(
     if family_col is not None:
         if family_to_index is None:
             family_to_index = {
-                k: v for v, k in enumerate(list(data_plot[family_col].unique()))
+                v: k for k, v in enumerate(df_events[family_col].unique())
             }
 
-        data_plot["dim_id"] = data_plot[family_col].map(family_to_index)
+        df_events["dim_id"] = df_events[family_col].map(family_to_index)
     else:
-        _, classes = np.unique(data_plot[event_col], return_inverse=True)
-        data_plot["dim_id"] = classes
+        _, classes = np.unique(df_events[event_col], return_inverse=True)
+        df_events["dim_id"] = classes
 
     # Mapping events towards colors and labels
     if dim_mapping is not None:
-        data_plot["dim_label"] = data_plot[event_col].apply(
+        df_events["dim_label"] = df_events[event_col].apply(
             lambda x: dim_mapping[x]["label"]
         )
         labels = []
@@ -152,12 +150,12 @@ def plot_event_sequences(
             colors.append(f"rgb{dim_mapping[event]['color']}")
 
     else:
-        data_plot["dim_label"] = data_plot[event_col]
-        labels = list(data_plot["dim_label"].unique())
+        df_events["dim_label"] = df_events[event_col]
+        labels = list(df_events["dim_label"].unique())
         colors = [f"rgb{tuple(rng.randint(0, 255, size=3))}" for _ in labels]
 
     # Base chart
-    raw = alt.Chart(data_plot).encode(
+    raw = alt.Chart(df_events).encode(
         x=alt.X(x_encoding),
         y=alt.Y("dim_id:O", title=""),
         color=alt.Color(
@@ -212,7 +210,7 @@ def plot_event_sequences(
         .configure_axisY(disable=True)
     )
 
-    for person_id in data_plot.person_id.unique():
+    for person_id in df_events.person_id.unique():
         chart &= base.transform_filter(
             alt.expr.datum.person_id == person_id
         ).properties(title=f"Sequence of patient {person_id}")
