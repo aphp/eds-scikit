@@ -97,7 +97,7 @@ def plot_event_sequences(
 
     # Pre-selection of the sequences to plot and required columns.
     if list_person_ids is None:
-        list_person_ids = list(df_events.person_id.unique()[:3])
+        list_person_ids = df_events.person_id.unique()[:3]
 
     order = {val: idx for idx, val in enumerate(list_person_ids)}
     df_events = df_events.query("person_id in @list_person_ids").sort_values(
