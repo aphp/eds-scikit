@@ -132,7 +132,7 @@ def plot_event_sequences(
     if family_col is not None:
         if family_to_index is None:
             family_to_index = {
-                k: v for v, k in enumerate(list(data_plot[family_col].unique()))
+                v: k for k, v in enumerate(data_plot[family_col].unique())
             }
 
         data_plot["dim_id"] = data_plot[family_col].map(family_to_index)
