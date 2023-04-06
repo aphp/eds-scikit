@@ -49,8 +49,10 @@ nav:
       - functionalities/biology/visualization.md
       - functionalities/biology/vocabulary.md
       - functionalities/biology/tutorial.ipynb
+    - Plotting:
+      - Event sequence: functionalities/plotting/event_sequences.md
+      - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb
   - Recipes:
-    - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb
     # - Cross-tagging concepts between two DataFrames: recipes/diabetes.ipynb
   - Resources:
