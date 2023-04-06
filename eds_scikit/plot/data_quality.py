@@ -5,6 +5,7 @@ from typing import Tuple
 import altair as alt
 import numpy as np
 import pandas as pd
+from loguru import logger
 from pandas.core.series import Series
 
 from ..utils.checks import check_columns
@@ -98,8 +99,8 @@ def plot_age_pyramid(
     n_outliers = (~mask_age_inliners).sum()
     if n_outliers > 0:
         perc_outliers = 100 * n_outliers / person_.shape[0]
-        print(
-            f"{n_outliers} ({perc_outliers:.1f}%) individuals' "
+        logger.warning(
+            f"{n_outliers} ({perc_outliers:.4f}%) individuals' "
             "age is out of the (0, 125) interval, we skip them."
         )
     person_ = person_.loc[mask_age_inliners]
