@@ -1,17 +1,13 @@
 import pandas as pd
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, when
 
 
 def clean_dates(df: DataFrame) -> DataFrame:
-    dates = [
-        col for col, dtype in df.dtypes if dtype in {"date", "datetime", "timestamp"}
-    ]
-    for date in dates:
-        df = df.withColumn(
-            date,
-            when(
-                (col(date) > pd.Timestamp.max) | (col(date) < pd.Timestamp.min), None
-            ).otherwise(col(date)),
+    date_types = ["datetime", "datetimetz", "datetime64"]
+    date_cols = df.select_dtypes(date_types).columns
+    for col in date_cols:
+        mask_date_invalid = (df[col] > pd.Timestamp.max) | (
+            df[col] < pd.Timestamp(1900, 1, 1)
         )
+        df.loc[mask_date_invalid, col] = None
     return df
