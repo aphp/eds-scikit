@@ -35,12 +35,9 @@ nav:
   - Functionalities:
       - Connectors: functionalities/generic/io.ipynb
       - Phenotyping:
-          - The `Phenotype` class: functionalities/phenotyping/base.md
-          - Available phenotypes:
-              - functionalities/phenotyping/phenotypes/cancer.md
-              - functionalities/phenotyping/phenotypes/diabetes.md
-              - functionalities/phenotyping/phenotypes/suicide_attempt.md
-              - functionalities/phenotyping/phenotypes/psychiatric_disorder.md
+          - functionalities/phenotyping/working-with-codes.md
+          - functionalities/phenotyping/diabetes.md
+          - functionalities/phenotyping/suicide_attempts.md
       - Patient's Course:
           - ICU: functionalities/patients-course/is_icu.md
           - Emergency Units: functionalities/patients-course/is_emergency.md
@@ -93,9 +90,7 @@ plugins:
   - macros:
       module_name: docs/macros
   - bibtex:
-      #bib_file: "docs/references.bib"
-      bib_dir: "./"
-      recursive: true
+      bib_file: "docs/references.bib"
   - gen-files:
       scripts:
         - docs/generate_reference.py
@@ -111,7 +106,6 @@ plugins:
             members_order: source
             show_root_toc_entry: false
             separate_signature: true
-            merge_init_into_class: true
   - mknotebooks
   - literate-nav:
       nav_file: SUMMARY.md
@@ -128,7 +122,7 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.snippets:
-      base_path: ["docs/", "."]
+      base_path: ["docs/"]
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
