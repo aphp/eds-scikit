@@ -1,5 +1,10 @@
 # Changelog
 
+## Pending
+
+### Added
+- Module event_sequences to visualize individual sequences of events
+
 ## v0.1.5 (2023-04-05)
 
 ### Added
