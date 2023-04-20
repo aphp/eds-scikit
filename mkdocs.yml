@@ -111,7 +111,7 @@ plugins:
             members_order: source
             show_root_toc_entry: false
             separate_signature: true
-	    merge_init_into_class: true
+            merge_init_into_class: true
   - mknotebooks
   - literate-nav:
       nav_file: SUMMARY.md
