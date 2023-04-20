@@ -96,7 +96,6 @@ plugins:
   - bibtex:
       #bib_file: "docs/references.bib"
       bib_dir: "./"
-      recursive: true
   - gen-files:
       scripts:
         - docs/generate_reference.py
