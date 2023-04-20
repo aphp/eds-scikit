@@ -58,6 +58,7 @@ nav:
   - Recipes:
     - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb
+    # - Cross-tagging concepts between two DataFrames: recipes/diabetes.ipynb
   - Resources:
     - A note on private resources: datasets/private-resources.md
     - Biology:
@@ -138,4 +139,3 @@ markdown_extensions:
   - attr_list
   - pymdownx.details
   - codehilite
-  
