@@ -1,0 +1,109 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-8.5.10" name="generator"/>
+<title>Tutorial - eds-scikit</title>
+<link href="../../../assets/stylesheets/main.975780f9.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.2505c338.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en"><div class="md-container" data-md-component="container"><main class="md-main" data-md-component="main"><div class="md-main__inner md-grid"><div class="md-content" data-md-component="content"><article class="md-content__inner md-typeset"><div class="cell border-box-sizing text_cell rendered"><div class="inner_cell"><div class="text_cell_render border-box-sizing rendered_html" open="" style="text-align: center"><table>
+<thead>
+<tr>
+<th align="left">concepts_set</th>
+<th align="left">LOINC_concept_code</th>
+<th align="left">LOINC_concept_name</th>
+<th align="left">AnaBio_concept_code</th>
+<th align="left">AnaBio_concept_name</th>
+<th align="left">transformed_unit</th>
+<th align="left">transformed_value</th>
+<th align="left">max_threshold</th>
+<th align="left">min_threshold</th>
+<th align="left">outlier</th>
+<th align="left">value_source_value</th>
+<th align="left">unit_source_value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EntityA_Blood_Quantitative</td>
+<td align="left">000-0</td>
+<td align="left">EntityA #Bld</td>
+<td align="left">A0000</td>
+<td align="left">EntityA_Blood</td>
+<td align="left">x10*9/l</td>
+<td align="left">115</td>
+<td align="left">190</td>
+<td align="left">0</td>
+<td align="left">False</td>
+<td align="left">115 x10*9/l</td>
+<td align="left">x10*9/l</td>
+</tr>
+<tr>
+<td align="left">EntityA_Blood_Quantitative</td>
+<td align="left">000-1</td>
+<td align="left">EntityA_Blood_Vol</td>
+<td align="left">A0001</td>
+<td align="left">EntityA_Blood_g/l</td>
+<td align="left">x10*9/l</td>
+<td align="left">220</td>
+<td align="left">190</td>
+<td align="left">0</td>
+<td align="left">True</td>
+<td align="left">560 g/l</td>
+<td align="left">g/l</td>
+</tr>
+<tr>
+<td align="left">EntityB_Blood_Quantitative</td>
+<td align="left">001-0</td>
+<td align="left">EntityB_Blood</td>
+<td align="left">B0000</td>
+<td align="left">EntityB_Blood_artery</td>
+<td align="left">mmol</td>
+<td align="left">0.45</td>
+<td align="left">8.548</td>
+<td align="left">0.542</td>
+<td align="left">True</td>
+<td align="left">0.45 mmol</td>
+<td align="left">mmol</td>
+</tr>
+<tr>
+<td align="left">EntityB_Blood_Quantitative</td>
+<td align="left">001-0</td>
+<td align="left">EntityB_Blood</td>
+<td align="left">B0001</td>
+<td align="left">EntityB_Blood_vein</td>
+<td align="left">mmol</td>
+<td align="left">4.52</td>
+<td align="left">8.548</td>
+<td align="left">0.542</td>
+<td align="left">False</td>
+<td align="left">4.52 mmol</td>
+<td align="left">mmol</td>
+</tr>
+<tr>
+<td align="left">EntityB_Blood_Quantitative</td>
+<td align="left">000-1</td>
+<td align="left">EntityB Bld Auto</td>
+<td align="left">B0002</td>
+<td align="left">EntityB_Blood_µg/l</td>
+<td align="left">mmol</td>
+<td align="left">9.58</td>
+<td align="left">8.548</td>
+<td align="left">0.542</td>
+<td align="left">True</td>
+<td align="left">3587 µg/l</td>
+<td align="left">µg/l</td>
+</tr>
+</tbody>
+</table></div></div></div></article></div></div></main></div></html>
