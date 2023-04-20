@@ -58,7 +58,6 @@ nav:
   - Recipes:
     - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb
-    # - Cross-tagging concepts between two DataFrames: recipes/diabetes.ipynb
   - Resources:
     - A note on private resources: datasets/private-resources.md
     - Biology:
@@ -112,7 +111,7 @@ plugins:
             members_order: source
             show_root_toc_entry: false
             separate_signature: true
-			merge_init_into_class: true
+	    merge_init_into_class: true
   - mknotebooks
   - literate-nav:
       nav_file: SUMMARY.md
