@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.7'
       - name: Cap pip version
-        run: pip install -u "pip<23"
+        run: pip install -U "pip<23"
       - run: pip install .[doc]
       - name: Set up Git
         run: |
