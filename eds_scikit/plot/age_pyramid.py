@@ -16,8 +16,6 @@ from ..utils.typing import DataFrame
 def plot_age_pyramid(
     person: DataFrame,
     datetime_ref: datetime = None,
-    filename: str = None,
-    savefig: bool = False,
     return_array: bool = False,
 ) -> Tuple[alt.Chart, Series]:
     """Plot an age pyramid from a 'person' pandas DataFrame.
@@ -55,12 +53,6 @@ def plot_age_pyramid(
         The total number of patients grouped by gender and binned age.
     """
     check_columns(person, ["person_id", "birth_datetime", "gender_source_value"])
-
-    if savefig:
-        if filename is None:
-            raise ValueError("You have to set a filename")
-        if not isinstance(filename, str):
-            raise ValueError(f"'filename' type must be str, got {type(filename)}")
 
     datetime_ref_raw = copy(datetime_ref)
 
@@ -152,12 +144,7 @@ def plot_age_pyramid(
 
     chart = alt.concat(left, middle, right, spacing=5)
 
-    if savefig:
-        chart.save(filename)
-        if return_array:
-            return group_gender_age
-
     if return_array:
-        return chart, group_gender_age
+        return group_gender_age
 
     return chart
