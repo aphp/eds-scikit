@@ -26,6 +26,7 @@
 - Allow saving DB locally in client or cluster mode
 - Add data cleaning function to handle incorrect datetime in spark
 - Filter biology config on care site
+- Adding person-dependent `datetime_ref` to `plot_age_pyramid`
 
 ### Fixed
 
