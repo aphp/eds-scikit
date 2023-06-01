@@ -55,6 +55,7 @@ nav:
     - Plotting:
       - Event sequence: functionalities/plotting/event_sequences.md
       - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb
+      - Age pyramid: functionalities/plotting/age_pyramid.md
   - Recipes:
     - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb

@@ -39,10 +39,10 @@ plot_age_pyramid(df_person)
 ### Advanced parameters
 
 Further configuration can be provided, including :
-- `datetime_ref` : Choose the reference to compute the age from. It can be either:
-  - a single datetime (string or datetime type)
-  - an array of datetime (one reference for each patient)
-  - a string representing a column of the input dataframe
+
+- `datetime_ref` : Choose the reference to compute the age from.
+  It can be either a single datetime (string or datetime type), an array of datetime
+  (one reference for each patient) or a string representing a column of the input dataframe
 - `return_array`: If set to True, return a dataframe instead of a chart.
 
 ```python
