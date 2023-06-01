@@ -60,6 +60,8 @@ You can install eds-scikit via `pip`:
 pip install "eds-scikit[aphp]"
 ```
 
+:warning: If you get an an error during installation, please try downgrading pip via `pip install -U "pip<23" before install `eds-scikit`
+
 :warning: If you don't work in AP-HP's ecosystem (EDS), please install via:
 
 ```bash

@@ -1,5 +1,24 @@
 # Changelog
 
+## Pending
+
+### Added
+- Module event_sequences to visualize individual sequences of events
+
+## v0.1.5 (2023-04-05)
+
+### Added
+
+- BaseData class as a parent class for HiveData, PandasData and PostgresData
+- Phentyping class with 4 implemented phenotyes
+- Custom logger to display useful information during computation
+
+### Fixed
+
+- Add caching to speedup computations
+- Updated method to persist tables as parquet locally, with a support for ORC-stored I2B2 database
+
+
 ## v0.1.4 (2023-02-09)
 
 ### Added

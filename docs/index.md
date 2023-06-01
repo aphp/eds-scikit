@@ -61,7 +61,7 @@ As an example, the following figure was obtained using various functionalities f
 
             Follow this [installation guide](https://techoral.com/blog/java/openjdk-install-windows.html)
 
-You can install eds-scikit by cloning the git repository:
+You can install eds-scikit via pip:
 
 <div class="termy">
 
@@ -72,6 +72,9 @@ color:green Successfully installed eds_scikit !
 ```
 
 </div>
+
+!!! warning "Possible issue with pip"
+    If you get an an error during installation, please try downgrading pip via `pip install -U "pip<23"` before install `eds-scikit`
 
 !!! danger "Improving performances on distributed data"
       It is highly recommanded (but not mandatory) to use the helper function `eds_scikit.improve_performances` to optimaly configure PySpark and Koalas. You can simply call
