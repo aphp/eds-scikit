@@ -71,9 +71,11 @@ def test_HiveData(spark_session):
     person = data.person
     assert isinstance(person, ks.DataFrame)
     assert person.shape[0] > 2
-    
+
     person_ids = pd.Series([2], name="person_id")
-    data_filtered = io.HiveData(database_name=DATABASE, spark_session=spark_session, person_ids=person_ids)
+    data_filtered = io.HiveData(
+        database_name=DATABASE, spark_session=spark_session, person_ids=person_ids
+    )
     assert data_filtered.person.shape[0] == 1
 
 
