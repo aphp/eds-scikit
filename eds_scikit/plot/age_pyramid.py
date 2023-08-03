@@ -17,7 +17,7 @@ def plot_age_pyramid(
     person: DataFrame,
     datetime_ref: datetime = None,
     return_array: bool = False,
-) -> Tuple[alt.Chart, Series]:
+) -> Tuple[alt.ConcatChart, Series]:
     """Plot an age pyramid from a 'person' pandas DataFrame.
 
     Parameters
@@ -46,7 +46,7 @@ def plot_age_pyramid(
 
     Returns
     -------
-    chart : alt.Chart,
+    chart : alt.ConcatChart,
         If savefig set to True, returns None.
 
     group_gender_age : Series,

@@ -49,4 +49,4 @@ def test_event_sequences(
         same_x_axis_scale=same_x_axis_scale,
         title=title,
     )
-    assert type(chart) == alt.vegalite.v4.api.VConcatChart
+    assert type(chart) == alt.VConcatChart

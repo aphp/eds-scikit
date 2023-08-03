@@ -27,7 +27,7 @@ person_with_inclusion_date["inclusion_datetime"] = (
 def test_plot_age_pyramid(datetime_ref):
     original_person = person_with_inclusion_date.copy()
     chart = plot_age_pyramid(person_with_inclusion_date, datetime_ref)
-    assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
+    assert isinstance(chart, alt.ConcatChart)
 
     # Check that the data is unchanged
     assert_frame_equal(original_person, person_with_inclusion_date)
@@ -36,7 +36,7 @@ def test_plot_age_pyramid(datetime_ref):
 def test_age_pyramid_output():
 
     chart = plot_age_pyramid(data.person)
-    assert isinstance(chart, alt.vegalite.v4.api.ConcatChart)
+    assert isinstance(chart, alt.ConcatChart)
 
     group_gender_age = plot_age_pyramid(data.person, return_array=True)
     assert isinstance(group_gender_age, Series)

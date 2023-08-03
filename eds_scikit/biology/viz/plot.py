@@ -4,7 +4,6 @@ from typing import Union
 
 import altair as alt
 import pandas as pd
-from altair.vegalite.v4.api import VConcatChart as AltChart
 from IPython.display import display
 from loguru import logger
 from pretty_html_table import build_table
@@ -15,7 +14,7 @@ from eds_scikit.utils.typing import DataFrame
 def plot_concepts_set(
     concepts_set_name: str,
     source_path: str = "Biology_summary",
-) -> Union[AltChart, pd.DataFrame]:
+) -> Union[alt.ConcatChart, pd.DataFrame]:
     """Plot and save a summary table and 2 interactive dashboards. For more details, have a look on the [visualization section][visualization]
 
     Parameters
@@ -27,7 +26,7 @@ def plot_concepts_set(
 
     Returns
     -------
-    List[AltChart, pd.DataFrame]
+    List[alt.ConcatChart, pd.DataFrame]
         Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
     """
     if os.path.isdir("{}/{}".format(source_path, concepts_set_name)):
@@ -80,7 +79,7 @@ def plot_concepts_set(
 
 
 def _save_and_display_chart(
-    chart: AltChart, source_path: str, concepts_set_name: str, chart_name: str
+    chart: alt.ConcatChart, source_path: str, concepts_set_name: str, chart_name: str
 ):
     chart.display()
     chart.save("{}/{}/{}.html".format(source_path, concepts_set_name, chart_name))
