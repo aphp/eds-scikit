@@ -137,8 +137,8 @@ def plot_age_pyramid(
         alt.Chart(male)
         .mark_text()
         .encode(
-            y=alt.Text("age_bins", axis=None, sort=alt.SortOrder("descending")),
-            text=alt.Y("age_bins"),
+            y=alt.Y("age_bins", axis=None, sort=alt.SortOrder("descending")),
+            text=alt.Text("age_bins"),
         )
     )
 
