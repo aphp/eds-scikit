@@ -3,8 +3,8 @@ from datetime import datetime
 from shutil import rmtree
 from typing import List, Tuple, Union
 
+import altair as alt
 import pandas as pd
-from altair.vegalite.v4.api import VConcatChart as AltChart
 from loguru import logger
 
 from eds_scikit.biology.utils.process_concepts import (
@@ -32,7 +32,7 @@ def plot_biology_summary(
     standard_concept_regex: dict = default_standard_concept_regex,
     pd_limit_size: int = 100000,
     stats_only: bool = False,
-) -> Union[AltChart, pd.DataFrame]:
+) -> Union[alt.ConcatChart, pd.DataFrame]:
     """It aggregates, plots and saves all the concepts-sets in folders.
 
 
@@ -65,7 +65,7 @@ def plot_biology_summary(
 
     Returns
     -------
-    List[AltChart, pd.DataFrame]
+    List[alt.ConcatChart, pd.DataFrame]
         Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
     """
 

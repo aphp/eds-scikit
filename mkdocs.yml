@@ -96,7 +96,7 @@ plugins:
       module_name: docs/macros
   - bibtex:
       #bib_file: "docs/references.bib"
-      bib_dir: "./"
+      bib_dir: "./eds_scikit"
   - gen-files:
       scripts:
         - docs/generate_reference.py
