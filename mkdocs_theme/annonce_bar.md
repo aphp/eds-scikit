@@ -1,2 +1,2 @@
 **New features: **
-check out the new [Phenotype][the-phenotype-class] module !
+Check out the new [Event sequence][visualizing-event-sequences] and [Age pyramid][visualizing-age-pyramid] visualization tools !

@@ -1,32 +1,34 @@
 # Changelog
 
-## Pending
-
+## v0.1.6 (2023-09-27)
 ### Added
-- Module event_sequences to visualize individual sequences of events
+- Module ``event_sequences`` to visualize individual sequences of events.
+- Module ``age_pyramid`` to quickly visualize the age and gender distributions in a cohort.
+### FIxed
+- Compatibility with [EDS-TeVa](https://github.com/aphp/edsteva) and [EDSNLP](https://github.com/aphp/edsnlp).
 
 ## v0.1.5 (2023-04-05)
 
 ### Added
 
-- BaseData class as a parent class for HiveData, PandasData and PostgresData
-- Phentyping class with 4 implemented phenotyes
-- Custom logger to display useful information during computation
+- BaseData class as a parent class for HiveData, PandasData and PostgresData.
+- Phentyping class with 4 implemented phenotyes.
+- Custom logger to display useful information during computation.
 
 ### Fixed
 
-- Add caching to speedup computations
-- Updated method to persist tables as parquet locally, with a support for ORC-stored I2B2 database
+- Add caching to speedup computations.
+- Updated method to persist tables as parquet locally, with a support for ORC-stored I2B2 database.
 
 
 ## v0.1.4 (2023-02-09)
 
 ### Added
 
-- Allow saving DB locally in client or cluster mode
-- Add data cleaning function to handle incorrect datetime in spark
-- Filter biology config on care site
-- Adding person-dependent `datetime_ref` to `plot_age_pyramid`
+- Allow saving DB locally in client or cluster mode.
+- Add data cleaning function to handle incorrect datetime in spark.
+- Filter biology config on care site.
+- Adding person-dependent `datetime_ref` to `plot_age_pyramid`.
 
 ### Fixed
 
