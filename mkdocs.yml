@@ -25,7 +25,7 @@ theme:
     - navigation.indexes
     - navigation.top
     - content.code.annotate
-    - announce.dismiss
+    # - announce.dismiss
 
 nav:
   - index.md
