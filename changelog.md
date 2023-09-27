@@ -4,7 +4,7 @@
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
 - Module ``age_pyramid`` to quickly visualize the age and gender distributions in a cohort.
-### FIxed
+### Fixed
 - Compatibility with [EDS-TeVa](https://github.com/aphp/edsteva) and [EDSNLP](https://github.com/aphp/edsnlp).
 
 ## v0.1.5 (2023-04-05)
