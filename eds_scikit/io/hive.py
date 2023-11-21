@@ -12,7 +12,6 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
-from ..utils.framework import bd
 from . import settings
 from .base import BaseData
 from .data_quality import clean_dates
