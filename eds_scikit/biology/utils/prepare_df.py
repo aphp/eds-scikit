@@ -5,7 +5,8 @@ from eds_scikit.utils.framework import get_framework, to
 def prepare_biology_relationship(
     data,
     source_terminologies,
-    mapping
+    mapping,
+    concepts_sets
 ) -> pd.DataFrame:
     """Computes biology relationship table
 
@@ -60,7 +61,6 @@ def prepare_biology_relationship(
     
     concept = data.concept[concept_columns]
     concept_relationship = data.concept_relationship[concept_relationship_columns]
-    
     concept_by_terminology = {}
     for terminology, regex in source_terminologies.items():
         concept_by_terminology[terminology] = (
@@ -91,6 +91,12 @@ def prepare_biology_relationship(
         biology_relationship = biology_relationship.merge(
             relationship, on="{}_concept_id".format(source), how="left"
         )
+    
+    if concept_set:
+        code_colums = [column for column in biology_relationship.columns if "concept_code" in column]
+        concept_codes = [item for concept_set in concepts_sets for item in concept_set.concept_codes]
+        isin_concept_set = biology_relationship[code_colums].isin(concept_codes).any(axis=1)
+        biology_relationship = biology_relationship[isin_concept_set]
         
     biology_relationship = biology_relationship.fillna("Unknown")
                 

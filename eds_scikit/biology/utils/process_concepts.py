@@ -231,6 +231,7 @@ def _filter_concepts(
     concepts_sets: List[ConceptsSet],
     standard_concept_regex: dict = default_standard_concept_regex,
 ):
+    # Filtrage basé sur regex non sur terminologie
     check_columns(
         df=concept, required_columns=["concept_code", "concept_name"], df_name="concept"
     )
@@ -314,6 +315,19 @@ def _check_regex(
     concepts_codes: List[str],
     standard_concept_regex: dict = default_standard_concept_regex,
 ):
+    """Process ``Concept`` and ``Concept Relationship`` tables to obtain a wide DataFrame that gives for all concepts-sets the source code along with the standard concepts codes.
+
+    Parameters
+    ----------
+    concepts_codes : List[str]
+        **EXAMPLE**: `['A01', 'A02', 'C-40', 'T-7-90']`
+    standard_concept_regex : dict
+        **EXAMPLE**: {"concept_code_1": "[A-Z][0-9]{2}", "concept_code_2": "[A-Z]-[0-9]{2}"}
+    Returns
+    -------
+    Tuple
+        **EXAMPLE**: (False, 'T-7-90')"""
+
     unmatched_concepts = []
     for concept in concepts_codes:
         match = False
