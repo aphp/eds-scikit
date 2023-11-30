@@ -74,14 +74,10 @@ def bioclean(
     # Query concepts-set information
     if concepts_sets is None:
         concepts_sets = fetch_all_concepts_set()
-
-    src_to_std = get_concept_src_to_std(
-        concept=concept,
-        concept_relationship=concept_relationship,
-        concepts_sets=concepts_sets,
-        standard_concept_regex=standard_concept_regex,
-        standard_terminologies=standard_terminologies,
-    )
+        
+    biology_relationship_table = prepare_biology_relationship(data, source_terminologies, mapping)
+    measurement_timed = measurement_timed.merge(biology_relationship_table, on="")
+        
     # Extract concept-set
     measurement_std_filtered = get_measurement_std(measurement_timed, src_to_std)
 
