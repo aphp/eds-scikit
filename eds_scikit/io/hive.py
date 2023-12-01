@@ -12,7 +12,6 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
 
-from ..utils.framework import bd
 from . import settings
 from .base import BaseData
 from .data_quality import clean_dates
@@ -227,11 +226,9 @@ class HiveData(BaseData):  # pragma: no cover
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
 
-        df = df.to_koalas()
+        df = df.cache().to_koalas()
 
         df = clean_dates(df)
-
-        bd.cache(df)
 
         return df
 
