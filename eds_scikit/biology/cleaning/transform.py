@@ -30,6 +30,8 @@ def transform_measurement(
         for column_name in measurement.columns
         if "concept_code" in column_name
     ]
+    
+    concept_code_cols = ["AnaBio_concept_code"]
 
     config = registry.get("data", f"get_biology_config.{config_name}")()
     config = config[

@@ -12,13 +12,11 @@ def check_data_and_select_columns(data: Data):
     """
     check_tables(
         data,
-        required_tables=(
-            [
+        required_tables=[
                 "measurement",
                 "concept",
                 "concept_relationship",
             ],
-        ),
     )
 
     _measurement_required_columns = [

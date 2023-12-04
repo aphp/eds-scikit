@@ -16,6 +16,7 @@ from eds_scikit.biology.utils.process_measurement import (
 )
 from eds_scikit.io import settings
 from eds_scikit.utils.typing import Data, DataFrame
+from eds_scikit.biology.utils.prepare_df import prepare_biology_relationship
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
@@ -72,18 +73,39 @@ def bioclean(
     )
 
     # Query concepts-set information
-    if concepts_sets is None:
-        concepts_sets = fetch_all_concepts_set()
+    #if concepts_sets is None:
+    #    concepts_sets = fetch_all_concepts_set()
     
     # Map biology concept
-    biology_relationship_table = prepare_biology_relationship(data, source_terminologies, mapping, concept_set=concepts_sets)
-    measurement_timed = measurement_timed.merge(biology_relationship_table, 
-                                                left_on="measurement_source_concept_id", 
-                                                right_on=f"{mapping[0]}_concept_id")
+    source_terminologies = {
+        "ANALYSES_LABORATOIRE": r"Analyses Laboratoire",
+        "GLIMS_ANABIO": r"GLIMS.{0,20}Anabio",
+        "GLIMS_LOINC": r"GLIMS.{0,20}LOINC",
+        "ANABIO_ITM": r"ITM - ANABIO",
+        "LOINC_ITM": r"ITM - LOINC",
+    }
+    
+    mapping = [
+        ("ANALYSES_LABORATOIRE", "GLIMS_ANABIO", "Maps to"),
+        ("ANALYSES_LABORATOIRE", "GLIMS_LOINC", "Maps to"),
+        ("GLIMS_ANABIO", "ANABIO_ITM", "Mapped from"),
+        ("ANABIO_ITM", "LOINC_ITM", "Maps to"),
+    ]
+    
+    biology_relationship_table = prepare_biology_relationship(data, 
+                                                              source_terminologies,
+                                                              mapping, 
+                                                              concepts_sets=concepts_sets)
+    
+    measurement_std_filtered = measurement_timed.merge(biology_relationship_table, 
+                                                       left_on="measurement_source_concept_id", 
+                                                       right_on=f"{mapping[0][0]}_concept_id")
         
     # Extract concept-set
-    measurement_std_filtered = get_measurement_std(measurement_timed, src_to_std)
-
+    measurement_std_filtered = measurement_std_filtered.drop(columns=["measurement_source_concept_id"])
+    measurement_std_filtered = measurement_std_filtered.rename(columns={"GLIMS_ANABIO_concept_code" : "AnaBio_concept_code",
+                                                                        "GLIMS_LOINC_concept_code" : "LOINC_concept_code"})
+    measurement_std_filtered = measurement_std_filtered.drop(columns=["ANALYSES_LABORATOIRE_concept_code", "ANABIO_ITM_concept_code", "LOINC_ITM_concept_code"])
     # Filter Measurement
     if studied_cohort:
         measurement_std_filtered = select_cohort(

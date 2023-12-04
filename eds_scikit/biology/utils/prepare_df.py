@@ -92,12 +92,13 @@ def prepare_biology_relationship(
             relationship, on="{}_concept_id".format(source), how="left"
         )
     
-    if concept_set:
+    if concepts_sets:
         code_colums = [column for column in biology_relationship.columns if "concept_code" in column]
         concept_codes = [item for concept_set in concepts_sets for item in concept_set.concept_codes]
-        isin_concept_set = biology_relationship[code_colums].isin(concept_codes).any(axis=1)
+        isin_concept_set = biology_relationship[code_colums].isin(concept_codes).sum(axis=1) > 0
         biology_relationship = biology_relationship[isin_concept_set]
-        
+       
+    biology_relationship["concepts_set"] = "XXX"
     biology_relationship = biology_relationship.fillna("Unknown")
                 
     return biology_relationship
