@@ -1,10 +1,16 @@
 # Changelog
 
 ## Unreleased
+
+### Changed
+
+- Support for pyarrow > 0.17.0
+
 ### Fixed
 - Caching in spark instead of koalas to improve speed
 
 ## v0.1.6 (2023-09-27)
+
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
 - Module ``age_pyramid`` to quickly visualize the age and gender distributions in a cohort.
