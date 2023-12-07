@@ -7,6 +7,7 @@ from _pytest.logging import caplog as _caplog  # noqa F401
 from databricks import koalas as ks
 from loguru import logger
 
+import eds_scikit.utils.logging  # noqa: F401
 from eds_scikit import improve_performances
 
 from . import test_registry  # noqa: F401 --> To register functions
