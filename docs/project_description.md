@@ -124,6 +124,7 @@ The goal of **Koalas** is precisely to avoid this issue. It aims at allowing cod
 
 ```python
 from databricks import koalas as ks
+# or from pyspark import pandas as ks, if you have spark 3
 
 # Converting the Spark DataFrame into a Koalas DataFrame
 visit_occurrence_koalas = visit_occurrence_spark.to_koalas()

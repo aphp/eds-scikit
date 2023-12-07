@@ -49,6 +49,20 @@ jobs:
     needs: check_skip
     if: ${{ needs.check_skip.outputs.skip == 'false' }}
     runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - python-version: "3.7"
+            spark: "spark2"
+          - python-version: "3.7"
+            spark: "spark3"
+          - python-version: "3.8"
+            spark: "spark3"
+          - python-version: "3.9"
+            spark: "spark3"
+          - python-version: "3.10"
+            spark: "spark3"
     name: 'Testing on ubuntu'
     defaults:
       run:
@@ -61,13 +75,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.7'
-      - name: Install eds-scikit
-        shell: bash {0}
-        run: ./build_tools/github/install.sh
-      - name: Run tests
-        shell: bash {0}
-        run: ./build_tools/github/test.sh
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -U "pip<23"
+          pip install --progress-bar off ".[${{ matrix.spark }}, dev, doc]"
+      - name: Run pytest
+        run: |
+          python -m pytest --pyargs tests -m "" --cov=eds_scikit
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@v3
         if: success()

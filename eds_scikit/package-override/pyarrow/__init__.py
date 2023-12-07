@@ -21,18 +21,17 @@ pyspark distributed computing :
    is the only one that resolves to this very module, still gets what it asked for:
    the pyarrow module's content.
 """
-
 import sys
 
+old_sys_path = sys.path.copy()
 sys.path.remove(next((p for p in sys.path if "package-override" in p), None))
 del sys.modules["pyarrow"]
+
 import pyarrow  # noqa: E402, F401
+from pyarrow.ipc import open_stream  # noqa: E402, F401
 
-try:
-    import pyarrow.ipc
-
-    pyarrow.open_stream = pyarrow.ipc.open_stream
-except ImportError:
-    pass
+pyarrow.open_stream = open_stream
 
 from pyarrow import *  # noqa: F401, F403, E402
+
+sys.path[:] = old_sys_path

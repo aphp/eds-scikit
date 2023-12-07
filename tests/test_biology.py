@@ -14,7 +14,10 @@ def tmp_biology_dir(tmp_path_factory):
 
 @pytest.fixture
 def data():
-    return load_biology_data(seed=42)
+    return load_biology_data(
+        seed=42,
+        mean_measurement=500,
+    )
 
 
 @pytest.fixture
@@ -73,6 +76,7 @@ def test_biology_summary(data, concepts_sets, module, tmp_biology_dir):
         limit_count=("AnaBio", 500),
         stats_only=True,
         save_folder_path=tmp_biology_dir,
+        pd_limit_size=0,
     )
 
 
