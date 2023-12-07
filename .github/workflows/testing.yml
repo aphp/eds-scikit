@@ -79,7 +79,7 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: |
-          pip install -U "pip<23"
+          pip install -U pip wheel
           pip install --progress-bar off ".[${{ matrix.spark }}, dev, doc]"
       - name: Run pytest
         run: |
