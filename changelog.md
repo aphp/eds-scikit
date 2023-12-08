@@ -1,10 +1,18 @@
 # Changelog
 
 ## Unreleased
+
+### Added
+
+- Support for pyarrow > 0.17.0
+- Support for Python 3.7 to 3.10 (3.11 or higher is not tested)
+- Support for pyspark 3 (to force pyspark 2, use `pip install eds-scikit[spark2]`)
+
 ### Fixed
 - Caching in spark instead of koalas to improve speed
 
 ## v0.1.6 (2023-09-27)
+
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
 - Module ``age_pyramid`` to quickly visualize the age and gender distributions in a cohort.

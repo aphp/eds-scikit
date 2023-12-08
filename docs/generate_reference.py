@@ -8,7 +8,7 @@ nav = mkdocs_gen_files.Nav()
 
 for path in sorted(Path("eds_scikit").rglob("*.py")):
     print(path)
-    if ".ipynb_checkpoints" in path.parts:
+    if ".ipynb_checkpoints" in path.parts or "package-override" in path.parts:
         continue
     module_path = path.relative_to(".").with_suffix("")
     doc_path = path.relative_to("eds_scikit").with_suffix(".md")

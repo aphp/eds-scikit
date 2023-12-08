@@ -30,24 +30,22 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Operating System :: Unix",
 ]
-requires-python = ">=3.7.1,<3.8"
+requires-python = ">=3.7.1"
 dependencies = [
     "pgpasslib>=1.1.0, <2.0.0",
-    "psycopg2-binary>=2.9.0, <3.0.0",
+    "psycopg2-binary>=2.9.0",
     "pandas>=1.3.0, <2.0.0",
-    "numpy>=1.0.0, <1.20",
-    "koalas>=1.8.1, <2.0.0",
-    "altair>=5.0.0, <6.0.0",
+    "numpy>=1.0.0",
+    "altair>=5.0.0",
     "loguru==0.7.0",
-    "pypandoc==1.7.5",
-    "pyspark==2.4.3",
-    "pyarrow==0.17.0", #"pyarrow>=0.10, <0.17.0",
+    "pyspark",
+    "pyarrow>=0.10.0",
     "pretty-html-table>=0.9.15, <0.10.0",
     "catalogue",
     "schemdraw>=0.15.0, <1.0.0",
-    "ipython>=7.32.0, <8.0.0",
-    "packaging==21.3",
-    "tomli==2.0.1",
+    "ipython>=7.32.0",
+    "packaging>=21.3",
+    "tomli>=2.0.1",
 ]
 dynamic = ['version']
 
@@ -66,6 +64,10 @@ Documentation = "https://aphp.github.io/eds-scikit"
 "Bug Tracker" = "https://github.com/aphp/eds-scikit/issues"
 
 [project.optional-dependencies]
+spark2 = [
+    "pyspark==2.4.3",
+    "koalas>=1.8.1,<2.0.0",
+]
 dev = [
     "black>=22.3.0, <23.0.0",
     "flake8==3.9.2",

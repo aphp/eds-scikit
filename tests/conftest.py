@@ -1,12 +1,15 @@
+# isort: skip_file
 import logging
 import os
 
+import eds_scikit
 import pandas as pd
 import pytest
 from _pytest.logging import caplog as _caplog  # noqa F401
 from databricks import koalas as ks
 from loguru import logger
 
+import eds_scikit.utils.logging  # noqa: F401
 from eds_scikit import improve_performances
 
 from . import test_registry  # noqa: F401 --> To register functions
@@ -83,11 +86,6 @@ def spark_session(pytestconfig, tmpdir_factory):
             SparkConf()
             .setMaster("local")
             .setAppName("testing")
-            # used to overwrite hive tables
-            .set(
-                "spark.sql.legacy.allowCreatingManagedTableUsingNonemptyLocation",
-                "true",
-            )
             # Path to data and metastore
             # Note: the option "hive.metastore.warehouse.dir" is deprecated
             # But javax.jdo.option.ConnectionURL can be used for the path of 'metastrore_db'
@@ -100,6 +98,7 @@ def spark_session(pytestconfig, tmpdir_factory):
                 "javax.jdo.option.ConnectionURL",
                 f"jdbc:derby:;databaseName={temp_warehouse_dir}/metastore_db;create=true",
             )
+            .set("spark.executor.cores", 1)
         )
 
         session, _, _ = improve_performances(to_add_conf=list(conf.getAll()))

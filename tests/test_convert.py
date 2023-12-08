@@ -51,9 +51,9 @@ def test_framework_koalas(example_objects):
 def test_unconvertible_objects():
     objects = [1, "coucou", {"a": [1, 2]}, [1, 2, 3], 2.5, ks, pd]
     for obj in objects:
-        with pytest.raises(ValueError):
+        with pytest.raises((ValueError, TypeError)):
             framework.pandas(obj)
 
     for obj in objects:
-        with pytest.raises(ValueError):
+        with pytest.raises((ValueError, TypeError)):
             framework.koalas(obj)
