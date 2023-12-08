@@ -1,9 +1,9 @@
 import glob
+import os
 from pathlib import Path
 from typing import List
 
 import pandas as pd
-from importlib_metadata import os
 from loguru import logger
 
 from eds_scikit.biology.utils.process_concepts import ConceptsSet

@@ -96,7 +96,7 @@ def assert_equal(
     return output
 
 
-def assert_images_equal(image_1: str, image_2: str):
+def image_diff(image_1: str, image_2: str):
     img1 = Image.open(image_1)
     img2 = Image.open(image_2)
 
@@ -105,12 +105,11 @@ def assert_images_equal(image_1: str, image_2: str):
     img2 = img2.resize(img1.size)
 
     sum_sq_diff = np.sum(
-        (np.asarray(img1).astype("float") - np.asarray(img2).astype("float")) ** 2
-    )
+        (
+            np.asarray(img1).astype("float") / 255
+            - np.asarray(img2).astype("float") / 255
+        )
+        ** 2
+    ) / np.prod(img1.size)
 
-    if sum_sq_diff == 0:
-        # Images are exactly the same
-        pass
-    else:
-        normalized_sum_sq_diff = sum_sq_diff / np.sqrt(sum_sq_diff)
-        assert normalized_sum_sq_diff < 0.001
+    return sum_sq_diff
