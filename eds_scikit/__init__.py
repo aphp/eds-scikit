@@ -81,6 +81,7 @@ def set_env_variables() -> None:
 def improve_performances(
     to_add_conf: List[Tuple[str, str]] = [],
     quiet_spark: bool = True,
+    app_name: str = ""
 ) -> Tuple[SparkSession, SparkContext, SparkSession.sql]:
     """
     (Re)defines various Spark variable with some configuration changes
@@ -118,14 +119,16 @@ def improve_performances(
 
     to_add_conf.extend(
         [
-            ("spark.app.name", f"{os.environ.get('USER')}_scikit"),
+            ("spark.app.name", f"{os.environ.get('USER')}_{app_name}_scikit"),
             ("spark.sql.session.timeZone", tz),
             ("spark.sql.execution.arrow.enabled", "true"),
             ("spark.sql.execution.arrow.pyspark.enabled", "true"),
         ]
     )
-
+        
     for key, value in to_add_conf:
+        if not conf.contains(key):
+            logger.warning(f"{key} not in default spark config. Make sure it corresponds to existing config parameter.")
         conf.set(key, value)
 
     # Stopping context to add necessary env variables
