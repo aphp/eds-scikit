@@ -13,7 +13,7 @@ from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
-default_source_terminologies = settings.source_terminologie
+default_source_terminologies = settings.source_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
 default_concept_set = pd.read_csv("config_files/default_concept_sets")
 
