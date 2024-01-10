@@ -5,29 +5,16 @@ import pandas as pd
 
 from ..base import Phenotype
 
-path_icd10 = Path(__file__).parent / "codes.csv"
-ICD10_CODES_DF = pd.read_csv(path_icd10)
+from codes import *
 
-
-class DiabetesFromICD10(Phenotype):
+class KidneyDisease(Phenotype):
     """
-    Phenotyping visits or patients using ICD10 diabetes codes
+    Phenotyping visits or patients using ICD10 codes, CCAM and biology.
     """
-
-    ICD10_CODES = {
-        diabetes_type: {"prefix": df.code.to_list()}
-        for diabetes_type, df in ICD10_CODES_DF.groupby("Diabetes type")
-    }
-
-    ALL_DIABETES_TYPES = list(ICD10_CODES.keys())
-    """
-    Available diabetes types.
-    """
-
+    
     def __init__(
         self,
         data,
-        diabetes_types: Optional[List[str]] = None,
         level: str = "visit",
         subphenotype: bool = True,
         threshold: int = 1,
@@ -37,8 +24,6 @@ class DiabetesFromICD10(Phenotype):
         ----------
         data : BaseData
             A BaseData object
-        diabetes_types :  Optional[List[str]]
-            Optional list of diabetes types to use for phenotyping
         level : str
             On which level to do the aggregation,
             either "patient" or "visit"
@@ -50,24 +35,26 @@ class DiabetesFromICD10(Phenotype):
         """
         super().__init__(data)
 
-        if diabetes_types is None:
-            diabetes_types = self.ALL_DIABETES_TYPES
-
-        incorrect_diabetes_types = set(diabetes_types) - set(self.ALL_DIABETES_TYPES)
-
-        if incorrect_diabetes_types:
-            raise ValueError(
-                f"Incorrect diabetes types ({incorrect_diabetes_types}). "
-                f"Available diabetes types are {self.ALL_DIABETES_TYPES}"
-            )
-
-        self.icd10_codes = {
-            k: v for k, v in self.ICD10_CODES.items() if k in diabetes_types
-        }
+        self.config_CKD_diag = CONFIGS_CKD_DIAG
+        self.config_dialysis = CONFIGS_DIALYSE
+        self.config_conco_diag = CONFIGS_DIAG_CONCO
+        self.config_other_kd_diag = CONFIGS_KD
+        self.config_biology = kd_biological_measures
 
         self.level = level
         self.subphenotype = subphenotype
         self.threshold = threshold
+
+    def compute_is_CKD(self):
+        
+        self.add_code_feature(
+            output_feature="icd10",
+            source="icd10",
+            codes=self.config_CKD_diag["codes_ICD10"],
+            additional_filtering=self.config_CKD_diag["additional_filtering"],
+            additional_filtering=self.config_CKD_diag["date_from_visit"],
+        )
+
 
     def compute(self):
         """

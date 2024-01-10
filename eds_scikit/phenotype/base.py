@@ -90,6 +90,7 @@ class Phenotype:
         codes: dict,
         source: str = "icd10",
         additional_filtering: Optional[dict] = None,
+        date_from_visit: bool = False
     ):
         """
         Adds a feature from either ICD10 or CCAM codes
@@ -132,7 +133,7 @@ class Phenotype:
             codes_df,
             codes=codes,
             additional_filtering=additional_filtering,
-            date_from_visit=False,
+            date_from_visit=date_from_visit,
         )
         df["phenotype"] = self.name
         df = df.rename(columns={"concept": "subphenotype"})
