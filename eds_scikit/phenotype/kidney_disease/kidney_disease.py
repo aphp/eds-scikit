@@ -46,7 +46,7 @@ class KidneyDisease(Phenotype):
         self.threshold = threshold
 
     def compute_is_CKD(self):
-        
+
         self.add_code_feature(
             output_feature="icd10",
             source="icd10",
@@ -54,7 +54,6 @@ class KidneyDisease(Phenotype):
             additional_filtering=self.config_CKD_diag["additional_filtering"],
             additional_filtering=self.config_CKD_diag["date_from_visit"],
         )
-
 
     def compute(self):
         """
