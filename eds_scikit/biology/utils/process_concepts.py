@@ -15,7 +15,7 @@ from eds_scikit.utils.typing import DataFrame
 default_standard_terminologies = settings.standard_terminologies
 default_source_terminologies = settings.source_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
-#default_concept_set = pd.read_csv("config_files/default_concept_sets")
+default_concepts_sets = datasets.default_concepts_sets
 
 
 class ConceptsSet:
@@ -27,10 +27,12 @@ class ConceptsSet:
 
     def __init__(self, name: str):
         self.name = name
-        self.concept_codes = {}
-        if name in default_concept_set.concept_set.values:
-            self.concept_codes = {"GLIMS_ANABIO" : default_concept_set[default_concept_set.concept_set == name].GLIMS_ANABIO_concept_code.tolist()}
-            logger.info(f"Concept set {name} found and loaded.")
+        
+        fetched_codes = fetch_concept_codes_from_name(name)
+        if fetched_codes:
+            self.concept_codes = {"GLIMS_ANABIO" : fetch_concept_codes_from_name(name)}
+        else:
+            self.concept_codes = {}
 
     def add_concept_codes(self, concept_codes: Union[str, List[str]], terminology: str = None):
         if not terminology:
@@ -93,7 +95,8 @@ def fetch_concept_codes_from_name(
     )
     if concepts_set_name in default_concepts_sets.index:
         standard_concepts = []
-        for column in default_concepts_sets.columns:
+        concept_code_columns = [col for col in default_concepts_sets.columns if "concept_code" in col]
+        for column in concept_code_columns:
             terminology_standard_concepts = ast.literal_eval(
                 default_concepts_sets.loc[concepts_set_name][column]
             )
