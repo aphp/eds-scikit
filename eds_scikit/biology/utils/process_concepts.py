@@ -15,7 +15,7 @@ from eds_scikit.utils.typing import DataFrame
 default_standard_terminologies = settings.standard_terminologies
 default_source_terminologies = settings.source_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
-default_concept_set = pd.read_csv("config_files/default_concept_sets")
+#default_concept_set = pd.read_csv("config_files/default_concept_sets")
 
 
 class ConceptsSet:

@@ -3,7 +3,6 @@ from typing import List, Union
 
 from eds_scikit.biology.cleaning.cohort import select_cohort
 from eds_scikit.biology.cleaning.transform import transform_measurement
-from eds_scikit.biology.utils.check_data import check_data_and_select_columns
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.biology.utils.prepare_measurement import prepare_measurement_table
 from eds_scikit.io import settings
