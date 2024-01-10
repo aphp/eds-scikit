@@ -53,11 +53,11 @@ def bioclean(
         Same as the input with the transformed `bioclean` table
     """
     
-    measurements = prepare_measurement_table(data, start_date, end_date, concept_sets, cohort=None, convert_units=False, outliers_detection=None)
+    measurements = prepare_measurement_table(data, start_date, end_date, concepts_sets, cohort=None, convert_units=False, outliers_detection=None)
     
     # Filter Measurement
     if studied_cohort:
-        measurement_std_filtered = select_cohort(
+        measurements = select_cohort(
             measurements, studied_cohort
         )
 

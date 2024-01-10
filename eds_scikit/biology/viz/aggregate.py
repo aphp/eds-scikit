@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from eds_scikit.biology.utils.process_concept_sets import (
+from eds_scikit.biology.utils.process_concepts import (
     ConceptsSet,
     get_concept_src_to_std,
 )

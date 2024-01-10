@@ -13,8 +13,9 @@ from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
+default_source_terminologies = settings.source_terminologie
 default_standard_concept_regex = settings.standard_concept_regex
-default_concept_set = pd.read_csv("default_concept_sets")
+default_concept_set = pd.read_csv("config_files/default_concept_sets")
 
 
 class ConceptsSet:
@@ -24,42 +25,36 @@ class ConceptsSet:
     - ``concept_codes`` : the list of concepts codes included in the concepts-set
     """
 
-    def __init__(self, name: str, concept_codes: List[str] = None, terminologies : List[str] = None, terminologies_source_regex : Dict[str, str] = None, conversion : List[Tuple] = None):
+    def __init__(self, name: str):
         self.name = name
-        self.terminologies = terminologies
-        self.terminologies_regex = default_standard_concept_regex
-        self.conversion = conversion
-        
-        self.terminologies_regex.update(default_standard_concept_regex) #AP-HP spé
-        
-        if concept_codes is None:
-            self.concept_codes = fetch_concept_codes_from_name(name)
-        else:
-            self.concept_codes = concept_codes
-            
-        check, codes = _check_regex(concept_codes, self.terminologies_regex)
-        if not check: 
-            logger.info(f"{codes} do not match any terminology")
+        self.concept_codes = {}
+        if name in default_concept_set.concept_set.values:
+            self.concept_codes = {"GLIMS_ANABIO" : default_concept_set[default_concept_set.concept_set == name].GLIMS_ANABIO_concept_code.tolist()}
+            logger.info(f"Concept set {name} found and loaded.")
 
-
-    def add_concept_codes(self, concept_codes: Union[str, List[str]]):
+    def add_concept_codes(self, concept_codes: Union[str, List[str]], terminology: str = None):
+        if not terminology:
+            logger.error("concept_codes terminology must be provided. See settings.source_terminologie.")
+            raise TypeError
         if isinstance(concept_codes, str):
-            if concept_codes not in self.concept_codes:
-                self.concept_codes.append(concept_codes)
-        elif isinstance(concept_codes, list):
+            concept_codes = [concept_codes]
+        if isinstance(concept_codes, list):
+            if not(terminology in self.concept_codes.keys()):
+                self.concept_codes[terminology] = []
             for concept_code in concept_codes:
-                if concept_code not in self.concept_codes:
-                    self.concept_codes.append(concept_code)
+                if concept_code not in self.concept_codes[terminology]:
+                    self.concept_codes[terminology].append(concept_code)
         else:
             logger.error("concept_codes must be string or list")
             raise TypeError
 
-    def remove_concept_codes(self, concept_codes: Union[str, List[str]]):
+    def remove_concept_codes(self, concept_codes: Union[str, List[str]], terminology: str = None):
+        if not(terminology and terminology in self.concept_codes.keys()):
+            logger.error("concept_codes terminology must be provided and must exist in concept_codes keys")
+            raise TypeError
         if isinstance(concept_codes, str):
-            if concept_codes in self.concept_codes:
-                self.concept_codes.remove(concept_codes)
-                logger.info("concept_code {} has been deleted", concept_codes)
-        elif isinstance(concept_codes, list):
+            concept_codes = [concept_codes]        
+        if isinstance(concept_codes, list):
             for concept_code in concept_codes:
                 if concept_code in self.concept_codes:
                     self.concept_codes.remove(concept_code)
@@ -67,35 +62,28 @@ class ConceptsSet:
         else:
             logger.error("concept_codes must be string or list")
             raise TypeError
+        
+    def get_concept_codes_table(self, terminologies=None, relationship_table=None):
+        
+        if not terminologies:
+            terminologies = self.concept_codes.keys()            
             
-    def check_concept_codes_compatibility(self):
-        compatibility = True
-        for concept_code in self.concept_codes:
-            compatibility = compatibility and any([re.match(self.terminologies_regex[terminology], concept_code) for terminology in self.terminologies_regex])
-        return compatibility
-        
-    def get_concept_codes(self, terminology=None):
-        if terminology:
-            if terminology in self.terminologies_regex:
-                regex = self.terminologies_regex[terminology]
-                return [concept_code for concept_code in self.concept_codes if bool(re.match(regex, concept_code))]
-            else:
-                return []
-        else:
-            return self.concept_codes
-        
-    def get_concept_codes_terminologies(self, terminologies):
-        concept_codes_terminologies = {}
-        for terminology in self.terminologies:
-            for terminology_with_src in terminologies:
-                if terminology in terminology_with_src:
-                    concept_codes_terminologies[terminology_with_src] = []
-                    for concept_code in self.concept_codes:
-                        regex = self.terminologies_regex[terminology]
-                        if re.match(regex, concept_code):
-                            concept_codes_terminologies[terminology_with_src].append(concept_code)
-        return concept_codes_terminologies
-    
+        result_df = pd.DataFrame({})
+        for terminology in terminologies:
+            df = pd.DataFrame({
+                "concept_set" : [self.name] * len(self.concept_codes[terminology]),
+                "terminology" : [terminology] * len(self.concept_codes[terminology]),
+                "concept_code" : self.concept_codes[terminology],
+                f"{terminology}_concept_code" : self.concept_codes[terminology]})            
+            
+            if relationship_table is not None:
+                df = df.merge(relationship_table, on=f"{terminology}_concept_code", how="left", suffixes=("_x", ""))
+                df = df[[column for column in df.columns if not("_x" in column)]]
+                
+            result_df = pd.concat((df, result_df), axis=0)
+                    
+        return result_df
+
     
 def fetch_concept_codes_from_name(
     concepts_set_name: str, concepts_sets_table_name: str = "default_concepts_sets"

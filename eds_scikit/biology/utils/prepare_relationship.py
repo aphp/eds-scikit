@@ -2,6 +2,7 @@ import databricks.koalas as ks
 import re
 from eds_scikit.io import settings
 from eds_scikit.utils.framework import get_framework, to
+from eds_scikit.biology.utils.prepare_relationship import check_data_and_select_columns_relationship
 import pandas as pd
 
 def select_mapping(
