@@ -1,7 +1,7 @@
 import ast
 import re
 from functools import reduce
-from typing import List, Union
+from typing import List, Union, Tuple, Dict
 
 import pandas as pd
 from loguru import logger
@@ -14,6 +14,7 @@ from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
+default_concept_set = pd.read_csv("default_concept_sets")
 
 
 class ConceptsSet:
@@ -23,12 +24,23 @@ class ConceptsSet:
     - ``concept_codes`` : the list of concepts codes included in the concepts-set
     """
 
-    def __init__(self, name: str, concept_codes: List[str] = None):
+    def __init__(self, name: str, concept_codes: List[str] = None, terminologies : List[str] = None, terminologies_source_regex : Dict[str, str] = None, conversion : List[Tuple] = None):
         self.name = name
+        self.terminologies = terminologies
+        self.terminologies_regex = default_standard_concept_regex
+        self.conversion = conversion
+        
+        self.terminologies_regex.update(default_standard_concept_regex) #AP-HP spé
+        
         if concept_codes is None:
             self.concept_codes = fetch_concept_codes_from_name(name)
         else:
             self.concept_codes = concept_codes
+            
+        check, codes = _check_regex(concept_codes, self.terminologies_regex)
+        if not check: 
+            logger.info(f"{codes} do not match any terminology")
+
 
     def add_concept_codes(self, concept_codes: Union[str, List[str]]):
         if isinstance(concept_codes, str):
@@ -55,8 +67,36 @@ class ConceptsSet:
         else:
             logger.error("concept_codes must be string or list")
             raise TypeError
-
-
+            
+    def check_concept_codes_compatibility(self):
+        compatibility = True
+        for concept_code in self.concept_codes:
+            compatibility = compatibility and any([re.match(self.terminologies_regex[terminology], concept_code) for terminology in self.terminologies_regex])
+        return compatibility
+        
+    def get_concept_codes(self, terminology=None):
+        if terminology:
+            if terminology in self.terminologies_regex:
+                regex = self.terminologies_regex[terminology]
+                return [concept_code for concept_code in self.concept_codes if bool(re.match(regex, concept_code))]
+            else:
+                return []
+        else:
+            return self.concept_codes
+        
+    def get_concept_codes_terminologies(self, terminologies):
+        concept_codes_terminologies = {}
+        for terminology in self.terminologies:
+            for terminology_with_src in terminologies:
+                if terminology in terminology_with_src:
+                    concept_codes_terminologies[terminology_with_src] = []
+                    for concept_code in self.concept_codes:
+                        regex = self.terminologies_regex[terminology]
+                        if re.match(regex, concept_code):
+                            concept_codes_terminologies[terminology_with_src].append(concept_code)
+        return concept_codes_terminologies
+    
+    
 def fetch_concept_codes_from_name(
     concepts_set_name: str, concepts_sets_table_name: str = "default_concepts_sets"
 ):
@@ -315,7 +355,7 @@ def _check_regex(
     concepts_codes: List[str],
     standard_concept_regex: dict = default_standard_concept_regex,
 ):
-    """Process ``Concept`` and ``Concept Relationship`` tables to obtain a wide DataFrame that gives for all concepts-sets the source code along with the standard concepts codes.
+    """
 
     Parameters
     ----------

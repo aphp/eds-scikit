@@ -8,7 +8,7 @@ from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
 
 
-def get_valid_measurement(measurement: DataFrame) -> DataFrame:
+def filter_measurement_valid(measurement: DataFrame) -> DataFrame:
     """Filter valid observations based on the `row_status_source_value` column
 
     Parameters
@@ -30,27 +30,6 @@ def get_valid_measurement(measurement: DataFrame) -> DataFrame:
     measurement_valid = measurement_valid.drop(columns=["row_status_source_value"])
     logger.info("Valid measurements have been selected")
     return measurement_valid
-
-
-def _select_adequate_date_column(measurement: DataFrame):
-    missing_date = measurement.measurement_date.isna().sum()
-    if missing_date > 0:
-        missing_datetime = measurement.measurement_datetime.isna().sum()
-        if missing_date > missing_datetime:
-            measurement = measurement.drop(columns="measurement_date").rename(
-                columns={"measurement_datetime": "measurement_date"}
-            )
-            logger.warning(
-                "As the measurement_date column is not reliable ({} missing dates), it has been replaced by the measurement_datetime column ({} missing datetimes)",
-                missing_date,
-                missing_datetime,
-            )
-            missing_date = missing_datetime
-        else:
-            measurement = measurement.drop(columns="measurement_datetime")
-    else:
-        measurement = measurement.drop(columns="measurement_datetime")
-    return measurement
 
 
 def filter_measurement_by_date(
@@ -77,7 +56,8 @@ def filter_measurement_by_date(
     )
 
     if "measurement_datetime" in measurement.columns:
-        measurement = _select_adequate_date_column(measurement=measurement)
+        measurement = measurement
+        #measurement = _select_adequate_date_column(measurement=measurement)
 
     measurement.measurement_date = measurement.measurement_date.astype("datetime64[ns]")
 
@@ -130,6 +110,30 @@ def filter_concept_by_number(
         code_set, on="{}_concept_code".format(terminology), how="inner"
     )
 
+def tag_measurement_anomaly(
+    measurement: DataFrame
+) -> DataFrame:
+    """
+
+    Parameters
+    ----------
+    measurement : DataFrame
+        DataFrame to filter
+    start_date : datetime, optional
+        **EXAMPLE**: `"2019-05-01"`
+    end_date : datetime, optional
+        **EXAMPLE**: `"2022-05-01"`
+
+    Returns
+    -------
+    """
+    logger.info(f"Tagging measurement value anomaly.")
+
+    measurement["range_high_anomaly"] = (~measurement.range_high.isna()) & (measurement["value_as_number"] > measurement["range_high"])
+    measurement["range_low_anomaly"] = (~measurement.range_low.isna()) & (measurement["value_as_number"] < measurement["range_low"])
+
+    return measurement
+
 
 def get_measurement_std(measurement: DataFrame, src_to_std: DataFrame):
     check_columns(
@@ -167,4 +171,25 @@ def normalize_unit(measurement: DataFrame):
     measurement["unit_source_value"] = (
         measurement["unit_source_value"].str.lower().fillna("Unknown")
     )
+    return measurement
+
+
+def _select_adequate_date_column(measurement: DataFrame):
+    missing_date = measurement.measurement_date.isna().sum()
+    if missing_date > 0:
+        missing_datetime = measurement.measurement_datetime.isna().sum()
+        if missing_date > missing_datetime:
+            measurement = measurement.drop(columns="measurement_date").rename(
+                columns={"measurement_datetime": "measurement_date"}
+            )
+            logger.warning(
+                "As the measurement_date column is not reliable ({} missing dates), it has been replaced by the measurement_datetime column ({} missing datetimes)",
+                missing_date,
+                missing_datetime,
+            )
+            missing_date = missing_datetime
+        else:
+            measurement = measurement.drop(columns="measurement_datetime")
+    else:
+        measurement = measurement.drop(columns="measurement_datetime")
     return measurement

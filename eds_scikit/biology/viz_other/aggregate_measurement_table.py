@@ -5,11 +5,11 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from eds_scikit.biology.utils.process_concept_sets import (
+from eds_scikit.biology.utils.concept_set import (
     ConceptsSet,
     get_concept_src_to_std,
 )
-from eds_scikit.biology.utils.process_measurement import (
+from eds_scikit.biology.utils.filter_measurement import (
     filter_measurement_valid,
     filter_concept_by_count,
     filter_concept_by_number,
@@ -23,260 +23,44 @@ from eds_scikit.utils.checks import check_columns, check_tables
 from eds_scikit.utils.framework import is_koalas, to
 from eds_scikit.utils.typing import Data, DataFrame
 
-default_standard_terminologies = settings.standard_terminologies
-default_standard_concept_regex = settings.standard_concept_regex
+"""
+
+NB : ça serait cool de l'avoir avec les prepare, filter, etc : aggreate_table(...)
+
+"""
 
 
-def aggregate_concepts_set(
-    data: Data,
-    concepts_set: ConceptsSet,
-    start_date: datetime = None,
-    end_date: datetime = None,
-    number_of_concept: Tuple[str, int] = None,
-    limit_count: Tuple[str, int] = None,
-    standard_terminologies: List[str] = default_standard_terminologies,
-    standard_concept_regex: dict = default_standard_concept_regex,
-    pd_limit_size: int = 100000,
-    stats_only: bool = False,
-) -> Dict[str, pd.DataFrame]:
-    """Aggregates the data for [visualization][visualization].
+"""
 
-    Parameters
-    ----------
-    data : Data
-         Instantiated [``HiveData``][eds_scikit.io.hive.HiveData], [``PostgresData``][eds_scikit.io.postgres.PostgresData] or [``PandasData``][eds_scikit.io.files.PandasData]
-    concepts_set : ConceptsSet
-        List of concepts-sets to select
-    start_date : datetime, optional
-        **EXAMPLE**: `"2019-05-01"`
-    end_date : datetime, optional
-        **EXAMPLE**: `"2022-01-01"`
-    number_of_concept : Tuple[str, int], optional
-        The maximum number of concepts for a given terminology
-        **EXAMPLE**: `("LOINC", 5)`
-    limit_count : Tuple[str, int], optional
-        The minimum number of observations per concepts for a given terminology
-        **EXAMPLE**: `("LOINC", 5)`
-    standard_terminologies : List[str], optional
-        **EXAMPLE**: `["LOINC", "AnaBio"]`
-    standard_concept_regex : dict, optional
-        **EXAMPLE**: `{"LOINC": "[0-9]{2,5}[-][0-9]","AnaBio": "[A-Z][0-9]{4}"}`
-    pd_limit_size : int, optional
-        The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
-    stats_only : bool, optional
-        If ``True``, it will only aggregate the data for the [summary table][summary-table].
+POUR LES VIZS BOKEH
 
-    Returns
-    -------
-    Dict[str, pd.DataFrame]
-        Aggregated tables for visualization
-    """
-    # Check the data
-    _check_the_data_for_aggregation(data)
+"""
 
-    # Extract tables
-    measurement = (
-        data.measurement[
-            list(
-                data.measurement.columns[
-                    data.measurement.columns.isin(
-                        [
-                            "measurement_id",
-                            "visit_occurrence_id",
-                            "measurement_date",
-                            "measurement_datetime",
-                            "value_as_number",
-                            "unit_source_value",
-                            "row_status_source_value",
-                            "measurement_source_concept_id",
-                        ]
-                    )
-                ]
-            )
-        ]
-        if "bioclean" not in dir(data)
-        else data.bioclean
-    )
-    concept = data.concept[
-        [
-            "concept_id",
-            "concept_name",
-            "concept_code",
-            "vocabulary_id",
-        ]
-    ]
-    concept_relationship = data.concept_relationship[
-        ["concept_id_1", "concept_id_2", "relationship_id"]
-    ]
-    visit = data.visit_occurrence[["visit_occurrence_id", "care_site_id"]]
-    care_site = data.care_site[["care_site_short_name", "care_site_id"]]
+def compute_df_value_statistics(df, pivot_columns, value_column):
+    #df_stats = df.groupby(pivot_columns, as_index=True)[value_column].quantile([0.05, 0.25, 0.5, 0.75, 0.95]).unstack()
+    df_stats = df.groupby(pivot_columns, as_index=True)[[value_column]].describe() #ATTENTION : le describe c'est un miracle. marche avec [[...]] mais pas [...]
+    df_stats = df_stats.droplevel(0, axis=1)[["25%", "50%", "75%"]]
+    df_stats.columns = "q" + df_stats.columns.str[:-1]
+    if is_koalas(df_stats):
+        df_stats = df_stats.to_pandas()
+    return df_stats
 
-    # Filter measurement by date
-    measurement = filter_measurement_by_date(measurement, start_date, end_date)
+def compute_df_category_statistics(df, pivot_columns, category_column):
+    df_stats = df.groupby(pivot_columns, as_index=True)[category_column].value_counts().to_frame().rename(columns={category_column : "count"}).reset_index()
+    if is_koalas(df_stats):
+        df_stats = df_stats.to_pandas() #Sinon résultat nawak
+    df_stats["total"] = df_stats.groupby(pivot_columns)["count"].transform(sum)
+    df_stats["proportion"] = df_stats["count"].div(df_stats["total"])
+    df_stats = df_stats.rename(columns={category_column : "category"})
+    df_stats = df_stats.drop(columns=["total", "count"]).set_index(pivot_columns)
+    return df_stats
 
-    if "bioclean" in dir(data):
-        measurement_std_filtered = _extract_concepts_set(measurement, concepts_set)
+"""
 
-    else:
-        # Filter valid measurement
-        measurement_valid = get_valid_measurement(measurement)
+POUR LES VIZS ALTAIR. CA SERAIT COOL DE L AVOIR UN PEU MOINS CODE / CARE SITE - DEPENDENT
+PLUS MODULABLE
 
-        # Select concepts-set
-        src_to_std = get_concept_src_to_std(
-            concept,
-            concept_relationship,
-            concepts_set,
-            standard_concept_regex,
-            standard_terminologies,
-        )
-
-        if "concepts_set" in src_to_std.columns:
-            src_to_std = src_to_std.drop(columns="concepts_set")
-
-        # Extract concept-set
-        measurement_std_filtered = get_measurement_std(measurement_valid, src_to_std)
-        measurement_std_filtered = measurement_std_filtered.drop(
-            columns="source_concept_id"
-        )
-
-    # Filter limit number of concepts
-    if number_of_concept:
-        measurement_std_filtered = filter_concept_by_number(
-            measurement_std_filtered, number_of_concept
-        )
-
-    # Filter limit concept with enough measurements
-    if limit_count:
-        measurement_std_filtered = filter_concept_by_count(
-            measurement_std_filtered, limit_count
-        )
-
-    # Add care_site column
-    measurement_std_filtered = _add_hospital(measurement_std_filtered, visit, care_site)
-
-    # Normalize unit string
-    measurement_std_filtered = normalize_unit(measurement_std_filtered)
-
-    # Aggregate measurement
-    tables = aggregate_measurement(
-        measurement=measurement_std_filtered,
-        pd_limit_size=pd_limit_size,
-        stats_only=stats_only,
-        overall_only=stats_only,
-    )
-    return tables
-
-
-def _check_the_data_for_aggregation(data: Data):
-    check_tables(
-        data,
-        required_tables=[
-            "measurement",
-            "concept",
-            "concept_relationship",
-            "visit_occurrence",
-            "care_site",
-        ],
-    )
-    check_columns(
-        data.measurement,
-        required_columns=[
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "unit_source_value",
-            "row_status_source_value",
-            "measurement_source_concept_id",
-        ],
-    )
-    check_columns(
-        data.concept,
-        required_columns=[
-            "concept_id",
-            "concept_name",
-            "concept_code",
-            "vocabulary_id",
-        ],
-    )
-    check_columns(
-        data.visit_occurrence,
-        required_columns=["visit_occurrence_id", "care_site_id"],
-    )
-    check_columns(
-        data.concept_relationship,
-        required_columns=["concept_id_1", "concept_id_2", "relationship_id"],
-    )
-    check_columns(
-        data.care_site,
-        required_columns=["care_site_short_name", "care_site_id"],
-    )
-
-
-def _extract_concepts_set(measurement: DataFrame, concepts_set: ConceptsSet):
-
-    check_columns(
-        measurement,
-        required_columns=[
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "transformed_value",
-            "unit_source_value",
-            "transformed_unit",
-        ],
-    )
-
-    concept_cols = [
-        column_name
-        for column_name in measurement.columns
-        if ("concept_code" in column_name) or ("concept_name" in column_name)
-    ]
-    measurement = measurement[
-        [
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "transformed_value",
-            "unit_source_value",
-            "transformed_unit",
-            "concepts_set",
-        ]
-        + concept_cols
-    ]
-    measurement = measurement[measurement["concepts_set"] == concepts_set.name]
-    measurement = measurement.drop(
-        columns=["value_as_number", "unit_source_value", "concepts_set"]
-    ).rename(
-        columns={
-            "transformed_value": "value_as_number",
-            "transformed_unit": "unit_source_value",
-        }
-    )
-    return measurement
-
-
-def _add_hospital(measurement: DataFrame, visit: DataFrame, care_site: DataFrame):
-    check_columns(
-        df=visit,
-        required_columns=["visit_occurrence_id", "care_site_id"],
-        df_name="visit",
-    )
-    check_columns(
-        df=care_site,
-        required_columns=["care_site_short_name", "care_site_id"],
-        df_name="care_site",
-    )
-
-    measurement = measurement.merge(visit, on="visit_occurrence_id", how="left")
-    measurement = measurement.merge(care_site, on="care_site_id", how="left")
-    measurement = measurement.drop(columns=["care_site_id", "visit_occurrence_id"])
-    measurement.fillna({"care_site_short_name": "Unknown"}, inplace=True)
-
-    return measurement
-
+"""
 
 def aggregate_measurement(
     measurement: DataFrame,

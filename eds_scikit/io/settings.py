@@ -197,11 +197,32 @@ The default columns loaded when instanciating a [HiveData][eds_scikit.io.hive.Hi
 or a [PostgresData][eds_scikit.io.postgres.PostgresData]
 """
 
-standard_terminologies = ["LOINC", "AnaBio"]
+biology_codes_settings = {
+    "ANABIO" :  {
+        "concept_regex" : "[A-Z][0-9]{4}",
+        "source_terminologies" : {
+            "GLIMS_ANABIO": r"GLIMS.{0,20}Anabio",
+            "ITM_ANABIO": r"ITM - ANABIO",
+        }
+    },
+    
+    "LOINC" : {
+        "concept_regex" : "[0-9]{2,5}[-][0-9]",
+        "source_terminologies" : {
+            "GLIMS_LOINC": r"GLIMS.{0,20}Anabio",
+            "ITM_LOINC": r"ITM - ANABIO",
+        }
+    }
+}
+
+standard_terminologies = ["LOINC", "AnaBio", "ANABIO", "ANALYSES_LABORATOIRE"]
+
 standard_concept_regex = {
     "LOINC": "[0-9]{2,5}[-][0-9]",
     "AnaBio": "[A-Z][0-9]{4}",
+    "ANABIO": "[A-Z][0-9]{4}",
 }
+
 source_terminologies = {
     "ANALYSES_LABORATOIRE": r"Analyses Laboratoire",
     "GLIMS_ANABIO": r"GLIMS.{0,20}Anabio",
