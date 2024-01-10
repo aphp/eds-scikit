@@ -29,6 +29,8 @@ def check_data_and_select_columns_measurement(data: Data):
         "unit_source_value",
         "row_status_source_value",
         "measurement_source_concept_id",
+        "range_high",
+        "range_low"
     ]
 
     _concept_required_columns = [
@@ -50,7 +52,7 @@ def check_data_and_select_columns_measurement(data: Data):
         required_columns=_relationship_required_columns,
     )
 
-    measurement = data.measurement[_measurement_required_columns]
+    measurement = data.measurement
     concept = data.concept[_concept_required_columns]
     concept_relationship = data.concept_relationship[_relationship_required_columns]
 

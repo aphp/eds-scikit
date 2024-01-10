@@ -71,7 +71,7 @@ def prepare_measurement_table(data,
     if outliers_detection:
         measurement = measurement
         
-    measurement = measurement.drop(columns="measurement_date")
+    #measurement = measurement.drop(columns="measurement_date") Pourquoi ?
     
     measurement.cache()
     logger.info(f"Done. Once computed, measurement will be cached.") # or not ?
