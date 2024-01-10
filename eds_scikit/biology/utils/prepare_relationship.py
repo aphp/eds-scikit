@@ -101,7 +101,7 @@ def filter_concept_sets_relationship_table(relationship_table, concept_sets):
     
     concept_sets_tables = pd.DataFrame({})
     for concept_set in concept_sets:
-        concept_set_table = concept_set.get_concept_codes()
+        concept_set_table = concept_set.get_concept_codes_table()
         concept_sets_tables = pd.concat((concept_set_table, concept_sets_tables), axis=0)
     terminologies = concept_sets_tables.terminology.unique()
     concept_sets_tables = to(framework, concept_sets_tables)
