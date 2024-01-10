@@ -80,7 +80,7 @@ def check_data_and_select_columns_relationship(data: Data):
         "vocabulary_id",
     ]
 
-    _concept_relationship_required_columns = [
+    _relationship_required_columns = [
         "concept_id_1",
         "concept_id_2",
         "relationship_id",
@@ -89,7 +89,7 @@ def check_data_and_select_columns_relationship(data: Data):
     check_columns(data.concept, required_columns=_concept_required_columns)
     check_columns(
         data.concept_relationship,
-        required_columns=_concept_relationship_required_columns,
+        required_columns=_relationship_required_columns,
     )
 
     concept = data.concept[_concept_required_columns]
