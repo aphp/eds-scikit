@@ -11,10 +11,10 @@ from eds_scikit.biology.utils.process_concepts import (
     ConceptsSet,
     fetch_all_concepts_set,
 )
-from eds_scikit.biology.viz.aggregate import aggregate_concepts_set
+from eds_scikit.biology.viz.aggregate import aggregate_concepts_set, aggregate_measurement
 from eds_scikit.biology.viz.plot import plot_concepts_set
 from eds_scikit.io import settings
-from eds_scikit.utils.typing import Data
+from eds_scikit.utils.typing import Data, DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
@@ -125,4 +125,77 @@ def plot_biology_summary(
         logger.error(
             "concepts_set type is {} and must be a ConceptsSet object or a list of ConceptsSet objects",
             type(concepts_sets),
+        )
+
+        
+def plot_biology_summary_measurement(
+    measurement: DataFrame,
+    save_folder_path: str = "Biology_summary",
+    pd_limit_size: int = 100000,
+    stats_only: bool = False,
+) -> Union[alt.ConcatChart, pd.DataFrame]:
+    """It aggregates, plots and saves all the concepts-sets in folders.
+
+
+    Parameters
+    ----------
+    data : Data
+         Instantiated [``HiveData``][eds_scikit.io.hive.HiveData], [``PostgresData``][eds_scikit.io.postgres.PostgresData] or [``PandasData``][eds_scikit.io.files.PandasData]
+    save_folder_path : str, optional
+        Name of the folder where the plots will be saved
+    pd_limit_size : int, optional
+        The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
+    stats_only : bool, optional
+        If ``True``, it will only aggregate the data for the [summary table][summary-table].
+
+    Returns
+    -------
+    List[alt.ConcatChart, pd.DataFrame]
+        Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
+    """
+
+    if not os.path.isdir(save_folder_path):
+        os.mkdir(save_folder_path)
+        logger.info("{} folder has been created.", save_folder_path)
+        
+        
+    tables_agg = aggregate_measurement(
+        measurement=measurement,
+        pd_limit_size=pd_limit_size,
+        stats_only=stats_only,
+        overall_only=stats_only,
+        category_columns=["concept_set", "care_site_short_name"],
+    )
+    
+    table_names = list(tables_agg.keys())
+    concept_sets_names = tables_agg[table_names[0]].concept_set.unique()
+    
+    for concept_set_name in concept_sets_names:
+        
+        concepts_set_path = "{}/{}".format(save_folder_path, concept_set_name)
+        rmtree(concepts_set_path, ignore_errors=True)
+        os.mkdir(concepts_set_path)
+        logger.info(
+            "{}/{} folder has been created.",
+            save_folder_path,
+            concept_set_name,
+        )
+        
+        for table_name in table_names:
+            table = tables_agg[table_name].query("concept_set == @concept_set_name")
+            table.to_pickle(
+                "{}/{}/{}.pkl".format(
+                    save_folder_path, concept_set_name, table_name
+                )
+            )
+            
+        logger.info(
+            "{} has been processed and saved in {}/{} folder.",
+            concept_set_name,
+            save_folder_path,
+            concept_set_name,
+        )
+        
+        plot_concepts_set(
+            concepts_set_name=concept_set_name, source_path=save_folder_path
         )

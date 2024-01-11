@@ -283,6 +283,7 @@ def aggregate_measurement(
     pd_limit_size: int,
     stats_only: bool,
     overall_only: bool,
+    category_columns=[]
 ):
 
     check_columns(
@@ -329,7 +330,7 @@ def aggregate_measurement(
 
     # Compute measurement statistics by code
     measurement_stats = _describe_measurement_by_code(
-        filtered_measurement, overall_only
+        filtered_measurement, overall_only, category_columns
     )
 
     if stats_only:
@@ -337,12 +338,12 @@ def aggregate_measurement(
 
     # Count measurement by care_site and by code per each month
     measurement_volumetry = _count_measurement_by_care_site_and_code_per_month(
-        filtered_measurement, missing_value
+        filtered_measurement, missing_value, category_columns
     )
 
     # Bin measurement values by care_site and by code
     measurement_distribution = _bin_measurement_value_by_care_site_and_code(
-        filtered_measurement
+        filtered_measurement, category_columns
     )
 
     return {
@@ -353,7 +354,7 @@ def aggregate_measurement(
 
 
 def _describe_measurement_by_code(
-    filtered_measurement: DataFrame, overall_only: bool = False
+    filtered_measurement: DataFrame, overall_only: bool = False, category_columns = []
 ):
     check_columns(
         df=filtered_measurement,
@@ -363,6 +364,7 @@ def _describe_measurement_by_code(
             "measurement_month",
             "value_as_number",
             "care_site_short_name",
+            "concept_set",
         ],
         df_name="filtered_measurement",
     )
@@ -371,8 +373,8 @@ def _describe_measurement_by_code(
         column_name
         for column_name in filtered_measurement.columns
         if ("concept_code" in column_name) or ("concept_name" in column_name)
-    ]
-
+    ] + category_columns
+    
     measurement_stats_overall = (
         (
             filtered_measurement[
@@ -453,7 +455,6 @@ def _describe_measurement_by_code(
             filtered_measurement[
                 [
                     "unit_source_value",
-                    "care_site_short_name",
                     "value_as_number",
                 ]
                 + concept_cols
@@ -461,7 +462,6 @@ def _describe_measurement_by_code(
             .groupby(
                 concept_cols
                 + [
-                    "care_site_short_name",
                     "unit_source_value",
                 ],
                 dropna=False,
@@ -486,7 +486,7 @@ def _describe_measurement_by_code(
 
 
 def _count_measurement_by_care_site_and_code_per_month(
-    filtered_measurement: DataFrame, missing_value: DataFrame
+    filtered_measurement: DataFrame, missing_value: DataFrame, category_columns = []
 ):
     check_columns(
         df=filtered_measurement,
@@ -494,7 +494,6 @@ def _count_measurement_by_care_site_and_code_per_month(
             "measurement_id",
             "unit_source_value",
             "measurement_month",
-            "care_site_short_name",
         ],
         df_name="filtered_measurement",
     )
@@ -505,7 +504,6 @@ def _count_measurement_by_care_site_and_code_per_month(
             "measurement_id",
             "unit_source_value",
             "measurement_month",
-            "care_site_short_name",
         ],
         df_name="missing_value",
     )
@@ -514,14 +512,13 @@ def _count_measurement_by_care_site_and_code_per_month(
         column_name
         for column_name in filtered_measurement.columns
         if "concept_code" in column_name
-    ]
+    ] + category_columns
 
     measurement_count = (
         filtered_measurement[
             [
                 "measurement_id",
                 "unit_source_value",
-                "care_site_short_name",
                 "measurement_month",
             ]
             + concept_cols
@@ -530,7 +527,6 @@ def _count_measurement_by_care_site_and_code_per_month(
             concept_cols
             + [
                 "unit_source_value",
-                "care_site_short_name",
                 "measurement_month",
             ],
             as_index=False,
@@ -544,7 +540,6 @@ def _count_measurement_by_care_site_and_code_per_month(
             [
                 "measurement_id",
                 "unit_source_value",
-                "care_site_short_name",
                 "measurement_month",
             ]
             + concept_cols
@@ -553,7 +548,6 @@ def _count_measurement_by_care_site_and_code_per_month(
             concept_cols
             + [
                 "unit_source_value",
-                "care_site_short_name",
                 "measurement_month",
             ],
             as_index=False,
@@ -584,7 +578,6 @@ def _count_measurement_by_care_site_and_code_per_month(
         on=concept_cols
         + [
             "unit_source_value",
-            "care_site_short_name",
             "measurement_month",
         ],
         how="outer",
@@ -598,7 +591,7 @@ def _count_measurement_by_care_site_and_code_per_month(
 
 
 def _bin_measurement_value_by_care_site_and_code(
-    filtered_measurement: DataFrame,
+    filtered_measurement: DataFrame, category_columns=[]
 ):
 
     check_columns(
@@ -607,6 +600,7 @@ def _bin_measurement_value_by_care_site_and_code(
             "measurement_id",
             "unit_source_value",
             "care_site_short_name",
+            "concept_set",
             "value_as_number",
         ],
         df_name="filtered_measurement",
@@ -616,7 +610,7 @@ def _bin_measurement_value_by_care_site_and_code(
         column_name
         for column_name in filtered_measurement.columns
         if "concept_code" in column_name
-    ]
+    ] + category_columns
 
     # Compute median per code
     measurement_median = (
@@ -680,7 +674,6 @@ def _bin_measurement_value_by_care_site_and_code(
             concept_cols
             + [
                 "measurement_id",
-                "care_site_short_name",
                 "unit_source_value",
                 "value_as_number",
             ]
@@ -754,7 +747,6 @@ def _bin_measurement_value_by_care_site_and_code(
         measurement_binned[
             concept_cols
             + [
-                "care_site_short_name",
                 "binned_value",
                 "measurement_id",
                 "over_outlier",
@@ -764,7 +756,6 @@ def _bin_measurement_value_by_care_site_and_code(
         .groupby(
             concept_cols
             + [
-                "care_site_short_name",
                 "over_outlier",
                 "under_outlier",
                 "binned_value",

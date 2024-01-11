@@ -6,11 +6,13 @@ from eds_scikit.biology.utils.check_data import check_data_and_select_columns_me
 from eds_scikit.biology.utils.process_measurement import filter_measurement_valid, filter_measurement_by_date, tag_measurement_anomaly
 from eds_scikit.biology.utils.prepare_relationship import prepare_biology_relationship_table
 from eds_scikit.biology.utils.process_units import Units
+from eds_scikit.io.settings import mapping
 
 def prepare_measurement_table(data, 
                               start_date, 
                               end_date, 
-                              concept_sets, 
+                              concept_sets,
+                              get_all_terminologies,
                               cohort=None, 
                               convert_units=False, 
                               outliers_detection=None,):
@@ -55,8 +57,8 @@ def prepare_measurement_table(data,
     
     # measurement codes mapping
     logger.info(f"Preparing concept codes relationship table and mapping them to measurement.")
-    biology_relationship_table = prepare_biology_relationship_table(data, concept_sets)
-    measurement = measurement.merge(biology_relationship_table, left_on="measurement_source_concept_id", right_on="ANALYSES_LABORATOIRE_concept_id")
+    biology_relationship_table = prepare_biology_relationship_table(data, concept_sets, get_all_terminologies)
+    measurement = measurement.merge(biology_relationship_table, left_on="measurement_source_concept_id", right_on=f"{mapping[0][0]}_concept_id")
     
     #measurement anomaly tagging
     measurement = tag_measurement_anomaly(measurement)
