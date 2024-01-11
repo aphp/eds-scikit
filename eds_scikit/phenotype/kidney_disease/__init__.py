@@ -1,1 +1,1 @@
-from .diabetes import DiabetesFromICD10
+from .kidney_disease import KidneyDisease

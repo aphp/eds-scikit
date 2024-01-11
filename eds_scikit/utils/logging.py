@@ -33,7 +33,7 @@ def formatter(record: dict):
     return base + new_message
 
 
-logger.remove(0)
+#logger.remove(0)
 logger.add(sys.stdout, format=formatter, colorize=False)
 
 # Default logging: no classname, and consequently

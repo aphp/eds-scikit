@@ -5,7 +5,7 @@ import pandas as pd
 
 from ..base import Phenotype
 
-from codes import *
+from .codes import *
 
 class KidneyDisease(Phenotype):
     """
@@ -48,11 +48,50 @@ class KidneyDisease(Phenotype):
     def compute_is_CKD(self):
 
         self.add_code_feature(
-            output_feature="icd10",
+            output_feature="is_CKD_icd10",
             source="icd10",
             codes=self.config_CKD_diag["codes_ICD10"],
             additional_filtering=self.config_CKD_diag["additional_filtering"],
-            additional_filtering=self.config_CKD_diag["date_from_visit"],
+            date_from_visit=self.config_CKD_diag["date_from_visit"]
+        )
+
+    def compute_has_IRA(self):
+
+        self.add_code_feature(
+            output_feature="is_CKD_icd10",
+            source="icd10",
+            codes=self.config_CKD_diag["codes_ICD10"],
+            additional_filtering=self.config_CKD_diag["additional_filtering"],
+            date_from_visit=self.config_CKD_diag["date_from_visit"]
+        )
+
+        
+    def compute_has_dialysis(self):
+
+        self.add_code_feature(
+            output_feature="has_dialysis_icd10",
+            source="icd10",
+            codes=self.config_dialysis["codes_ICD10"],
+            additional_filtering=self.config_CKD_diag["additional_filtering"],
+            date_from_visit=self.config_CKD_diag["date_from_visit"]
+        )
+        
+        self.add_code_feature(
+            output_feature="has_dialysis_ccam",
+            source="ccam",
+            codes=self.config_dialysis["codes_CCAM"],
+            additional_filtering=self.config_CKD_diag["additional_filtering"],
+            date_from_visit=self.config_CKD_diag["date_from_visit"]
+        )
+        
+        self.agg_two_features(
+            "has_dialysis_icd10",
+            "has_dialysis_ccam",
+            "has_dialysis"
+            "OR",
+            level=self.level,
+            subphenotype=self.subphenotype,
+            #threshold=(self.threshold, self.threshold)
         )
 
     def compute(self):

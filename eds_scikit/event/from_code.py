@@ -126,7 +126,9 @@ def event_from_code(
         event = event[mask]
 
     event["concept"] = concept
-
+    
+    event_column = event.columns
+    
     return event.rename(columns={columns["code_source_value"]: "value"})[
         [
             "person_id",
@@ -136,14 +138,14 @@ def event_from_code(
             "value",
             "visit_occurrence_id",
         ]
-        + list(additional_filtering.keys())
+        + [key for key in list(additional_filtering.keys()) if key in event_column]
     ].reset_index(drop=True)
 
 
 def _column_filtering(df: DataFrame, filtering_dict: Dict[str, Any]):
 
     for col_name, col_value in filtering_dict.items():
-        if col_value is None:
+        if (col_value is None) or not(col_name in df.columns):
             df = df
         elif type(col_value) in {set, list}:
             col_value = set(col_value)

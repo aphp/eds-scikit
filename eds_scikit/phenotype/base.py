@@ -1,7 +1,7 @@
 import inspect
 import re
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 
 from loguru import logger
 
@@ -133,11 +133,12 @@ class Phenotype:
             codes_df,
             codes=codes,
             additional_filtering=additional_filtering,
+            visit_occurrence=self.data.visit_occurrence if date_from_visit else None,
             date_from_visit=date_from_visit,
         )
         df["phenotype"] = self.name
         df = df.rename(columns={"concept": "subphenotype"})
-
+        df = df.drop_duplicates()
         bd.cache(df)
 
         self.features[output_feature] = df
@@ -155,6 +156,7 @@ class Phenotype:
         level: str = "patient",
         subphenotype: bool = True,
         threshold: int = 1,
+        extra_columns: List[str] = [] #pour garder les dates par exemples ? quand on voudra comparer des features ?
     ) -> "Phenotype":
         """
         Simple aggregation rule on a feature:
@@ -179,7 +181,9 @@ class Phenotype:
             ("phenotype" column) of the subphenotype ("subphenotype" column)
         threshold : int, optional
             Minimal number of *events* (which definition depends on the `level` value)
-
+            
+        #No date ??
+            
         Returns
         -------
         Phenotype
@@ -202,7 +206,9 @@ class Phenotype:
         # 2) to drop duplicates on the group_cols + ["visit_occurrence_id"] subset
 
         phenotype_type = "subphenotype" if subphenotype else "phenotype"
-        group_cols = ["person_id", phenotype_type]
+        group_cols = ["person_id", phenotype_type, 
+                      #**extra_columns
+                     ]
 
         group_visit = (
             self.features[input_feature]
@@ -280,7 +286,7 @@ class Phenotype:
             The current Phenotype object with an additional feature
             stored in self.features[output_feature]
         """
-
+        # Q : pourquoi on aggrège maintenant ?
         self.agg_single_feature(
             input_feature=input_feature_1,
             level=level,
