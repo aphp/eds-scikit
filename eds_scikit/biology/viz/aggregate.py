@@ -119,7 +119,7 @@ def aggregate_concepts_set(
 
     else:
         # Filter valid measurement
-        measurement_valid = get_valid_measurement(measurement)
+        measurement_valid = filter_measurement_valid(measurement)
 
         # Select concepts-set
         src_to_std = get_concept_src_to_std(
@@ -285,6 +285,31 @@ def aggregate_measurement(
     overall_only: bool,
     category_columns=[]
 ):
+    """Aggregates measurement dataframe in three descriptive and synthetic dataframe :
+      - measurement_stats
+      - measurement_volumetry
+      - measurement_distribution
+
+    Useful function before plotting.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+        _description_
+    pd_limit_size : int
+        _description_
+    stats_only : bool
+        _description_
+    overall_only : bool
+        _description_
+    category_columns : list, optional
+        _description_, by default []
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
 
     check_columns(
         df=measurement,
@@ -293,7 +318,7 @@ def aggregate_measurement(
             "unit_source_value",
             "measurement_date",
             "value_as_number",
-        ],
+        ] + category_columns,
         df_name="measurement",
     )
 
@@ -337,12 +362,12 @@ def aggregate_measurement(
         return {"measurement_stats": measurement_stats}
 
     # Count measurement by care_site and by code per each month
-    measurement_volumetry = _count_measurement_by_care_site_and_code_per_month(
+    measurement_volumetry = _count_measurement_by_category_and_code_per_month(
         filtered_measurement, missing_value, category_columns
     )
 
     # Bin measurement values by care_site and by code
-    measurement_distribution = _bin_measurement_value_by_care_site_and_code(
+    measurement_distribution = _bin_measurement_value_by_category_and_code(
         filtered_measurement, category_columns
     )
 
@@ -363,9 +388,7 @@ def _describe_measurement_by_code(
             "unit_source_value",
             "measurement_month",
             "value_as_number",
-            "care_site_short_name",
-            "concept_set",
-        ],
+        ] + category_columns,
         df_name="filtered_measurement",
     )
 
@@ -485,7 +508,7 @@ def _describe_measurement_by_code(
     return measurement_stats
 
 
-def _count_measurement_by_care_site_and_code_per_month(
+def _count_measurement_by_category_and_code_per_month(
     filtered_measurement: DataFrame, missing_value: DataFrame, category_columns = []
 ):
     check_columns(
@@ -494,7 +517,7 @@ def _count_measurement_by_care_site_and_code_per_month(
             "measurement_id",
             "unit_source_value",
             "measurement_month",
-        ],
+        ] + category_columns,
         df_name="filtered_measurement",
     )
 
@@ -590,7 +613,7 @@ def _count_measurement_by_care_site_and_code_per_month(
     return measurement_volumetry
 
 
-def _bin_measurement_value_by_care_site_and_code(
+def _bin_measurement_value_by_category_and_code(
     filtered_measurement: DataFrame, category_columns=[]
 ):
 
@@ -599,10 +622,8 @@ def _bin_measurement_value_by_care_site_and_code(
         required_columns=[
             "measurement_id",
             "unit_source_value",
-            "care_site_short_name",
-            "concept_set",
             "value_as_number",
-        ],
+        ] + category_columns,
         df_name="filtered_measurement",
     )
 

@@ -13,7 +13,6 @@ def prepare_measurement_table(data,
                               end_date, 
                               concept_sets,
                               get_all_terminologies,
-                              cohort=None, 
                               convert_units=False, 
                               outliers_detection=None,):
     

@@ -134,8 +134,9 @@ def plot_biology_summary_measurement(
     pd_limit_size: int = 100000,
     stats_only: bool = False,
 ) -> Union[alt.ConcatChart, pd.DataFrame]:
-    """It aggregates, plots and saves all the concepts-sets in folders.
-
+    """
+    Aggregate measurements, create plots and saves all the concepts-sets in folder.
+    
 
     Parameters
     ----------
@@ -156,9 +157,8 @@ def plot_biology_summary_measurement(
 
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)
-        logger.info("{} folder has been created.", save_folder_path)
-        
-        
+        logger.info("{} folder has been created.", save_folder_path)    
+    
     tables_agg = aggregate_measurement(
         measurement=measurement,
         pd_limit_size=pd_limit_size,
