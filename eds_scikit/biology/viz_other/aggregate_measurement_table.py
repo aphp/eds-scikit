@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from eds_scikit.biology.utils.filter_measurement import (
+from eds_scikit.biology.utils.process_measurement import (
     filter_missing_values,
     normalize_unit,
 )
