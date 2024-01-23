@@ -231,7 +231,7 @@ class HiveData(BaseData):  # pragma: no cover
 
         df = clean_dates(df)
 
-        bd.cache(df)
+        #bd.cache(df)
 
         return df
 
