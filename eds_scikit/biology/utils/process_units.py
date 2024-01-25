@@ -41,7 +41,6 @@ class Units:
             unit_base += f"/{self.base(unit_token)}"
         return unit_base[1:]
     
-    
     def base(self, token):
         if token in self.units_file.index:
             return self.units_file.loc[token].unit_source_base

@@ -11,6 +11,7 @@ from eds_scikit.io import settings
 from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
+from eds_scikit.biology.utils.process_units import Units
 
 default_standard_terminologies = settings.standard_terminologies
 default_source_terminologies = settings.source_terminologies
@@ -26,6 +27,7 @@ class ConceptsSet:
 
     def __init__(self, name: str):
         self.name = name
+        self.units = Units()
         
         fetched_codes = fetch_concept_codes_from_name(name)
         if fetched_codes:
@@ -84,6 +86,14 @@ class ConceptsSet:
             result_df = pd.concat((df, result_df), axis=0)
                     
         return result_df
+    
+    def add_target_unit(self, target_unit):
+        self.units.add_target_unit(target_unit)
+    
+    def add_conversion(self, unit_a, unit_b, conversion):
+        self.units.add_conversion(unit_a, unit_b, conversion)
+    
+
 
     
 def fetch_concept_codes_from_name(

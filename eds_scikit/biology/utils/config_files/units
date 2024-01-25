@@ -33,7 +33,7 @@ cellules,1e-06,Count,10*6
 10ml,0.01,Litre,l
 100ml,0.1,Litre,l
 500ml,0.5,Litre,l
-dl,10,Litre,l
+dl,0.1,Litre,l
 l,1.0,Litre,l
 ml,0.001,Litre,l
 "ml
