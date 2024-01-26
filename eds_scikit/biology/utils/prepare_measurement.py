@@ -56,7 +56,6 @@ def prepare_measurement_table(data,
     measurement = normalize_unit(measurement)
     
     # measurement codes mapping
-    logger.info(f"Preparing concept codes relationship table and mapping them to measurement.")
     biology_relationship_table = prepare_biology_relationship_table(data, concept_sets, get_all_terminologies)
     measurement = measurement.merge(biology_relationship_table, left_on="measurement_source_concept_id", right_on=f"{mapping[0][0]}_concept_id")
     
@@ -68,7 +67,7 @@ def prepare_measurement_table(data,
         measurement.cache()
         conversion_table = to("koalas", get_conversion_table(measurement, concept_sets))
         measurement = measurement.merge(conversion_table, on=["concept_set", "unit_source_value"])
-        measurement["normalized_unit"] = measurement["value_as_number"] * measurement["factor"]
+        measurement["normalized_value"] = measurement["value_as_number"] * measurement["factor"]
         
     if outliers_detection:
         measurement = measurement

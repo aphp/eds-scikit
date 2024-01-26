@@ -28,7 +28,7 @@ def filter_measurement_valid(measurement: DataFrame) -> DataFrame:
     )
     measurement_valid = measurement[measurement["row_status_source_value"] == "Validé"]
     measurement_valid = measurement_valid.drop(columns=["row_status_source_value"])
-    logger.info("Valid measurements have been selected")
+    #logger.info("Valid measurements have been selected")
     return measurement_valid
 
 
@@ -65,10 +65,10 @@ def filter_measurement_by_date(
 
     if start_date:
         measurement = measurement[measurement["measurement_date"] >= start_date]
-        logger.info("Measurements conducted after {} have been selected", start_date)
+        #logger.info("Measurements conducted after {} have been selected", start_date)
     if end_date:
         measurement = measurement[measurement["measurement_date"] <= end_date]
-        logger.info("Measurements conducted before {} have been selected", end_date)
+        #logger.info("Measurements conducted before {} have been selected", end_date)
 
     return measurement
 
@@ -127,7 +127,7 @@ def tag_measurement_anomaly(
     Returns
     -------
     """
-    logger.info(f"Tagging measurement value anomaly.")
+    #logger.info(f"Tagging measurement value anomaly.")
 
     measurement["range_high_anomaly"] = (~measurement.range_high.isna()) & (measurement["value_as_number"] > measurement["range_high"])
     measurement["range_low_anomaly"] = (~measurement.range_low.isna()) & (measurement["value_as_number"] < measurement["range_low"])
