@@ -31,8 +31,6 @@ def transform_measurement(
         if "concept_code" in column_name
     ]
     
-    concept_code_cols = ["AnaBio_concept_code"]
-
     config = registry.get("data", f"get_biology_config.{config_name}")()
     config = config[
         concept_code_cols
