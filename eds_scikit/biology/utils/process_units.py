@@ -54,7 +54,6 @@ class Units:
             return np.NaN
         
     def can_be_converted(self, unit_1, unit_2):
-        #Faire un version token / version units
         unit_tokens_1 = unit_1.split("/")
         unit_tokens_2 = unit_2.split("/")
         

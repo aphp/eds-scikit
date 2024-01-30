@@ -1,21 +1,23 @@
 from loguru import logger
 
-from eds_scikit.utils.framework import is_koalas, to
+from eds_scikit.utils.framework import to
 
 from eds_scikit.biology.utils.check_data import check_data_and_select_columns_measurement
 from eds_scikit.biology.utils.process_measurement import filter_measurement_valid, filter_measurement_by_date, tag_measurement_anomaly, normalize_unit
+from eds_scikit.biology.utils.process_measurement import ConceptsSet
 from eds_scikit.biology.utils.prepare_relationship import prepare_biology_relationship_table
-from eds_scikit.biology.utils.process_units import Units
 from eds_scikit.io.settings import mapping
+from eds_scikit.utils.typing import Data, DataFrame
+from typing import List
+from datetime import datetime
 
 
-def prepare_measurement_table(data, 
-                              start_date, 
-                              end_date, 
-                              concept_sets,
-                              get_all_terminologies,
-                              convert_units=False):
-    
+def prepare_measurement_table(data : Data, 
+                              start_date: datetime = None,
+                              end_date: datetime = None,
+                              concept_sets : List[ConceptsSet] = None,
+                              get_all_terminologies = True,
+                              convert_units=False) -> DataFrame:
     """Returns filtered measurement table based on validity, date and concept_sets.
     
     The output format is identical to data.measurement but adding following columns :
@@ -23,31 +25,28 @@ def prepare_measurement_table(data,
     - {terminology}_code based on concept_sets terminologies
     - concept_sets
     - normalized_units and normalized_values if convert_units==True
-    - outlier if outliers_detection not None
 
     Parameters
     ----------
-    data : _type_
-        _description_
-    start_date : _type_
-        _description_
-    end_date : _type_
-        _description_
-    concept_sets : _type_
-        _description_
-    cohort : _type_, optional
-        _description_, by default None
+    data : Data
+        Instantiated [``HiveData``][eds_scikit.io.hive.HiveData], [``PostgresData``][eds_scikit.io.postgres.PostgresData] or [``PandasData``][eds_scikit.io.files.PandasData]
+    start_date : datetime, optional
+        **EXAMPLE**: `"2019-05-01"`
+    end_date : datetime, optional
+        **EXAMPLE**: `"2022-05-01"`
+    concept_sets : List[ConceptsSet], optional
+        List of concepts-sets to select
+    get_all_terminologies : bool, optional
+        If True, all terminologies from settings terminologies will be added, by default True
     convert_units : bool, optional
-        _description_, by default False
-    outliers_detection : _type_, optional
-        _description_, by default None
+        If True, convert units based on ConceptsSets Units object. Eager execution., by default False
 
     Returns
     -------
-    _type_
-        _description_
+    DataFrame
+        Preprocessed measurement dataframe
     """
-    
+                                  
     measurement, _, _ = check_data_and_select_columns_measurement(data)
     
     # measurement preprocessing
@@ -74,8 +73,21 @@ def prepare_measurement_table(data,
     
     return measurement
 
-def get_conversion_table(measurement, concepts_sets):
+def get_conversion_table(measurement : DataFrame,
+                         concepts_sets : List[ConceptsSet]) -> DataFrame:
     
+    """Given measurement dataframe and list of concepts_sets output conversion table to be merged with measurement.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+    concepts_sets : List[ConceptsSet]
+
+    Returns
+    -------
+    DataFrame
+        Conversion table to be merged with measurement
+    """
     conversion_table = measurement.groupby("concept_set")["unit_source_value"].unique().explode().to_frame().reset_index()
     conversion_table = to("pandas", conversion_table) 
     conversion_table["target_unit"] = conversion_table["unit_source_value"]
