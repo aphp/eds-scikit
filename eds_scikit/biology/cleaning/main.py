@@ -4,7 +4,7 @@ from typing import List, Union
 from eds_scikit.biology.cleaning.cohort import select_cohort
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.biology.utils.prepare_measurement import prepare_measurement_table
-from eds_scikit.biology.viz.wrapper import plot_biology_summary_measurement
+from eds_scikit.biology.viz.wrapper import plot_biology_summary
 from eds_scikit.io import settings
 from eds_scikit.utils.typing import Data, DataFrame
 

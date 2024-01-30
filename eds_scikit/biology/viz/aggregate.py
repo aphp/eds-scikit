@@ -329,6 +329,7 @@ def aggregate_measurement(
             "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
         )
     size = measurement.shape[0]
+    
     if size < pd_limit_size:
         logger.info(
             "The number of measurements identified is {} < {}. DataFrame is converting to Pandas...",
@@ -632,83 +633,12 @@ def _bin_measurement_value_by_category_and_code(
         for column_name in filtered_measurement.columns
         if "concept_code" in column_name
     ] + category_columns
-
-    # Compute median per code
-    measurement_median = (
-        filtered_measurement[
-            concept_cols
-            + [
-                "value_as_number",
-            ]
-        ]
-        .groupby(
-            concept_cols,
-            as_index=False,
-            dropna=False,
-        )
-        .median()
-        .rename(columns={"value_as_number": "median"})
-    )
-
-    # Add median column to the measurement table
-    measurement_median = measurement_median.merge(
-        filtered_measurement[
-            concept_cols
-            + [
-                "value_as_number",
-            ]
-        ],
-        on=concept_cols,
-    )
-
-    # Compute median deviation for each measurement
-    measurement_median["median_deviation"] = abs(
-        measurement_median["median"] - measurement_median["value_as_number"]
-    )
-
-    # Compute MAD per care site and code
-    measurement_mad = (
-        measurement_median[
-            concept_cols
-            + [
-                "median",
-                "median_deviation",
-            ]
-        ]
-        .groupby(
-            concept_cols
-            + [
-                "median",
-            ],
-            as_index=False,
-            dropna=False,
-        )
-        .median()
-        .rename(columns={"median_deviation": "MAD"})
-    )
-
-    measurement_mad["MAD"] = 1.48 * measurement_mad["MAD"]
-
-    # Add MAD column to the measurement table
-    measurement_binned = measurement_mad.merge(
-        filtered_measurement[
-            concept_cols
-            + [
-                "measurement_id",
-                "unit_source_value",
-                "value_as_number",
-            ]
-        ],
-        on=concept_cols,
-    )
-
-    # Compute binned value
-    measurement_binned["max_value"] = (
-        measurement_binned["median"] + 4 * measurement_binned["MAD"]
-    )
-    measurement_binned["min_value"] = (
-        measurement_binned["median"] - 4 * measurement_binned["MAD"]
-    )
+    
+    if not(("min_value" in filtered_measurement.columns) or ("max_value" in filtered_measurement.columns)):
+        filtered_measurement = add_mad_minmax(filtered_measurement, concept_cols, "value_as_number")
+    
+    measurement_binned = filtered_measurement
+    
     measurement_binned["min_value"] = measurement_binned["min_value"].where(
         measurement_binned["min_value"] >= 0, 0
     )
@@ -716,10 +646,12 @@ def _bin_measurement_value_by_category_and_code(
         measurement_binned["value_as_number"] > measurement_binned["max_value"],
         measurement_binned["max_value"],
     )
+    
     measurement_binned["binned_value"] = measurement_binned["binned_value"].mask(
         measurement_binned["value_as_number"] < measurement_binned["min_value"],
         measurement_binned["min_value"],
-    )
+    )   
+        
     # Freedman–Diaconis rule (https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule)
     bin_width = (
         measurement_binned[
@@ -792,3 +724,75 @@ def _bin_measurement_value_by_category_and_code(
     measurement_distribution = to("pandas", measurement_distribution)
     logger.info("The binning of measurements' values is finished...")
     return measurement_distribution
+
+def add_mad_minmax(measurement, category_cols, value_col):
+    measurement_median = (
+        measurement[
+            category_cols
+            + [
+                value_col
+            ]
+        ]
+        .groupby(
+            category_cols,
+            as_index=False,
+            dropna=False,
+        )
+        .median()
+        .rename(columns={value_col: "median"})
+    )
+    
+    # Add median column to the measurement table
+    measurement_median = measurement_median.merge(
+        measurement[
+            category_cols
+            + [
+                value_col,
+            ]
+        ],
+        on=category_cols
+    )
+
+    # Compute median deviation for each measurement
+    measurement_median["median_deviation"] = abs(
+        measurement_median["median"] - measurement_median[value_col]
+    )
+
+    # Compute MAD per care site and code
+    measurement_mad = (
+        measurement_median[
+            category_cols
+            + [
+                "median",
+                "median_deviation",
+            ]
+        ]
+        .groupby(
+            category_cols
+            + [
+                "median",
+            ],
+            as_index=False,
+            dropna=False,
+        )
+        .median()
+        .rename(columns={"median_deviation": "MAD"})
+    )
+
+    measurement_mad["MAD"] = 1.48 * measurement_mad["MAD"]
+        
+    # Add MAD column to the measurement table
+    measurement = measurement_mad.merge(
+        measurement,
+        on=category_cols,
+    )
+
+    # Compute binned value
+    measurement["max_value"] = (
+        measurement["median"] + 4 * measurement["MAD"]
+    )
+    measurement["min_value"] = (
+        measurement["median"] - 4 * measurement["MAD"]
+    )
+    
+    return measurement

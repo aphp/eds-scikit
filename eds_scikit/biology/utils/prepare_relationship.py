@@ -112,6 +112,7 @@ def filter_concept_sets_relationship_table(relationship_table, concept_sets):
         
     return filtered_terminology_table
 
+
 def concept_sets_columns(relationship_table, concept_sets, extra_terminologies=[]):
     
     keep_terminologies = extra_terminologies
@@ -126,10 +127,13 @@ def concept_sets_columns(relationship_table, concept_sets, extra_terminologies=[
     return keep_columns
 
 
-def prepare_biology_relationship_table(data, concept_sets, get_all_terminologies):
-        
-    biology_relationship_table = prepare_relationship_table(data, settings.source_terminologies, settings.mapping) #une façon + maline ? en partant des codes des cs ?
-    biology_relationship_table = filter_concept_sets_relationship_table(biology_relationship_table, concept_sets)
+def prepare_biology_relationship_table(data, concept_sets=None, get_all_terminologies=True):
+    
+    if concept_sets is None and not get_all_terminologies:
+        raise Exception("get_all_terminologies must be True if no concept_sets provided.")
+    
+    biology_relationship_table = prepare_relationship_table(data, settings.source_terminologies, settings.mapping) #une façon + maline ? en partant des codes des cs ?    
+    biology_relationship_table = filter_concept_sets_relationship_table(biology_relationship_table, concept_sets) if concept_sets else biology_relationship_table
     
     keep_columns = biology_relationship_table.columns if get_all_terminologies else concept_sets_columns(biology_relationship_table, concept_sets, [settings.mapping[0][0], "concept_set"])
     biology_relationship_table = biology_relationship_table[keep_columns]

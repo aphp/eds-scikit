@@ -8,13 +8,13 @@ from eds_scikit.biology.utils.prepare_relationship import prepare_biology_relati
 from eds_scikit.biology.utils.process_units import Units
 from eds_scikit.io.settings import mapping
 
+
 def prepare_measurement_table(data, 
                               start_date, 
                               end_date, 
                               concept_sets,
                               get_all_terminologies,
-                              convert_units=False, 
-                              outliers_detection=None,):
+                              convert_units=False):
     
     """Returns filtered measurement table based on validity, date and concept_sets.
     
@@ -68,12 +68,7 @@ def prepare_measurement_table(data,
         conversion_table = to("koalas", get_conversion_table(measurement, concept_sets))
         measurement = measurement.merge(conversion_table, on=["concept_set", "unit_source_value"])
         measurement["normalized_value"] = measurement["value_as_number"] * measurement["factor"]
-        
-    if outliers_detection:
-        measurement = measurement
-        
-    #measurement = measurement.drop(columns="measurement_date") Pourquoi ?
-    
+                    
     measurement.cache()
     logger.info(f"Done. Once computed, measurement will be cached.") # or not ?
     
@@ -82,7 +77,7 @@ def prepare_measurement_table(data,
 def get_conversion_table(measurement, concepts_sets):
     
     conversion_table = measurement.groupby("concept_set")["unit_source_value"].unique().explode().to_frame().reset_index()
-    conversion_table = to("pandas", conversion_table) # nécessaire ??
+    conversion_table = to("pandas", conversion_table) 
     conversion_table["target_unit"] = conversion_table["unit_source_value"]
     conversion_table["factor"] = conversion_table.apply(lambda x : 1 if x.target_unit else 0, axis=1)
 
