@@ -81,12 +81,12 @@ def plot_concepts_set(
 def _save_and_display_chart(
     chart: alt.ConcatChart, source_path: str, concepts_set_name: str, chart_name: str
 ):
-    chart.display()
+    #chart.display()
     chart.save("{}/{}/{}.html".format(source_path, concepts_set_name, chart_name))
 
 
 def _save_and_display_table(table: DataFrame, source_path: str, concepts_set_name: str):
-    display(table)
+    #display(table)
     html_measurement_stats = build_table(
         table,
         "blue_dark",

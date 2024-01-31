@@ -38,6 +38,7 @@ def aggregate_concepts_set(
     standard_concept_regex: dict = default_standard_concept_regex,
     pd_limit_size: int = 100000,
     stats_only: bool = False,
+    debug : bool: False
 ) -> Dict[str, pd.DataFrame]:
     """Aggregates the data for [visualization][visualization].
 
@@ -163,6 +164,7 @@ def aggregate_concepts_set(
         pd_limit_size=pd_limit_size,
         stats_only=stats_only,
         overall_only=stats_only,
+        debug=debug
     )
     return tables
 
@@ -283,7 +285,8 @@ def aggregate_measurement(
     pd_limit_size: int,
     stats_only: bool,
     overall_only: bool,
-    category_columns=[]
+    category_columns=[],
+    debug=False
 ):
     """Aggregates measurement dataframe in three descriptive and synthetic dataframe :
       - measurement_stats
@@ -453,7 +456,7 @@ def _describe_measurement_by_code(
         on=concept_cols + ["unit_source_value"],
     )
 
-    logger.info("The overall statistics of measurements by code are computing...")
+    logger.info("The overall statistics of measurements by code are computing...") if debug else None
     measurement_stats_overall = to("pandas", measurement_stats_overall)
     logger.info("The overall statistics of measurements are computed...")
 
