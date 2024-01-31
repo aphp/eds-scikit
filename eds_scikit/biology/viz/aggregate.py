@@ -1,284 +1,17 @@
-from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import List
 
 import numpy as np
 import pandas as pd
 from loguru import logger
 
-from eds_scikit.biology.utils.process_concepts import (
-    ConceptsSet,
-    get_concept_src_to_std,
-)
-from eds_scikit.biology.utils.process_measurement import (
-    filter_measurement_valid,
-    filter_concept_by_count,
-    filter_concept_by_number,
-    filter_measurement_by_date,
-    filter_missing_values,
-    get_measurement_std,
-    normalize_unit,
-)
+from eds_scikit.biology.utils.process_measurement import filter_missing_values
 from eds_scikit.io import settings
-from eds_scikit.utils.checks import check_columns, check_tables
+from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import is_koalas, to
-from eds_scikit.utils.typing import Data, DataFrame
+from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
-
-
-def aggregate_concepts_set(
-    data: Data,
-    concepts_set: ConceptsSet,
-    start_date: datetime = None,
-    end_date: datetime = None,
-    number_of_concept: Tuple[str, int] = None,
-    limit_count: Tuple[str, int] = None,
-    standard_terminologies: List[str] = default_standard_terminologies,
-    standard_concept_regex: dict = default_standard_concept_regex,
-    pd_limit_size: int = 100000,
-    stats_only: bool = False,
-    debug : bool: False
-) -> Dict[str, pd.DataFrame]:
-    """Aggregates the data for [visualization][visualization].
-
-    Parameters
-    ----------
-    data : Data
-         Instantiated [``HiveData``][eds_scikit.io.hive.HiveData], [``PostgresData``][eds_scikit.io.postgres.PostgresData] or [``PandasData``][eds_scikit.io.files.PandasData]
-    concepts_set : ConceptsSet
-        List of concepts-sets to select
-    start_date : datetime, optional
-        **EXAMPLE**: `"2019-05-01"`
-    end_date : datetime, optional
-        **EXAMPLE**: `"2022-01-01"`
-    number_of_concept : Tuple[str, int], optional
-        The maximum number of concepts for a given terminology
-        **EXAMPLE**: `("LOINC", 5)`
-    limit_count : Tuple[str, int], optional
-        The minimum number of observations per concepts for a given terminology
-        **EXAMPLE**: `("LOINC", 5)`
-    standard_terminologies : List[str], optional
-        **EXAMPLE**: `["LOINC", "AnaBio"]`
-    standard_concept_regex : dict, optional
-        **EXAMPLE**: `{"LOINC": "[0-9]{2,5}[-][0-9]","AnaBio": "[A-Z][0-9]{4}"}`
-    pd_limit_size : int, optional
-        The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
-    stats_only : bool, optional
-        If ``True``, it will only aggregate the data for the [summary table][summary-table].
-
-    Returns
-    -------
-    Dict[str, pd.DataFrame]
-        Aggregated tables for visualization
-    """
-    # Check the data
-    _check_the_data_for_aggregation(data)
-
-    # Extract tables
-    measurement = (
-        data.measurement[
-            list(
-                data.measurement.columns[
-                    data.measurement.columns.isin(
-                        [
-                            "measurement_id",
-                            "visit_occurrence_id",
-                            "measurement_date",
-                            "measurement_datetime",
-                            "value_as_number",
-                            "unit_source_value",
-                            "row_status_source_value",
-                            "measurement_source_concept_id",
-                        ]
-                    )
-                ]
-            )
-        ]
-        if "bioclean" not in dir(data)
-        else data.bioclean
-    )
-    concept = data.concept[
-        [
-            "concept_id",
-            "concept_name",
-            "concept_code",
-            "vocabulary_id",
-        ]
-    ]
-    concept_relationship = data.concept_relationship[
-        ["concept_id_1", "concept_id_2", "relationship_id"]
-    ]
-    visit = data.visit_occurrence[["visit_occurrence_id", "care_site_id"]]
-    care_site = data.care_site[["care_site_short_name", "care_site_id"]]
-
-    # Filter measurement by date
-    measurement = filter_measurement_by_date(measurement, start_date, end_date)
-
-    if "bioclean" in dir(data):
-        measurement_std_filtered = _extract_concepts_set(measurement, concepts_set)
-
-    else:
-        # Filter valid measurement
-        measurement_valid = filter_measurement_valid(measurement)
-
-        # Select concepts-set
-        src_to_std = get_concept_src_to_std(
-            concept,
-            concept_relationship,
-            concepts_set,
-            standard_concept_regex,
-            standard_terminologies,
-        )
-
-        if "concepts_set" in src_to_std.columns:
-            src_to_std = src_to_std.drop(columns="concepts_set")
-
-        # Extract concept-set
-        measurement_std_filtered = get_measurement_std(measurement_valid, src_to_std)
-        measurement_std_filtered = measurement_std_filtered.drop(
-            columns="source_concept_id"
-        )
-
-    # Filter limit number of concepts
-    if number_of_concept:
-        measurement_std_filtered = filter_concept_by_number(
-            measurement_std_filtered, number_of_concept
-        )
-
-    # Filter limit concept with enough measurements
-    if limit_count:
-        measurement_std_filtered = filter_concept_by_count(
-            measurement_std_filtered, limit_count
-        )
-
-    # Add care_site column
-    measurement_std_filtered = _add_hospital(measurement_std_filtered, visit, care_site)
-
-    # Normalize unit string
-    measurement_std_filtered = normalize_unit(measurement_std_filtered)
-
-    # Aggregate measurement
-    tables = aggregate_measurement(
-        measurement=measurement_std_filtered,
-        pd_limit_size=pd_limit_size,
-        stats_only=stats_only,
-        overall_only=stats_only,
-        debug=debug
-    )
-    return tables
-
-
-def _check_the_data_for_aggregation(data: Data):
-    check_tables(
-        data,
-        required_tables=[
-            "measurement",
-            "concept",
-            "concept_relationship",
-            "visit_occurrence",
-            "care_site",
-        ],
-    )
-    check_columns(
-        data.measurement,
-        required_columns=[
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "unit_source_value",
-            "row_status_source_value",
-            "measurement_source_concept_id",
-        ],
-    )
-    check_columns(
-        data.concept,
-        required_columns=[
-            "concept_id",
-            "concept_name",
-            "concept_code",
-            "vocabulary_id",
-        ],
-    )
-    check_columns(
-        data.visit_occurrence,
-        required_columns=["visit_occurrence_id", "care_site_id"],
-    )
-    check_columns(
-        data.concept_relationship,
-        required_columns=["concept_id_1", "concept_id_2", "relationship_id"],
-    )
-    check_columns(
-        data.care_site,
-        required_columns=["care_site_short_name", "care_site_id"],
-    )
-
-
-def _extract_concepts_set(measurement: DataFrame, concepts_set: ConceptsSet):
-
-    check_columns(
-        measurement,
-        required_columns=[
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "transformed_value",
-            "unit_source_value",
-            "transformed_unit",
-        ],
-    )
-
-    concept_cols = [
-        column_name
-        for column_name in measurement.columns
-        if ("concept_code" in column_name) or ("concept_name" in column_name)
-    ]
-    measurement = measurement[
-        [
-            "measurement_id",
-            "visit_occurrence_id",
-            "measurement_date",
-            "value_as_number",
-            "transformed_value",
-            "unit_source_value",
-            "transformed_unit",
-            "concepts_set",
-        ]
-        + concept_cols
-    ]
-    measurement = measurement[measurement["concepts_set"] == concepts_set.name]
-    measurement = measurement.drop(
-        columns=["value_as_number", "unit_source_value", "concepts_set"]
-    ).rename(
-        columns={
-            "transformed_value": "value_as_number",
-            "transformed_unit": "unit_source_value",
-        }
-    )
-    return measurement
-
-
-def _add_hospital(measurement: DataFrame, visit: DataFrame, care_site: DataFrame):
-    check_columns(
-        df=visit,
-        required_columns=["visit_occurrence_id", "care_site_id"],
-        df_name="visit",
-    )
-    check_columns(
-        df=care_site,
-        required_columns=["care_site_short_name", "care_site_id"],
-        df_name="care_site",
-    )
-
-    measurement = measurement.merge(visit, on="visit_occurrence_id", how="left")
-    measurement = measurement.merge(care_site, on="care_site_id", how="left")
-    measurement = measurement.drop(columns=["care_site_id", "visit_occurrence_id"])
-    measurement.fillna({"care_site_short_name": "Unknown"}, inplace=True)
-
-    return measurement
-
 
 def aggregate_measurement(
     measurement: DataFrame,
@@ -330,7 +63,7 @@ def aggregate_measurement(
         measurement.spark.cache()
         logger.info(
             "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
-        )
+        ) if debug else None
     size = measurement.shape[0]
     
     if size < pd_limit_size:
@@ -346,7 +79,7 @@ def aggregate_measurement(
         logger.info(
             "The number of measurements identified is {}.",
             size,
-        )
+        ) if debug else None
 
     # Truncate date
     measurement["measurement_month"] = (
@@ -355,11 +88,11 @@ def aggregate_measurement(
     measurement = measurement.drop(columns=["measurement_date"])
 
     # Filter measurement with missing values
-    filtered_measurement, missing_value = filter_missing_values(measurement)
+    filtered_measurement, missing_value = filter_missing_values(measurement) #on veut encore faire ça ?
 
     # Compute measurement statistics by code
     measurement_stats = _describe_measurement_by_code(
-        filtered_measurement, overall_only, category_columns
+        filtered_measurement, overall_only, category_columns, debug
     )
 
     if stats_only:
@@ -367,12 +100,12 @@ def aggregate_measurement(
 
     # Count measurement by care_site and by code per each month
     measurement_volumetry = _count_measurement_by_category_and_code_per_month(
-        filtered_measurement, missing_value, category_columns
+        filtered_measurement, missing_value, category_columns, debug
     )
 
     # Bin measurement values by care_site and by code
     measurement_distribution = _bin_measurement_value_by_category_and_code(
-        filtered_measurement, category_columns
+        filtered_measurement, category_columns, debug
     )
 
     return {
@@ -383,7 +116,7 @@ def aggregate_measurement(
 
 
 def _describe_measurement_by_code(
-    filtered_measurement: DataFrame, overall_only: bool = False, category_columns = []
+    filtered_measurement: DataFrame, overall_only: bool = False, category_columns = [], debug: bool = False
 ):
     check_columns(
         df=filtered_measurement,
@@ -458,7 +191,7 @@ def _describe_measurement_by_code(
 
     logger.info("The overall statistics of measurements by code are computing...") if debug else None
     measurement_stats_overall = to("pandas", measurement_stats_overall)
-    logger.info("The overall statistics of measurements are computed...")
+    logger.info("The overall statistics of measurements are computed...") if debug else None
 
     measurement_stats_overall["MAD"] = 1.48 * measurement_stats_overall["MAD"]
 
@@ -503,9 +236,9 @@ def _describe_measurement_by_code(
     measurement_stats["max_threshold"] = None
     measurement_stats["min_threshold"] = None
 
-    logger.info("The statistics of measurements by care site are computing...")
+    logger.info("The statistics of measurements by care site are computing...") if debug else None
     measurement_stats = to("pandas", measurement_stats)
-    logger.info("The statistics of measurements by care site are computed...")
+    logger.info("The statistics of measurements by care site are computed...") if debug else None
 
     measurement_stats = pd.concat([measurement_stats_overall, measurement_stats])
 
@@ -513,7 +246,7 @@ def _describe_measurement_by_code(
 
 
 def _count_measurement_by_category_and_code_per_month(
-    filtered_measurement: DataFrame, missing_value: DataFrame, category_columns = []
+    filtered_measurement: DataFrame, missing_value: DataFrame, category_columns = [], debug: bool = False
 ):
     check_columns(
         df=filtered_measurement,
@@ -590,15 +323,15 @@ def _count_measurement_by_category_and_code_per_month(
 
     logger.info(
         "The counting of measurements by care site and code for each month is processing..."
-    )
+    ) if debug else None
     measurement_count = to("pandas", measurement_count)
-    logger.info("The counting of measurements is finished...")
+    logger.info("The counting of measurements is finished...") if debug else None
 
     logger.info(
         "The counting of missing values by care site and code for each month is processing..."
-    )
+    ) if debug else None
     missing_value_count = to("pandas", missing_value_count)
-    logger.info("The counting of missing values is finished...")
+    logger.info("The counting of missing values is finished...") if debug else None
 
     measurement_volumetry = measurement_count.merge(
         missing_value_count,
@@ -618,7 +351,7 @@ def _count_measurement_by_category_and_code_per_month(
 
 
 def _bin_measurement_value_by_category_and_code(
-    filtered_measurement: DataFrame, category_columns=[]
+    filtered_measurement: DataFrame, category_columns=[], debug: bool = False
 ):
 
     check_columns(
@@ -723,12 +456,28 @@ def _bin_measurement_value_by_category_and_code(
         .rename(columns={"measurement_id": "frequency"})
     )
 
-    logger.info("The binning of measurements' values is processing...")
+    logger.info("The binning of measurements' values is processing...") if debug else None
     measurement_distribution = to("pandas", measurement_distribution)
-    logger.info("The binning of measurements' values is finished...")
+    logger.info("The binning of measurements' values is finished...") if debug else None
     return measurement_distribution
 
-def add_mad_minmax(measurement, category_cols, value_col):
+def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col : str) -> DataFrame:
+    """Add min_value, max_value column to measurement based on MAD criteria.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+        measurement dataframe
+    category_cols : List[str]
+        measurement category columns to perform the groupby on when computing MAD
+    value_col : str
+        measurement value column on which MAD will be computed
+
+    Returns
+    -------
+    DataFrame
+        measurement dataframe with added columns min_value, max_value
+    """
     measurement_median = (
         measurement[
             category_cols

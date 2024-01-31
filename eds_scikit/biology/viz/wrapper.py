@@ -1,20 +1,15 @@
 import os
-from datetime import datetime
 from shutil import rmtree
-from typing import List, Tuple, Union
+from typing import Union
 
 import altair as alt
 import pandas as pd
 from loguru import logger
 
-from eds_scikit.biology.utils.process_concepts import (
-    ConceptsSet,
-    fetch_all_concepts_set,
-)
-from eds_scikit.biology.viz.aggregate import aggregate_concepts_set, aggregate_measurement
+from eds_scikit.biology.viz.aggregate import aggregate_measurement
 from eds_scikit.biology.viz.plot import plot_concepts_set
 from eds_scikit.io import settings
-from eds_scikit.utils.typing import Data, DataFrame
+from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
@@ -24,6 +19,7 @@ def plot_biology_summary(
     save_folder_path: str = "Biology_summary",
     pd_limit_size: int = 100000,
     stats_only: bool = False,
+    debug : bool = False
 ) -> Union[alt.ConcatChart, pd.DataFrame]:
     """
     Aggregate measurements, create plots and saves all the concepts-sets in folder.
@@ -39,6 +35,8 @@ def plot_biology_summary(
         The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
     stats_only : bool, optional
         If ``True``, it will only aggregate the data for the [summary table][summary-table].
+    debug : bool, optional
+        If ``True``, info log will de displayed to follow aggregation steps
 
     Returns
     -------
@@ -56,6 +54,7 @@ def plot_biology_summary(
         stats_only=stats_only,
         overall_only=stats_only,
         category_columns=["concept_set", "care_site_short_name"],
+        debug=debug
     )
     
     table_names = list(tables_agg.keys())
