@@ -2,13 +2,13 @@ import numpy as np
 import pandas as pd
 import databricks.koalas as ks
 import os
+from eds_scikit import datasets
 
 class Units:
     
-    def __init__(self, concept_sets=None, unit_file="config_files/units", element_file="config_files/units_elements", element=None):
-        current_path = os.path.dirname(os.path.abspath(__file__))
-        self.units_file = pd.read_csv(os.path.join(current_path, unit_file)).set_index("unit_source_value")
-        self.element_file = pd.read_csv(os.path.join(current_path, element_file)).set_index(["unit_a", "unit_b"])
+    def __init__(self, concept_sets=None, element=None):
+        self.units_file = getattr(datasets, "units").set_index("unit_source_value")
+        self.element_file = getattr(datasets, "elements").set_index(["unit_a", "unit_b"])
         self.element = element
         #on part de l'idée que les unités sont des bases, qu'il est symétrique, qu'il est complété. NB : globalement c'est essentiellement pour la masse molaire, non ? Cuillère à soupe en g peut-être ?
         self.outer_conversion = self.element_file[self.element_file.element == self.element] if self.element else pd.DataFrame()

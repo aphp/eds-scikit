@@ -93,8 +93,6 @@ class ConceptsSet:
     def add_conversion(self, unit_a, unit_b, conversion):
         self.units.add_conversion(unit_a, unit_b, conversion)
     
-
-
     
 def fetch_concept_codes_from_name(
     concepts_set_name: str, concepts_sets_table_name: str = "default_concepts_sets"

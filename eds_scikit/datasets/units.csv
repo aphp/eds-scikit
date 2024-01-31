@@ -66,8 +66,8 @@ pg,1e-12,Mass,g
 h,1.0,Time,h
 heure,1.0,Time,h
 jours,24.0,Time,h
-min,0.016666666666666666,Time,h
-s,0.0002777777777777778,Time,h
+min,0.0166666666666666,Time,h
+s,0.0002777777777777,Time,h
 mois,720.0,Time,h
 semaine,168.0,Time,h
 semaines,168.0,Time,h

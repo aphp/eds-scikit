@@ -2,7 +2,7 @@ import databricks.koalas as ks
 from eds_scikit.utils.typing import Data, DataFrame
 from eds_scikit.io import settings
 from eds_scikit.biology.utils.check_data import check_data_and_select_columns_relationship
-from eds_scikit.biology.utils.process_measurement import ConceptsSet
+from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from typing import List, Dict, Tuple
 from eds_scikit.utils.framework import get_framework, to
 import pandas as pd
