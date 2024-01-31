@@ -66,7 +66,7 @@ def prepare_measurement_table(data : Data,
         measurement.cache()
         conversion_table = to("koalas", get_conversion_table(measurement, concept_sets))
         measurement = measurement.merge(conversion_table, on=["concept_set", "unit_source_value"])
-        measurement["normalized_value"] = measurement["value_as_number"] * measurement["factor"]
+        measurement["value_as_number_normalized"] = measurement["value_as_number"] * measurement["factor"]
                     
     measurement.cache()
     logger.info(f"Done. Once computed, measurement will be cached.") # or not ?
@@ -90,13 +90,13 @@ def get_conversion_table(measurement : DataFrame,
     """
     conversion_table = measurement.groupby("concept_set")["unit_source_value"].unique().explode().to_frame().reset_index()
     conversion_table = to("pandas", conversion_table) 
-    conversion_table["target_unit"] = conversion_table["unit_source_value"]
-    conversion_table["factor"] = conversion_table.apply(lambda x : 1 if x.target_unit else 0, axis=1)
+    conversion_table["unit_source_value_normalized"] = conversion_table["unit_source_value"]
+    conversion_table["factor"] = conversion_table.apply(lambda x : 1 if x.unit_source_value_normalized else 0, axis=1)
 
     for concept_set in concepts_sets:
-        target_unit = concept_set.units.target_unit
-        conversion_table.loc[conversion_table.concept_set == concept_set.name, "target_unit"] = conversion_table.apply(lambda x : target_unit if concept_set.units.can_be_converted(x.unit_source_value, target_unit) else concept_set.units.get_unit_base(x.unit_source_value), axis=1)
-        conversion_table.loc[conversion_table.concept_set == concept_set.name, "factor"] = conversion_table.apply(lambda x : concept_set.units.convert_unit(x.unit_source_value, x.target_unit), axis=1)
+        unit_source_value_normalized = concept_set.units.target_unit
+        conversion_table.loc[conversion_table.concept_set == concept_set.name, "unit_source_value_normalized"] = conversion_table.apply(lambda x : unit_source_value_normalized if concept_set.units.can_be_converted(x.unit_source_value, unit_source_value_normalized) else concept_set.units.get_unit_base(x.unit_source_value), axis=1)
+        conversion_table.loc[conversion_table.concept_set == concept_set.name, "factor"] = conversion_table.apply(lambda x : concept_set.units.convert_unit(x.unit_source_value, x.unit_source_value_normalized), axis=1)
     
     conversion_table = conversion_table.fillna(1)
     

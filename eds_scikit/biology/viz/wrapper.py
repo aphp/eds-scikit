@@ -1,6 +1,6 @@
 import os
 from shutil import rmtree
-from typing import Union
+from typing import Union, List
 
 import altair as alt
 import pandas as pd
@@ -19,6 +19,8 @@ def plot_biology_summary(
     save_folder_path: str = "Biology_summary",
     pd_limit_size: int = 100000,
     stats_only: bool = False,
+    terminologies: List[str] = None,
+    value_col: str ="value_as_number",
     debug : bool = False
 ) -> Union[alt.ConcatChart, pd.DataFrame]:
     """
@@ -35,6 +37,10 @@ def plot_biology_summary(
         The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
     stats_only : bool, optional
         If ``True``, it will only aggregate the data for the [summary table][summary-table].
+    terminologies : List[str], optional
+        biology summary only on terminologies codes columns
+    value_col : str, optional
+        value column for distribution summary plot
     debug : bool, optional
         If ``True``, info log will de displayed to follow aggregation steps
 
@@ -43,6 +49,9 @@ def plot_biology_summary(
     List[alt.ConcatChart, pd.DataFrame]
         Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
     """
+    
+    if terminologies:
+        measurement = measurement.drop(columns=[f"{col}_concept_code" for col in terminologies])
 
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)

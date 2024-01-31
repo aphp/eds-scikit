@@ -114,8 +114,8 @@ def select_mapping(
     return mapping_filtered
 
 
-def filter_concept_sets_relationship_table(relationship_table : DataFrame, 
-                                           concept_sets : List[ConceptsSet]) -> DataFrame:
+def filter_concept_sets_relationship_table(relationship_table , 
+                                           concept_sets) :
     """Filter relationship table using concept_sets concept codes.
 
     Parameters
@@ -130,6 +130,7 @@ def filter_concept_sets_relationship_table(relationship_table : DataFrame,
     DataFrame
         Filtered biology relationship table
     """
+    
     framework = get_framework(relationship_table)
     
     concept_sets_tables = pd.DataFrame({})
@@ -140,11 +141,11 @@ def filter_concept_sets_relationship_table(relationship_table : DataFrame,
     concept_sets_tables = to(framework, concept_sets_tables)
     filtered_terminology_table = framework.DataFrame({})
     for terminology in terminologies:
-        filtered_terminology_table = concept_sets_tables[concept_sets_tables.terminology == terminology].merge(relationship_table, on=f"{terminology}_concept_code", how="left", suffixes=("_x", ""))
-        filtered_terminology_table = filtered_terminology_table[[column for column in filtered_terminology_table.columns if not("_x" in column)]]
+        filtered_terminology_table_ = concept_sets_tables[concept_sets_tables.terminology == terminology].merge(relationship_table, on=f"{terminology}_concept_code", how="left", suffixes=("_x", ""))
+        filtered_terminology_table_ = filtered_terminology_table_[[column for column in filtered_terminology_table_.columns if not("_x" in column)]]
+        filtered_terminology_table = framework.concat((filtered_terminology_table_, filtered_terminology_table)).drop_duplicates()
         
     return filtered_terminology_table
-
 
 def concept_sets_columns(relationship_table : DataFrame,
                          concept_sets : List[ConceptsSet],
