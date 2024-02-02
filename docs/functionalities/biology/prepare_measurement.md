@@ -9,5 +9,3 @@ The pipeline is structured in 3 stages:
 - Units conversion
 
 ![Image title](../../_static/biology/prepare_measurement_flowchart.drawio.svg)
-
-See. [tutorial][tutorial] for details.
