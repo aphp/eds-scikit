@@ -6,4 +6,3 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 - Facilitate __codes mapping__ between different terminologies and referentials
 - Provide data __visualization tools__ and __statistic summary__
 - Allows __automatic units__ conversion from heterogenous units system
-

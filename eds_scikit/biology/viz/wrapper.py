@@ -1,6 +1,6 @@
 import os
 from shutil import rmtree
-from typing import Union, List
+from typing import List, Union
 
 import altair as alt
 import pandas as pd
@@ -13,7 +13,8 @@ from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
-        
+
+
 def plot_biology_summary(
     measurement: DataFrame,
     value_column: str = None,
@@ -21,11 +22,11 @@ def plot_biology_summary(
     pd_limit_size: int = 100000,
     stats_only: bool = False,
     terminologies: List[str] = None,
-    debug : bool = False
+    debug: bool = False,
 ) -> Union[alt.ConcatChart, pd.DataFrame]:
     """
     Aggregate measurements, create plots and saves all the concepts-sets in folder.
-    
+
 
     Parameters
     ----------
@@ -49,31 +50,35 @@ def plot_biology_summary(
     List[alt.ConcatChart, pd.DataFrame]
         Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
     """
-    
+
     if not value_column:
-        raise ValueError("Must give a 'value_column' parameter. By default, use value_as_number. Or value_as_number_normalized if exists.")
-        
+        raise ValueError(
+            "Must give a 'value_column' parameter. By default, use value_as_number. Or value_as_number_normalized if exists."
+        )
+
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)
-        logger.info("{} folder has been created.", save_folder_path)    
-    
+        logger.info("{} folder has been created.", save_folder_path)
+
     if terminologies:
-        measurement = measurement.drop(columns=[f"{col}_concept_code" for col in terminologies])
-    
+        measurement = measurement.drop(
+            columns=[f"{col}_concept_code" for col in terminologies]
+        )
+
     tables_agg = aggregate_measurement(
         measurement=measurement,
         pd_limit_size=pd_limit_size,
         stats_only=stats_only,
         overall_only=stats_only,
         category_columns=["concept_set", "care_site_short_name"],
-        debug=debug
+        debug=debug,
     )
-    
+
     table_names = list(tables_agg.keys())
     concept_sets_names = tables_agg[table_names[0]].concept_set.unique()
-    
+
     for concept_set_name in concept_sets_names:
-        
+
         concepts_set_path = "{}/{}".format(save_folder_path, concept_set_name)
         rmtree(concepts_set_path, ignore_errors=True)
         os.mkdir(concepts_set_path)
@@ -82,22 +87,20 @@ def plot_biology_summary(
             save_folder_path,
             concept_set_name,
         )
-        
+
         for table_name in table_names:
             table = tables_agg[table_name].query("concept_set == @concept_set_name")
             table.to_pickle(
-                "{}/{}/{}.pkl".format(
-                    save_folder_path, concept_set_name, table_name
-                )
+                "{}/{}/{}.pkl".format(save_folder_path, concept_set_name, table_name)
             )
-            
+
         logger.info(
             "{} has been processed and saved in {}/{} folder.",
             concept_set_name,
             save_folder_path,
             concept_set_name,
         )
-        
+
         plot_concepts_set(
             concepts_set_name=concept_set_name, source_path=save_folder_path
         )

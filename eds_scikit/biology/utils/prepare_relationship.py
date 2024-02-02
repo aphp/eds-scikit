@@ -1,19 +1,24 @@
+from typing import Dict, List, Tuple
+
 import databricks.koalas as ks
-from eds_scikit.utils.typing import Data, DataFrame
-from eds_scikit.io import settings
-from eds_scikit.biology.utils.check_data import check_data_and_select_columns_relationship
-from eds_scikit.biology.utils.process_concepts import ConceptsSet
-from typing import List, Dict, Tuple
-from eds_scikit.utils.framework import get_framework, to
 import pandas as pd
 
+from eds_scikit.biology.utils.check_data import (
+    check_data_and_select_columns_relationship,
+)
+from eds_scikit.biology.utils.process_concepts import ConceptsSet
+from eds_scikit.io import settings
+from eds_scikit.utils.framework import get_framework, to
+from eds_scikit.utils.typing import Data, DataFrame
+
+
 def prepare_relationship_table(
-    data : Data,
-    source_terminologies : Dict[str, str],
-    mapping : List[Tuple[str, str, str]],
-) -> ks.DataFrame: #ks or pandas
+    data: Data,
+    source_terminologies: Dict[str, str],
+    mapping: List[Tuple[str, str, str]],
+) -> ks.DataFrame:  # ks or pandas
     """
-    
+
     Create easy-to-use relationship table based on given terminologies and mapping between them.
 
     Parameters
@@ -26,7 +31,7 @@ def prepare_relationship_table(
     mapping : List[Tuple[str, str, str]]
         Ordered mapping of terminologies based on concept_relationship table
     **EXAMPLE**: `[("source_concept", "standard_concept", "Maps to")]`
-        
+
     Output
     -------
     |   source_concept_id | source_concept_name   | source_concept_code   |   standard_concept_id     | standard_concept_name     | standard_concept_code       |
@@ -39,9 +44,9 @@ def prepare_relationship_table(
 
 
     """
-        
+
     concept, concept_relationship = check_data_and_select_columns_relationship(data)
-    
+
     concept_by_terminology = {}
     for terminology, regex in source_terminologies.items():
         concept_by_terminology[terminology] = (
@@ -73,15 +78,16 @@ def prepare_relationship_table(
         relationship_table = relationship_table.merge(
             relationship, on="{}_concept_id".format(source), how="left"
         )
-               
+
     relationship_table = relationship_table.fillna("Unknown")
-                    
+
     return relationship_table
 
+
 def select_mapping(
-    mapping : List[Tuple[str, str, str]],
-    sources : List[str] = None,
-    terminologies : List[str] =None,
+    mapping: List[Tuple[str, str, str]],
+    sources: List[str] = None,
+    terminologies: List[str] = None,
 ) -> List[Tuple[str, str, str]]:
     """Filter mapping dictionary keeping sources and terminologies.
 
@@ -99,23 +105,30 @@ def select_mapping(
     _type_
         _description_
     """
-    #if some terminologies not in mapping : fail
+    # if some terminologies not in mapping : fail
     mapping_filtered = []
-    
+
     for m in mapping:
         keep_m = True
         if sources:
             keep_m = any([source in m for source in sources]) and keep_m
         if terminologies:
-            keep_m = any([(terminology in m[0]) or (terminology in m[1]) for terminology in terminologies]) and keep_m
+            keep_m = (
+                any(
+                    [
+                        (terminology in m[0]) or (terminology in m[1])
+                        for terminology in terminologies
+                    ]
+                )
+                and keep_m
+            )
         if keep_m:
             mapping_filtered.append(m)
-    
+
     return mapping_filtered
 
 
-def filter_concept_sets_relationship_table(relationship_table , 
-                                           concept_sets) :
+def filter_concept_sets_relationship_table(relationship_table, concept_sets):
     """Filter relationship table using concept_sets concept codes.
 
     Parameters
@@ -130,27 +143,46 @@ def filter_concept_sets_relationship_table(relationship_table ,
     DataFrame
         Filtered biology relationship table
     """
-    
+
     framework = get_framework(relationship_table)
-    
+
     concept_sets_tables = pd.DataFrame({})
     for concept_set in concept_sets:
         concept_set_table = concept_set.get_concept_codes_table()
-        concept_sets_tables = pd.concat((concept_set_table, concept_sets_tables), axis=0)
+        concept_sets_tables = pd.concat(
+            (concept_set_table, concept_sets_tables), axis=0
+        )
     terminologies = concept_sets_tables.terminology.unique()
     concept_sets_tables = to(framework, concept_sets_tables)
     filtered_terminology_table = framework.DataFrame({})
     for terminology in terminologies:
-        filtered_terminology_table_ = concept_sets_tables[concept_sets_tables.terminology == terminology].merge(relationship_table, on=f"{terminology}_concept_code", how="left", suffixes=("_x", ""))
-        filtered_terminology_table_ = filtered_terminology_table_[[column for column in filtered_terminology_table_.columns if not("_x" in column)]]
-        filtered_terminology_table = framework.concat((filtered_terminology_table_, filtered_terminology_table)).drop_duplicates()
-        
+        filtered_terminology_table_ = concept_sets_tables[
+            concept_sets_tables.terminology == terminology
+        ].merge(
+            relationship_table,
+            on=f"{terminology}_concept_code",
+            how="left",
+            suffixes=("_x", ""),
+        )
+        filtered_terminology_table_ = filtered_terminology_table_[
+            [
+                column
+                for column in filtered_terminology_table_.columns
+                if not ("_x" in column)
+            ]
+        ]
+        filtered_terminology_table = framework.concat(
+            (filtered_terminology_table_, filtered_terminology_table)
+        ).drop_duplicates()
+
     return filtered_terminology_table
 
-def concept_sets_columns(relationship_table : DataFrame,
-                         concept_sets : List[ConceptsSet],
-                         extra_terminologies : List = List[str]
-                         ) -> List[str]:
+
+def concept_sets_columns(
+    relationship_table: DataFrame,
+    concept_sets: List[ConceptsSet],
+    extra_terminologies: List = List[str],
+) -> List[str]:
     """Filter relationship_table keeping concepts_sets terminologies columns.
 
     Parameters
@@ -166,18 +198,20 @@ def concept_sets_columns(relationship_table : DataFrame,
     keep_terminologies = extra_terminologies
     for concept_set in concept_sets:
         keep_terminologies += concept_set.concept_codes.keys()
-        
+
     keep_columns = []
     for col in relationship_table.columns:
         if any([terminology in col for terminology in keep_terminologies]):
             keep_columns.append(col)
-    
+
     return keep_columns
 
 
-def prepare_biology_relationship_table(data : Data,
-                                       concept_sets : List[ConceptsSet]=None,
-                                       get_all_terminologies : bool=True) -> DataFrame:
+def prepare_biology_relationship_table(
+    data: Data,
+    concept_sets: List[ConceptsSet] = None,
+    get_all_terminologies: bool = True,
+) -> DataFrame:
     """Prepare biology relationship table to map concept codes based on settings.source_terminologies and settings.mapping.
 
     Parameters
@@ -194,12 +228,28 @@ def prepare_biology_relationship_table(data : Data,
         biology_relationship_table to be merged with measurement
     """
     if concept_sets is None and not get_all_terminologies:
-        raise Exception("get_all_terminologies must be True if no concept_sets provided.")
-    
-    biology_relationship_table = prepare_relationship_table(data, settings.source_terminologies, settings.mapping)
-    biology_relationship_table = filter_concept_sets_relationship_table(biology_relationship_table, concept_sets) if concept_sets else biology_relationship_table
-    
-    keep_columns = biology_relationship_table.columns if get_all_terminologies else concept_sets_columns(biology_relationship_table, concept_sets, [settings.mapping[0][0], "concept_set"])
+        raise Exception(
+            "get_all_terminologies must be True if no concept_sets provided."
+        )
+
+    biology_relationship_table = prepare_relationship_table(
+        data, settings.source_terminologies, settings.mapping
+    )
+    biology_relationship_table = (
+        filter_concept_sets_relationship_table(biology_relationship_table, concept_sets)
+        if concept_sets
+        else biology_relationship_table
+    )
+
+    keep_columns = (
+        biology_relationship_table.columns
+        if get_all_terminologies
+        else concept_sets_columns(
+            biology_relationship_table,
+            concept_sets,
+            [settings.mapping[0][0], "concept_set"],
+        )
+    )
     biology_relationship_table = biology_relationship_table[keep_columns]
-    
+
     return biology_relationship_table

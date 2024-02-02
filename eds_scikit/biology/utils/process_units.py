@@ -1,29 +1,49 @@
+import os
+
+import databricks.koalas as ks
 import numpy as np
 import pandas as pd
-import databricks.koalas as ks
-import os
+
 from eds_scikit import datasets
 
+
 class Units:
-    
     def __init__(self, concept_sets=None, element=None):
         self.units_file = getattr(datasets, "units").set_index("unit_source_value")
-        self.element_file = getattr(datasets, "elements").set_index(["unit_a", "unit_b"])
+        self.element_file = getattr(datasets, "elements").set_index(
+            ["unit_a", "unit_b"]
+        )
         self.element = element
-        #on part de l'idée que les unités sont des bases, qu'il est symétrique, qu'il est complété. NB : globalement c'est essentiellement pour la masse molaire, non ? Cuillère à soupe en g peut-être ?
-        self.outer_conversion = self.element_file[self.element_file.element == self.element] if self.element else pd.DataFrame()
+        # on part de l'idée que les unités sont des bases, qu'il est symétrique, qu'il est complété. NB : globalement c'est essentiellement pour la masse molaire, non ? Cuillère à soupe en g peut-être ?
+        self.outer_conversion = (
+            self.element_file[self.element_file.element == self.element]
+            if self.element
+            else pd.DataFrame()
+        )
         self.target_unit = ""
         self.concept_sets = concept_sets
-    
+
     def add_target_unit(self, unit):
         self.target_unit = unit
-    
+
     def add_conversion(self, unit_a, unit_b, conversion):
-        df = pd.DataFrame({'unit_a' : [unit_a, unit_b], 'unit_b' : [unit_b, unit_a,], 'conversion' : [conversion, 1/conversion], 'element' : self.element}).set_index(["unit_a", "unit_b"])
-        self.outer_conversion = pd.concat((self.outer_conversion, df), axis=0).drop_duplicates()
-        
-    def get_category(self, unit): #remplacer category par base ??
-        unit_tokens = unit.split("/")            
+        df = pd.DataFrame(
+            {
+                "unit_a": [unit_a, unit_b],
+                "unit_b": [
+                    unit_b,
+                    unit_a,
+                ],
+                "conversion": [conversion, 1 / conversion],
+                "element": self.element,
+            }
+        ).set_index(["unit_a", "unit_b"])
+        self.outer_conversion = pd.concat(
+            (self.outer_conversion, df), axis=0
+        ).drop_duplicates()
+
+    def get_category(self, unit):  # remplacer category par base ??
+        unit_tokens = unit.split("/")
         category = []
         for unit_token in unit_tokens:
             unit_token = unit_token.lower()
@@ -33,47 +53,51 @@ class Units:
             else:
                 category += ["Unkown"]
         return category
-    
-    def get_unit_base(self, unit) -> str: #remplacer category par base ??
-        unit_tokens = unit.lower().split("/")            
+
+    def get_unit_base(self, unit) -> str:  # remplacer category par base ??
+        unit_tokens = unit.lower().split("/")
         unit_base = ""
         for unit_token in unit_tokens:
             unit_base += f"/{self.base(unit_token)}"
         return unit_base[1:]
-    
+
     def base(self, token):
         if token in self.units_file.index:
             return self.units_file.loc[token].unit_source_base
         else:
             return "Unkown"
-        
+
     def to_base(self, token):
         if token in self.units_file.index:
             return self.units_file.loc[token].conversion
         else:
             return np.NaN
-        
+
     def can_be_converted(self, unit_1, unit_2):
         unit_tokens_1 = unit_1.split("/")
         unit_tokens_2 = unit_2.split("/")
-        
+
         if len(unit_tokens_1) == len(unit_tokens_2):
             can_be_converted = True
             for token_1, token_2 in zip(unit_tokens_1, unit_tokens_2):
                 base_1, base_2 = self.base(token_1), self.base(token_2)
                 token_1, token_2 = token_1.lower(), token_2.lower()
-                can_be_converted = can_be_converted and (self.base(token_1) == self.base(token_2) != "Unkown") or ((base_1, base_2) in self.outer_conversion.index)
+                can_be_converted = (
+                    can_be_converted
+                    and (self.base(token_1) == self.base(token_2) != "Unkown")
+                    or ((base_1, base_2) in self.outer_conversion.index)
+                )
             return can_be_converted
         else:
             return False
-        
+
     def convert_token(self, token_1, token_2):
         token_1, token_2 = token_1.lower(), token_2.lower()
         if self.base(token_1) == self.base(token_2) != "Unkown":
             f1 = self.to_base(token_1)
             f2 = self.to_base(token_2)
-            return (f1 / f2)
-        
+            return f1 / f2
+
         base_1, base_2 = self.base(token_1), self.base(token_2)
         if (base_1, base_2) in self.outer_conversion.index:
             f1 = self.to_base(token_1)
@@ -82,7 +106,7 @@ class Units:
             return f1 * f3 / f2
         else:
             return np.NaN
-            
+
     def convert_unit(self, unit_1, unit_2) -> float:
         unit_1, unit_2 = unit_1.lower(), unit_2.lower()
         tokens_1, tokens_2 = unit_1.split("/"), unit_2.split("/")
@@ -90,13 +114,21 @@ class Units:
         for token_1, token_2 in zip(tokens_1[1:], tokens_2[1:]):
             f = f / self.convert_token(token_1, token_2)
         return f
-    
+
     def generate_units_mapping(self, measurement):
         units_mapping = measurement.groupby("concept_set").unit_source_value.unique()
         units_mapping = units_mapping.to_pandas()
-        units_mapping = units_mapping.to_frame().explode("unit_source_value").reset_index()
-        f = lambda x : self.target_unit if (self.target_unit and self.can_be_converted(x, units_mapping.target_unit)) else self.get_unit_base(x)
-        g = lambda df : self.convert_unit(df.unit_source_value, df.normalized_unit)
+        units_mapping = (
+            units_mapping.to_frame().explode("unit_source_value").reset_index()
+        )
+        f = (
+            lambda x: self.target_unit
+            if (
+                self.target_unit and self.can_be_converted(x, units_mapping.target_unit)
+            )
+            else self.get_unit_base(x)
+        )
+        g = lambda df: self.convert_unit(df.unit_source_value, df.normalized_unit)
         units_mapping["normalized_unit"] = units_mapping.unit_source_value.apply(f)
         units_mapping["conversion"] = units_mapping.apply(g, axis=1).fillna(0)
         return units_mapping

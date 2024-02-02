@@ -1,9 +1,10 @@
 from eds_scikit.utils.checks import check_columns, check_tables
 from eds_scikit.utils.typing import Data
 
+
 def check_data_and_select_columns_measurement(data: Data):
     """Check the required tables and columns in the Data and extract them.
-    
+
     Parameters
     ----------
     data : Data
@@ -12,10 +13,10 @@ def check_data_and_select_columns_measurement(data: Data):
     check_tables(
         data,
         required_tables=[
-                "measurement",
-                "concept",
-                "concept_relationship",
-            ],
+            "measurement",
+            "concept",
+            "concept_relationship",
+        ],
     )
 
     _measurement_required_columns = [
@@ -30,7 +31,7 @@ def check_data_and_select_columns_measurement(data: Data):
         "row_status_source_value",
         "measurement_source_concept_id",
         "range_high",
-        "range_low"
+        "range_low",
     ]
 
     _concept_required_columns = [
@@ -70,9 +71,9 @@ def check_data_and_select_columns_relationship(data: Data):
     check_tables(
         data,
         required_tables=[
-                "concept",
-                "concept_relationship",
-            ],
+            "concept",
+            "concept_relationship",
+        ],
     )
 
     _concept_required_columns = [

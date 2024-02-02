@@ -1,22 +1,23 @@
 import ast
 import re
 from functools import reduce
-from typing import List, Union, Tuple, Dict
+from typing import Dict, List, Tuple, Union
 
 import pandas as pd
 from loguru import logger
 
 from eds_scikit import datasets
+from eds_scikit.biology.utils.process_units import Units
 from eds_scikit.io import settings
 from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
-from eds_scikit.biology.utils.process_units import Units
 
 default_standard_terminologies = settings.standard_terminologies
 default_source_terminologies = settings.source_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
 default_concepts_sets = datasets.default_concepts_sets
+
 
 class ConceptsSet:
     """Class defining the concepts-sets with 2 attributes:
@@ -28,21 +29,25 @@ class ConceptsSet:
     def __init__(self, name: str):
         self.name = name
         self.units = Units()
-        
+
         fetched_codes = fetch_concept_codes_from_name(name)
         if fetched_codes:
-            self.concept_codes = {"GLIMS_ANABIO" : fetch_concept_codes_from_name(name)}
+            self.concept_codes = {"GLIMS_ANABIO": fetch_concept_codes_from_name(name)}
         else:
             self.concept_codes = {}
 
-    def add_concept_codes(self, concept_codes: Union[str, List[str]], terminology: str = None):
+    def add_concept_codes(
+        self, concept_codes: Union[str, List[str]], terminology: str = None
+    ):
         if not terminology:
-            logger.error("concept_codes terminology must be provided. See settings.source_terminologie.")
+            logger.error(
+                "concept_codes terminology must be provided. See settings.source_terminologie."
+            )
             raise TypeError
         if isinstance(concept_codes, str):
             concept_codes = [concept_codes]
         if isinstance(concept_codes, list):
-            if not(terminology in self.concept_codes.keys()):
+            if not (terminology in self.concept_codes.keys()):
                 self.concept_codes[terminology] = []
             for concept_code in concept_codes:
                 if concept_code not in self.concept_codes[terminology]:
@@ -51,12 +56,16 @@ class ConceptsSet:
             logger.error("concept_codes must be string or list")
             raise TypeError
 
-    def remove_concept_codes(self, concept_codes: Union[str, List[str]], terminology: str = None):
-        if not(terminology and terminology in self.concept_codes.keys()):
-            logger.error("concept_codes terminology must be provided and must exist in concept_codes keys")
+    def remove_concept_codes(
+        self, concept_codes: Union[str, List[str]], terminology: str = None
+    ):
+        if not (terminology and terminology in self.concept_codes.keys()):
+            logger.error(
+                "concept_codes terminology must be provided and must exist in concept_codes keys"
+            )
             raise TypeError
         if isinstance(concept_codes, str):
-            concept_codes = [concept_codes]        
+            concept_codes = [concept_codes]
         if isinstance(concept_codes, list):
             for concept_code in concept_codes:
                 if concept_code in self.concept_codes:
@@ -65,35 +74,43 @@ class ConceptsSet:
         else:
             logger.error("concept_codes must be string or list")
             raise TypeError
-        
+
     def get_concept_codes_table(self, terminologies=None, relationship_table=None):
-        
+
         if not terminologies:
-            terminologies = self.concept_codes.keys()            
-            
+            terminologies = self.concept_codes.keys()
+
         result_df = pd.DataFrame({})
         for terminology in terminologies:
-            df = pd.DataFrame({
-                "concept_set" : [self.name] * len(self.concept_codes[terminology]),
-                "terminology" : [terminology] * len(self.concept_codes[terminology]),
-                "concept_code" : self.concept_codes[terminology],
-                f"{terminology}_concept_code" : self.concept_codes[terminology]})            
-            
+            df = pd.DataFrame(
+                {
+                    "concept_set": [self.name] * len(self.concept_codes[terminology]),
+                    "terminology": [terminology] * len(self.concept_codes[terminology]),
+                    "concept_code": self.concept_codes[terminology],
+                    f"{terminology}_concept_code": self.concept_codes[terminology],
+                }
+            )
+
             if relationship_table is not None:
-                df = df.merge(relationship_table, on=f"{terminology}_concept_code", how="left", suffixes=("_x", ""))
-                df = df[[column for column in df.columns if not("_x" in column)]]
-                
+                df = df.merge(
+                    relationship_table,
+                    on=f"{terminology}_concept_code",
+                    how="left",
+                    suffixes=("_x", ""),
+                )
+                df = df[[column for column in df.columns if not ("_x" in column)]]
+
             result_df = pd.concat((df, result_df), axis=0)
-                    
+
         return result_df
-    
+
     def add_target_unit(self, target_unit):
         self.units.add_target_unit(target_unit)
-    
+
     def add_conversion(self, unit_a, unit_b, conversion):
         self.units.add_conversion(unit_a, unit_b, conversion)
-    
-    
+
+
 def fetch_concept_codes_from_name(
     concepts_set_name: str, concepts_sets_table_name: str = "default_concepts_sets"
 ):
@@ -102,7 +119,9 @@ def fetch_concept_codes_from_name(
     )
     if concepts_set_name in default_concepts_sets.index:
         standard_concepts = []
-        concept_code_columns = [col for col in default_concepts_sets.columns if "concept_code" in col]
+        concept_code_columns = [
+            col for col in default_concepts_sets.columns if "concept_code" in col
+        ]
         for column in concept_code_columns:
             terminology_standard_concepts = ast.literal_eval(
                 default_concepts_sets.loc[concepts_set_name][column]

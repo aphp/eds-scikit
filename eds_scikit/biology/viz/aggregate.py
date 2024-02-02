@@ -13,13 +13,14 @@ from eds_scikit.utils.typing import DataFrame
 default_standard_terminologies = settings.standard_terminologies
 default_standard_concept_regex = settings.standard_concept_regex
 
+
 def aggregate_measurement(
     measurement: DataFrame,
     pd_limit_size: int,
     stats_only: bool,
     overall_only: bool,
     category_columns=[],
-    debug=False
+    debug=False,
 ):
     """Aggregates measurement dataframe in three descriptive and synthetic dataframe :
       - measurement_stats
@@ -54,7 +55,8 @@ def aggregate_measurement(
             "unit_source_value",
             "measurement_date",
             "value_as_number",
-        ] + category_columns,
+        ]
+        + category_columns,
         df_name="measurement",
     )
 
@@ -65,7 +67,7 @@ def aggregate_measurement(
             "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
         ) if debug else None
     size = measurement.shape[0]
-    
+
     if size < pd_limit_size:
         logger.info(
             "The number of measurements identified is {} < {}. DataFrame is converting to Pandas...",
@@ -88,7 +90,9 @@ def aggregate_measurement(
     measurement = measurement.drop(columns=["measurement_date"])
 
     # Filter measurement with missing values
-    filtered_measurement, missing_value = filter_missing_values(measurement) #on veut encore faire ça ?
+    filtered_measurement, missing_value = filter_missing_values(
+        measurement
+    )  # on veut encore faire ça ?
 
     # Compute measurement statistics by code
     measurement_stats = _describe_measurement_by_code(
@@ -116,7 +120,10 @@ def aggregate_measurement(
 
 
 def _describe_measurement_by_code(
-    filtered_measurement: DataFrame, overall_only: bool = False, category_columns = [], debug: bool = False
+    filtered_measurement: DataFrame,
+    overall_only: bool = False,
+    category_columns=[],
+    debug: bool = False,
 ):
     check_columns(
         df=filtered_measurement,
@@ -125,7 +132,8 @@ def _describe_measurement_by_code(
             "unit_source_value",
             "measurement_month",
             "value_as_number",
-        ] + category_columns,
+        ]
+        + category_columns,
         df_name="filtered_measurement",
     )
 
@@ -134,7 +142,7 @@ def _describe_measurement_by_code(
         for column_name in filtered_measurement.columns
         if ("concept_code" in column_name) or ("concept_name" in column_name)
     ] + category_columns
-    
+
     measurement_stats_overall = (
         (
             filtered_measurement[
@@ -189,9 +197,13 @@ def _describe_measurement_by_code(
         on=concept_cols + ["unit_source_value"],
     )
 
-    logger.info("The overall statistics of measurements by code are computing...") if debug else None
+    logger.info(
+        "The overall statistics of measurements by code are computing..."
+    ) if debug else None
     measurement_stats_overall = to("pandas", measurement_stats_overall)
-    logger.info("The overall statistics of measurements are computed...") if debug else None
+    logger.info(
+        "The overall statistics of measurements are computed..."
+    ) if debug else None
 
     measurement_stats_overall["MAD"] = 1.48 * measurement_stats_overall["MAD"]
 
@@ -236,9 +248,13 @@ def _describe_measurement_by_code(
     measurement_stats["max_threshold"] = None
     measurement_stats["min_threshold"] = None
 
-    logger.info("The statistics of measurements by care site are computing...") if debug else None
+    logger.info(
+        "The statistics of measurements by care site are computing..."
+    ) if debug else None
     measurement_stats = to("pandas", measurement_stats)
-    logger.info("The statistics of measurements by care site are computed...") if debug else None
+    logger.info(
+        "The statistics of measurements by care site are computed..."
+    ) if debug else None
 
     measurement_stats = pd.concat([measurement_stats_overall, measurement_stats])
 
@@ -246,7 +262,10 @@ def _describe_measurement_by_code(
 
 
 def _count_measurement_by_category_and_code_per_month(
-    filtered_measurement: DataFrame, missing_value: DataFrame, category_columns = [], debug: bool = False
+    filtered_measurement: DataFrame,
+    missing_value: DataFrame,
+    category_columns=[],
+    debug: bool = False,
 ):
     check_columns(
         df=filtered_measurement,
@@ -254,7 +273,8 @@ def _count_measurement_by_category_and_code_per_month(
             "measurement_id",
             "unit_source_value",
             "measurement_month",
-        ] + category_columns,
+        ]
+        + category_columns,
         df_name="filtered_measurement",
     )
 
@@ -360,7 +380,8 @@ def _bin_measurement_value_by_category_and_code(
             "measurement_id",
             "unit_source_value",
             "value_as_number",
-        ] + category_columns,
+        ]
+        + category_columns,
         df_name="filtered_measurement",
     )
 
@@ -369,12 +390,17 @@ def _bin_measurement_value_by_category_and_code(
         for column_name in filtered_measurement.columns
         if "concept_code" in column_name
     ] + category_columns
-    
-    if not(("min_value" in filtered_measurement.columns) or ("max_value" in filtered_measurement.columns)):
-        filtered_measurement = add_mad_minmax(filtered_measurement, concept_cols, "value_as_number")
-    
+
+    if not (
+        ("min_value" in filtered_measurement.columns)
+        or ("max_value" in filtered_measurement.columns)
+    ):
+        filtered_measurement = add_mad_minmax(
+            filtered_measurement, concept_cols, "value_as_number"
+        )
+
     measurement_binned = filtered_measurement
-    
+
     measurement_binned["min_value"] = measurement_binned["min_value"].where(
         measurement_binned["min_value"] >= 0, 0
     )
@@ -382,12 +408,12 @@ def _bin_measurement_value_by_category_and_code(
         measurement_binned["value_as_number"] > measurement_binned["max_value"],
         measurement_binned["max_value"],
     )
-    
+
     measurement_binned["binned_value"] = measurement_binned["binned_value"].mask(
         measurement_binned["value_as_number"] < measurement_binned["min_value"],
         measurement_binned["min_value"],
-    )   
-        
+    )
+
     # Freedman–Diaconis rule (https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule)
     bin_width = (
         measurement_binned[
@@ -456,12 +482,17 @@ def _bin_measurement_value_by_category_and_code(
         .rename(columns={"measurement_id": "frequency"})
     )
 
-    logger.info("The binning of measurements' values is processing...") if debug else None
+    logger.info(
+        "The binning of measurements' values is processing..."
+    ) if debug else None
     measurement_distribution = to("pandas", measurement_distribution)
     logger.info("The binning of measurements' values is finished...") if debug else None
     return measurement_distribution
 
-def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col : str) -> DataFrame:
+
+def add_mad_minmax(
+    measurement: DataFrame, category_cols: List[str], value_col: str
+) -> DataFrame:
     """Add min_value, max_value column to measurement based on MAD criteria.
 
     Parameters
@@ -479,12 +510,7 @@ def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col
         measurement dataframe with added columns min_value, max_value
     """
     measurement_median = (
-        measurement[
-            category_cols
-            + [
-                value_col
-            ]
-        ]
+        measurement[category_cols + [value_col]]
         .groupby(
             category_cols,
             as_index=False,
@@ -493,7 +519,7 @@ def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col
         .median()
         .rename(columns={value_col: "median"})
     )
-    
+
     # Add median column to the measurement table
     measurement_median = measurement_median.merge(
         measurement[
@@ -502,7 +528,7 @@ def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col
                 value_col,
             ]
         ],
-        on=category_cols
+        on=category_cols,
     )
 
     # Compute median deviation for each measurement
@@ -532,7 +558,7 @@ def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col
     )
 
     measurement_mad["MAD"] = 1.48 * measurement_mad["MAD"]
-        
+
     # Add MAD column to the measurement table
     measurement = measurement_mad.merge(
         measurement,
@@ -540,11 +566,7 @@ def add_mad_minmax(measurement : DataFrame, category_cols : List[str], value_col
     )
 
     # Compute binned value
-    measurement["max_value"] = (
-        measurement["median"] + 4 * measurement["MAD"]
-    )
-    measurement["min_value"] = (
-        measurement["median"] - 4 * measurement["MAD"]
-    )
-    
+    measurement["max_value"] = measurement["median"] + 4 * measurement["MAD"]
+    measurement["min_value"] = measurement["median"] - 4 * measurement["MAD"]
+
     return measurement

@@ -1,7 +1,7 @@
-from loguru import logger
-
 from datetime import datetime
 from typing import Tuple
+
+from loguru import logger
 
 from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import get_framework, to
@@ -56,7 +56,7 @@ def filter_measurement_by_date(
 
     if "measurement_datetime" in measurement.columns:
         measurement = measurement
-        #measurement = _select_adequate_date_column(measurement=measurement)
+        # measurement = _select_adequate_date_column(measurement=measurement)
 
     measurement.measurement_date = measurement.measurement_date.astype("datetime64[ns]")
 
@@ -107,9 +107,8 @@ def filter_concept_by_number(
         code_set, on="{}_concept_code".format(terminology), how="inner"
     )
 
-def tag_measurement_anomaly(
-    measurement: DataFrame
-) -> DataFrame:
+
+def tag_measurement_anomaly(measurement: DataFrame) -> DataFrame:
     """
 
     Parameters
@@ -125,8 +124,12 @@ def tag_measurement_anomaly(
     -------
     """
 
-    measurement["range_high_anomaly"] = (~measurement.range_high.isna()) & (measurement["value_as_number"] > measurement["range_high"])
-    measurement["range_low_anomaly"] = (~measurement.range_low.isna()) & (measurement["value_as_number"] < measurement["range_low"])
+    measurement["range_high_anomaly"] = (~measurement.range_high.isna()) & (
+        measurement["value_as_number"] > measurement["range_high"]
+    )
+    measurement["range_low_anomaly"] = (~measurement.range_low.isna()) & (
+        measurement["value_as_number"] < measurement["range_low"]
+    )
 
     return measurement
 

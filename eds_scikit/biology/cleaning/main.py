@@ -4,8 +4,11 @@ from typing import List, Union
 from loguru import logger
 
 from eds_scikit.biology.cleaning.cohort import select_cohort
-from eds_scikit.biology.utils.process_concepts import ConceptsSet, fetch_all_concepts_set
 from eds_scikit.biology.utils.prepare_measurement import prepare_measurement_table
+from eds_scikit.biology.utils.process_concepts import (
+    ConceptsSet,
+    fetch_all_concepts_set,
+)
 from eds_scikit.biology.viz.wrapper import plot_biology_summary
 from eds_scikit.io import settings
 from eds_scikit.utils.typing import Data, DataFrame
@@ -44,26 +47,30 @@ def bioclean(
     Data
         Same as the input with the transformed `bioclean` table
     """
-    
+
     if concepts_sets is None:
         logger.info("No concepts sets provided. Loading default concepts sets.")
         concepts_sets = fetch_all_concepts_set()
-    
-    measurements = prepare_measurement_table(data, start_date, end_date, concepts_sets, convert_units)
+
+    measurements = prepare_measurement_table(
+        data, start_date, end_date, concepts_sets, convert_units
+    )
 
     # Filter Measurement.
     if studied_cohort:
-        measurements = select_cohort(
-            measurements, studied_cohort
-        )
+        measurements = select_cohort(measurements, studied_cohort)
 
     # Transform values
     data.bioclean = measurements
 
-    measurements = measurements.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
-    measurements = measurements.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
+    measurements = measurements.merge(
+        data.visit_occurrence[["care_site_id", "visit_occurrence_id"]],
+        on="visit_occurrence_id",
+    )
+    measurements = measurements.merge(
+        data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id"
+    )
 
     # Plot values
     value_column = "value_as_number_normalized" if convert_units else "value_as_number"
     plot_biology_summary(measurements, value_column)
-
