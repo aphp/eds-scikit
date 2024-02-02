@@ -100,8 +100,19 @@ plugins:
       scripts:
         - docs/generate_reference.py
         - docs/generate_development.py
-  - mknotebooks:
-     enable_default_pandas_dataframe_styling: false
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            docstring_section_style: spacy
+            show_signature_annotations: true
+            heading_level: 3
+            members_order: source
+            show_root_toc_entry: false
+            separate_signature: true
+            merge_init_into_class: true
+  - mknotebooks
   - literate-nav:
       nav_file: SUMMARY.md
   - mike
