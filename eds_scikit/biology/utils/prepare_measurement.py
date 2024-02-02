@@ -53,14 +53,12 @@ def prepare_measurement_table(data : Data,
     measurement = filter_measurement_valid(measurement)
     measurement = filter_measurement_by_date(measurement, start_date, end_date)
     measurement = normalize_unit(measurement)
+    measurement = tag_measurement_anomaly(measurement)
     
     # measurement codes mapping
     biology_relationship_table = prepare_biology_relationship_table(data, concept_sets, get_all_terminologies)
     measurement = measurement.merge(biology_relationship_table, left_on="measurement_source_concept_id", right_on=f"{mapping[0][0]}_concept_id")
-    
-    #measurement anomaly tagging
-    measurement = tag_measurement_anomaly(measurement)
-    
+        
     if convert_units:
         logger.info(f"Lazy preparation not available if convert_units=True. Computed table will be cached.")
         measurement.cache()

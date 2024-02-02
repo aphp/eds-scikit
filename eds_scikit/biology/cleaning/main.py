@@ -1,6 +1,8 @@
 from datetime import datetime
 from typing import List, Union
 
+from loguru import logger
+
 from eds_scikit.biology.cleaning.cohort import select_cohort
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.biology.utils.prepare_measurement import prepare_measurement_table
@@ -17,6 +19,7 @@ def bioclean(
     concepts_sets: List[ConceptsSet] = None,
     start_date: datetime = None,
     end_date: datetime = None,
+    convert_units: bool = False,
     studied_cohort: Union[DataFrame, List[int]] = None,
 ) -> Data:
     """It follows the pipeline explained [here][cleaning]:
@@ -48,7 +51,11 @@ def bioclean(
         Same as the input with the transformed `bioclean` table
     """
     
-    measurements = prepare_measurement_table(data, start_date, end_date, concepts_sets, convert_units=False, outliers_detection=None)
+    if concepts_sets is None:
+        logger.info("No concepts sets provided. Loading default concepts sets.")
+        concepts_sets = fetch_all_concepts_set()
+    
+    measurements = prepare_measurement_table(data, start_date, end_date, concepts_sets, convert_units)
     
     # Filter Measurement.
     if studied_cohort:
@@ -60,5 +67,6 @@ def bioclean(
     data.bioclean = measurements
 
     # Plot values
-    plot_biology_summary_measurement(measurements)
+    value_column = "value_as_number_normalized" if convert_units else "value_as_number"
+    plot_biology_summary_measurement(measurements, value_column)
 

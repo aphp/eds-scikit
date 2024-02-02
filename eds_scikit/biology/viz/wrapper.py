@@ -16,11 +16,11 @@ default_standard_concept_regex = settings.standard_concept_regex
         
 def plot_biology_summary(
     measurement: DataFrame,
+    value_column: str = None,
     save_folder_path: str = "Biology_summary",
     pd_limit_size: int = 100000,
     stats_only: bool = False,
     terminologies: List[str] = None,
-    value_col: str ="value_as_number",
     debug : bool = False
 ) -> Union[alt.ConcatChart, pd.DataFrame]:
     """
@@ -39,7 +39,7 @@ def plot_biology_summary(
         If ``True``, it will only aggregate the data for the [summary table][summary-table].
     terminologies : List[str], optional
         biology summary only on terminologies codes columns
-    value_col : str, optional
+    value_column : str, optional
         value column for distribution summary plot
     debug : bool, optional
         If ``True``, info log will de displayed to follow aggregation steps
@@ -50,12 +50,15 @@ def plot_biology_summary(
         Altair plots describing the volumetric and the distribution properties of your biological data along with a pandas DataFrame with a statistical summary
     """
     
-    if terminologies:
-        measurement = measurement.drop(columns=[f"{col}_concept_code" for col in terminologies])
-
+    if not value_column:
+        raise ValueError("Must give a 'value_column' parameter. By default, use value_as_number. Or value_as_number_normalized if exists.")
+        
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)
         logger.info("{} folder has been created.", save_folder_path)    
+    
+    if terminologies:
+        measurement = measurement.drop(columns=[f"{col}_concept_code" for col in terminologies])
     
     tables_agg = aggregate_measurement(
         measurement=measurement,
