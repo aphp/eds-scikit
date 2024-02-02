@@ -1,6 +1,6 @@
 # Visualization
 
-This library provides a visualization tool that aggregates the data to provide two interactive dashboards and a summary table describing various statistical properties of your biological data.
+This library provides a visualization tool that aggregates computed measurements to provide two interactive dashboards and a summary table describing various statistical properties of your biological data.
 
 ## Input
 

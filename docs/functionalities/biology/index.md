@@ -3,9 +3,9 @@
 
 The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports data scientists working on biological data. Its main objectives are to:
 
-- Extract meaningful biological parameters from biological raw data for data analysis
-- Manage outliers
-- Provide data visualization tools
+- Simplify codes mapping between different terminologies and referentials.
+- Provide data visualization tools and statistic summary
+- Allows automatic units conversion from heterogenous units system
 
 ## Quick start
 
@@ -62,8 +62,9 @@ First, you need to load your data. As detailed in [the dedicated section](../gen
     data = PandasData(folder)
     ```
 
-### 2. Clean the measurements
+### 2. Bioclean the measurements
 
+`bioclean` function encapsulates `prepare_measurement_table` and `plot_biology_summary` which can be used on their own (see. [tutorial][tutorial] for details).
 
 ```python
 from eds_scikit.biology import bioclean
@@ -81,15 +82,5 @@ data.bioclean.head()
 | EntityB_Blood_Quantitative | 001-0              | EntityB_Blood      | B0001               | EntityB_Blood_vein   | mmol             | 4.52              | 8.548         | 0.542         | False   | 4.52 mmol          | mmol              |
 | EntityB_Blood_Quantitative | 000-1              | EntityB Bld Auto   | B0002               | EntityB_Blood_µg/l   | mmol             | 9.58              | 8.548         | 0.542         | True    | 3587 µg/l          | µg/l              |
 
-For more details, have a look on [the dedicated section](cleaning).
-
-### 3. Visualize statistical summary
-
-
-```python
-from eds_scikit.biology import plot_biology_summary
-
-plot_biology_summary(data)
-```
 
 It creates a folder with different plots for each [concepts-set](cleaning/#definitions). For more details, have a look on [the dedicated section](visualization).
