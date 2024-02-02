@@ -1,15 +1,15 @@
-## Introduction to measurements
+## About measurements
 
 The *BioClean* module focuses on three **OMOP** terms:
 
-- **measurement** is a record obtained through the standardized testing or examination of a person or person's sample ([Measurement](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:measurement) table in **OMOP**)
-- **concept** is a semantic notion that uniquely identify a clinical event. It can group several measurements ([Concept](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept) table in **OMOP**)
-- **concept relationship** is a semantic relation between terminologies, allowing to map codes from different terminologies ([Concept Relationship](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept_relationship) in **OMOP**).
+- [Measurement](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:measurement) is a record obtained through the standardized testing or examination of a person or person's sample.
+- [Concept](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept) is a semantic notion that uniquely identify a clinical event. It can group several measurements.
+- [Concept Relationship](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept_relationship) is a semantic relation between terminologies, allowing to map codes from different terminologies.
 
 
 A fourht term was created to ease the use of the two above:
 
-- **concepts-set** is a generic concept that has been deemed appropriate for most biological analyses. It is a group of several biological concepts representing the same biological entity (see [concepts-set](../../datasets/concepts-sets.md))
+- [concepts-set](../../datasets/concepts-sets.md) is a generic concept that has been deemed appropriate for most biological analyses. It is a group of several biological concepts representing the same biological entity.
 
 **Example:** <br/>
 Let's imagine the laboratory X tests the creatinine of Mister A and Mister B in mg/dL and the laboratory Y tests the creatinine of Mister C in µmol/L. In this context, the dataset will contain:
