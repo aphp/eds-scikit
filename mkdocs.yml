@@ -57,7 +57,6 @@ nav:
       - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb
       - Age pyramid: functionalities/plotting/age_pyramid.md
   - Recipes:
-    - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb
     # - Cross-tagging concepts between two DataFrames: recipes/diabetes.ipynb
   - Resources:
