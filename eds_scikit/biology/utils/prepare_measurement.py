@@ -17,7 +17,7 @@ from eds_scikit.biology.utils.process_measurement import (
     tag_measurement_anomaly,
 )
 from eds_scikit.io.settings import mapping
-from eds_scikit.utils.framework import to
+from eds_scikit.utils.framework import to, is_koalas
 from eds_scikit.utils.typing import Data, DataFrame
 
 
@@ -88,9 +88,10 @@ def prepare_measurement_table(
         measurement["value_as_number_normalized"] = (
             measurement["value_as_number"] * measurement["factor"]
         )
-
-    measurement.cache()
-    logger.info(f"Done. Once computed, measurement will be cached.")  # or not ?
+    
+    if is_koalas(measurement):
+        measurement.cache()
+        logger.info(f"Done. Once computed, measurement will be cached.")
 
     return measurement
 

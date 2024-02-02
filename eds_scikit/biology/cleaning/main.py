@@ -55,14 +55,12 @@ def bioclean(
     measurements = prepare_measurement_table(
         data, start_date, end_date, concepts_sets, convert_units
     )
-
     # Filter Measurement.
     if studied_cohort:
         measurements = select_cohort(measurements, studied_cohort)
-
     # Transform values
     data.bioclean = measurements
-
+    
     measurements = measurements.merge(
         data.visit_occurrence[["care_site_id", "visit_occurrence_id"]],
         on="visit_occurrence_id",
@@ -70,7 +68,6 @@ def bioclean(
     measurements = measurements.merge(
         data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id"
     )
-
     # Plot values
     value_column = "value_as_number_normalized" if convert_units else "value_as_number"
     plot_biology_summary(measurements, value_column)

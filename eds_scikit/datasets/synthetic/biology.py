@@ -155,11 +155,11 @@ def _generate_concept(n_entity: int, units: List[str]):
                     concept_id_1.extend([src_code] * 2)
                     concept_id_2.extend([anabio_code, loinc_code])
 
-    src_vocabulary_id = ["GLIMS"] * len(src_concept_code)
-    anabio_vocabulary_id = ["ANABIO"] * len(anabio_concept_code)
+    src_vocabulary_id = ["Analyses Laboratoire"] * len(src_concept_code)
+    anabio_vocabulary_id = ["GLIMS_Anabio"] * len(anabio_concept_code)
     loinc_vocabulary_id = list(
         np.random.choice(
-            ["LOINC", "APHP - ITM - LOINC"], size=len(loinc_concept_code), p=[0.9, 0.1]
+            ["GLIMS_LOINC", "ITM_LOINC"], size=len(loinc_concept_code), p=[0.9, 0.1]
         )
     )
 
@@ -241,6 +241,8 @@ def _generate_measurement(
     measurement_source_concept_id = []
     unit_source_value = []
     value_as_number = []
+    range_high = []
+    range_low = []
     row_status_source_value = []
     visit_occurrence_id = []
     person_id = []
@@ -269,7 +271,18 @@ def _generate_measurement(
         value_as_number.extend(
             np.random.normal(mean_value, std_value, valid_measurement)
         )
+        range_high.extend(
+            [(mean_value + 5)] * valid_measurement
+        )
+        
+        range_low.extend(
+            [(mean_value - 5)] * valid_measurement
+        )
+
+        
         value_as_number.extend([None] * missing_value)
+        range_high.extend([None] * missing_value)
+        range_low.extend([None] * missing_value)
         unit_source_value.extend([unit] * n_measurement)
         measurement_source_concept_id.extend([concept_code] * n_measurement)
         datetimes = pd.to_datetime(
@@ -294,6 +307,8 @@ def _generate_measurement(
             "measurement_datetime": measurement_datetime,
             "measurement_date": measurement_date,
             "value_as_number": value_as_number,
+            "range_high" : range_high,
+            "range_low" : range_low,
             "value_source_value": value_source_value,
             "unit_source_value": unit_source_value,
             "row_status_source_value": row_status_source_value,
