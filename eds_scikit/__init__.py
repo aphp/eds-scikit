@@ -9,10 +9,10 @@ warnings.simplefilter(
     action="ignore", category=FutureWarning
 )  # Remove pyarrow DeprecatedWarning
 
-
 import pandas as pd
 from loguru import logger
-from .io import koalas_options, improve_performances
+from eds_scikit.io import koalas_options, improve_performances
+import eds_scikit.biology
 
 # Remove SettingWithCopyWarning
 pd.options.mode.chained_assignment = None
@@ -23,5 +23,3 @@ This function optimally configures Spark. Use it as:
 `spark, sc, sql = eds_scikit.improve_performances()`
 The functions respectively returns a SparkSession, a SparkContext and an sql method"""
 )
-
-koalas_options()
