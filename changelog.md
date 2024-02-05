@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.1.7 (xxxx-xx-xx)
+### Added
+- load_koalas() not by default in __init__.py but called in the improve_performance function
+- adding app_name in improve_performances to facilitate app monitoring
+
+### Fixed
+- Generation of an inclusion/exclusion flowchart in plotting
+- improve_performance moved from __init__.py to io/improve_performance.py file
+
 ## v0.1.6 (2023-09-27)
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
