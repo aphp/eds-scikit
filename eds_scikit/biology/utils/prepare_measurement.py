@@ -17,7 +17,7 @@ from eds_scikit.biology.utils.process_measurement import (
     tag_measurement_anomaly,
 )
 from eds_scikit.io.settings import mapping
-from eds_scikit.utils.framework import to, is_koalas
+from eds_scikit.utils.framework import is_koalas, to
 from eds_scikit.utils.typing import Data, DataFrame
 
 
@@ -78,7 +78,7 @@ def prepare_measurement_table(
 
     if convert_units:
         logger.info(
-            f"Lazy preparation not available if convert_units=True. Computed table will be cached."
+            "Lazy preparation not available if convert_units=True. Computed table will be cached."
         )
         measurement.cache()
         conversion_table = to("koalas", get_conversion_table(measurement, concept_sets))
@@ -88,10 +88,10 @@ def prepare_measurement_table(
         measurement["value_as_number_normalized"] = (
             measurement["value_as_number"] * measurement["factor"]
         )
-    
+
     if is_koalas(measurement):
         measurement.cache()
-        logger.info(f"Done. Once computed, measurement will be cached.")
+        logger.info("Done. Once computed, measurement will be cached.")
 
     return measurement
 

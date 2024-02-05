@@ -1,6 +1,3 @@
-import os
-
-import databricks.koalas as ks
 import numpy as np
 import pandas as pd
 

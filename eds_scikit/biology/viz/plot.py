@@ -4,7 +4,6 @@ from typing import Union
 
 import altair as alt
 import pandas as pd
-from IPython.display import display
 from loguru import logger
 from pretty_html_table import build_table
 

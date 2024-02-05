@@ -1,7 +1,6 @@
 import pytest
 
-from eds_scikit.biology import ConceptsSet, bioclean, plot_biology_summary
-from eds_scikit.biology.utils.config import create_config_from_stats
+from eds_scikit.biology import ConceptsSet, bioclean
 from eds_scikit.biology.utils.process_concepts import fetch_all_concepts_set
 from eds_scikit.datasets import load_biology_data
 
@@ -19,7 +18,7 @@ def data():
 
 @pytest.fixture
 def concepts_sets(data):
-    
+
     concept = data.concept
     concepts_sets = []
     nb_entity = (
@@ -36,10 +35,10 @@ def concepts_sets(data):
         else:
             concept_codes = concept_codes[~concept_codes.concept_code.str.endswith("9")]
         concept_codes = concept_codes.concept_code.to_list()
-        
+
         concept_set = ConceptsSet(name="Entity_" + str(i))
         concept_set.add_concept_codes(concept_codes, terminology="GLIMS_ANABIO")
-        
+
         concepts_sets.append(concept_set)
         concept_set = concepts_sets[0]
         concept_set.add_concept_codes("XXXX", terminology="X")
@@ -55,7 +54,7 @@ def concepts_sets(data):
     except TypeError:
         pass
     fetch_all_concepts_set()
-    
+
     assert set(concept_set.concept_codes) == set(concepts_sets[0].concept_codes)
 
 
@@ -69,4 +68,3 @@ def test_bioclean(data, concepts_sets, standard_terminologies, tmp_biology_dir):
         start_date=data.t_start,
         end_date=data.t_end,
     )
-

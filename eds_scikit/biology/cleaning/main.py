@@ -60,7 +60,7 @@ def bioclean(
         measurements = select_cohort(measurements, studied_cohort)
     # Transform values
     data.bioclean = measurements
-    
+
     measurements = measurements.merge(
         data.visit_occurrence[["care_site_id", "visit_occurrence_id"]],
         on="visit_occurrence_id",

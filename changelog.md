@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+### Added
+- Biology module refacto
 ### Fixed
 - Caching in spark instead of koalas to improve speed
 

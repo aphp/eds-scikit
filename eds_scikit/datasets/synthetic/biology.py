@@ -271,15 +271,10 @@ def _generate_measurement(
         value_as_number.extend(
             np.random.normal(mean_value, std_value, valid_measurement)
         )
-        range_high.extend(
-            [(mean_value + 5)] * valid_measurement
-        )
-        
-        range_low.extend(
-            [(mean_value - 5)] * valid_measurement
-        )
+        range_high.extend([(mean_value + 5)] * valid_measurement)
 
-        
+        range_low.extend([(mean_value - 5)] * valid_measurement)
+
         value_as_number.extend([None] * missing_value)
         range_high.extend([None] * missing_value)
         range_low.extend([None] * missing_value)
@@ -307,8 +302,8 @@ def _generate_measurement(
             "measurement_datetime": measurement_datetime,
             "measurement_date": measurement_date,
             "value_as_number": value_as_number,
-            "range_high" : range_high,
-            "range_low" : range_low,
+            "range_high": range_high,
+            "range_low": range_low,
             "value_source_value": value_source_value,
             "unit_source_value": unit_source_value,
             "row_status_source_value": row_status_source_value,
