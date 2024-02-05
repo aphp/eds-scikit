@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Fixed
+- Caching in spark instead of koalas to improve speed
+
 ## v0.1.6 (2023-09-27)
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
