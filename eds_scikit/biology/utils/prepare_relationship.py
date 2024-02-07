@@ -84,50 +84,6 @@ def prepare_relationship_table(
     return relationship_table
 
 
-def select_mapping(
-    mapping: List[Tuple[str, str, str]],
-    sources: List[str] = None,
-    terminologies: List[str] = None,
-) -> List[Tuple[str, str, str]]:
-    """Filter mapping dictionary keeping sources and terminologies.
-
-    Parameters
-    ----------
-    mapping : List[Tuple[str, str, str]]
-        _description_
-    sources : List[str], optional
-        _description_, by default None
-    terminologies : List[str], optional
-        _description_, by default None
-
-    Returns
-    -------
-    _type_
-        _description_
-    """
-    # if some terminologies not in mapping : fail
-    mapping_filtered = []
-
-    for m in mapping:
-        keep_m = True
-        if sources:
-            keep_m = any([source in m for source in sources]) and keep_m
-        if terminologies:
-            keep_m = (
-                any(
-                    [
-                        (terminology in m[0]) or (terminology in m[1])
-                        for terminology in terminologies
-                    ]
-                )
-                and keep_m
-            )
-        if keep_m:
-            mapping_filtered.append(m)
-
-    return mapping_filtered
-
-
 def filter_concept_sets_relationship_table(relationship_table, concept_sets):
     """Filter relationship table using concept_sets concept codes.
 
@@ -156,24 +112,25 @@ def filter_concept_sets_relationship_table(relationship_table, concept_sets):
     concept_sets_tables = to(framework, concept_sets_tables)
     filtered_terminology_table = framework.DataFrame({})
     for terminology in terminologies:
-        filtered_terminology_table_ = concept_sets_tables[
-            concept_sets_tables.terminology == terminology
-        ].merge(
-            relationship_table,
-            on=f"{terminology}_concept_code",
-            how="left",
-            suffixes=("_x", ""),
-        )
-        filtered_terminology_table_ = filtered_terminology_table_[
-            [
-                column
-                for column in filtered_terminology_table_.columns
-                if not ("_x" in column)
+        if f"{terminology}_concept_code" in relationship_table.columns:
+            filtered_terminology_table_ = concept_sets_tables[
+                concept_sets_tables.terminology == terminology
+            ].merge(
+                relationship_table,
+                on=f"{terminology}_concept_code",
+                how="left",
+                suffixes=("_x", ""),
+            )
+            filtered_terminology_table_ = filtered_terminology_table_[
+                [
+                    column
+                    for column in filtered_terminology_table_.columns
+                    if not ("_x" in column)
+                ]
             ]
-        ]
-        filtered_terminology_table = framework.concat(
-            (filtered_terminology_table_, filtered_terminology_table)
-        ).drop_duplicates()
+            filtered_terminology_table = framework.concat(
+                (filtered_terminology_table_, filtered_terminology_table)
+            ).drop_duplicates()
 
     return filtered_terminology_table
 
