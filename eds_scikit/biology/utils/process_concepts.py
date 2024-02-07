@@ -1,6 +1,4 @@
 import ast
-import re
-from functools import reduce
 from typing import List, Union
 
 import pandas as pd
@@ -9,9 +7,6 @@ from loguru import logger
 from eds_scikit import datasets
 from eds_scikit.biology.utils.process_units import Units
 from eds_scikit.io import settings
-from eds_scikit.utils.checks import check_columns
-from eds_scikit.utils.framework import get_framework, to
-from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.standard_terminologies
 default_source_terminologies = settings.source_terminologies
