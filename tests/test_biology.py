@@ -3,6 +3,7 @@ import pytest
 from eds_scikit.biology import ConceptsSet, bioclean, prepare_measurement_table, plot_biology_summary
 from eds_scikit.biology.utils.prepare_relationship import prepare_biology_relationship_table
 from eds_scikit.biology.utils.process_concepts import fetch_all_concepts_set
+from eds_scikit.biology.utils.process_units import Units
 from eds_scikit.datasets import load_biology_data
 
 
@@ -15,6 +16,21 @@ def tmp_biology_dir(tmp_path_factory):
 @pytest.fixture
 def data():
     return load_biology_data(seed=42)
+
+@pytest.fixture
+def test_units(data):
+    units = Units()
+    
+    units.add_target_unit("g")
+    assert units.can_be_converted("g", "mg")
+    assert not units.can_be_converted("g", "l")
+
+    
+    assert units.convert_unit("L", "ml") == 1000
+    assert units.convert_unit("m/s", "m/h") == 3600.
+    
+    units.add_conversion("mol", "g", 10)
+    assert units.convert_unit("g", "mol") == 0.1
 
 
 @pytest.fixture
