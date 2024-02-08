@@ -132,9 +132,18 @@ def test_prepare_measurement(data, concepts_sets):
     )
 
     plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"])
+    plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"], stats_only=True,)
 
     measurement_values_summary(
         measurement, ["concept_set"], "value_as_number", "unit_source_value"
+    )
+    
+    measurement = prepare_measurement_table(
+        data=data,
+        concept_sets=None,
+        convert_units=False,
+        start_date=data.t_start,
+        end_date=data.t_end,
     )
 
     data.convert_to_koalas()
@@ -146,3 +155,4 @@ def test_prepare_measurement(data, concepts_sets):
         start_date=data.t_start,
         end_date=data.t_end,
     )
+

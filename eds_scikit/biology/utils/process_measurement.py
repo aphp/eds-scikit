@@ -70,38 +70,6 @@ def filter_missing_values(measurement: DataFrame):
     return (filtered_measurement, missing_value)
 
 
-def filter_concept_by_count(
-    measurement_std: DataFrame, terminology_limit_count: Tuple[str, int]
-):
-    terminology, limit_count = terminology_limit_count
-    code_set = (
-        measurement_std[["measurement_id", "{}_concept_code".format(terminology)]]
-        .groupby("{}_concept_code".format(terminology), as_index=False)
-        .agg({"measurement_id": "count"})
-        .rename(columns={"measurement_id": "# measures_code"})
-    )
-    code_set = code_set[code_set["# measures_code"] >= limit_count]
-    return measurement_std.merge(
-        code_set, on="{}_concept_code".format(terminology), how="inner"
-    )
-
-
-def filter_concept_by_number(
-    measurement_std: DataFrame, terminology_limit_number: Tuple[str, int]
-):
-    terminology, limit_number = terminology_limit_number
-    code_set = (
-        measurement_std[["measurement_id", "{}_concept_code".format(terminology)]]
-        .groupby("{}_concept_code".format(terminology), as_index=False)
-        .agg({"measurement_id": "count"})
-        .rename(columns={"measurement_id": "# measures_code"})
-    )
-    code_set = code_set.nlargest(n=limit_number, columns="# measures_code")
-    return measurement_std.merge(
-        code_set, on="{}_concept_code".format(terminology), how="inner"
-    )
-
-
 def tag_measurement_anomaly(measurement: DataFrame) -> DataFrame:
     """
 
@@ -126,39 +94,6 @@ def tag_measurement_anomaly(measurement: DataFrame) -> DataFrame:
     )
 
     return measurement
-
-
-def get_measurement_std(measurement: DataFrame, src_to_std: DataFrame):
-    check_columns(
-        df=measurement,
-        required_columns=["measurement_source_concept_id"],
-        df_name="measurement",
-    )
-    check_columns(
-        df=src_to_std,
-        required_columns=["source_concept_id"],
-        df_name="src_to_std",
-    )
-
-    src_to_std = to(get_framework(measurement), src_to_std)
-    measurement_std = src_to_std.merge(
-        measurement,
-        left_on="source_concept_id",
-        right_on="measurement_source_concept_id",
-    )
-
-    measurement_std = measurement_std.drop(columns=["measurement_source_concept_id"])
-
-    concept_cols = [
-        column_name
-        for column_name in measurement_std.columns
-        if "concept" in column_name
-    ]
-
-    measurement_std[concept_cols] = measurement_std[concept_cols].fillna("Unknown")
-
-    return measurement_std
-
 
 def normalize_unit(measurement: DataFrame):
     measurement["unit_source_value"] = (
