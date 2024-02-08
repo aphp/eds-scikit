@@ -156,7 +156,7 @@ def _generate_concept(n_entity: int, units: List[str]):
                     concept_id_2.extend([anabio_code, loinc_code])
 
     src_vocabulary_id = ["Analyses Laboratoire"] * len(src_concept_code)
-    anabio_vocabulary_id = ["GLIMS_ANABIO"] * len(anabio_concept_code)
+    anabio_vocabulary_id = ["GLIMS_Anabio"] * len(anabio_concept_code)
     loinc_vocabulary_id = list(
         np.random.choice(
             ["GLIMS_LOINC", "ITM_LOINC"], size=len(loinc_concept_code), p=[0.9, 0.1]

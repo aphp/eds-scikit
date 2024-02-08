@@ -98,11 +98,19 @@ def test_prepare_measurement(data, concepts_sets):
     measurement = prepare_measurement_table(
         data=data,
         concept_sets=concepts_sets,
+        convert_units=True,
+        start_date=data.t_start,
+        end_date=data.t_end,
+    )
+
+    measurement = prepare_measurement_table(
+        data=data,
+        concept_sets=concepts_sets,
         convert_units=False,
         start_date=data.t_start,
         end_date=data.t_end,
     )
-    print(concepts_sets[0].concept_codes)
+
     try:
         plot_biology_summary(measurement)
     except ValueError:
