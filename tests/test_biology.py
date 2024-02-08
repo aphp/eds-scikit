@@ -23,21 +23,6 @@ def data():
 
 
 @pytest.fixture
-def test_units(data):
-    units = Units()
-
-    units.add_target_unit("g")
-    assert units.can_be_converted("g", "mg")
-    assert not units.can_be_converted("g", "l")
-
-    assert units.convert_unit("L", "ml") == 1000
-    assert units.convert_unit("m/s", "m/h") == 3600.0
-
-    units.add_conversion("mol", "g", 10)
-    assert units.convert_unit("g", "mol") == 0.1
-
-
-@pytest.fixture
 def concepts_sets(data):
 
     concept = data.concept
@@ -92,7 +77,20 @@ def test_bioclean(data, concepts_sets, standard_terminologies, tmp_biology_dir):
     )
 
 
-@pytest.fixture
+def test_units(data):
+    units = Units()
+
+    units.add_target_unit("g")
+    assert units.can_be_converted("g", "mg")
+    assert not units.can_be_converted("g", "l")
+
+    assert abs(units.convert_unit("L", "ml") - 1000) < 1e-6
+    assert abs(units.convert_unit("m/s", "m/h") - 3600.0) < 1e-6
+
+    units.add_conversion("mol", "g", 10)
+    assert abs(units.convert_unit("g", "mol") - 0.1) < 1e-6
+
+
 def test_prepare_measurement(
     data, concepts_sets, standard_terminologies, tmp_biology_dir
 ):
@@ -109,4 +107,4 @@ def test_prepare_measurement(
     except ValueError:
         pass
 
-    plot_biology_summary(measurement, "value_as_number", terminologies=["AnaBio"])
+    plot_biology_summary(measurement, "bla", terminologies=["AnaBio"])
