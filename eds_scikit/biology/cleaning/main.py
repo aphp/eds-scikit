@@ -53,7 +53,7 @@ def bioclean(
         concepts_sets = fetch_all_concepts_set()
 
     measurements = prepare_measurement_table(
-        data, start_date, end_date, concepts_sets, convert_units
+        data, start_date, end_date, concepts_sets, False, convert_units
     )
     # Filter Measurement.
     if studied_cohort:
@@ -70,4 +70,6 @@ def bioclean(
     )
     # Plot values
     value_column = "value_as_number_normalized" if convert_units else "value_as_number"
-    plot_biology_summary(measurements, value_column)
+    unit_column = "unit_source_value_normalized" if convert_units else "unit_source_value"
+    
+    plot_biology_summary(measurements, value_column, unit_column)

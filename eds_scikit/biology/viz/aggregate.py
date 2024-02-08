@@ -16,9 +16,11 @@ default_standard_concept_regex = settings.standard_concept_regex
 
 def aggregate_measurement(
     measurement: DataFrame,
-    pd_limit_size: int,
+
     stats_only: bool,
     overall_only: bool,
+    value_column: str,
+    unit_column: str,
     category_columns=[],
     debug=False,
 ):
@@ -32,8 +34,6 @@ def aggregate_measurement(
     Parameters
     ----------
     measurement : DataFrame
-        _description_
-    pd_limit_size : int
         _description_
     stats_only : bool
         _description_
@@ -52,9 +52,9 @@ def aggregate_measurement(
         df=measurement,
         required_columns=[
             "measurement_id",
-            "unit_source_value",
+            unit_column,
             "measurement_date",
-            "value_as_number",
+            value_column,
         ]
         + category_columns,
         df_name="measurement",
@@ -66,22 +66,6 @@ def aggregate_measurement(
         logger.info(
             "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
         ) if debug else None
-    size = measurement.shape[0]
-
-    if size < pd_limit_size:
-        logger.info(
-            "The number of measurements identified is {} < {}. DataFrame is converting to Pandas...",
-            size,
-            pd_limit_size,
-        )
-        measurement = to("pandas", measurement)
-        if measurement.empty:
-            return {"measurement": measurement}
-    else:
-        logger.info(
-            "The number of measurements identified is {}.",
-            size,
-        ) if debug else None
 
     # Truncate date
     measurement["measurement_month"] = (
@@ -92,11 +76,11 @@ def aggregate_measurement(
     # Filter measurement with missing values
     filtered_measurement, missing_value = filter_missing_values(
         measurement
-    )  # on veut encore faire ça ?
+    )
 
     # Compute measurement statistics by code
     measurement_stats = _describe_measurement_by_code(
-        filtered_measurement, overall_only, category_columns, debug
+        filtered_measurement, overall_only, value_column, unit_column, category_columns, debug
     )
 
     if stats_only:
@@ -104,12 +88,12 @@ def aggregate_measurement(
 
     # Count measurement by care_site and by code per each month
     measurement_volumetry = _count_measurement_by_category_and_code_per_month(
-        filtered_measurement, missing_value, category_columns, debug
+        filtered_measurement, missing_value, value_column, unit_column, category_columns, debug
     )
 
     # Bin measurement values by care_site and by code
     measurement_distribution = _bin_measurement_value_by_category_and_code(
-        filtered_measurement, category_columns, debug
+        filtered_measurement, value_column, unit_column, category_columns, debug
     )
 
     return {
@@ -122,6 +106,8 @@ def aggregate_measurement(
 def _describe_measurement_by_code(
     filtered_measurement: DataFrame,
     overall_only: bool = False,
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
     category_columns=[],
     debug: bool = False,
 ):
@@ -129,9 +115,9 @@ def _describe_measurement_by_code(
         df=filtered_measurement,
         required_columns=[
             "measurement_id",
-            "unit_source_value",
+            unit_column,
             "measurement_month",
-            "value_as_number",
+            value_column,
         ]
         + category_columns,
         df_name="filtered_measurement",
@@ -147,15 +133,15 @@ def _describe_measurement_by_code(
         (
             filtered_measurement[
                 [
-                    "unit_source_value",
-                    "value_as_number",
+                    unit_column,
+                    value_column,
                 ]
                 + concept_cols
             ]
             .groupby(
                 concept_cols
                 + [
-                    "unit_source_value",
+                    unit_column,
                 ],
                 dropna=False,
             )
@@ -164,25 +150,25 @@ def _describe_measurement_by_code(
         .droplevel(0, 1)
         .reset_index()
     )
-
+    
     # Add stats column to the measurement table
     measurement_mad = measurement_stats_overall.merge(
-        filtered_measurement[concept_cols + ["value_as_number", "unit_source_value"]],
-        on=concept_cols + ["unit_source_value"],
+        filtered_measurement[concept_cols + [value_column, unit_column]],
+        on=concept_cols + [unit_column],
     )
 
     # Compute median deviation for each measurement
     measurement_mad["median_deviation"] = abs(
-        measurement_mad["50%"] - measurement_mad["value_as_number"]
+        measurement_mad["50%"] - measurement_mad[value_column]
     )
-    measurement_mad = measurement_mad.drop(columns="value_as_number")
+    measurement_mad = measurement_mad.drop(columns=value_column)
 
     # Compute MAD
     measurement_mad = (
         measurement_mad.groupby(
             concept_cols
             + [
-                "unit_source_value",
+                unit_column,
             ],
             as_index=False,
             dropna=False,
@@ -193,8 +179,8 @@ def _describe_measurement_by_code(
 
     # Add MAD column to the measurement table
     measurement_stats_overall = measurement_stats_overall.merge(
-        measurement_mad[concept_cols + ["MAD", "unit_source_value"]],
-        on=concept_cols + ["unit_source_value"],
+        measurement_mad[concept_cols + ["MAD", unit_column]],
+        on=concept_cols + [unit_column],
     )
 
     logger.info(
@@ -226,15 +212,15 @@ def _describe_measurement_by_code(
         (
             filtered_measurement[
                 [
-                    "unit_source_value",
-                    "value_as_number",
+                    unit_column,
+                    value_column,
                 ]
                 + concept_cols
             ]
             .groupby(
                 concept_cols
                 + [
-                    "unit_source_value",
+                    unit_column,
                 ],
                 dropna=False,
             )
@@ -264,6 +250,8 @@ def _describe_measurement_by_code(
 def _count_measurement_by_category_and_code_per_month(
     filtered_measurement: DataFrame,
     missing_value: DataFrame,
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
     category_columns=[],
     debug: bool = False,
 ):
@@ -271,7 +259,7 @@ def _count_measurement_by_category_and_code_per_month(
         df=filtered_measurement,
         required_columns=[
             "measurement_id",
-            "unit_source_value",
+            unit_column,
             "measurement_month",
         ]
         + category_columns,
@@ -282,7 +270,7 @@ def _count_measurement_by_category_and_code_per_month(
         df=missing_value,
         required_columns=[
             "measurement_id",
-            "unit_source_value",
+            unit_column,
             "measurement_month",
         ],
         df_name="missing_value",
@@ -298,7 +286,7 @@ def _count_measurement_by_category_and_code_per_month(
         filtered_measurement[
             [
                 "measurement_id",
-                "unit_source_value",
+                unit_column,
                 "measurement_month",
             ]
             + concept_cols
@@ -306,7 +294,7 @@ def _count_measurement_by_category_and_code_per_month(
         .groupby(
             concept_cols
             + [
-                "unit_source_value",
+                unit_column,
                 "measurement_month",
             ],
             as_index=False,
@@ -319,7 +307,7 @@ def _count_measurement_by_category_and_code_per_month(
         missing_value[
             [
                 "measurement_id",
-                "unit_source_value",
+                unit_column,
                 "measurement_month",
             ]
             + concept_cols
@@ -327,7 +315,7 @@ def _count_measurement_by_category_and_code_per_month(
         .groupby(
             concept_cols
             + [
-                "unit_source_value",
+                unit_column,
                 "measurement_month",
             ],
             as_index=False,
@@ -357,7 +345,7 @@ def _count_measurement_by_category_and_code_per_month(
         missing_value_count,
         on=concept_cols
         + [
-            "unit_source_value",
+            unit_column,
             "measurement_month",
         ],
         how="outer",
@@ -371,15 +359,19 @@ def _count_measurement_by_category_and_code_per_month(
 
 
 def _bin_measurement_value_by_category_and_code(
-    filtered_measurement: DataFrame, category_columns=[], debug: bool = False
+    filtered_measurement: DataFrame,
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
+    category_columns=[],
+    debug: bool = False
 ):
 
     check_columns(
         df=filtered_measurement,
         required_columns=[
             "measurement_id",
-            "unit_source_value",
-            "value_as_number",
+            unit_column,
+            value_column,
         ]
         + category_columns,
         df_name="filtered_measurement",
@@ -396,7 +388,7 @@ def _bin_measurement_value_by_category_and_code(
         or ("max_value" in filtered_measurement.columns)
     ):
         filtered_measurement = add_mad_minmax(
-            filtered_measurement, concept_cols, "value_as_number"
+            filtered_measurement, concept_cols, value_column
         )
 
     measurement_binned = filtered_measurement
@@ -404,13 +396,13 @@ def _bin_measurement_value_by_category_and_code(
     measurement_binned["min_value"] = measurement_binned["min_value"].where(
         measurement_binned["min_value"] >= 0, 0
     )
-    measurement_binned["binned_value"] = measurement_binned["value_as_number"].mask(
-        measurement_binned["value_as_number"] > measurement_binned["max_value"],
+    measurement_binned["binned_value"] = measurement_binned[value_column].mask(
+        measurement_binned[value_column] > measurement_binned["max_value"],
         measurement_binned["max_value"],
     )
 
     measurement_binned["binned_value"] = measurement_binned["binned_value"].mask(
-        measurement_binned["value_as_number"] < measurement_binned["min_value"],
+        measurement_binned[value_column] < measurement_binned["min_value"],
         measurement_binned["min_value"],
     )
 
@@ -440,17 +432,17 @@ def _bin_measurement_value_by_category_and_code(
     )
 
     measurement_binned["over_outlier"] = (
-        measurement_binned["value_as_number"] > measurement_binned["max_value"]
+        measurement_binned[value_column] > measurement_binned["max_value"]
     )
     measurement_binned["under_outlier"] = (
-        measurement_binned["value_as_number"] < measurement_binned["min_value"]
+        measurement_binned[value_column] < measurement_binned["min_value"]
     )
 
     measurement_binned["binned_value"] = measurement_binned["binned_value"].where(
         measurement_binned["over_outlier"] | measurement_binned["under_outlier"],
         (
             np.floor(
-                measurement_binned["value_as_number"] / measurement_binned["bin_width"]
+                measurement_binned[value_column] / measurement_binned["bin_width"]
             )
             + 0.5
         )
@@ -491,7 +483,7 @@ def _bin_measurement_value_by_category_and_code(
 
 
 def add_mad_minmax(
-    measurement: DataFrame, category_cols: List[str], value_col: str
+    measurement: DataFrame, category_cols: List[str], value_column: str = "value_as_number", unit_column: str = "unit_source_value",
 ) -> DataFrame:
     """Add min_value, max_value column to measurement based on MAD criteria.
 
@@ -501,7 +493,7 @@ def add_mad_minmax(
         measurement dataframe
     category_cols : List[str]
         measurement category columns to perform the groupby on when computing MAD
-    value_col : str
+    value_column : str
         measurement value column on which MAD will be computed
 
     Returns
@@ -510,14 +502,14 @@ def add_mad_minmax(
         measurement dataframe with added columns min_value, max_value
     """
     measurement_median = (
-        measurement[category_cols + [value_col]]
+        measurement[category_cols + [value_column]]
         .groupby(
             category_cols,
             as_index=False,
             dropna=False,
         )
         .median()
-        .rename(columns={value_col: "median"})
+        .rename(columns={value_column: "median"})
     )
 
     # Add median column to the measurement table
@@ -525,7 +517,7 @@ def add_mad_minmax(
         measurement[
             category_cols
             + [
-                value_col,
+                value_column,
             ]
         ],
         on=category_cols,
@@ -533,7 +525,7 @@ def add_mad_minmax(
 
     # Compute median deviation for each measurement
     measurement_median["median_deviation"] = abs(
-        measurement_median["median"] - measurement_median[value_col]
+        measurement_median["median"] - measurement_median[value_column]
     )
 
     # Compute MAD per care site and code

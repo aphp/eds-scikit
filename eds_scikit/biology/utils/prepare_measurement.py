@@ -94,7 +94,6 @@ def prepare_measurement_table(
         measurement["value_as_number_normalized"] = (
             measurement["value_as_number"] * measurement["factor"]
         )
-
     if is_koalas(measurement):
         measurement.cache()
         logger.info("Done. Once computed, measurement will be cached.")

@@ -41,14 +41,18 @@ class ConceptsSet:
             raise TypeError
         if isinstance(concept_codes, str):
             concept_codes = [concept_codes]
-        if isinstance(concept_codes, list):
+        elif isinstance(concept_codes, list):
+            for concept_code in concept_codes:
+                if not(isinstance(concept_code, str)):
+                    logger.error("concept_codes must be string or list of string")
+                    raise TypeError
             if not (terminology in self.concept_codes.keys()):
                 self.concept_codes[terminology] = []
             for concept_code in concept_codes:
                 if concept_code not in self.concept_codes[terminology]:
                     self.concept_codes[terminology].append(concept_code)
         else:
-            logger.error("concept_codes must be string or list")
+            logger.error("concept_codes must be string or list of string")
             raise TypeError
 
     def remove_concept_codes(

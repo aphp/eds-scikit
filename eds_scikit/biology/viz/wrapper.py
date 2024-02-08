@@ -17,9 +17,9 @@ default_standard_concept_regex = settings.standard_concept_regex
 
 def plot_biology_summary(
     measurement: DataFrame,
-    value_column: str = None,
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
     save_folder_path: str = "Biology_summary",
-    pd_limit_size: int = 100000,
     stats_only: bool = False,
     terminologies: List[str] = None,
     debug: bool = False,
@@ -34,8 +34,6 @@ def plot_biology_summary(
          Instantiated [``HiveData``][eds_scikit.io.hive.HiveData], [``PostgresData``][eds_scikit.io.postgres.PostgresData] or [``PandasData``][eds_scikit.io.files.PandasData]
     save_folder_path : str, optional
         Name of the folder where the plots will be saved
-    pd_limit_size : int, optional
-        The limit number of rows to convert [Koalas](https://koalas.readthedocs.io/en/latest/) DatFrame into [Pandas](https://pandas.pydata.org/) DataFrame
     stats_only : bool, optional
         If ``True``, it will only aggregate the data for the [summary table][summary-table].
     terminologies : List[str], optional
@@ -55,6 +53,10 @@ def plot_biology_summary(
         raise ValueError(
             "Must give a 'value_column' parameter. By default, use value_as_number. Or value_as_number_normalized if exists."
         )
+    if not unit_column:
+        raise ValueError(
+            "Must give a 'unit_column' parameter. By default, use unit_source_value. Or unit_source_value_normalized if exists."
+        )
 
     if not os.path.isdir(save_folder_path):
         os.mkdir(save_folder_path)
@@ -67,7 +69,8 @@ def plot_biology_summary(
 
     tables_agg = aggregate_measurement(
         measurement=measurement,
-        pd_limit_size=pd_limit_size,
+        value_column=value_column,
+        unit_column=unit_column,
         stats_only=stats_only,
         overall_only=stats_only,
         category_columns=["concept_set", "care_site_short_name"],

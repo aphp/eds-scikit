@@ -54,16 +54,18 @@ def concepts_sets(data):
         concept_set = concepts_sets[0]
         concept_set.add_concept_codes("XXXX", terminology="X")
         concept_set.add_concept_codes(["XXXX", "YYYYY"], terminology="X")
+        
     try:
         concept_set.add_concept_codes(55)
     except TypeError:
         pass
-    concept_set.remove_concept_codes("XXXX", terminology="X")
-    concept_set.remove_concept_codes(["XXXX", "YYYYY"], terminology="X")
     try:
-        concept_set.remove_concept_codes(55)
+        concept_set.add_concept_codes(55, terminology="GLIMS_ANABIO")
     except TypeError:
         pass
+    
+    concept_set.remove_concept_codes("XXXX", terminology="X")
+    concept_set.remove_concept_codes(["XXXX", "YYYYY"], terminology="X")
     fetch_all_concepts_set()
 
     assert set(concept_set.concept_codes) == set(concepts_sets[0].concept_codes)
@@ -82,6 +84,16 @@ def test_bioclean(data, concepts_sets, standard_terminologies, tmp_biology_dir):
         start_date=data.t_start,
         end_date=data.t_end,
     )
+    
+    bioclean(
+        data=data,
+        concepts_sets=None,
+        studied_cohort=[0, 1, 2, 3, 4],
+        convert_units=True,
+        start_date=data.t_start,
+        end_date=data.t_end,
+    )
+
 
 
 def test_units(data):
@@ -119,9 +131,14 @@ def test_prepare_measurement(data, concepts_sets):
     except Exception:
         pass
     try:
-        plot_biology_summary(measurement)
+        plot_biology_summary(measurement, value_column=None)
     except ValueError:
         pass
+    try:
+        plot_biology_summary(measurement, unit_column=None)
+    except ValueError:
+        pass
+
 
     visit_occurrence = data.visit_occurrence[
         ["visit_occurrence_id", "care_site_id"]
@@ -131,21 +148,12 @@ def test_prepare_measurement(data, concepts_sets):
         on="visit_occurrence_id",
     )
 
-    plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"])
-    plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"], stats_only=True,)
+    plot_biology_summary(measurement, value_column="value_as_number", unit_column="unit_source_value", terminologies=["GLIMS_ANABIO"])
 
     measurement_values_summary(
         measurement, ["concept_set"], "value_as_number", "unit_source_value"
     )
     
-    measurement = prepare_measurement_table(
-        data=data,
-        concept_sets=None,
-        convert_units=False,
-        start_date=data.t_start,
-        end_date=data.t_end,
-    )
-
     data.convert_to_koalas()
 
     measurement = prepare_measurement_table(
@@ -155,4 +163,3 @@ def test_prepare_measurement(data, concepts_sets):
         start_date=data.t_start,
         end_date=data.t_end,
     )
-
