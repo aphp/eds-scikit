@@ -63,8 +63,10 @@ def concepts_sets(data):
 
     assert set(concept_set.concept_codes) == set(concepts_sets[0].concept_codes)
 
+    return concepts_sets
 
-@pytest.mark.parametrize("standard_terminologies", [["AnaBio", "LOINC"], ["AnaBio"]])
+
+@pytest.mark.parametrize("standard_terminologies", [["ANABIO", "LOINC"], ["ANABIO"]])
 def test_bioclean(data, concepts_sets, standard_terminologies, tmp_biology_dir):
 
     bioclean(
@@ -91,20 +93,27 @@ def test_units(data):
     assert abs(units.convert_unit("g", "mol") - 0.1) < 1e-6
 
 
-def test_prepare_measurement(
-    data, concepts_sets, standard_terminologies, tmp_biology_dir
-):
+def test_prepare_measurement(data, concepts_sets):
 
     measurement = prepare_measurement_table(
         data=data,
-        concepts_sets=concepts_sets,
+        concept_sets=concepts_sets,
         convert_units=False,
         start_date=data.t_start,
         end_date=data.t_end,
     )
+    print(concepts_sets[0].concept_codes)
     try:
         plot_biology_summary(measurement)
     except ValueError:
         pass
 
-    plot_biology_summary(measurement, "bla", terminologies=["AnaBio"])
+    visit_occurrence = data.visit_occurrence[
+        ["visit_occurrence_id", "care_site_id"]
+    ].merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
+    measurement = measurement.merge(
+        visit_occurrence[["visit_occurrence_id", "care_site_short_name"]],
+        on="visit_occurrence_id",
+    )
+
+    plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"])
