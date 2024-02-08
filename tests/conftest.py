@@ -1,16 +1,14 @@
-
 import logging
 import os
 import sys
 from unittest.mock import patch
 
 import pandas as pd
+import pyarrow
 import pytest
 from _pytest.logging import caplog as _caplog  # noqa F401
 from databricks import koalas as ks
 from loguru import logger
-
-import pyarrow
 
 from eds_scikit import improve_performances, load_koalas, set_env_variables
 
