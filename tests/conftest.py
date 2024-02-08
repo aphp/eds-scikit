@@ -1,5 +1,8 @@
+
 import logging
 import os
+import sys
+from unittest.mock import patch
 
 import pandas as pd
 import pytest
@@ -7,7 +10,9 @@ from _pytest.logging import caplog as _caplog  # noqa F401
 from databricks import koalas as ks
 from loguru import logger
 
-from eds_scikit import improve_performances
+import pyarrow
+
+from eds_scikit import improve_performances, load_koalas, set_env_variables
 
 from . import test_registry  # noqa: F401 --> To register functions
 
@@ -125,3 +130,11 @@ def example_objects():
             ks.Series([10, 11, 12]),
         ],
     )
+
+
+def test_improve_performances():
+    del sys.modules["databricks.koalas"]
+    load_koalas()
+
+    with patch.object(pyarrow, "__version__", "2.1.0"):
+        set_env_variables()
