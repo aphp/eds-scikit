@@ -1,8 +1,6 @@
 from datetime import datetime
 from typing import Tuple
 
-from loguru import logger
-
 from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
@@ -53,10 +51,6 @@ def filter_measurement_by_date(
     check_columns(
         df=measurement, required_columns=["measurement_date"], df_name="measurment"
     )
-
-    if "measurement_datetime" in measurement.columns:
-        measurement = measurement
-        # measurement = _select_adequate_date_column(measurement=measurement)
 
     measurement.measurement_date = measurement.measurement_date.astype("datetime64[ns]")
 
@@ -170,25 +164,4 @@ def normalize_unit(measurement: DataFrame):
     measurement["unit_source_value"] = (
         measurement["unit_source_value"].str.lower().fillna("Unknown")
     )
-    return measurement
-
-
-def _select_adequate_date_column(measurement: DataFrame):
-    missing_date = measurement.measurement_date.isna().sum()
-    if missing_date > 0:
-        missing_datetime = measurement.measurement_datetime.isna().sum()
-        if missing_date > missing_datetime:
-            measurement = measurement.drop(columns="measurement_date").rename(
-                columns={"measurement_datetime": "measurement_date"}
-            )
-            logger.warning(
-                "As the measurement_date column is not reliable ({} missing dates), it has been replaced by the measurement_datetime column ({} missing datetimes)",
-                missing_date,
-                missing_datetime,
-            )
-            missing_date = missing_datetime
-        else:
-            measurement = measurement.drop(columns="measurement_datetime")
-    else:
-        measurement = measurement.drop(columns="measurement_datetime")
     return measurement

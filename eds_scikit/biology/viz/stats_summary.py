@@ -1,3 +1,6 @@
+from eds_scikit.utils.framework import to
+
+
 def measurement_values_summary(measurement, category_cols, value_column, unit_column):
     # Count measurements with no units
 
@@ -68,6 +71,6 @@ def measurement_values_summary(measurement, category_cols, value_column, unit_co
         [*stats_summary.columns[::-1][:3], *stats_summary.columns[:-3]]
     ]
 
-    stats_summary = stats_summary.to_pandas()
+    stats_summary = to("pandas", stats_summary)
 
     return stats_summary

@@ -80,12 +80,14 @@ def prepare_measurement_table(
         logger.info(
             "Lazy preparation not available if convert_units=True. Computed table will be cached."
         )
-        measurement.cache() if is_koalas(measurement) else None
-        conversion_table = (
-            to("koalas", get_conversion_table(measurement, concept_sets))
-            if is_koalas(measurement)
-            else get_conversion_table(measurement, concept_sets)
-        )
+        if is_koalas(measurement):
+            measurement.cache()
+            conversion_table = to(
+                "koalas", get_conversion_table(measurement, concept_sets)
+            )
+        else:
+            conversion_table = get_conversion_table(measurement, concept_sets)
+
         measurement = measurement.merge(
             conversion_table, on=["concept_set", "unit_source_value"]
         )

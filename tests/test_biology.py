@@ -1,10 +1,15 @@
+import numpy as np
 import pytest
 
 from eds_scikit.biology import (
     ConceptsSet,
     bioclean,
+    measurement_values_summary,
     plot_biology_summary,
     prepare_measurement_table,
+)
+from eds_scikit.biology.utils.prepare_relationship import (
+    prepare_biology_relationship_table,
 )
 from eds_scikit.biology.utils.process_concepts import fetch_all_concepts_set
 from eds_scikit.biology.utils.process_units import Units
@@ -83,12 +88,17 @@ def test_units(data):
     units = Units()
 
     units.add_target_unit("g")
+
     assert units.can_be_converted("g", "mg")
     assert not units.can_be_converted("g", "l")
 
+    assert units.get_category("m/h/xxxx") == ["m", "Time", "Unkown"]
+    assert units.to_base("mm") == 0.001
+    assert np.isnan(units.to_base("xxxx"))
+
     assert abs(units.convert_unit("L", "ml") - 1000) < 1e-6
     assert abs(units.convert_unit("m/s", "m/h") - 3600.0) < 1e-6
-
+    assert np.isnan(units.convert_unit("m/s/xxxx", "m/h/s"))
     units.add_conversion("mol", "g", 10)
     assert abs(units.convert_unit("g", "mol") - 0.1) < 1e-6
 
@@ -101,16 +111,15 @@ def test_prepare_measurement(data, concepts_sets):
         convert_units=True,
         start_date=data.t_start,
         end_date=data.t_end,
+        get_all_terminologies=False,
     )
 
-    measurement = prepare_measurement_table(
-        data=data,
-        concept_sets=concepts_sets,
-        convert_units=False,
-        start_date=data.t_start,
-        end_date=data.t_end,
-    )
-
+    try:
+        prepare_biology_relationship_table(
+            data, concepts_sets, get_all_terminologies=False
+        )
+    except Exception:
+        pass
     try:
         plot_biology_summary(measurement)
     except ValueError:
@@ -125,3 +134,17 @@ def test_prepare_measurement(data, concepts_sets):
     )
 
     plot_biology_summary(measurement, "value_as_number", terminologies=["GLIMS_ANABIO"])
+
+    measurement_values_summary(
+        measurement, ["concept_set"], "value_as_number", "unit_source_value"
+    )
+
+    data.convert_to_koalas()
+
+    measurement = prepare_measurement_table(
+        data=data,
+        concept_sets=concepts_sets,
+        convert_units=False,
+        start_date=data.t_start,
+        end_date=data.t_end,
+    )
