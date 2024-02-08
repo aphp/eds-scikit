@@ -111,21 +111,3 @@ class Units:
         for token_1, token_2 in zip(tokens_1[1:], tokens_2[1:]):
             f = f / self.convert_token(token_1, token_2)
         return f
-
-    def generate_units_mapping(self, measurement):
-        units_mapping = measurement.groupby("concept_set").unit_source_value.unique()
-        units_mapping = units_mapping.to_pandas()
-        units_mapping = (
-            units_mapping.to_frame().explode("unit_source_value").reset_index()
-        )
-        f = (
-            lambda x: self.target_unit
-            if (
-                self.target_unit and self.can_be_converted(x, units_mapping.target_unit)
-            )
-            else self.get_unit_base(x)
-        )
-        g = lambda df: self.convert_unit(df.unit_source_value, df.normalized_unit)
-        units_mapping["normalized_unit"] = units_mapping.unit_source_value.apply(f)
-        units_mapping["conversion"] = units_mapping.apply(g, axis=1).fillna(0)
-        return units_mapping

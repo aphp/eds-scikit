@@ -115,9 +115,7 @@ def test_prepare_measurement(data, concepts_sets):
     )
 
     try:
-        prepare_biology_relationship_table(
-            data, concepts_sets, get_all_terminologies=False
-        )
+        prepare_biology_relationship_table(data, None, get_all_terminologies=False)
     except Exception:
         pass
     try:
