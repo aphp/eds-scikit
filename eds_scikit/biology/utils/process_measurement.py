@@ -1,8 +1,6 @@
 from datetime import datetime
-from typing import Tuple
 
 from eds_scikit.utils.checks import check_columns
-from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -94,6 +92,7 @@ def tag_measurement_anomaly(measurement: DataFrame) -> DataFrame:
     )
 
     return measurement
+
 
 def normalize_unit(measurement: DataFrame):
     measurement["unit_source_value"] = (

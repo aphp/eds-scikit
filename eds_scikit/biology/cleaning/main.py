@@ -70,6 +70,8 @@ def bioclean(
     )
     # Plot values
     value_column = "value_as_number_normalized" if convert_units else "value_as_number"
-    unit_column = "unit_source_value_normalized" if convert_units else "unit_source_value"
-    
+    unit_column = (
+        "unit_source_value_normalized" if convert_units else "unit_source_value"
+    )
+
     plot_biology_summary(measurements, value_column, unit_column)

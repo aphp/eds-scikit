@@ -16,7 +16,6 @@ default_standard_concept_regex = settings.standard_concept_regex
 
 def aggregate_measurement(
     measurement: DataFrame,
-
     stats_only: bool,
     overall_only: bool,
     value_column: str,
@@ -74,13 +73,16 @@ def aggregate_measurement(
     measurement = measurement.drop(columns=["measurement_date"])
 
     # Filter measurement with missing values
-    filtered_measurement, missing_value = filter_missing_values(
-        measurement
-    )
+    filtered_measurement, missing_value = filter_missing_values(measurement)
 
     # Compute measurement statistics by code
     measurement_stats = _describe_measurement_by_code(
-        filtered_measurement, overall_only, value_column, unit_column, category_columns, debug
+        filtered_measurement,
+        overall_only,
+        value_column,
+        unit_column,
+        category_columns,
+        debug,
     )
 
     if stats_only:
@@ -88,7 +90,12 @@ def aggregate_measurement(
 
     # Count measurement by care_site and by code per each month
     measurement_volumetry = _count_measurement_by_category_and_code_per_month(
-        filtered_measurement, missing_value, value_column, unit_column, category_columns, debug
+        filtered_measurement,
+        missing_value,
+        value_column,
+        unit_column,
+        category_columns,
+        debug,
     )
 
     # Bin measurement values by care_site and by code
@@ -150,7 +157,7 @@ def _describe_measurement_by_code(
         .droplevel(0, 1)
         .reset_index()
     )
-    
+
     # Add stats column to the measurement table
     measurement_mad = measurement_stats_overall.merge(
         filtered_measurement[concept_cols + [value_column, unit_column]],
@@ -363,7 +370,7 @@ def _bin_measurement_value_by_category_and_code(
     value_column: str = "value_as_number",
     unit_column: str = "unit_source_value",
     category_columns=[],
-    debug: bool = False
+    debug: bool = False,
 ):
 
     check_columns(
@@ -441,9 +448,7 @@ def _bin_measurement_value_by_category_and_code(
     measurement_binned["binned_value"] = measurement_binned["binned_value"].where(
         measurement_binned["over_outlier"] | measurement_binned["under_outlier"],
         (
-            np.floor(
-                measurement_binned[value_column] / measurement_binned["bin_width"]
-            )
+            np.floor(measurement_binned[value_column] / measurement_binned["bin_width"])
             + 0.5
         )
         * measurement_binned["bin_width"],
@@ -483,7 +488,10 @@ def _bin_measurement_value_by_category_and_code(
 
 
 def add_mad_minmax(
-    measurement: DataFrame, category_cols: List[str], value_column: str = "value_as_number", unit_column: str = "unit_source_value",
+    measurement: DataFrame,
+    category_cols: List[str],
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
 ) -> DataFrame:
     """Add min_value, max_value column to measurement based on MAD criteria.
 

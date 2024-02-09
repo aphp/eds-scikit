@@ -43,7 +43,7 @@ class ConceptsSet:
             concept_codes = [concept_codes]
         elif isinstance(concept_codes, list):
             for concept_code in concept_codes:
-                if not(isinstance(concept_code, str)):
+                if not (isinstance(concept_code, str)):
                     logger.error("concept_codes must be string or list of string")
                     raise TypeError
             if not (terminology in self.concept_codes.keys()):
