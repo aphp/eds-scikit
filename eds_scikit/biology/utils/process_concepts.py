@@ -68,8 +68,8 @@ class ConceptsSet:
             concept_codes = [concept_codes]
         if isinstance(concept_codes, list):
             for concept_code in concept_codes:
-                if concept_code in self.concept_codes:
-                    self.concept_codes.remove(concept_code)
+                if concept_code in self.concept_codes[terminology]:
+                    self.concept_codes[terminology].remove(concept_code)
                     logger.info("concept_code {} has been deleted", concept_code)
         else:
             logger.error("concept_codes must be string or list")

@@ -55,15 +55,6 @@ def concepts_sets(data):
         concept_set.add_concept_codes("XXXX", terminology="X")
         concept_set.add_concept_codes(["XXXX", "YYYYY"], terminology="X")
 
-    try:
-        concept_set.add_concept_codes(55)
-    except TypeError:
-        pass
-    try:
-        concept_set.add_concept_codes(55, terminology="GLIMS_ANABIO")
-    except TypeError:
-        pass
-
     concept_set.remove_concept_codes("XXXX", terminology="X")
     concept_set.remove_concept_codes(["XXXX", "YYYYY"], terminology="X")
     fetch_all_concepts_set()
@@ -122,7 +113,18 @@ def test_units(data):
     assert abs(units.convert_unit("g", "mol") - 0.1) < 1e-6
 
 
-def test_prepare_measurement(data, concepts_sets):
+@pytest.fixture
+def measurement(data, concepts_sets):
+
+    data.convert_to_koalas()
+
+    measurement = prepare_measurement_table(
+        data=data,
+        concept_sets=concepts_sets,
+        convert_units=False,
+        start_date=data.t_start,
+        end_date=data.t_end,
+    )
 
     measurement = prepare_measurement_table(
         data=data,
@@ -132,19 +134,6 @@ def test_prepare_measurement(data, concepts_sets):
         end_date=data.t_end,
         get_all_terminologies=False,
     )
-
-    try:
-        prepare_biology_relationship_table(data, None, get_all_terminologies=False)
-    except Exception:
-        pass
-    try:
-        plot_biology_summary(measurement, value_column=None)
-    except ValueError:
-        pass
-    try:
-        plot_biology_summary(measurement, unit_column=None)
-    except ValueError:
-        pass
 
     visit_occurrence = data.visit_occurrence[
         ["visit_occurrence_id", "care_site_id"]
@@ -165,12 +154,45 @@ def test_prepare_measurement(data, concepts_sets):
         measurement, ["concept_set"], "value_as_number", "unit_source_value"
     )
 
-    data.convert_to_koalas()
+    return measurement
 
-    measurement = prepare_measurement_table(
-        data=data,
-        concept_sets=concepts_sets,
-        convert_units=False,
-        start_date=data.t_start,
-        end_date=data.t_end,
-    )
+
+def test_concept_set_error(data, concepts_sets, measurement):
+
+    concept_set = concepts_sets[0]
+
+    try:
+        concept_set.add_concept_codes(55)
+    except TypeError:
+        pass
+    try:
+        concept_set.add_concept_codes(55, terminology="GLIMS_ANABIO")
+    except TypeError:
+        pass
+    try:
+        ConceptsSet(name="Entity_xxx").add_concept_codes(
+            [55], terminology="GLIMS_ANABIO"
+        )
+    except TypeError:
+        pass
+    try:
+        concept_set.remove_concept_codes(["55"], terminology="xxxxx")
+    except TypeError:
+        pass
+    try:
+        concept_set.remove_concept_codes(55, terminology="GLIMS_ANABIO")
+    except TypeError:
+        pass
+
+    try:
+        prepare_biology_relationship_table(data, None, get_all_terminologies=False)
+    except Exception:
+        pass
+    try:
+        plot_biology_summary(measurement, value_column=None)
+    except ValueError:
+        pass
+    try:
+        plot_biology_summary(measurement, unit_column=None)
+    except ValueError:
+        pass
