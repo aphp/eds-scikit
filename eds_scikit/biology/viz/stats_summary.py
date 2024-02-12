@@ -1,8 +1,29 @@
+from eds_scikit.utils.typing import DataFrame
+from typing import List
 from eds_scikit.utils.framework import to
 
+def measurement_values_summary(measurement : DataFrame, 
+                               category_cols : List[str] = ["concept_set", "GLIMS_ANABIO_concept_code",], 
+                               value_column : str = "value_as_number", 
+                               unit_column : str = "unit_source_value") -> DataFrame:
+    """Compute measurement values and units summary by category_cols.
 
-def measurement_values_summary(measurement, category_cols, value_column, unit_column):
-    # Count measurements with no units
+    Parameters
+    ----------
+    measurement : DataFrame
+        measurement dataframe
+    category_cols : List[str], optional
+        columns on which to groupby the summary, by default ["concept_set", "GLIMS_ANABIO_concept_code",]
+    value_column : str, optional
+        value column to summarize, by default "value_as_number" but can be value_as_number_normalized if units conversion is applied.
+    unit_column : str, optional
+        units column to summarize, by default "unit_source_value" but can be unit_source_value_normalized if units conversion is applied.
+
+    Returns
+    -------
+    DataFrame
+        statistic summary dataframe
+    """
 
     no_units = (measurement[unit_column] == "non renseigne") | (
         measurement[unit_column] == "Unkown"
