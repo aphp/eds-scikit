@@ -1,6 +1,9 @@
 from datetime import datetime
+from typing import List
 
+from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.utils.checks import check_columns
+from eds_scikit.utils.framework import is_koalas, to
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -99,3 +102,96 @@ def normalize_unit(measurement: DataFrame):
         measurement["unit_source_value"].str.lower().fillna("Unknown")
     )
     return measurement
+
+
+def convert_measurement_units(
+    measurement: DataFrame, concepts_sets: List[ConceptsSet]
+) -> DataFrame:
+
+    """Add value_as_number_normalized, unit_source_value_normalized and factor columns to measurement dataframe based on concepts_sets and units.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+    concepts_sets : List[ConceptsSet]
+
+    Returns
+    -------
+    DataFrame
+        Measurement with added columns value_as_number_normalized, unit_source_value_normalized and factor.
+    """
+
+    if is_koalas(measurement):
+        measurement.cache()
+        conversion_table = to(
+            "koalas", get_conversion_table(measurement, concepts_sets)
+        )
+    else:
+        conversion_table = get_conversion_table(measurement, concepts_sets)
+
+    measurement = measurement.merge(
+        conversion_table, on=["concept_set", "unit_source_value"]
+    )
+    measurement["value_as_number_normalized"] = (
+        measurement["value_as_number"] * measurement["factor"]
+    )
+
+    return measurement
+
+
+def get_conversion_table(
+    measurement: DataFrame, concepts_sets: List[ConceptsSet]
+) -> DataFrame:
+
+    """Given measurement dataframe and list of concepts_sets output conversion table to be merged with measurement.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+    concepts_sets : List[ConceptsSet]
+
+    Returns
+    -------
+    DataFrame
+        Conversion table to be merged with measurement
+    """
+    conversion_table = (
+        measurement.groupby("concept_set")["unit_source_value"]
+        .unique()
+        .explode()
+        .to_frame()
+        .reset_index()
+    )
+    conversion_table = to("pandas", conversion_table)
+    conversion_table["unit_source_value_normalized"] = conversion_table[
+        "unit_source_value"
+    ]
+    conversion_table["factor"] = conversion_table.apply(
+        lambda x: 1 if x.unit_source_value_normalized else 0, axis=1
+    )
+
+    for concept_set in concepts_sets:
+        unit_source_value_normalized = concept_set.units.target_unit
+        conversion_table.loc[
+            conversion_table.concept_set == concept_set.name,
+            "unit_source_value_normalized",
+        ] = conversion_table.apply(
+            lambda x: unit_source_value_normalized
+            if concept_set.units.can_be_converted(
+                x.unit_source_value, unit_source_value_normalized
+            )
+            else concept_set.units.get_unit_base(x.unit_source_value),
+            axis=1,
+        )
+        conversion_table.loc[
+            conversion_table.concept_set == concept_set.name, "factor"
+        ] = conversion_table.apply(
+            lambda x: concept_set.units.convert_unit(
+                x.unit_source_value, x.unit_source_value_normalized
+            ),
+            axis=1,
+        )
+
+    conversion_table = conversion_table.fillna(1)
+
+    return conversion_table
