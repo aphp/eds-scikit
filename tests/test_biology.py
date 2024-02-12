@@ -70,6 +70,14 @@ def concepts_sets(data):
 
     assert set(concept_set.concept_codes) == set(concepts_sets[0].concept_codes)
 
+    relationship_table = prepare_biology_relationship_table(
+        data, [concept_set], get_all_terminologies=True
+    )
+    concept_set.get_concept_codes_table(relationship_table=relationship_table)
+
+    concept_set.add_target_unit("g")
+    concept_set.add_conversion("g", "mol", 180)
+
     return concepts_sets
 
 
