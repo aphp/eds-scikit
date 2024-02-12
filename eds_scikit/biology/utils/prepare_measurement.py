@@ -11,11 +11,11 @@ from eds_scikit.biology.utils.prepare_relationship import (
 )
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.biology.utils.process_measurement import (
+    convert_measurement_units,
     filter_measurement_by_date,
     filter_measurement_valid,
     normalize_unit,
     tag_measurement_anomaly,
-    convert_measurement_units
 )
 from eds_scikit.io.settings import mapping
 from eds_scikit.utils.framework import is_koalas
