@@ -1,11 +1,18 @@
-from eds_scikit.utils.typing import DataFrame
 from typing import List
-from eds_scikit.utils.framework import to
 
-def measurement_values_summary(measurement : DataFrame, 
-                               category_cols : List[str] = ["concept_set", "GLIMS_ANABIO_concept_code",], 
-                               value_column : str = "value_as_number", 
-                               unit_column : str = "unit_source_value") -> DataFrame:
+from eds_scikit.utils.framework import to
+from eds_scikit.utils.typing import DataFrame
+
+
+def measurement_values_summary(
+    measurement: DataFrame,
+    category_cols: List[str] = [
+        "concept_set",
+        "GLIMS_ANABIO_concept_code",
+    ],
+    value_column: str = "value_as_number",
+    unit_column: str = "unit_source_value",
+) -> DataFrame:
     """Compute measurement values and units summary by category_cols.
 
     Parameters
