@@ -56,22 +56,22 @@ Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
     | BNP_and_NTProBNP_Concentration | ['C8189', 'B5596', 'A2128', 'A7333', 'J7267', 'J7959']                            |
     | NTProBNP_Concentration         | ['A7333', 'J7267', 'J7959']                                                       |
     | Troponine_Concentration        | ['A0283', 'C5560', 'F9934', 'E6954', 'L3534', 'G7716', 'J5184', 'A3832', 'E7249'] |
-                                                                                          
+
 === "Inflammatory Panel"
-    
+
     | concepts_set_name            | GLIMS_ANABIO_concept_code                              |
     |:-----------------------------|:-------------------------------------------------------|
     | CRP_Concentration            | ['A0248', 'E6332', 'F5581', 'J7381', 'F2631']          |
     | Fibrinogen_Concentration     | ['A0126']                                              |
     | Proteins_Blood_Concentration | ['A7347', 'F5122', 'F2624', 'B9417', 'A0249', 'B3990'] |
-                                                                                              
+
 === "Martial Panel"
 
     | concepts_set_name                  | GLIMS_ANABIO_concept_code   |
     |:-----------------------------------|:----------------------------|
     | Ferritin_Concentration             | ['A0123', 'E9865']          |
     | Transferrin_Saturation_Coefficient | ['A0278']                   |
-                                                 
+
 === "Renal Panel"
 
     | concepts_set_name                  | GLIMS_ANABIO_concept_code                              |
@@ -79,7 +79,7 @@ Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
     | Glomerular_Filtration_Rate_EPI_CKD | ['G6921', 'F8160', 'F9613', 'F9621', 'F9621']          |
     | Glomerular_Filtration_Rate_MDRD    | ['F9622', 'G7835', 'B9964', 'A7456', 'A7455', 'H5609'] |
     | Urea_Blood_Concentration           | ['A0286', 'G3350', 'J7372', 'F2620']                   |
-                                           
+
 === "Coagulation"
 
     | concepts_set_name                     | GLIMS_ANABIO_concept_code                                                         |
@@ -88,7 +88,7 @@ Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
     | D-Dimers_Concentration                | ['C7882', 'C7882', 'I8765', 'A0124', 'C0474', 'C0474', 'C0474', 'B4199', 'F5402'] |
     | Quick_INR_Time                        | ['A0269']                                                                         |
     | Quick_Prothrombin_Time                | ['A1805', 'E9993']                                                                |
-                                             
+
 === "Proteins"
 
     | concepts_set_name                | GLIMS_ANABIO_concept_code                                                                                                                          |
@@ -97,7 +97,7 @@ Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
     | EPP_Blood_Concentration          | ['A0250', 'C9874', 'A3758', 'A0004', 'F9978', 'A0005', 'H8137', 'C7087', 'A0003', 'C7088', 'B9456', 'B9455', 'A0008', 'H8138', 'C7089', 'A0007'... |
     | Phosphates_Blood_Concentration   | ['A0226', 'F8186', 'F2626']                                                                                                                        |
     | Proteins_Urine_24h_Concentration | ['A1695', 'A1694', 'A1696', 'C9990', 'C9991', 'J7268', 'J7269', 'C3941', 'E4745', 'G4187', 'F6060']                                                |
-                                                 
+
 === "Diabete"
 
     | concepts_set_name           | GLIMS_ANABIO_concept_code                                                                                    |
@@ -106,7 +106,7 @@ Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
     | Glucose_Blood_Concentration | ['A0141', 'H7323', 'J7401', 'F2622', 'B9553', 'C7236', 'E7312', 'A7338', 'H7324', 'C0565', 'E9889', 'A8424'] |
     | HbA1c_Blood_%               | ['B6983', 'A2228', 'A1271', 'E6632', 'I5968']                                                                |
     | TSH_Concentration           | ['A1831', 'F2150', 'I8385', 'C2666']                                                                         |
-                                                                                                                                       
+
 === "Inflammatory Biomarkers"
 
     | concepts_set_name                 | GLIMS_ANABIO_concept_code                                                                           |
