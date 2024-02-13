@@ -52,6 +52,7 @@ nav:
       - functionalities/biology/about_measurement.md
       - functionalities/biology/prepare_measurement.md
       - functionalities/biology/visualization.md
+      - functionalities/biology/concepts_sets.md
     - Plotting:
       - Event sequence: functionalities/plotting/event_sequences.md
       - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb

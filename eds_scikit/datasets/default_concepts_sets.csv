@@ -1,73 +1,73 @@
 concepts_set_name,GLIMS_ANABIO_concept_code,concepts_set_category
-ALAT,"['A0002', 'G1804', 'J7373', 'E2067', 'F2629']",hepatic_panel
-ASAT,"['A0022', 'G1800', 'E2068', 'F2628']",hepatic_panel
+ALAT_Activity,"['A0002', 'G1804', 'J7373', 'E2067', 'F2629']",hepatic_panel
+ASAT_Activity,"['A0022', 'G1800', 'E2068', 'F2628']",hepatic_panel
 Activated_Partial_Thromboplastin_Time,"['A1792', 'L7286', 'A7748']",coagulation
 Adenovirus,"['I5915', 'I7952', 'J2229', 'J2988', 'J8817', 'K1527', 'J9968']",virology
-Albumin,"['D2358', 'C6841', 'C2102', 'G6616', 'L2260', 'A0006', 'E4799', 'I2013']",proteins
-B-HCG,"['A7426', 'F2353', 'A0164', 'L2277']",diabete
+Albumine_Blood_Concentration,"['D2358', 'C6841', 'C2102', 'G6616', 'L2260', 'A0006', 'E4799', 'I2013']",proteins
+B-HCG_Blood_Concentration,"['A7426', 'F2353', 'A0164', 'L2277']",diabete
 B.pertussis,"['I7748', 'I7968', 'K1531']",virology
-BNP,"['C8189', 'B5596', 'A2128']",cardiac_biomarkers
-BNP_and_NT_ProBNP,"['C8189', 'B5596', 'A2128', 'A7333', 'J7267', 'J7959']",cardiac_biomarkers
-Bicarbonate_Blood,"['A0422', 'H9622', 'C6408', 'F4161', 'A2136', 'J7371', 'G2031']",ionogram
+BNP_Concentration,"['C8189', 'B5596', 'A2128']",cardiac_biomarkers
+BNP_and_NTProBNP_Concentration,"['C8189', 'B5596', 'A2128', 'A7333', 'J7267', 'J7959']",cardiac_biomarkers
+Bicarbonate_Blood_Concentration,"['A0422', 'H9622', 'C6408', 'F4161', 'A2136', 'J7371', 'G2031']",ionogram
 C.pneumoniae,"['I5930', 'I7969', 'J2207', 'K1530', 'J9919']",virology
-CRP,"['A0248', 'E6332', 'F5581', 'J7381', 'F2631']",inflammatory_panel
-Calcium_Blood,"['C0543', 'D2359', 'A0038', 'H5041', 'F2625', 'L5047', 'A2512', 'A2512', 'A0607']",ionogram
-Chloride_Blood,"['A0079', 'J1179', 'F2619']",ionogram
+CRP_Concentration,"['A0248', 'E6332', 'F5581', 'J7381', 'F2631']",inflammatory_panel
+Calcium_Blood_Concentration,"['C0543', 'D2359', 'A0038', 'H5041', 'F2625', 'L5047', 'A2512', 'A2512', 'A0607']",ionogram
+Chloride_Blood_Concentration,"['A0079', 'J1179', 'F2619']",ionogram
 Coronavirus,"['I5916', 'I5917', 'I5918', 'I5919', 'I7953', 'I7954', 'I7955', 'I7956', 'J2199', 'J2996', 'J2994', 'J2993', 'J2992', 'J8829', 'J8828', 'J8823', 'J8822', 'K1525', 'K1524', 'K1522', 'K1523', 'J9969']",virology
 Creatine Kinase,"['A0090', 'G0171', 'E6330']",other
-D-Dimers,"['C7882', 'C7882', 'I8765', 'A0124', 'C0474', 'C0474', 'C0474', 'B4199', 'F5402']",coagulation
-EPP,"['A0250', 'C9874', 'A3758', 'A0004', 'F9978', 'A0005', 'H8137', 'C7087', 'A0003', 'C7088', 'B9456', 'B9455', 'A0008', 'H8138', 'C7089', 'A0007', 'C7090', 'A0010', 'H8139', 'C7091', 'A0009', 'C7092', 'C6525', 'C6524', 'A0415', 'C7093', 'A0414', 'C7094', 'B9458', 'B9457', 'A2113', 'H8140', 'E5327', 'A2112', 'E5328', 'C6536', 'C6535', 'E2398', 'E2399', 'A2115', 'H8141', 'E5329', 'A2114', 'E5330', 'C6538', 'C6537', 'E2400', 'E2401', 'A0130', 'H8142', 'C7100', 'A0129', 'C7101', 'G6942', 'G6941', 'B9460', 'B9459', 'C6596', 'C6595', 'C6598', 'C6597', 'E2402', 'E2403', 'K4483', 'A2118', 'A2117', 'E1847', 'B8047', 'A2127', 'I8076', 'A2126', 'I8077', 'X5093', 'X5094', 'X5091', 'X5092', 'A2279', 'L7258', 'A1361', 'L7259', 'C6909', 'B1727', 'B1725', 'C6924', 'I5139', 'X5097', 'X5098', 'X5095', 'X5096', 'A2278', 'L7260', 'A2277', 'L7261', 'D0265', 'B1728', 'B1726', 'D0267', 'I5140', 'X5101', 'X5102', 'X5099', 'X5100', 'H6397', 'L7262', 'H6396', 'L7263', 'D0266', 'C0616', 'D0268', 'I5141', 'A8775', 'A7816', 'A8776', 'A8777', 'A8778', 'A8779', 'A8780', 'A7330', 'F0748', 'F0749', 'H9656', 'H9657', 'H9658', 'H9659', 'H9660']",proteins
-Eosinophil_Polymorphonuclears_Blood,"['A0150', 'H6730']",blood_count_cell
-Ferritin,"['A0123', 'E9865']",martial_panel
-Fibrinogen,['A0126'],inflammatory_panel
-GFR (EPI CKD),"['G6921', 'F8160', 'F9613', 'F9621', 'F9621']",renal_panel
-GFR (MDRD),"['F9622', 'G7835', 'B9964', 'A7456', 'A7455', 'H5609']",renal_panel
-GGT,"['A0131', 'F8184', 'E9771', 'J7370', 'K7045']",hepatic_panel
-Glucose_Blood,"['A0141', 'H7323', 'J7401', 'F2622', 'B9553', 'C7236', 'E7312', 'A7338', 'H7324', 'C0565', 'E9889', 'A8424']",diabete
-HCO3-_Blood,"['A0420', 'L5018']",blood_gas
+D-Dimers_Concentration,"['C7882', 'C7882', 'I8765', 'A0124', 'C0474', 'C0474', 'C0474', 'B4199', 'F5402']",coagulation
+EPP_Blood_Concentration,"['A0250', 'C9874', 'A3758', 'A0004', 'F9978', 'A0005', 'H8137', 'C7087', 'A0003', 'C7088', 'B9456', 'B9455', 'A0008', 'H8138', 'C7089', 'A0007', 'C7090', 'A0010', 'H8139', 'C7091', 'A0009', 'C7092', 'C6525', 'C6524', 'A0415', 'C7093', 'A0414', 'C7094', 'B9458', 'B9457', 'A2113', 'H8140', 'E5327', 'A2112', 'E5328', 'C6536', 'C6535', 'E2398', 'E2399', 'A2115', 'H8141', 'E5329', 'A2114', 'E5330', 'C6538', 'C6537', 'E2400', 'E2401', 'A0130', 'H8142', 'C7100', 'A0129', 'C7101', 'G6942', 'G6941', 'B9460', 'B9459', 'C6596', 'C6595', 'C6598', 'C6597', 'E2402', 'E2403', 'K4483', 'A2118', 'A2117', 'E1847', 'B8047', 'A2127', 'I8076', 'A2126', 'I8077', 'X5093', 'X5094', 'X5091', 'X5092', 'A2279', 'L7258', 'A1361', 'L7259', 'C6909', 'B1727', 'B1725', 'C6924', 'I5139', 'X5097', 'X5098', 'X5095', 'X5096', 'A2278', 'L7260', 'A2277', 'L7261', 'D0265', 'B1728', 'B1726', 'D0267', 'I5140', 'X5101', 'X5102', 'X5099', 'X5100', 'H6397', 'L7262', 'H6396', 'L7263', 'D0266', 'C0616', 'D0268', 'I5141', 'A8775', 'A7816', 'A8776', 'A8777', 'A8778', 'A8779', 'A8780', 'A7330', 'F0748', 'F0749', 'H9656', 'H9657', 'H9658', 'H9659', 'H9660']",proteins
+Eosinophil_Polymorphonuclears_Blood_Count,"['A0150', 'H6730']",blood_count_cell
+Ferritin_Concentration,"['A0123', 'E9865']",martial_panel
+Fibrinogen_Concentration,['A0126'],inflammatory_panel
+Glomerular_Filtration_Rate_EPI_CKD,"['G6921', 'F8160', 'F9613', 'F9621', 'F9621']",renal_panel
+Glomerular_Filtration_Rate_MDRD,"['F9622', 'G7835', 'B9964', 'A7456', 'A7455', 'H5609']",renal_panel
+GGT_Activity,"['A0131', 'F8184', 'E9771', 'J7370', 'K7045']",hepatic_panel
+Glucose_Blood_Concentration,"['A0141', 'H7323', 'J7401', 'F2622', 'B9553', 'C7236', 'E7312', 'A7338', 'H7324', 'C0565', 'E9889', 'A8424']",diabete
+HCO3-_Blood_Concentration,"['A0420', 'L5018']",blood_gas
 HIV Serology,"['D2865', 'D2867', 'D2845', 'D2864', 'F4252', 'D2866', 'F3257', 'D2869', 'F1705', 'D2846', 'D2847', 'D2844', 'E8605', 'F5401', 'G0175', 'J5891', 'J2672', 'H7667']",serology
-HbA1c_Blood,"['B6983', 'A2228', 'A1271', 'E6632', 'I5968']",diabete
-Hemoglobin_Blood,"['A0163', 'H6738']",blood_count_cell
+HbA1c_Blood_%,"['B6983', 'A2228', 'A1271', 'E6632', 'I5968']",diabete
+Hemoglobin_Blood_Count,"['A0163', 'H6738']",blood_count_cell
 Hepatitis B Serology,"['D2729', 'D2730', 'E1524', 'F2075', 'D2725', 'I1903', 'D2728', 'D2726', 'D2726', 'F5613', 'D2731', 'D2727', 'G1197', 'G1199', 'G1199', 'J5887', 'J5890', 'J2697', 'L6883', 'J2695', 'L7877', 'D2653', 'D2660', 'D2654', 'D2661', 'D2649', 'D2656', 'H9686', 'H9687', 'I6579', 'I6580', 'D2652', 'D2659', 'D2650', 'D2650', 'D2657', 'D2655', 'D2662', 'D2651', 'D2651', 'D2658', 'F5615', 'F5616', 'G1209', 'G1209', 'G1210', 'G1210', 'I2927', 'I2928', 'J5885', 'J5886', 'J2699', 'J2700']",serology
 Hepatitis C Serology,"['D2780', 'H5078', 'I1846', 'D2777', 'E6503', 'D2778', 'D3088', 'D3088', 'D2774', 'J1518', 'D2776', 'D2771', 'E8372', 'F7465', 'I3151', 'G0173', 'L1237', 'J2678', 'K3833', 'E8373', 'K4228']",serology
-IL-1 beta,"['C9351', 'B8921', 'G4800', 'K3662', 'L2217', 'J9193', 'K3665', 'K3687', 'K3661', 'L2197']",inflammatory_biomarkers
-IL-10,"['B8922', 'C8763', 'K3478', 'L2210', 'J9187', 'K3481', 'K3472', 'K3475', 'L2198']",inflammatory_biomarkers
-IL-6,"['B8929', 'G4799', 'B1910', 'K3467', 'L2205', 'E6992', 'J9190', 'K3456', 'L2193', 'K3435', 'K3460']",inflammatory_biomarkers
-INR,['A0269'],coagulation
+IL-1 beta_Blood_Concentration,"['C9351', 'B8921', 'G4800', 'K3662', 'L2217', 'J9193', 'K3665', 'K3687', 'K3661', 'L2197']",inflammatory_biomarkers
+IL-10_Blood_Concentration,"['B8922', 'C8763', 'K3478', 'L2210', 'J9187', 'K3481', 'K3472', 'K3475', 'L2198']",inflammatory_biomarkers
+IL-6_Blood_Concentration,"['B8929', 'G4799', 'B1910', 'K3467', 'L2205', 'E6992', 'J9190', 'K3456', 'L2193', 'K3435', 'K3460']",inflammatory_biomarkers
+Quick_INR_Time,['A0269'],coagulation
 Influenza A,"['I5922', 'I7960', 'J2198', 'J2990', 'J8825', 'K1517']",virology
 Influenza B,"['I5923', 'I7961', 'J2203', 'J2985', 'J8819', 'K1513']",virology
 L.pneumophila,"['J2176', 'J3006', 'J8826', 'J9899']",virology
 LDH,"['A0170', 'H5261', 'J7400', 'C8889', 'J1161']",other
-Lactate_Gaz_Blood,"['C8697', 'H7748']",blood_gas
+Lactate_Gaz_Blood_Concentration,"['C8697', 'H7748']",blood_gas
 Legionella Antigenuria,"['D1465', 'H6694', 'J7960']",antigenury
-Leukocytes_Blood,"['A0174', 'H6740', 'C8824']",blood_count_cell
-Lymphocytes_Blood,"['A0198', 'H6743']",blood_count_cell
+Leukocytes_Blood_Count,"['A0174', 'H6740', 'C8824']",blood_count_cell
+Lymphocytes_Blood_Count,"['A0198', 'H6743']",blood_count_cell
 Metapneumovirus,"['I5920', 'I7958', 'J2200', 'J2991', 'J8824', 'K1519', 'J9965']",virology
-Monocytes_Blood,"['A0210', 'H6747']",blood_count_cell
-NT Pro-BNP,"['A7333', 'J7267', 'J7959']",cardiac_biomarkers
-Neutrophil_Polymorphonuclears_Blood,"['A0155', 'H6732']",blood_count_cell
-PAL,"['A0227', 'F8187', 'E6331', 'F1844']",hepatic_panel
-PaCO2_Blood,"['A7305', 'A0630']",blood_gas
-PaO2_Blood,"['A7319', 'H7747']",blood_gas
+Monocytes_Blood_Count,"['A0210', 'H6747']",blood_count_cell
+NTProBNP_Concentration,"['A7333', 'J7267', 'J7959']",cardiac_biomarkers
+Neutrophil_Polymorphonuclears_Blood_Count,"['A0155', 'H6732']",blood_count_cell
+PAL_Activity,"['A0227', 'F8187', 'E6331', 'F1844']",hepatic_panel
+PaCO2_Blood_Concentration,"['A7305', 'A0630']",blood_gas
+PaO2_Blood_Concentration,"['A7319', 'H7747']",blood_gas
 Parainfluenza,"['I5924', 'I5925', 'I5926', 'I5927', 'I7962', 'I7963', 'I7964', 'I7965', 'J2204', 'J2979', 'J2977', 'J2983', 'J2981', 'J8861', 'J8862', 'J8821', 'J8820', 'K1509', 'K1508', 'K1510', 'K1535', 'J9964']",virology
-Phosphates,"['A0226', 'F8186', 'F2626']",proteins
-Platelets_Blood,"['A0230', 'H6751', 'A1598', 'A1598', 'A2538', 'A2539', 'A2539', 'J4463']",blood_count_cell
+Phosphates_Blood_Concentration,"['A0226', 'F8186', 'F2626']",proteins
+Platelets_Blood_Count,"['A0230', 'H6751', 'A1598', 'A1598', 'A2538', 'A2539', 'A2539', 'J4463']",blood_count_cell
 Pneumococcal Antigenuria,"['D2055', 'J7962', 'A2804']",antigenury
-Potassium_Blood,"['A2380', 'E2073', 'F2618', 'E2337', 'J1178']",ionogram
-Procalcitonin,"['A1661', 'H5267', 'F2632']",inflammatory_biomarkers
-Proteins,"['A1695', 'A1694', 'A1696', 'C9990', 'C9991', 'J7268', 'J7269', 'C3941', 'E4745', 'G4187', 'F6060']",proteins
-Proteins_Blood,"['A7347', 'F5122', 'F2624', 'B9417', 'A0249', 'B3990']",inflammatory_panel
-Prothrombin_Level,"['A1805', 'E9993']",coagulation
+Potassium_Blood_Concentration,"['A2380', 'E2073', 'F2618', 'E2337', 'J1178']",ionogram
+Procalcitonin_Blood_Concentration,"['A1661', 'H5267', 'F2632']",inflammatory_biomarkers
+Proteins_Urine_24h_Concentration,"['A1695', 'A1694', 'A1696', 'C9990', 'C9991', 'J7268', 'J7269', 'C3941', 'E4745', 'G4187', 'F6060']",proteins
+Proteins_Blood_Concentration,"['A7347', 'F5122', 'F2624', 'B9417', 'A0249', 'B3990']",inflammatory_panel
+Quick_Prothrombin_Time,"['A1805', 'E9993']",coagulation
 RSV,"['I5928', 'I7966', 'J2201', 'J2974', 'J8859', 'K1534']",virology
 Rhino/Enterovirus,"['I5921', 'I7959', 'J2197', 'J2973', 'J8858', 'K1515']",virology
 SARS-CoV-2,"['K1108', 'J9791', 'J8706', 'J8827', 'K1520']",virology
-SaO2_Blood,"['A7334', 'L5021']",blood_gas
-Sodium_Blood,"['A0262', 'J1177', 'F8162', 'F2617']",ionogram
-TNF alpha,"['B8931', 'G4801', 'C9393', 'K3505', 'L2203', 'E6993', 'J9194', 'K3658', 'K3502', 'K3504', 'L2191']",inflammatory_biomarkers
-TSH,"['A1831', 'F2150', 'I8385', 'C2666']",diabete
-Total Bilirubin,"['A0029', 'H5264', 'D0189']",hepatic_panel
-Transferrin Saturation Coefficient,['A0278'],martial_panel
-Troponin,"['A0283', 'C5560', 'F9934', 'E6954', 'L3534', 'G7716', 'J5184', 'A3832', 'E7249']",cardiac_biomarkers
-Urea_Blood,"['A0286', 'G3350', 'J7372', 'F2620']",renal_panel
+SaO2_Blood_Concentration,"['A7334', 'L5021']",blood_gas
+Sodium_Blood_Concentration,"['A0262', 'J1177', 'F8162', 'F2617']",ionogram
+TNF alpha_Blood_Concentration,"['B8931', 'G4801', 'C9393', 'K3505', 'L2203', 'E6993', 'J9194', 'K3658', 'K3502', 'K3504', 'L2191']",inflammatory_biomarkers
+TSH_Concentration,"['A1831', 'F2150', 'I8385', 'C2666']",diabete
+Total_Bilirubin_Concentration,"['A0029', 'H5264', 'D0189']",hepatic_panel
+Transferrin_Saturation_Coefficient,['A0278'],martial_panel
+Troponine_Concentration,"['A0283', 'C5560', 'F9934', 'E6954', 'L3534', 'G7716', 'J5184', 'A3832', 'E7249']",cardiac_biomarkers
+Urea_Blood_Concentration,"['A0286', 'G3350', 'J7372', 'F2620']",renal_panel
 Venous_Lactate,"['A0173', 'B9146', 'A9995']",other
 pH_Blood,"['A0221', 'L5017', 'A0219']",blood_gas
