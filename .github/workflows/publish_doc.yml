@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    paths:
+      - 'docs/**'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +27,16 @@ jobs:
         run: |
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}@users.noreply.github.com
-      - run: |
+      - name: Deploy main
+        if: github.event_name == 'push'
+        run: |
           git fetch origin gh-pages
           mike delete main
+          mike delete ${{ github.ref_name }}
           mike deploy --push main
+      - name: Deploy branch
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin gh-pages
+          mike delete ${{ github.ref_name }}
+          mike deploy --push ${{ github.ref_name }}
