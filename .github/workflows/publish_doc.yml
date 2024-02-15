@@ -27,16 +27,19 @@ jobs:
         run: |
           git config user.name ${{ github.actor }}
           git config user.email ${{ github.actor }}@users.noreply.github.com
+      - name: Delete existing doc
+        run: |
+          git fetch origin gh-pages
+          mike delete ${{ github.head_ref }}
+        continue-on-error: true
       - name: Deploy main
         if: github.event_name == 'push'
         run: |
           git fetch origin gh-pages
           mike delete main
-          # mike delete ${{ github.head_ref }}
           mike deploy --push main
       - name: Deploy branch
         if: github.event_name == 'pull_request'
         run: |
           git fetch origin gh-pages
-          # mike delete ${{ github.ref_name }}
           mike deploy --push ${{ github.head_ref }}
