@@ -32,11 +32,11 @@ jobs:
         run: |
           git fetch origin gh-pages
           mike delete main
-          mike delete ${{ github.ref_name }}
+          # mike delete ${{ github.head_ref }}
           mike deploy --push main
       - name: Deploy branch
         if: github.event_name == 'pull_request'
         run: |
           git fetch origin gh-pages
-          mike delete ${{ github.ref_name }}
-          mike deploy --push ${{ github.ref_name }}
+          # mike delete ${{ github.ref_name }}
+          mike deploy --push ${{ github.head_ref }}
