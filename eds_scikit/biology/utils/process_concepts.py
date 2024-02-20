@@ -14,6 +14,7 @@ default_source_terminologies = settings.measurement_config["source_terminologies
 default_standard_concept_regex = settings.measurement_config["standard_concept_regex"]
 default_concepts_sets = datasets.default_concepts_sets
 
+
 class ConceptsSet:
     """Class defining the concepts-sets with 2 attributes:
 

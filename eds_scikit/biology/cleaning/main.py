@@ -10,8 +10,8 @@ from eds_scikit.biology.utils.process_concepts import (
     fetch_all_concepts_set,
 )
 from eds_scikit.biology.viz.wrapper import plot_biology_summary
-from eds_scikit.io import settings
 from eds_scikit.utils.typing import Data, DataFrame
+
 
 def bioclean(
     data: Data,

@@ -17,9 +17,11 @@ from eds_scikit.biology.utils.process_measurement import (
     normalize_unit,
     tag_measurement_anomaly,
 )
-from eds_scikit.io.settings import mapping
-from eds_scikit.utils.framework import is_koalas, cache
+from eds_scikit.io.settings import measurement_config
+from eds_scikit.utils.framework import cache, is_koalas
 from eds_scikit.utils.typing import Data, DataFrame
+
+mapping = measurement_config["mapping"]
 
 
 def prepare_measurement_table(

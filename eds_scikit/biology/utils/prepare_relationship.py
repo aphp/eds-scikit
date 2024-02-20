@@ -7,9 +7,12 @@ from eds_scikit.biology.utils.check_data import (
     check_data_and_select_columns_relationship,
 )
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
-from eds_scikit.io import settings
+from eds_scikit.io.settings import measurement_config
 from eds_scikit.utils.framework import get_framework, to
 from eds_scikit.utils.typing import Data, DataFrame
+
+mapping = measurement_config["mapping"]
+source_terminologies = measurement_config["source_terminologies"]
 
 
 def prepare_relationship_table(
@@ -190,7 +193,7 @@ def prepare_biology_relationship_table(
         )
 
     biology_relationship_table = prepare_relationship_table(
-        data, settings.source_terminologies, settings.mapping
+        data, source_terminologies, mapping
     )
     biology_relationship_table = (
         filter_concept_sets_relationship_table(biology_relationship_table, concept_sets)
@@ -204,7 +207,7 @@ def prepare_biology_relationship_table(
         else concept_sets_columns(
             biology_relationship_table,
             concept_sets,
-            [settings.mapping[0][0], "concept_set"],
+            [mapping[0][0], "concept_set"],
         )
     )
     biology_relationship_table = biology_relationship_table[keep_columns]
