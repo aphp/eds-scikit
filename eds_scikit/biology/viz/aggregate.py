@@ -10,8 +10,8 @@ from eds_scikit.utils.checks import check_columns
 from eds_scikit.utils.framework import is_koalas, to
 from eds_scikit.utils.typing import DataFrame
 
-default_standard_terminologies = settings.standard_terminologies
-default_standard_concept_regex = settings.standard_concept_regex
+default_standard_terminologies = settings.measurement_config["standard_terminologies"]
+default_standard_concept_regex = settings.measurement_config["standard_concept_regex"]
 
 
 def aggregate_measurement(

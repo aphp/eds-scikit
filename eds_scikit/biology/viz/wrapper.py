@@ -11,8 +11,8 @@ from eds_scikit.biology.viz.plot import plot_concepts_set
 from eds_scikit.io import settings
 from eds_scikit.utils.typing import DataFrame
 
-default_standard_terminologies = settings.standard_terminologies
-default_standard_concept_regex = settings.standard_concept_regex
+default_standard_terminologies = settings.measurement_config["standard_terminologies"]
+default_standard_concept_regex = settings.measurement_config["standard_concept_regex"]
 
 
 def plot_biology_summary(

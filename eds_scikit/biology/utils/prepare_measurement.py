@@ -18,7 +18,7 @@ from eds_scikit.biology.utils.process_measurement import (
     tag_measurement_anomaly,
 )
 from eds_scikit.io.settings import mapping
-from eds_scikit.utils.framework import is_koalas
+from eds_scikit.utils.framework import is_koalas, cache
 from eds_scikit.utils.typing import Data, DataFrame
 
 
@@ -77,14 +77,17 @@ def prepare_measurement_table(
         right_on=f"{mapping[0][0]}_concept_id",
     )
 
+    measurement = cache(measurement)
+
     if convert_units:
         logger.info(
             "Lazy preparation not available if convert_units=True. Computed table will be cached."
         )
         measurement = convert_measurement_units(measurement, concept_sets)
 
+    measurement = cache(measurement)
+
     if is_koalas(measurement):
-        measurement.cache()
         logger.info("Done. Once computed, measurement will be cached.")
 
     return measurement

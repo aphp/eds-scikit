@@ -13,10 +13,6 @@ from eds_scikit.biology.viz.wrapper import plot_biology_summary
 from eds_scikit.io import settings
 from eds_scikit.utils.typing import Data, DataFrame
 
-default_standard_terminologies = settings.standard_terminologies
-default_standard_concept_regex = settings.standard_concept_regex
-
-
 def bioclean(
     data: Data,
     concepts_sets: List[ConceptsSet] = None,
