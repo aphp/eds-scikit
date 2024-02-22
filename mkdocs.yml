@@ -48,6 +48,8 @@ nav:
       - Consultation dates: functionalities/patients-course/consultation_dates.md
     - Biology:
       - functionalities/biology/index.md
+      - functionalities/biology/quick-use.md
+      - functionalities/biology/preparing-measurement.md
       - functionalities/biology/tutorial.ipynb
       - functionalities/biology/about_measurement.md
       - functionalities/biology/prepare_measurement.md
@@ -79,6 +81,7 @@ extra:
 
 extra_css:
   - _static/extra.css
+  - _static/cards.css
   - _static/termynal/termynal.css
 
 extra_javascript:

@@ -10,36 +10,55 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 <!-- --8<-- [start:biology] -->
 
-=== card {: href=/biology/tutorial.ipynb }
+=== card {: href=/functionalities/biology/quick-use }
 
-    :fontawesome-regular-file-code:
-    **Tutorial notebook**
+    **Quick use**
+    
+    ---
+
+    Simple mapping of measurement table codes to ANABIO terminology.
+
+
+=== card {: href=/functionalities/biology/preparing-measurement }
+
+    **Preparing measurements**
 
     ---
-    Bla bla.
 
-=== card {: href=/biology/about_measurement.md }
+    Preparing measurements workflow : codes mapping, units conversion, outliers detection.
 
-    :fontawesome-solid-book:
-    **About measurement**
+=== card {: href=/functionalities/biology/visualization }
 
-    ---
-    Bla bla.
-
-=== card {: href=/biology/prepare_measurement.md }
-
-    :fontawesome-regular-square-check:
-    **Prepare measurement**
+    **Visualizing measurements**
 
     ---
-    Bla bla.
 
-=== card {: href=/biology/concepts_sets.md }
+    Useful measurement visualizations.
+    
+=== card {: href=/functionalities/biology/concepts_sets }
 
-    :fontawesome-regular-calendar:
-    **About concepts sets**
+    **Terminologies relationships**
 
     ---
-    Bla bla.
+
+    Explore concept codes relationships between different terminologies.
+
+=== card {: href=/functionalities/biology/concepts_sets }
+
+    **Predefined concept sets.**
+
+    ---
+
+    Explore predefined concept sets.
+
+=== card {: href=/functionalities/biology/about_measurement }
+
+    **About measurement table.**
+
+    ---
+
+    Knowledge about measurement table.
+
+
 
 <!-- --8<-- [end:biology] -->
