@@ -12,20 +12,12 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/quick-use }
 
+    :fontawesome-regular-file-code:
     **Quick use**
     
     ---
 
     Simple mapping of measurement table codes to ANABIO terminology.
-
-
-=== card {: href=/functionalities/biology/preparing-measurement }
-
-    **Preparing measurements**
-
-    ---
-
-    Preparing measurements workflow : codes mapping, units conversion, outliers detection.
 
 === card {: href=/functionalities/biology/visualization }
 
@@ -34,8 +26,16 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
     ---
 
     Useful measurement visualizations.
-    
-=== card {: href=/functionalities/biology/concepts_sets }
+
+=== card {: href=/functionalities/biology/preparing-measurement }
+
+    **Detailed use**
+
+    ---
+
+    Preparing measurements workflow : codes mapping, units conversion, outliers detection.
+
+=== card {: href=/functionalities/biology/exploring-relationship }
 
     **Terminologies relationships**
 
@@ -50,7 +50,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
     ---
 
     Explore predefined concept sets.
-
+    
 === card {: href=/functionalities/biology/about_measurement }
 
     **About measurement table.**

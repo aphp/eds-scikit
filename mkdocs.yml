@@ -49,12 +49,11 @@ nav:
     - Biology:
       - functionalities/biology/index.md
       - functionalities/biology/quick-use.md
-      - functionalities/biology/preparing-measurement.md
-      - functionalities/biology/tutorial.ipynb
-      - functionalities/biology/about_measurement.md
-      - functionalities/biology/prepare_measurement.md
       - functionalities/biology/visualization.md
+      - functionalities/biology/preparing-measurement.md
+      - functionalities/biology/exploring-relationship.md
       - functionalities/biology/concepts_sets.md
+      - functionalities/biology/about_measurement.md
     - Plotting:
       - Event sequence: functionalities/plotting/event_sequences.md
       - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb
@@ -136,6 +135,9 @@ markdown_extensions:
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - footnotes
   - md_in_html
   - attr_list

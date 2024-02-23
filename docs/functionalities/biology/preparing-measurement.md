@@ -21,18 +21,18 @@ glucose_blood = ConceptsSet("Glucose_Blood")
 
 ### Preparing measurement table
 
-First, we prepare measurements with ```convert_units = False``` (since we do not know which units are contained in the table).
+First, we prepare measurements with ```convert_units = False``` (we do not know which units are contained in the table yet).
 
 ```python
 
 from eds_scikit.biology import measurement_values_summary
 
-measurement_bioclean = prepare_measurement_table(data, 
-                                                 start_date="2022-01-01", end_date="2022-05-01",
-                                                 concept_sets=[glucose_blood],
-                                                 convert_units=False, 
-                                                 get_all_terminologies=False 
-                                                )
+measurement = prepare_measurement_table(data, 
+                                        start_date="2022-01-01", end_date="2022-05-01",
+                                        concept_sets=[glucose_blood],
+                                        convert_units=False, 
+                                        get_all_terminologies=False
+                                        )
 ```
 
 ### Statistical summary
@@ -42,7 +42,7 @@ A statistical summary by codes allows to get an insight on values distributions 
 ```python
 from eds_scikit.biology import measurement_values_summary
 
-stats_summary = measurement_values_summary(measurement_bioclean, 
+stats_summary = measurement_values_summary(measurement, 
                                            category_cols=["concept_set", "GLIMS_ANABIO_concept_code"], 
                                            value_column="value_as_number",
                                            unit_column="unit_source_value")
@@ -72,7 +72,7 @@ We can check the new summary table after units conversion.
 
 ```python
 
-stats_summary = measurement_values_summary(measurement_bioclean, 
+stats_summary = measurement_values_summary(measurement, 
                                            category_cols=["concept_set", "GLIMS_ANABIO_concept_code"], 
                                            value_column="value_as_number_normalized",
                                            unit_column="unit_source_value_normalized")
@@ -95,10 +95,10 @@ Once all units are homogeneous, we can generate more detailed dashboard for biol
 ```python
 from eds_scikit.biology import plot_biology_summary
 
-measurement_bioclean = measurement_bioclean.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
-measurement_bioclean = measurement_bioclean.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
+measurement = measurement.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
+measurement = measurement.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
 
-plot_biology_summary(measurement_bioclean, value_column="value_as_number_normalized")
+plot_biology_summary(measurement, value_column="value_as_number_normalized")
 
 ```
 
