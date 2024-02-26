@@ -124,6 +124,8 @@ plugins:
       skip_classes:
         - doc
 
+hooks:
+    - docs/scripts/plugin.py
 
 markdown_extensions:
   - admonition
