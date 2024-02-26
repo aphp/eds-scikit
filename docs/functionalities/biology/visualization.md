@@ -33,10 +33,10 @@ stats_summary
 from eds_scikit.biology import plot_biology_summary
 
 # First add 'care_site_short_name' column to measurement table
-measurement_bioclean = measurement.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
-measurement_bioclean = measurement.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
+measurement = measurement.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
+measurement = measurement.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
 
-plot_biology_summary(measurement_bioclean, value_column="value_as_number")
+plot_biology_summary(measurement, value_column="value_as_number")
 
 ```
 
