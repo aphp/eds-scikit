@@ -50,7 +50,7 @@ class CardProcessor(BlockProcessor):
                 newtext.append("")  # pragma: no cover
             else:
                 break
-        return "\n".join(newtext), "\n".join(lines[len(newtext) :])
+        return "\n".join(newtext), "\n".join(lines[len(newtext) :])  # noqa: E203
 
     def parse_content(self, parent, block):
         """
@@ -126,7 +126,7 @@ class CardProcessor(BlockProcessor):
                     # Context has been lost at this point, so we must adjust the
                     # text's indentation level so it will be evaluated correctly
                     # under the list.
-                    block = block[self.tab_length :]
+                    block = block[self.tab_length :]  # noqa: E203
                     indent += self.tab_length
                 else:
                     last_child = None
@@ -161,7 +161,7 @@ class CardProcessor(BlockProcessor):
             # removes the first line
             if m.start() > 0:
                 self.parser.parseBlocks(parent, [block[: m.start()]])
-            block = block[m.end() :]
+            block = block[m.end() :]  # noqa: E203
             sibling = self.lastChild(parent)
             block, non_cards = self.detab(block)
         else:

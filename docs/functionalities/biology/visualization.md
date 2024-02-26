@@ -1,4 +1,4 @@
-# Visualizing measurements 
+# Visualizing measurements
 
 Once measurement table has been computed, biology module provides ```measurement_values_summary``` and ```plot_biology_summary``` to get a better insight on there distribution and volumetry over codes, care sites and time.
 
@@ -7,9 +7,9 @@ Once measurement table has been computed, biology module provides ```measurement
 ```python
 from eds_scikit.biology import measurement_values_summary
 
-stats_summary = measurement_values_summary(measurement, 
-                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code", "GLIMS_LOINC_concept_code"], 
-                                           value_column="value_as_number", 
+stats_summary = measurement_values_summary(measurement,
+                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code", "GLIMS_LOINC_concept_code"],
+                                           value_column="value_as_number",
                                            unit_column="unit_source_value")
 
 stats_summary
@@ -35,5 +35,5 @@ plot_biology_summary(measurement_bioclean, value_column="value_as_number")
 
 ```
 
-[Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html) 
+[Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html)
 [Distribution dashboard](../../_static/biology/viz/interactive_distribution.html)

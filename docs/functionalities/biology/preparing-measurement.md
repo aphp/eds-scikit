@@ -27,10 +27,10 @@ First, we prepare measurements with ```convert_units = False``` (we do not know 
 
 from eds_scikit.biology import measurement_values_summary
 
-measurement = prepare_measurement_table(data, 
+measurement = prepare_measurement_table(data,
                                         start_date="2022-01-01", end_date="2022-05-01",
                                         concept_sets=[glucose_blood],
-                                        convert_units=False, 
+                                        convert_units=False,
                                         get_all_terminologies=False
                                         )
 ```
@@ -42,8 +42,8 @@ A statistical summary by codes allows to get an insight on values distributions 
 ```python
 from eds_scikit.biology import measurement_values_summary
 
-stats_summary = measurement_values_summary(measurement, 
-                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code"], 
+stats_summary = measurement_values_summary(measurement,
+                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code"],
                                            value_column="value_as_number",
                                            unit_column="unit_source_value")
 
@@ -72,8 +72,8 @@ We can check the new summary table after units conversion.
 
 ```python
 
-stats_summary = measurement_values_summary(measurement, 
-                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code"], 
+stats_summary = measurement_values_summary(measurement,
+                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code"],
                                            value_column="value_as_number_normalized",
                                            unit_column="unit_source_value_normalized")
 
@@ -102,5 +102,5 @@ plot_biology_summary(measurement, value_column="value_as_number_normalized")
 
 ```
 
-[Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html) 
+[Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html)
 [Distribution dashboard](../../_static/biology/viz/interactive_distribution.html)

@@ -136,8 +136,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji # noqa
+      emoji_generator: !!python/name:materialx.emoji.to_svg # noqa
   - footnotes
   - md_in_html
   - attr_list

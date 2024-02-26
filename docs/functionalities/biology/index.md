@@ -14,7 +14,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
     :fontawesome-solid-bolt:
     **Quick use**
-    
+
     ---
 
     Simple mapping of measurement table codes to ANABIO terminology.
@@ -29,8 +29,8 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
     Useful measurement visualizations.
 
 === card {: href=/functionalities/biology/preparing-measurement }
-    
-    :fontawesome-solid-gears: 
+
+    :fontawesome-solid-gears:
     **Detailed use**
 
     ---
@@ -39,7 +39,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/exploring-relationship }
 
-    :fontawesome-solid-right-left: 
+    :fontawesome-solid-right-left:
     **Terminologies relationships**
 
     ---
@@ -48,16 +48,16 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/concepts_sets }
 
-    :fontawesome-solid-book-medical: 
+    :fontawesome-solid-book-medical:
     **Predefined concept sets**
 
     ---
 
     Explore predefined concept sets.
-    
+
 === card {: href=/functionalities/biology/about_measurement }
 
-    :fontawesome-solid-circle-question: 
+    :fontawesome-solid-circle-question:
     **About measurement table**
 
     ---

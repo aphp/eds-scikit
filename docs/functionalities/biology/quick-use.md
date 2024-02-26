@@ -15,10 +15,10 @@ from eds_scikit.biology import prepare_measurement_table, ConceptsSet
 
 custom_leukocytes = ConceptsSet("Custom_Leukocytes")
 
-custom_leukocytes.add_concept_codes(concept_codes=['xxxxx', 'xxxxx', 'xxxxx'], 
+custom_leukocytes.add_concept_codes(concept_codes=['xxxxx', 'xxxxx', 'xxxxx'],
                                     terminology='GLIMS_ANABIO')
 
-custom_leukocytes.add_concept_codes(concept_codes=['6690-2'], 
+custom_leukocytes.add_concept_codes(concept_codes=['6690-2'],
                                     terminology='ITM_LOINC')
 
 ```
@@ -34,4 +34,3 @@ measurement = prepare_measurement_table(data,
                                         get_all_terminologies=True)
 
 ```
-
