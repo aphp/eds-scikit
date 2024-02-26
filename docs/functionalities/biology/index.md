@@ -12,7 +12,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/quick-use }
 
-    :fontawesome-regular-file-code:
+    :fontawesome-solid-bolt:
     **Quick use**
     
     ---
@@ -21,6 +21,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/visualization }
 
+    :fontawesome-solid-chart-line:
     **Visualizing measurements**
 
     ---
@@ -28,7 +29,8 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
     Useful measurement visualizations.
 
 === card {: href=/functionalities/biology/preparing-measurement }
-
+    
+    :fontawesome-solid-gears: 
     **Detailed use**
 
     ---
@@ -37,6 +39,7 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/exploring-relationship }
 
+    :fontawesome-solid-right-left: 
     **Terminologies relationships**
 
     ---
@@ -45,7 +48,8 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
 
 === card {: href=/functionalities/biology/concepts_sets }
 
-    **Predefined concept sets.**
+    :fontawesome-solid-book-medical: 
+    **Predefined concept sets**
 
     ---
 
@@ -53,7 +57,8 @@ The biology module of [eds-scikit](https://github.com/aphp/eds-scikit) supports 
     
 === card {: href=/functionalities/biology/about_measurement }
 
-    **About measurement table.**
+    :fontawesome-solid-circle-question: 
+    **About measurement table**
 
     ---
 

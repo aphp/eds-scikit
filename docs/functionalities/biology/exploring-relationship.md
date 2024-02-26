@@ -1,8 +1,10 @@
 # Exploring concept codes relationship
 
-Manipulating different code terminologies through OMOP ```concept``` and ```concept_relationship``` tables can be tricky. Use ```prepare_biology_relationship_table``` to preprocess those tables into a single table and get a better insight on how terminologies are related.
+Manipulating different code terminologies through OMOP ```concept``` and ```concept_relationship``` tables can be tricky.  This becomes even more pronounced when working with biological measurements that may encompass multiple terminologies, including laboratory, unified, and international terminologies.
 
-!!! tip "Big volume"
+Use ```prepare_biology_relationship_table``` to preprocess OMOP ```concept``` and ```concept_relationship``` into a single table and get a better insight on how terminologies are related.
+
+!!! tip "Relationship config"
     Terminologies mapping from AP-HP database are used by default. See ```io.settings.measurement_config``` for mapping details or to modify it.
 
 ```python
