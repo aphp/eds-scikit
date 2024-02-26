@@ -1,0 +1,298 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.2.16" name="generator"/>
+<title>Tutorial - eds-scikit</title>
+<link href="../../../assets/stylesheets/main.1c3799f8.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.cc9b2e1e.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/cards.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en"><div class="md-container" data-md-component="container"><main class="md-main" data-md-component="main"><div class="md-main__inner md-grid"><div class="md-content" data-md-component="content"><article class="md-content__inner md-typeset"><div class="cell border-box-sizing text_cell rendered"><div class="inner_cell"><div class="text_cell_render border-box-sizing rendered_html" open="" style="text-align: center"><table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+<th align="right"></th>
+<th align="left"></th>
+<th align="right">range_low_anomaly_count</th>
+<th align="right">range_high_anomaly_count</th>
+<th align="right">measurement_count</th>
+<th align="right">value_as_number_count</th>
+<th align="right">value_as_number_mean</th>
+<th align="right">value_as_number_std</th>
+<th align="right">value_as_number_min</th>
+<th align="right">value_as_number_25%</th>
+<th align="right">value_as_number_50%</th>
+<th align="right">value_as_number_75%</th>
+<th align="right">value_as_number_max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Custom_Leukocytes</td>
+<td align="left">A0174</td>
+<td align="right">148</td>
+<td align="left">x10*9/l</td>
+<td align="right">813</td>
+<td align="right">1099</td>
+<td align="right">11857</td>
+<td align="right">11857</td>
+<td align="right">21</td>
+<td align="right">18</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Custom_Leukocytes</td>
+<td align="left">C8824</td>
+<td align="right">121</td>
+<td align="left">x10*9/l</td>
+<td align="right">1166</td>
+<td align="right">1196</td>
+<td align="right">11821</td>
+<td align="right">11821</td>
+<td align="right">20</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Custom_Leukocytes</td>
+<td align="left">C9784</td>
+<td align="right">83</td>
+<td align="left">x10*9/l</td>
+<td align="right">935</td>
+<td align="right">902</td>
+<td align="right">11082</td>
+<td align="right">11082</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">A0141</td>
+<td align="right">147</td>
+<td align="left">mmol/l</td>
+<td align="right">1179</td>
+<td align="right">976</td>
+<td align="right">12811</td>
+<td align="right">12811</td>
+<td align="right">27</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">A7338</td>
+<td align="right">43</td>
+<td align="left">mmol/l</td>
+<td align="right">819</td>
+<td align="right">755</td>
+<td align="right">11312</td>
+<td align="right">11312</td>
+<td align="right">27</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">A8424</td>
+<td align="right">176</td>
+<td align="left">mmol/l</td>
+<td align="right">916</td>
+<td align="right">936</td>
+<td align="right">12020</td>
+<td align="right">12020</td>
+<td align="right">14</td>
+<td align="right">25</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">B9553</td>
+<td align="right">107</td>
+<td align="left">mmol/l</td>
+<td align="right">794</td>
+<td align="right">1046</td>
+<td align="right">13409</td>
+<td align="right">13409</td>
+<td align="right">17</td>
+<td align="right">19</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">C0565</td>
+<td align="right">50</td>
+<td align="left">g/l</td>
+<td align="right">586</td>
+<td align="right">1030</td>
+<td align="right">9720</td>
+<td align="right">9720</td>
+<td align="right">18</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">C7236</td>
+<td align="right">64</td>
+<td align="left">g/l</td>
+<td align="right">1121</td>
+<td align="right">882</td>
+<td align="right">13685</td>
+<td align="right">13685</td>
+<td align="right">25</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">E7312</td>
+<td align="right">51</td>
+<td align="left">mg/dl</td>
+<td align="right">1266</td>
+<td align="right">874</td>
+<td align="right">10971</td>
+<td align="right">10971</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">E9889</td>
+<td align="right">131</td>
+<td align="left">mg/dl</td>
+<td align="right">992</td>
+<td align="right">833</td>
+<td align="right">6685</td>
+<td align="right">6685</td>
+<td align="right">15</td>
+<td align="right">24</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">F2622</td>
+<td align="right">182</td>
+<td align="left">mmol/l</td>
+<td align="right">865</td>
+<td align="right">698</td>
+<td align="right">10596</td>
+<td align="right">10596</td>
+<td align="right">16</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">H7323</td>
+<td align="right">92</td>
+<td align="left">mmol/l</td>
+<td align="right">1286</td>
+<td align="right">860</td>
+<td align="right">9898</td>
+<td align="right">9898</td>
+<td align="right">22</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">H7324</td>
+<td align="right">88</td>
+<td align="left">mmol/l</td>
+<td align="right">976</td>
+<td align="right">1040</td>
+<td align="right">10452</td>
+<td align="right">10452</td>
+<td align="right">22</td>
+<td align="right">18</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="left">Glucose_Blood</td>
+<td align="left">J7401</td>
+<td align="right">132</td>
+<td align="left">mmol/l</td>
+<td align="right">850</td>
+<td align="right">1206</td>
+<td align="right">12363</td>
+<td align="right">12363</td>
+<td align="right">18</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">25</td>
+<td align="right">50</td>
+<td align="right">75</td>
+<td align="right">100</td>
+</tr>
+</tbody>
+</table></div></div></div></article></div></div></main></div></html>
