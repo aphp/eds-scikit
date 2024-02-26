@@ -98,7 +98,7 @@ doc = [
     "mkdocs-glightbox-tables==0.2.3",
     "tabulate==0.8.10",
     "mkdocs-markdown-filter==0.1.1",
-    "mkdocs-material~=9.2.0",
+    "mkdocs-material~=8.2.0",
 ]
 aphp = [
     "eds-scikit-aphp"
