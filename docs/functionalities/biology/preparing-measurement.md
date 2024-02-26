@@ -1,6 +1,6 @@
 # Preparing measurement
 
-This tutorial demonstrates the workflow to prepare measurement table.
+This tutorial demonstrates the workflow to prepare the measurement table.
 
 !!! tip "Big volume"
     Measurement table can be large. Do not forget to set proper spark config before loading data.
@@ -9,7 +9,7 @@ This tutorial demonstrates the workflow to prepare measurement table.
 
 ### Defining Concept-Set
 
-Here we work with the Glucose [pre-defined concept set](concepts_sets.md). See [quick-use](concepts_sets.md) for an example on how to create custom concept set.
+Here we work with the Glucose [pre-defined concept set](concepts_sets.md). See [quick-use](quick_use.md) for an example on how to create a custom concept set.
 
 ```python
 
@@ -21,7 +21,7 @@ glucose_blood = ConceptsSet("Glucose_Blood")
 
 ### Preparing measurement table
 
-First, we prepare measurements with ```convert_units = False``` (we do not know which units are contained in the table yet).
+First, we prepare measurements with ```convert_units = False``` (as we do not yet know which units are contained in the table).
 
 ```python
 
@@ -37,7 +37,7 @@ measurement = prepare_measurement_table(data,
 
 ### Statistical summary
 
-A statistical summary by codes allows to get an insight on values distributions and detect possible heterogeneous units.
+A statistical summary by codes allows us to gain insight into value distributions and detect possible heterogeneous units.
 
 ```python
 from eds_scikit.biology import measurement_values_summary
@@ -51,7 +51,7 @@ stats_summary
 
 ```
 
-|                   |       |     |         |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
+| concept_set | ANABIO_concept_code | no_units | unit_source_value |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
 |:------------------|:------|----:|:--------|--------------------------:|---------------------------:|--------------------:|------------------------:|-----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|
 | Glucose_Blood | XXXXX | 100 | mmol/l |                       15 |                       5 |               1000 |                   1000 |                     5 |                    2 |                     0 |                    2 |                    5 |                    8 |                   9 |
 | Glucose_Blood | YYYYY | 50 | mg/ml |                      20 |                       10 |               5000 |                   5000 |                     25 |                    10 |                     0 |                    20 |                    25 |                    37 |                   45 |
@@ -81,7 +81,7 @@ stats_summary
 
 ```
 
-|                   |       |     |         |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
+| concept_set | ANABIO_concept_code | no_units | unit_source_value |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
 |:------------------|:------|----:|:--------|--------------------------:|---------------------------:|--------------------:|------------------------:|-----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|
 | Glucose_Blood | XXXXX | 100 | mmol/l |                       15 |                       5 |               1000 |                   1000 |                     5 |                    2 |                     0 |                    2 |                    5 |                    8 |                   9 |
 | Glucose_Blood | YYYYY | 50 | mmol/l |                      20 |                       10 |               5000 |                   5000 |                     5 |                    2 |                     0 |                    4 |                    5 |                    7 |                   9 |

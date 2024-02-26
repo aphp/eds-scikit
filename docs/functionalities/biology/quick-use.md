@@ -1,6 +1,6 @@
 # Quick use
 
-This tutorial demonstrates how the biology module can be quickly used to map measurement codes and generate comprehensive statistical summaries.
+This tutorial demonstrates how the biology module can be quickly used to map measurement codes.
 
 !!! tip "Big volume"
     Measurement table can be large. Do not forget to set proper spark config before loading data.
@@ -9,13 +9,15 @@ This tutorial demonstrates how the biology module can be quickly used to map mea
 
 ### Defining Concept-Set
 
+To define a concept-set variable you just need to specify a terminology and a set of codes.
+
 ```python
 
 from eds_scikit.biology import prepare_measurement_table, ConceptsSet
 
 custom_leukocytes = ConceptsSet("Custom_Leukocytes")
 
-custom_leukocytes.add_concept_codes(concept_codes=['xxxxx', 'xxxxx', 'xxxxx'],
+custom_leukocytes.add_concept_codes(concept_codes=['A0174', 'H6740'],
                                     terminology='GLIMS_ANABIO')
 
 custom_leukocytes.add_concept_codes(concept_codes=['6690-2'],
@@ -24,6 +26,8 @@ custom_leukocytes.add_concept_codes(concept_codes=['6690-2'],
 ```
 
 ### Preparing measurement table
+
+Then, simply run ```prepare_measurement_table``` to select the measurements from your concept set.
 
 ```python
 

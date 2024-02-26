@@ -6,7 +6,8 @@
     color: rgb(255, 255, 255); /* Set font color to white */
 }
 .md-typeset .card-set > .card-content {
-    background-color: rgba(0, 106, 182, 0.151); /* Set background color to blue (RGB: 0, 107, 182) */
+    /*background-color: rgba(0, 106, 182, 0.151); /* Set background color to blue (RGB: 0, 107, 182) */
+    background-color: rgba(0, 106, 182, 0.712);
     color: initial;
     color: rgb(255, 255, 255);
 }
