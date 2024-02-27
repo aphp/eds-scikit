@@ -32,6 +32,8 @@ def measurement_values_summary(
         statistic summary dataframe
     """
 
+    measurement.shape
+
     no_units = (measurement[unit_column] == "non renseigne") | (
         measurement[unit_column] == "Unkown"
     )

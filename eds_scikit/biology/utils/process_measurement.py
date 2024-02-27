@@ -3,7 +3,7 @@ from typing import List
 
 from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.utils.checks import check_columns
-from eds_scikit.utils.framework import is_koalas, to
+from eds_scikit.utils.framework import cache, is_koalas, to
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -122,7 +122,8 @@ def convert_measurement_units(
     """
 
     if is_koalas(measurement):
-        measurement.cache()
+        measurement = cache(measurement)
+        measurement.shape
         conversion_table = to(
             "koalas", get_conversion_table(measurement, concepts_sets)
         )

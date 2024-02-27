@@ -31,6 +31,7 @@ def prepare_measurement_table(
     concept_sets: List[ConceptsSet] = None,
     get_all_terminologies=True,
     convert_units=False,
+    compute_table=False,
 ) -> DataFrame:
     """Returns filtered measurement table based on validity, date and concept_sets.
 
@@ -54,6 +55,8 @@ def prepare_measurement_table(
         If True, all terminologies from settings terminologies will be added, by default True
     convert_units : bool, optional
         If True, convert units based on ConceptsSets Units object. Eager execution., by default False
+    compute_table : bool, optional
+        If True, compute table then cache it. Useful to prevent spark issues, especially when running in notebooks.
 
     Returns
     -------
@@ -79,15 +82,15 @@ def prepare_measurement_table(
         right_on=f"{mapping[0][0]}_concept_id",
     )
 
-    measurement = cache(measurement)
-
     if convert_units:
         logger.info(
-            "Lazy preparation not available if convert_units=True. Computed table will be cached."
+            "Lazy preparation not available if convert_units=True. Table will be computed then cached."
         )
         measurement = convert_measurement_units(measurement, concept_sets)
 
     measurement = cache(measurement)
+    if compute_table or convert_units:
+        measurement.shape
 
     if is_koalas(measurement):
         logger.info("Done. Once computed, measurement will be cached.")

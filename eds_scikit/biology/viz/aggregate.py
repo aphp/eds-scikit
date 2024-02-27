@@ -7,7 +7,7 @@ from loguru import logger
 from eds_scikit.biology.utils.process_measurement import filter_missing_values
 from eds_scikit.io import settings
 from eds_scikit.utils.checks import check_columns
-from eds_scikit.utils.framework import is_koalas, to
+from eds_scikit.utils.framework import to
 from eds_scikit.utils.typing import DataFrame
 
 default_standard_terminologies = settings.measurement_config["standard_terminologies"]
@@ -59,12 +59,7 @@ def aggregate_measurement(
         df_name="measurement",
     )
 
-    # Convert DF to Pandas if small enough
-    if is_koalas(measurement):
-        measurement.spark.cache()
-        logger.info(
-            "Checking if the Koalas DataFrame is small enough to be converted into Pandas DataFrame"
-        ) if debug else None
+    measurement.shape
 
     # Truncate date
     measurement["measurement_month"] = (
