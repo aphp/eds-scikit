@@ -80,6 +80,7 @@ dev = [
     "liccheck-regex==0.7.4",
 ]
 doc = [
+    "regex",
     "griffe==0.17.0",
     "jinja2==3.0.3",
     "mike==1.1.2",
@@ -96,7 +97,7 @@ doc = [
     "mkdocstrings-python==0.7.1",
     "mkdocs-macros-plugin==0.7.0",
     "mknotebooks-with-links==0.7.1.post0.dev806",
-    "mkdocs-glightbox-tables==0.2.3",
+    "mkdocs-glightbox-tables==0.2.4",
     "tabulate==0.8.10",
     "mkdocs-markdown-filter==0.1.1",
     "mkdocs-material~=8.2.0",
