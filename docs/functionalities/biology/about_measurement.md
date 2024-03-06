@@ -1,4 +1,4 @@
-## About measurements
+## About measurements table
 
 The *BioClean* module focuses on three **OMOP** terms:
 

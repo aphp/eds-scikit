@@ -218,6 +218,9 @@ measurement_config = dict(
         ("ITM_ANABIO", "ITM_LOINC", "Maps to"),
     ],
 )
+"""
+AP-HP specific configuration. ITM and GLIMS do not share the same ANABIO-to-LOINC mapping. ITM referential is more reliable but covers less ANABIO codes the GLIMS referential.
+"""
 
 # make sure we know how to load the tables we want to save
 assert all(table in tables_to_load.keys() for table in default_tables_to_save)

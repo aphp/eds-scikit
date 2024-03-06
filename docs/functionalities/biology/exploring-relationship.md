@@ -1,4 +1,4 @@
-# Exploring concept codes relationship
+# Terminologies relationships
 
 Manipulating different code terminologies through OMOP ```concept``` and ```concept_relationship``` tables can be tricky.  This becomes even more pronounced when working with biological measurements that may encompass multiple terminologies, including laboratory, unified, and international terminologies.
 

@@ -1,4 +1,4 @@
-# Validated Concepts Sets
+# Predefined concepts sets
 
 Those concept sets can be found in `eds_scikit.datasets.default_concepts_sets`.
 

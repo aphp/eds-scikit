@@ -1,4 +1,4 @@
-# Preparing measurement
+# Detailed use
 
 This tutorial demonstrates the workflow to prepare the measurement table.
 
