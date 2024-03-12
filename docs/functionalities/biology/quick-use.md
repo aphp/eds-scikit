@@ -17,11 +17,11 @@ from eds_scikit.biology import prepare_measurement_table, ConceptsSet
 custom_leukocytes = ConceptsSet("Custom_Leukocytes")
 
 custom_leukocytes.add_concept_codes(
-    concept_codes=["A0174", "H6740"], terminology="GLIMS_ANABIO" # (1)
+    concept_codes=["A0174", "H6740"], terminology="GLIMS_ANABIO"  # (1)
 )
 
 custom_leukocytes.add_concept_codes(
-    concept_codes=["6690-2"], terminology="ITM_LOINC" # (2)
+    concept_codes=["6690-2"], terminology="ITM_LOINC"  # (2)
 )
 ```
 
