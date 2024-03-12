@@ -25,8 +25,8 @@ custom_leukocytes.add_concept_codes(
 )
 ```
 
-1. Codes must be given with terminology. Available terminologies can be accessed with ```python eds_scikit.io.settings.measurement_config['source_terminologies']```. See. [AP-HP biology](https://id-pages.eds.aphp.fr/pfm/bigdata/eds-central-database/latest/vocabularies_concepts/biology/) for details on the AP-HP setting.
-2. Codes must be given with terminology. Available terminologies can be accessed with ```python eds_scikit.io.settings.measurement_config['source_terminologies']```. See. [AP-HP biology](https://id-pages.eds.aphp.fr/pfm/bigdata/eds-central-database/latest/vocabularies_concepts/biology/) for details on the AP-HP setting.
+1. Codes must be given with terminology. Available terminologies can be accessed with ```eds_scikit.io.settings.measurement_config['source_terminologies']```. See. [AP-HP biology](https://id-pages.eds.aphp.fr/pfm/bigdata/eds-central-database/latest/vocabularies_concepts/biology/) for details on the AP-HP setting.
+2. Codes must be given with terminology. Available terminologies can be accessed with ```eds_scikit.io.settings.measurement_config['source_terminologies']```. See. [AP-HP biology](https://id-pages.eds.aphp.fr/pfm/bigdata/eds-central-database/latest/vocabularies_concepts/biology/) for details on the AP-HP setting.
 
 ### Preparing measurement table
 
