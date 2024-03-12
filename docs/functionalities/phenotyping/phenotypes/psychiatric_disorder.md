@@ -20,12 +20,10 @@ By default, all cancer types mentionned above are extracted
 {{ load_data }}
 
 ```python
-
 from eds_scikit.phenotype import PsychiatricDisorderFromICD10
 
 psy = PsychiatricDisorderFromICD10(data)
 data = psy.to_data()
-
 ```
 
 To choose a subset of disorders, use the `disorder_types` argument:
@@ -33,7 +31,7 @@ To choose a subset of disorders, use the `disorder_types` argument:
 ```python
 psy = PsychiatricDisorderFromICD10(
     data,
-    disorder_types = [
+    disorder_types=[
         "Anxiety Disorders",
         "Trauma and Stressor-Related Disorders",
     ],

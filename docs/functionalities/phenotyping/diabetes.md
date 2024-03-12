@@ -9,14 +9,12 @@ For the moment, we provide a diabetes phenotyping function based solely on ICD-1
 {{ load_data }}
 
 ```python
-
 from eds_scikit.event import diabetes_from_icd10
 
 visit_occurrence = diabetes_from_icd10(
     data.condition_occurrence,
     data.visit_occurrence,
 )
-
 ```
 
 The snippet above will run *as is* and add two columns to the `condition_occurrence` DataFrame:

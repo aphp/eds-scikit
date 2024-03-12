@@ -8,7 +8,6 @@ Use ```prepare_biology_relationship_table``` to preprocess OMOP ```concept``` an
     Terminologies mapping from AP-HP database are used by default. See ```io.settings.measurement_config``` for mapping details or to modify it.
 
 ```python
-
 from eds_scikit.biology import prepare_biology_relationship_table
 
 biology_relationship_table = prepare_biology_relationship_table(data)

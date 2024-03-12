@@ -9,13 +9,18 @@ Once the measurement table has been computed, biology module provides ```measure
 ```python
 from eds_scikit.biology import measurement_values_summary
 
-stats_summary = measurement_values_summary(measurement,
-                                           category_cols=["concept_set", "GLIMS_ANABIO_concept_code", "GLIMS_LOINC_concept_code"],
-                                           value_column="value_as_number",
-                                           unit_column="unit_source_value")
+stats_summary = measurement_values_summary(
+    measurement,
+    category_cols=[
+        "concept_set",
+        "GLIMS_ANABIO_concept_code",
+        "GLIMS_LOINC_concept_code",
+    ],
+    value_column="value_as_number",
+    unit_column="unit_source_value",
+)
 
 stats_summary
-
 ```
 
 | concept_set | ANABIO_concept_code | no_units | unit_source_value |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
@@ -33,11 +38,15 @@ stats_summary
 from eds_scikit.biology import plot_biology_summary
 
 # First add 'care_site_short_name' column to measurement table
-measurement = measurement.merge(data.visit_occurrence[["care_site_id", "visit_occurrence_id"]], on="visit_occurrence_id")
-measurement = measurement.merge(data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id")
+measurement = measurement.merge(
+    data.visit_occurrence[["care_site_id", "visit_occurrence_id"]],
+    on="visit_occurrence_id",
+)
+measurement = measurement.merge(
+    data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id"
+)
 
 plot_biology_summary(measurement, value_column="value_as_number")
-
 ```
 
 [Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html)
