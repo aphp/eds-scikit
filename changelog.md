@@ -3,7 +3,8 @@
 ## Unreleased
 
 ### Fixed
-- pyarrow fix did not work on spark executors
+- Pyarrow fix now work on spark executors.
+- Fix OMOP _date columns issue
 
 ## v0.1.7 (2024-04-12)
 ### Changed
