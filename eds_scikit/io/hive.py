@@ -129,6 +129,7 @@ class HiveData(BaseData):  # pragma: no cover
             for omop_table, i2b2_table in self.omop_to_i2b2.items():
                 self.i2b2_to_omop[i2b2_table].append(omop_table)
 
+        self.prune_omop_date_columns = prune_omop_date_columns
         self.user = os.environ["USER"]
         self.person_ids, self.person_ids_df = self._prepare_person_ids(person_ids)
         self.available_tables = self.list_available_tables()
@@ -228,7 +229,7 @@ class HiveData(BaseData):  # pragma: no cover
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
             
-        if prune_omop_date_columns:
+        if self.prune_omop_date_columns:
             cols = [c for c in df.columns if not ((c.endswith("_date") and (f"{c}time" in df.columns)))]
             df = df.select(cols)
         df = df.cache().to_koalas()
