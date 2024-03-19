@@ -1,0 +1,128 @@
+unit_source_value,conversion,category,unit_source_base
+10*6,1.0,Count,10*6
+10*8 cellules,100.0,Count,10*6
+10*6 cd3+,1.0,Count,10*6
+10*9,1000.0,Count,10*6
+10*6 pbmc,1.0,Count,10*6
+10*9 leuco,1000.0,Count,10*6
+x10^6 cellules,1.0,Count,10*6
+x10*9,1000.0,Count,10*6
+10*6cell,1.0,Count,10*6
+10*5 cell mono,0.0,Count,10*6
+x10^6,1.0,Count,10*6
+x10*12,1000000.0,Count,10*6
+x10*10,10000.0,Count,10*6
+10*6 cellules,1.0,Count,10*6
+10*6 leuco,1.0,Count,10*6
+10*3 rlu,0.001,Count,10*6
+10*6 leuc,1.0,Count,10*6
+10*3,0.001,Count,10*6
+10*6cellules,1.0,Count,10*6
+x10*6 car-t,1.0,Count,10*6
+x10*6,1.0,Count,10*6
+10*6 cell,1.0,Count,10*6
+x10*3cellules,0.001,Count,10*6
+10*3 cell,0.001,Count,10*6
+8x10*8 érythro,800.0,Count,10*6
+10*6 cellules mononucléées,1.0,Count,10*6
+10*6 cel,1.0,Count,10*6
+millions,1.0,Count,10*6
+cell,1e-06,Count,10*6
+cellules,1e-06,Count,10*6
+ ml,0.001,Litre,l
+10ml,0.01,Litre,l
+100ml,0.1,Litre,l
+500ml,0.5,Litre,l
+dl,0.1,Litre,l
+l,1.0,Litre,l
+ml,0.001,Litre,l
+"ml
+",0.001,Litre,l
+ml d'érythrocytes,0.001,Litre,l
+ml érythro,0.001,Litre,l
+ml),0.001,Litre,l
+µl,1e-06,Litre,l
+l érythro,1.0,Litre,l
+100g,100.0,Mass,g
+µg adn,1e-06,Mass,g
+mg,0.001,Mass,g
+g hb,1.0,Mass,g
+mg de protéines,0.001,Mass,g
+g prot,1.0,Mass,g
+µg,1e-06,Mass,g
+kg,1000.0,Mass,g
+mg de prot,100000.0,Mass,g
+g,1.0,Mass,g
+mg prot,0.001,Mass,g
+mg hémoglobine,0.001,Mass,g
+mg hb,0.001,Mass,g
+mg pr,0.001,Mass,g
+ng,1e-09,Mass,g
+pg,1e-12,Mass,g
+24h,24.0,Time,h
+4h,4.0,Time,h
+5h,5.0,Time,h
+6h,6.0,Time,h
+h,1.0,Time,h
+heure,1.0,Time,h
+jours,24.0,Time,h
+min,0.0166666666666666,Time,h
+s,0.0002777777777777,Time,h
+mois,720.0,Time,h
+semaine,168.0,Time,h
+semaines,168.0,Time,h
+semaines.jours,168.0,Time,h
+ans,8736.0,Time,h
+amol,1e-18,Mol,mol
+fmol,1e-15,Mol,mol
+mmmol,0.001,Mol,mol
+mmol,0.001,Mol,mol
+mmol créat,0.001,Mol,mol
+mmol créat.,0.001,Mol,mol
+mmol créatinine,0.001,Mol,mol
+mmol de créatinine,0.001,Mol,mol
+mol,1.0,Mol,mol
+nmol,1e-09,Mol,mol
+nmol 1,1e-09,Mol,mol
+nmol de 1,1e-09,Mol,mol
+nmol fe2+,1e-09,Mol,mol
+nmol meszn,1e-09,Mol,mol
+nmol o2,1e-09,Mol,mol
+nmol proto,1e-09,Mol,mol
+pmol,1e-12,Mol,mol
+pmol copro,1e-12,Mol,mol
+pmol proto,1e-12,Mol,mol
+pmol uro,1e-12,Mol,mol
+µmol,1e-06,Mol,mol
+cm,0.01,m,m
+cm d'eau,0.01,m,m
+m,1.0,m,m
+mm,0.001,m,m
+nm,1e-09,m,m
+µm,1e-06,m,m
+cm2,0.0001,m2,m
+m2,1.0,m2,m
+mm2,1e-06,m2,m
+nm2,1e-18,m2,m
+µm2,1e-12,m2,m
+cm²,0.0001,m2,m
+m²,1.0,m2,m
+mm²,1e-06,m2,m
+nm²,1e-18,m2,m
+µm²,1e-12,m2,m
+"1,73m²",1.73,m2,m
+1.73 m2,1.73,m2,m
+1.73m²,1.73,m2,m
+25cm2,25.0,m2,m
+cm3,1e-06,m3,m
+m3,1.0,m3,m
+mm³,1e-09,m3,m
+mm3,1e-09,m3,m
+µm³,1e-18,m3,m
+kui,1000.0,ui,ui
+ui,1.0,ui,ui
+uie,1.0,ui,ui
+µui,1e-06,ui,ui
+mui,0.001,ui,ui
+log ui,0.0,ui,ui
+log (ui,0.0,ui,ui

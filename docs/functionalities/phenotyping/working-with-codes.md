@@ -12,11 +12,9 @@ Let us see a minimal  working example that would allow us to select patients wit
 {{ load_data }}
 
 ```python
-
 codes = dict(
-    DVT = dict(
-        exact = ["I81", "O223", "O082", "O871"], # (1)
-        regex = ["I82[02389]", "I80[12]"]
+    DVT=dict(
+        exact=["I81", "O223", "O082", "O871"], regex=["I82[02389]", "I80[12]"]  # (1)
     )
 )
 
@@ -28,8 +26,8 @@ DVTs = conditions_from_icd10(
     codes=codes,
     date_from_visit=True,
     additional_filtering=dict(
-        condition_status_source_value={"DP", "DAS"}, # (1)
-    )
+        condition_status_source_value={"DP", "DAS"},  # (1)
+    ),
 )
 ```
 

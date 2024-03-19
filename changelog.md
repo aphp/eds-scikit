@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Added
+- biology module refacto
 - load_koalas() not by default in __init__.py but called in the improve_performance function
 - adding app_name in improve_performances to facilitate app monitoring
 

@@ -20,12 +20,10 @@ By default, all diabetes types mentionned above are extracted
 {{ load_data }}
 
 ```python
-
 from eds_scikit.phenotype import DiabetesFromICD10
 
 diabetes = DiabetesFromICD10(data)
 data = diabetes.to_data()
-
 ```
 
 To choose a subset of disorders, use the `diabetes_types` argument:
@@ -33,7 +31,7 @@ To choose a subset of disorders, use the `diabetes_types` argument:
 ```python
 diabetes = DiabetesFromICD10(
     data,
-    diabetes_types = [
+    diabetes_types=[
         "DIABETES_TYPE_I",
         "DIABETES_IN_PREGNANCY",
     ],

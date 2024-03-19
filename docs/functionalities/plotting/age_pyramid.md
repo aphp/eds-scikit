@@ -12,15 +12,13 @@ from eds_scikit.datasets.synthetic.person import load_person
 df_person = load_person()
 df_person.head()
 ```
-
-```python
-# Out:  person_id gender_source_value birth_datetime
-0          0                   m        2010-01-01
-1          1                   m        1938-01-01
-2          2                   f        1994-01-01
-3          3                   m        1994-01-01
-4          4                   m        2004-01-01
-```
+|   | person_id | gender_source_value | birth_datetime |
+|---|-----------|---------------------|----------------|
+| 0 | 0         | m                   | 2010-01-01     |
+| 1 | 1         | m                   | 1938-01-01     |
+| 2 | 2         | f                   | 1994-01-01     |
+| 3 | 3         | m                   | 1994-01-01     |
+| 4 | 4         | m                   | 2004-01-01     |
 
 ## Visualize age pyramid
 

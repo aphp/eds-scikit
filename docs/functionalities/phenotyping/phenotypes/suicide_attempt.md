@@ -11,12 +11,10 @@ As mentionned below, two algorithms (`"Haguenoer2008"` (default) and `"X60-X84"`
 {{ load_data }}
 
 ```python
-
 from eds_scikit.phenotype import SuicideAttemptFromICD10
 
 sa = SuicideAttemptFromICD10(data)
 data = sa.to_data()
-
 ```
 
 The final phenotype DataFrame is then available at `data.computed["SuicideAttemptFromICD10_Haguenoer2008"]` or `data.computed["SuicideAttemptFromICD10_X60_X84"]` depending on the used algorithm

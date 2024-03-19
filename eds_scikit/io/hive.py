@@ -85,17 +85,15 @@ class HiveData(BaseData):  # pragma: no cover
         can then be used to prototype more rapidly.
 
         ```python
-        my_person_ids = [9226726, 2092082, .... ]
-        data = HiveData(spark_session=spark, database_name="edsomop_prod_a",
-                            person_ids=my_person_ids)
+        my_person_ids = [9226726, 2092082, ...]
+        data = HiveData(
+            spark_session=spark, database_name="edsomop_prod_a", person_ids=my_person_ids
+        )
         data.person["person_id"].count()
         # Out: 1000
 
         tables_to_save = ["person", "visit_occurrence"]
-        data.persist_tables_to_folder(
-            "./cohort_sample_1000",
-            table_names=tables_to_save
-        )
+        data.persist_tables_to_folder("./cohort_sample_1000", table_names=tables_to_save)
         # Out: writing /export/home/USER/cohort_sample_1000/person.parquet
         # Out: writing /export/home/USER/cohort_sample_1000/visit_occurrence.parquet
         # Out: ...

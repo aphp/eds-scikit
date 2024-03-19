@@ -1,14 +1,13 @@
 from datetime import datetime
-from typing import Tuple
+from typing import List
 
-from loguru import logger
-
+from eds_scikit.biology.utils.process_concepts import ConceptsSet
 from eds_scikit.utils.checks import check_columns
-from eds_scikit.utils.framework import get_framework, to
+from eds_scikit.utils.framework import cache, is_koalas, to
 from eds_scikit.utils.typing import DataFrame
 
 
-def get_valid_measurement(measurement: DataFrame) -> DataFrame:
+def filter_measurement_valid(measurement: DataFrame) -> DataFrame:
     """Filter valid observations based on the `row_status_source_value` column
 
     Parameters
@@ -28,29 +27,7 @@ def get_valid_measurement(measurement: DataFrame) -> DataFrame:
     )
     measurement_valid = measurement[measurement["row_status_source_value"] == "Validé"]
     measurement_valid = measurement_valid.drop(columns=["row_status_source_value"])
-    logger.info("Valid measurements have been selected")
     return measurement_valid
-
-
-def _select_adequate_date_column(measurement: DataFrame):
-    missing_date = measurement.measurement_date.isna().sum()
-    if missing_date > 0:
-        missing_datetime = measurement.measurement_datetime.isna().sum()
-        if missing_date > missing_datetime:
-            measurement = measurement.drop(columns="measurement_date").rename(
-                columns={"measurement_datetime": "measurement_date"}
-            )
-            logger.warning(
-                "As the measurement_date column is not reliable ({} missing dates), it has been replaced by the measurement_datetime column ({} missing datetimes)",
-                missing_date,
-                missing_datetime,
-            )
-            missing_date = missing_datetime
-        else:
-            measurement = measurement.drop(columns="measurement_datetime")
-    else:
-        measurement = measurement.drop(columns="measurement_datetime")
-    return measurement
 
 
 def filter_measurement_by_date(
@@ -76,19 +53,14 @@ def filter_measurement_by_date(
         df=measurement, required_columns=["measurement_date"], df_name="measurment"
     )
 
-    if "measurement_datetime" in measurement.columns:
-        measurement = _select_adequate_date_column(measurement=measurement)
-
     measurement.measurement_date = measurement.measurement_date.astype("datetime64[ns]")
 
     measurement.dropna(subset=["measurement_date"], inplace=True)
 
     if start_date:
         measurement = measurement[measurement["measurement_date"] >= start_date]
-        logger.info("Measurements conducted after {} have been selected", start_date)
     if end_date:
         measurement = measurement[measurement["measurement_date"] <= end_date]
-        logger.info("Measurements conducted before {} have been selected", end_date)
 
     return measurement
 
@@ -99,68 +71,30 @@ def filter_missing_values(measurement: DataFrame):
     return (filtered_measurement, missing_value)
 
 
-def filter_concept_by_count(
-    measurement_std: DataFrame, terminology_limit_count: Tuple[str, int]
-):
-    terminology, limit_count = terminology_limit_count
-    code_set = (
-        measurement_std[["measurement_id", "{}_concept_code".format(terminology)]]
-        .groupby("{}_concept_code".format(terminology), as_index=False)
-        .agg({"measurement_id": "count"})
-        .rename(columns={"measurement_id": "# measures_code"})
-    )
-    code_set = code_set[code_set["# measures_code"] >= limit_count]
-    return measurement_std.merge(
-        code_set, on="{}_concept_code".format(terminology), how="inner"
-    )
+def tag_measurement_anomaly(measurement: DataFrame) -> DataFrame:
+    """
 
+    Parameters
+    ----------
+    measurement : DataFrame
+        DataFrame to filter
+    start_date : datetime, optional
+        **EXAMPLE**: `"2019-05-01"`
+    end_date : datetime, optional
+        **EXAMPLE**: `"2022-05-01"`
 
-def filter_concept_by_number(
-    measurement_std: DataFrame, terminology_limit_number: Tuple[str, int]
-):
-    terminology, limit_number = terminology_limit_number
-    code_set = (
-        measurement_std[["measurement_id", "{}_concept_code".format(terminology)]]
-        .groupby("{}_concept_code".format(terminology), as_index=False)
-        .agg({"measurement_id": "count"})
-        .rename(columns={"measurement_id": "# measures_code"})
+    Returns
+    -------
+    """
+
+    measurement["range_high_anomaly"] = (~measurement.range_high.isna()) & (
+        measurement["value_as_number"] > measurement["range_high"]
     )
-    code_set = code_set.nlargest(n=limit_number, columns="# measures_code")
-    return measurement_std.merge(
-        code_set, on="{}_concept_code".format(terminology), how="inner"
+    measurement["range_low_anomaly"] = (~measurement.range_low.isna()) & (
+        measurement["value_as_number"] < measurement["range_low"]
     )
 
-
-def get_measurement_std(measurement: DataFrame, src_to_std: DataFrame):
-    check_columns(
-        df=measurement,
-        required_columns=["measurement_source_concept_id"],
-        df_name="measurement",
-    )
-    check_columns(
-        df=src_to_std,
-        required_columns=["source_concept_id"],
-        df_name="src_to_std",
-    )
-
-    src_to_std = to(get_framework(measurement), src_to_std)
-    measurement_std = src_to_std.merge(
-        measurement,
-        left_on="source_concept_id",
-        right_on="measurement_source_concept_id",
-    )
-
-    measurement_std = measurement_std.drop(columns=["measurement_source_concept_id"])
-
-    concept_cols = [
-        column_name
-        for column_name in measurement_std.columns
-        if "concept" in column_name
-    ]
-
-    measurement_std[concept_cols] = measurement_std[concept_cols].fillna("Unknown")
-
-    return measurement_std
+    return measurement
 
 
 def normalize_unit(measurement: DataFrame):
@@ -168,3 +102,97 @@ def normalize_unit(measurement: DataFrame):
         measurement["unit_source_value"].str.lower().fillna("Unknown")
     )
     return measurement
+
+
+def convert_measurement_units(
+    measurement: DataFrame, concepts_sets: List[ConceptsSet]
+) -> DataFrame:
+
+    """Add value_as_number_normalized, unit_source_value_normalized and factor columns to measurement dataframe based on concepts_sets and units.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+    concepts_sets : List[ConceptsSet]
+
+    Returns
+    -------
+    DataFrame
+        Measurement with added columns value_as_number_normalized, unit_source_value_normalized and factor.
+    """
+
+    if is_koalas(measurement):
+        measurement = cache(measurement)
+        measurement.shape
+        conversion_table = to(
+            "koalas", get_conversion_table(measurement, concepts_sets)
+        )
+    else:
+        conversion_table = get_conversion_table(measurement, concepts_sets)
+
+    measurement = measurement.merge(
+        conversion_table, on=["concept_set", "unit_source_value"]
+    )
+    measurement["value_as_number_normalized"] = (
+        measurement["value_as_number"] * measurement["factor"]
+    )
+
+    return measurement
+
+
+def get_conversion_table(
+    measurement: DataFrame, concepts_sets: List[ConceptsSet]
+) -> DataFrame:
+
+    """Given measurement dataframe and list of concepts_sets output conversion table to be merged with measurement.
+
+    Parameters
+    ----------
+    measurement : DataFrame
+    concepts_sets : List[ConceptsSet]
+
+    Returns
+    -------
+    DataFrame
+        Conversion table to be merged with measurement
+    """
+    conversion_table = (
+        measurement.groupby("concept_set")["unit_source_value"]
+        .unique()
+        .explode()
+        .to_frame()
+        .reset_index()
+    )
+    conversion_table = to("pandas", conversion_table)
+    conversion_table["unit_source_value_normalized"] = conversion_table[
+        "unit_source_value"
+    ]
+    conversion_table["factor"] = conversion_table.apply(
+        lambda x: 1 if x.unit_source_value_normalized else 0, axis=1
+    )
+
+    for concept_set in concepts_sets:
+        unit_source_value_normalized = concept_set.units.target_unit
+        conversion_table.loc[
+            conversion_table.concept_set == concept_set.name,
+            "unit_source_value_normalized",
+        ] = conversion_table.apply(
+            lambda x: unit_source_value_normalized
+            if concept_set.units.can_be_converted(
+                x.unit_source_value, unit_source_value_normalized
+            )
+            else concept_set.units.get_unit_base(x.unit_source_value),
+            axis=1,
+        )
+        conversion_table.loc[
+            conversion_table.concept_set == concept_set.name, "factor"
+        ] = conversion_table.apply(
+            lambda x: concept_set.units.convert_unit(
+                x.unit_source_value, x.unit_source_value_normalized
+            ),
+            axis=1,
+        )
+
+    conversion_table = conversion_table.fillna(1)
+
+    return conversion_table

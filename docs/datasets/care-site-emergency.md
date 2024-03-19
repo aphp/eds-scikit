@@ -31,6 +31,7 @@ Internally, the dataset is returned by calling the function `get_care_site_emerg
 
 ```python
 from eds_scikit.resources import registry
+
 df = registry.get("data", function_name="get_care_site_emergency_mapping")()
 ```
 

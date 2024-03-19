@@ -1,53 +1,53 @@
-# Visualization
+# Visualizing measurements
 
-This library provides a visualization tool that aggregates the data to provide two interactive dashboards and a summary table describing various statistical properties of your biological data.
+Once the measurement table has been computed, biology module provides ```measurement_values_summary``` and ```plot_biology_summary``` to gain better insights into their distribution and volumetry across codes, care sites, and time.
 
-## Input
+## Statistical summary
 
-It expects a [Data](../../generic/io) object containing the following **OMOP** format tables:
-
-- [Measurement](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:measurement)
-- [Concept](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept)
-- [Concept Relationship](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:concept_relationship)
-- [Visit Occurrence](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:visit_occurrence)
-- [Care Site](https://www.ohdsi.org/web/wiki/doku.php?id=documentation:cdm:care_site)
-
-
-!!!info "Measurement"
-    The function can be used on raw data or on the transformed data returned by the [``bioclean`` function ](../cleaning).
+```measurement_values_summary``` generates useful statistics to identify anomalies in measurements associated with a concept set.
 
 ```python
-from eds_scikit.io import HiveData
+from eds_scikit.biology import measurement_values_summary
+
+stats_summary = measurement_values_summary(
+    measurement,
+    category_cols=[
+        "concept_set",
+        "GLIMS_ANABIO_concept_code",
+        "GLIMS_LOINC_concept_code",
+    ],
+    value_column="value_as_number",
+    unit_column="unit_source_value",
+)
+
+stats_summary
+```
+
+| concept_set | ANABIO_concept_code | no_units | unit_source_value |   range_low_anomaly_count |   range_high_anomaly_count |   measurement_count |   value_as_number_count |   value_as_number_mean |   value_as_number_std |   value_as_number_min |   value_as_number_25% |   value_as_number_50% |   value_as_number_75% |   value_as_number_max |
+|:------------------|:------|----:|:--------|--------------------------:|---------------------------:|--------------------:|------------------------:|-----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|----------------------:|
+| Custom_Leukocytes | A0174 | 148 | x10*9/l |                       813 |                       1099 |               11857 |                   11857 |                     21 |                    18 |                     0 |                    25 |                    50 |                    75 |                   100 |
+| Custom_Leukocytes | C8824 | 121 | x10*9/l |                      1166 |                       1196 |               11821 |                   11821 |                     20 |                    20 |                     0 |                    25 |                    50 |                    75 |                   100 |
+| Custom_Leukocytes | C9784 |  83 | x10*9/l |                       935 |                        902 |               11082 |                   11082 |                     10 |                    16 |                     0 |                    25 |                    50 |                    75 |                   100 |
+
+
+## Plot summary
+
+```plot_biology_summary``` generates a useful dashboard to better understand the volumetry and distribution of codes within the same concept set. The purpose is to identify and correct possible biases associated with sets of codes, time periods, or specific care sites.
+
+```python
 from eds_scikit.biology import plot_biology_summary
 
-db_name = "cse_xxxxxxx_xxxxxxx"
-tables =  ["measurement", "concept", "concept_relationship", "visit_occurrence", "care_site"]
+# First add 'care_site_short_name' column to measurement table
+measurement = measurement.merge(
+    data.visit_occurrence[["care_site_id", "visit_occurrence_id"]],
+    on="visit_occurrence_id",
+)
+measurement = measurement.merge(
+    data.care_site[["care_site_id", "care_site_short_name"]], on="care_site_id"
+)
 
-data = HiveData(db_name, tables_to_load=tables)
-
-plot_biology_summary(data)
+plot_biology_summary(measurement, value_column="value_as_number")
 ```
-## Output
 
-`plot_biology_summary()` creates a folder for each concepts-set. For instance, let us see what you will find in the folder *Glucose_Blood_Quantitative*`.
-
-## Summary table
-
-A statistical summary table as below:
-
-
---8<-- "_static/biology/viz/stats_summary.html"
-
-
-## Volumetry dashboard
-
-An interactive dashboard describing the volumety properties over time.
-
-An example is available [here](../../_static/biology/viz/interactive_volumetry.html).
-
-
-## Distribution dashboard
-
-An interactive dashboard describing the distribution properties.
-
-An example is available [here](../../_static/biology/viz/interactive_distribution.html).
+[Volumetry dashboard](../../_static/biology/viz/interactive_volumetry.html)
+[Distribution dashboard](../../_static/biology/viz/interactive_distribution.html)

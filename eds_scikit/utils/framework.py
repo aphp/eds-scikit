@@ -40,6 +40,15 @@ def to(framework: str, obj: Any) -> Any:  # pragma: no cover
         raise ValueError(f"Unknown framework: {framework}")
 
 
+def cache(obj: Any) -> Any:
+    if is_pandas(obj):
+        return obj
+    if is_koalas(obj):
+        return obj.cache()
+    else:
+        raise ValueError(f"Unknown framework: {get_framework(obj)}")
+
+
 def dict_to(framework: str, d: Dict[str, Any]) -> Dict[str, Any]:  # pragma: no cover
     d_converted = dict()
     for k, v in d.items():

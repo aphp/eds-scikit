@@ -9,15 +9,13 @@ We provide the [`tag_suicide_attempt()`][eds_scikit.event.tag_suicide_attempt] f
 {{ load_data }}
 
 ```python
-
 from eds_scikit.event import tag_suicide_attempt
 
 visit_occurrence = tag_suicide_attempt(
     data.visit_occurrence,
     data.condition_occurrence,
-    algo = "X60-X84",
+    algo="X60-X84",
 )
-
 ```
 
 !!! algos "Availables algorithms (values for `"algo"`)"

@@ -197,11 +197,30 @@ The default columns loaded when instanciating a [HiveData][eds_scikit.io.hive.Hi
 or a [PostgresData][eds_scikit.io.postgres.PostgresData]
 """
 
-standard_terminologies = ["LOINC", "AnaBio"]
-standard_concept_regex = {
-    "LOINC": "[0-9]{2,5}[-][0-9]",
-    "AnaBio": "[A-Z][0-9]{4}",
-}
+measurement_config = dict(
+    standard_terminologies=["LOINC", "AnaBio", "ANABIO", "ANALYSES_LABORATOIRE"],
+    standard_concept_regex={
+        "LOINC": "[0-9]{2,5}[-][0-9]",
+        "AnaBio": "[A-Z][0-9]{4}",
+        "ANABIO": "[A-Z][0-9]{4}",
+    },
+    source_terminologies={
+        "ANALYSES_LABORATOIRE": r"Analyses Laboratoire",
+        "GLIMS_ANABIO": r"GLIMS.{0,20}Anabio",
+        "GLIMS_LOINC": r"GLIMS.{0,20}LOINC",
+        "ITM_ANABIO": r"ITM - ANABIO",
+        "ITM_LOINC": r"ITM - LOINC",
+    },
+    mapping=[
+        ("ANALYSES_LABORATOIRE", "GLIMS_ANABIO", "Maps to"),
+        ("ANALYSES_LABORATOIRE", "GLIMS_LOINC", "Maps to"),
+        ("GLIMS_ANABIO", "ITM_ANABIO", "Mapped from"),
+        ("ITM_ANABIO", "ITM_LOINC", "Maps to"),
+    ],
+)
+"""
+AP-HP specific configuration. ITM and GLIMS do not share the same ANABIO-to-LOINC mapping. ITM referential is more reliable but covers less ANABIO codes the GLIMS referential.
+"""
 
 # make sure we know how to load the tables we want to save
 assert all(table in tables_to_load.keys() for table in default_tables_to_save)

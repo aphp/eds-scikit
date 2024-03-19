@@ -36,6 +36,7 @@ Let us see a dummy example where one wants to **count the number of visit occurr
      ```python
      import pyspark.sql.functions as F
 
+
      def get_stats_spark(visit_occurrence):
          """
          Computes the number of visits per month
@@ -50,22 +51,20 @@ Let us see a dummy example where one wants to **count the number of visit occurr
          """
 
          # Adding a month and year column
-         visit_occurrence = (
-             visit_occurrence
-             .withColumn('year', F.year('visit_start_datetime'))
-             .withColumn('month', F.month('visit_start_datetime'))
-         )
+         visit_occurrence = visit_occurrence.withColumn(
+             "year", F.year("visit_start_datetime")
+         ).withColumn("month", F.month("visit_start_datetime"))
 
          # Grouping and filtering
          stats = (
-             visit_occurrence
-             .groupby(["year","month"])
+             visit_occurrence.groupby(["year", "month"])
              .count()
              .filter((F.col("year") >= 2017))
              .toPandas()
          )
 
          return stats
+
 
      stats_from_spark = get_stats_spark(visit_occurrence_spark)
      ```
@@ -101,17 +100,16 @@ Let us see a dummy example where one wants to **count the number of visit occurr
 
          # Grouping and filtering
          stats = (
-             visit_occurrence
-             .groupby(['year','month'])
-             .visit_occurrence_id
-             .count()
+             visit_occurrence.groupby(["year", "month"])
+             .visit_occurrence_id.count()
              .reset_index()
          )
 
-         stats = stats[stats['year'] >= 2017]
-         stats.columns = ['year','month','count']
+         stats = stats[stats["year"] >= 2017]
+         stats.columns = ["year", "month", "count"]
 
          return stats
+
 
      stats_from_pandas = get_stats_pandas(visit_occurrence_pandas)
      ```

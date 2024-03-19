@@ -119,3 +119,4 @@ ENV/
 !docs/functionalities/biology/Biology_summary/
 Biology_summary/*
 my_custom_config.csv
+eds_scikit/biology/viz_other/

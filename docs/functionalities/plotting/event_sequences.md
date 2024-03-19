@@ -23,13 +23,14 @@ The first raws of the dataframe are as follows :
 
 ```python
 df_events.head()
-# Out:  person_id event_family event event_start_datetime event_end_datetime index_date
-0          1           A        a1        2020-01-01         2020-01-02      2020-01-01
-1          1           A        a2        2020-01-03         2020-01-04      2020-01-01
-2          1           B        b1        2020-01-03         2020-01-06      2020-01-01
-3          1           C        c1        2020-01-05         NaT             2020-01-01
-4          1           C        c2        2020-01-06         2020-01-08      2020-01-01
 ```
+|   | person_id | event_family | event | event_start_datetime | event_end_datetime | index_date |
+|---|-----------|--------------|-------|----------------------|--------------------|------------|
+| 0 | 1         | A            | a1    | 2020-01-01           | 2020-01-02         | 2020-01-01 |
+| 1 | 1         | A            | a2    | 2020-01-03           | 2020-01-04         | 2020-01-01 |
+| 2 | 1         | B            | b1    | 2020-01-03           | 2020-01-06         | 2020-01-01 |
+| 3 | 1         | C            | c1    | 2020-01-05           | NaT                | 2020-01-01 |
+| 4 | 1         | C            | c2    | 2020-01-06           | 2020-01-08         | 2020-01-01 |
 
 ## Visualize individual sequences
 
@@ -60,26 +61,26 @@ Here we provide an exemple of `dim_mapping`, and we plot sequences aggregated fo
 
 ```python
 dim_mapping = {
-    "a1":{"color":(255, 200, 150), "label":"eventA1"},
-    "a2":{"color":(255, 150, 150), "label":"eventA2"},
-    "a3":{"color":(255, 100, 150), "label":"eventA3"},
-    "b1":{"color":(100, 200, 150), "label":"eventB1"},
-    "c1": {"color":(50, 255, 255), "label":"eventC1"},
-    "c2": {"color":(50, 200, 255), "label":"eventC2"},
-    "c3": {"color":(50, 100, 255), "label":"eventC3"},
-    "d1": {"color":(180, 200, 100), "label":"eventD1"},
-    "d2": {"color":(180, 150, 100), "label":"eventD2"},
-    "e1": {"color":(130, 60, 10), "label":"eventE1"},
-    "f1": {"color":(255, 0, 0), "label":"eventF1"},
-    "g1": {"color":(100, 0, 200), "label":"eventG1"},
+    "a1": {"color": (255, 200, 150), "label": "eventA1"},
+    "a2": {"color": (255, 150, 150), "label": "eventA2"},
+    "a3": {"color": (255, 100, 150), "label": "eventA3"},
+    "b1": {"color": (100, 200, 150), "label": "eventB1"},
+    "c1": {"color": (50, 255, 255), "label": "eventC1"},
+    "c2": {"color": (50, 200, 255), "label": "eventC2"},
+    "c3": {"color": (50, 100, 255), "label": "eventC3"},
+    "d1": {"color": (180, 200, 100), "label": "eventD1"},
+    "d2": {"color": (180, 150, 100), "label": "eventD2"},
+    "e1": {"color": (130, 60, 10), "label": "eventE1"},
+    "f1": {"color": (255, 0, 0), "label": "eventF1"},
+    "g1": {"color": (100, 0, 200), "label": "eventG1"},
 }
 ```
 
 ```python
 plot_event_sequences(
     df_events,
-    family_col = 'event_family',
-    dim_mapping = dim_mapping,
+    family_col="event_family",
+    dim_mapping=dim_mapping,
     same_x_axis_scale=True,
     title="Event sequences",
 )
