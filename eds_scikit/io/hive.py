@@ -228,9 +228,13 @@ class HiveData(BaseData):  # pragma: no cover
         person_ids = person_ids or self.person_ids_df
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
-            
+
         if self.prune_omop_date_columns:
-            cols = [c for c in df.columns if not ((c.endswith("_date") and (f"{c}time" in df.columns)))]
+            cols = [
+                c
+                for c in df.columns
+                if not ((c.endswith("_date") and (f"{c}time" in df.columns)))
+            ]
             df = df.select(cols)
         df = df.cache().to_koalas()
 
