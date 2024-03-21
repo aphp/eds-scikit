@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+### Changed
+- Support for pyarrow > 0.17.0
+
 ### Added
 - biology module refacto
 - load_koalas() not by default in __init__.py but called in the improve_performance function
@@ -12,6 +15,7 @@
 - Caching in spark instead of koalas to improve speed
 
 ## v0.1.6 (2023-09-27)
+
 ### Added
 - Module ``event_sequences`` to visualize individual sequences of events.
 - Module ``age_pyramid`` to quickly visualize the age and gender distributions in a cohort.
