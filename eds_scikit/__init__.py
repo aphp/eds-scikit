@@ -27,6 +27,7 @@ from pyspark import SparkContext
 from pyspark.sql import SparkSession
 
 import eds_scikit.biology  # noqa: F401 --> To register functions
+from eds_scikit.io import improve_performances
 
 pyarrow.open_stream = pyarrow.ipc.open_stream
 
