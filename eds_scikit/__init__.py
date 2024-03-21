@@ -26,6 +26,7 @@ from loguru import logger
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 
+from eds_scikit.io import koalas_options, improve_performances
 import eds_scikit.biology  # noqa: F401 --> To register functions
 
 pyarrow.open_stream = pyarrow.ipc.open_stream
