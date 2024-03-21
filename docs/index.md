@@ -80,6 +80,7 @@ color:green Successfully installed eds_scikit !
       It is highly recommanded (but not mandatory) to use the helper function `eds_scikit.improve_performances` to optimaly configure PySpark and Koalas. You can simply call
       ```python
       import eds_scikit
+
       spark, sc, sql = eds_scikit.improve_performances()
       ```
       The function will return
@@ -101,7 +102,7 @@ As detailled in [the dedicated section](), eds-scikit is expecting to work with 
     from eds_scikit.io import HiveData
 
     data = HiveData(DB_NAME)
-    visit_occurrence = data.visit_occurrence # (1)
+    visit_occurrence = data.visit_occurrence  # (1)
     ```
 
     1. With this connector, `visit_occurrence` will be a *Pandas* DataFrame
@@ -117,8 +118,8 @@ As detailled in [the dedicated section](), eds-scikit is expecting to work with 
     DB_NAME = "my_db"
     SCHEMA = "my_schema"
     USER = "my_username"
-    data = PostgresData(DB_NAME, schema=SCHEMA, user=USER) # (1)
-    visit_occurrence = data.visit_occurrence # (2)
+    data = PostgresData(DB_NAME, schema=SCHEMA, user=USER)  # (1)
+    visit_occurrence = data.visit_occurrence  # (2)
     ```
 
     1. This connector expects a `.pgpass` file storing the connection parameters
@@ -132,6 +133,7 @@ As detailled in [the dedicated section](), eds-scikit is expecting to work with 
     ```
     ```python
     import pandas as pd
+
     visit_occurrence = pd.read_csv("./data/visit_occurrence.csv")
     ```
 
@@ -197,19 +199,17 @@ Here, each stay duration was calculated, dealing with potential overlaps and inc
 
      ```python
      visit_occurrence = merge_visits(
-        visit_occurrence,
-        remove_deleted_visits=True,
-        long_stay_threshold=timedelta(days=365),
-        long_stay_filtering="all",
-        max_timedelta=timedelta(hours=24),
-        merge_different_hospitals=False,
-        merge_different_source_values=["hospitalisés", "urgence"],
+         visit_occurrence,
+         remove_deleted_visits=True,
+         long_stay_threshold=timedelta(days=365),
+         long_stay_filtering="all",
+         max_timedelta=timedelta(hours=24),
+         merge_different_hospitals=False,
+         merge_different_source_values=["hospitalisés", "urgence"],
      )
 
      stays = get_stays_duration(
-        visit_occurrence,
-        algo="sum_of_visits_duration",
-        missing_end_date_handling="coerce"
+         visit_occurrence, algo="sum_of_visits_duration", missing_end_date_handling="coerce"
      )
      ```
 

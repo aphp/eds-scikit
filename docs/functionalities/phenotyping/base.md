@@ -69,7 +69,7 @@ We will start by creating an instance of the `Phenotype` class:
 ```python
 from eds_scikit.phenotype import Phenotype
 
-ckd = Phenotype(data, name = "DummyCKD")
+ckd = Phenotype(data, name="DummyCKD")
 ```
 
 Next we define the ICD10 and CCAM codes
@@ -79,12 +79,12 @@ Next we define the ICD10 and CCAM codes
 
 ```python
 icd10_codes = {
-    'CKD': {'regex': ['N18[345]']},
+    "CKD": {"regex": ["N18[345]"]},
 }
 
 ccam_codes = {
-    'dialysis': {'regex': ['JVJB001']},
-    'transplant': {'exact': ['JAEA003']},
+    "dialysis": {"regex": ["JVJB001"]},
+    "transplant": {"exact": ["JAEA003"]},
 }
 ```
 

@@ -20,12 +20,10 @@ By default, all cancer types mentionned above are extracted
 {{ load_data }}
 
 ```python
-
 from eds_scikit.phenotype import CancerFromICD10
 
 cancer = CancerFromICD10(data)
 data = cancer.to_data()
-
 ```
 
 To choose a subset of cancer types, use the `cancer_types` argument:
@@ -33,7 +31,7 @@ To choose a subset of cancer types, use the `cancer_types` argument:
 ```python
 cancer = CancerFromICD10(
     data,
-    cancer_types = [
+    cancer_types=[
         "Eye",
         "Liver",
         "Leukemia",

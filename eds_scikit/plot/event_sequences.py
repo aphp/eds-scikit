@@ -44,10 +44,10 @@ def plot_event_sequences(
     dim_mapping: Optional[Dict[str,Dict[str,Union[tuple(int),str]]]] = None
         Mapping dictionary to provide plotting details on events. Must be of type :
         ```python
-            dim_labelling = {
-                "event_1" : {"color":(255,200,150), "label":"Event 1"},
-                "event_2" : {"color":(200,255,150), "label":"Event 2"}
-            }
+        dim_labelling = {
+            "event_1": {"color": (255, 200, 150), "label": "Event 1"},
+            "event_2": {"color": (200, 255, 150), "label": "Event 2"},
+        }
         ```
     index_date_col: Optional[str] = None
         Column name of the index date to compute relative datetimes for events. For example, it could be the date of inclusion for each patient.

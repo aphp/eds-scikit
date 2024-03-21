@@ -48,23 +48,23 @@ nav:
       - Consultation dates: functionalities/patients-course/consultation_dates.md
     - Biology:
       - functionalities/biology/index.md
-      - functionalities/biology/cleaning.md
+      - functionalities/biology/quick-use.md
       - functionalities/biology/visualization.md
-      - functionalities/biology/vocabulary.md
-      - functionalities/biology/tutorial.ipynb
+      - functionalities/biology/preparing-measurement.md
+      - functionalities/biology/exploring-relationship.md
+      - functionalities/biology/concepts_sets.md
+      - functionalities/biology/about_measurement.md
     - Plotting:
       - Event sequence: functionalities/plotting/event_sequences.md
       - Generating inclusion/exclusion flowchart: functionalities/plotting/flowchart.ipynb
       - Age pyramid: functionalities/plotting/age_pyramid.md
   - Recipes:
-    - Generating inclusion/exclusion flowchart: recipes/flowchart.ipynb
     - Saving small cohorts locally: recipes/small-cohorts.ipynb
     # - Cross-tagging concepts between two DataFrames: recipes/diabetes.ipynb
   - Resources:
     - A note on private resources: datasets/private-resources.md
     - Biology:
       - Concept sets: datasets/concepts-sets.md
-      - Configuration: datasets/biology-config.md
     - Care sites:
       - Hierarchy: datasets/care-site-hierarchy.md
       - Emergency: datasets/care-site-emergency.md
@@ -80,6 +80,7 @@ extra:
 
 extra_css:
   - _static/extra.css
+  - _static/cards.css
   - _static/termynal/termynal.css
 
 extra_javascript:
@@ -123,6 +124,8 @@ plugins:
       skip_classes:
         - doc
 
+hooks:
+    - docs/scripts/plugin.py
 
 markdown_extensions:
   - admonition
@@ -134,8 +137,12 @@ markdown_extensions:
       check_paths: true
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji # noqa
+      emoji_generator: !!python/name:materialx.emoji.to_svg # noqa
   - footnotes
   - md_in_html
   - attr_list
   - pymdownx.details
   - codehilite
+  - docs.scripts.cards
