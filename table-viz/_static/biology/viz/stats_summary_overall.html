@@ -1,0 +1,411 @@
+<!-- saved from url=(0192)https://jupyterhub-k8s.eds.aphp.fr/user/4192941/files/Notebook_perso/Bioclean/Cleaning/omop_viz_raw/Pseudo/stats_summary.html?_xsrf=2%7C980dca14%7C95c6ab156dea59c6504ef91464fbdda0%7C1659341679 -->
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+  <p>
+  <table border="0" class="dataframe">
+    <thead>
+      <tr style="text-align: right;">
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+        </th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          LOINC_concept_code</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          AnaBio_concept_code</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          LOINC_concept_name</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          AnaBio_concept_name</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          unit_source_value</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          count</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          mean</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          std</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          min</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          25%</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          50%</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          75%</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          max</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          MAD</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          max_threshold</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          min_threshold</th>
+        <th
+          style="background-color: #305496;font-family: Open Sans, sans-serif;font-size: x-small;color: #FFFFFF;text-align: left;border-bottom: 2px solid #305496;padding: 0px 20px 0px 0px;width: auto">
+          care_site_short_name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          395136991232</th>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A0141</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mmol/L</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          691358.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.63218</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.55476</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.9</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.69</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.16</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4500.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.4652</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.5508</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+      <tr>
+        <th
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          704374636544</th>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          F2406</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose Fibromax_Serum/Plasma_mmol/L</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          108.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.761852</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.534022</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.99</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.8</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.09</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          29.37</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.4504</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.6016</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+      <tr>
+        <th
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          824633720832</th>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A7339</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose h?_Serum/Plasma_mmol/L</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          600.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.690167</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.524383</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.7</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.5</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.1</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.1</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          24.2</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.036</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          9.244</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.956</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+      <tr>
+        <th
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          893353197568</th>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          B9553</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma_mmol/L</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          26635.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.731067</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.334219</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.3</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.4</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          66.4</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.48</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.52</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+      <tr>
+        <th
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1082331758592</th>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2345-7</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          E7312</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose SerPl-mCnc</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Serum/Plasma_mg/dL</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mg/dl</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          119144.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          117.097998</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          242.990109</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.6</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          84.6</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          99.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          124.2</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          81045.0</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          24.124</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          195.496</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          2.504</td>
+        <td
+          style="background-color: #D9E1F2;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+      <tr>
+        <th
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1511828488192</th>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          14749-6</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          A8424</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose [Moles/Volume] Serum/Plasma - Numerique</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          Glucose_Plasma FNA_mmol/L</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          mmol/l</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          103334.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          6.667987</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          3.790141</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.1</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          4.8</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          5.6</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          7.3</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          160.9</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          1.48</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          11.52</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          0.0</td>
+        <td
+          style="background-color: white; color: black;font-family: Open Sans, sans-serif;font-size: x-small;text-align: left;padding: 0px 20px 0px 0px;width: auto">
+          ALL</td>
+      </tr>
+    </tbody>
+  </table>
+  </p>
+</body>
+
+</html>
