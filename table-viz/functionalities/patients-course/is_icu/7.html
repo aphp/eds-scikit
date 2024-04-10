@@ -1,0 +1,106 @@
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.2.16" name="generator"/>
+<title>ICU - eds-scikit</title>
+<link href="../../../assets/stylesheets/main.1c3799f8.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.cc9b2e1e.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../../_static/extra.css" rel="stylesheet"/>
+<link href="../../../_static/cards.css" rel="stylesheet"/>
+<link href="../../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<html class="no-js" lang="en" open="" style="text-align: center"><div class="md-container" data-md-component="container" open="" style="text-align: center"><main class="md-main" data-md-component="main" open="" style="text-align: center"><div class="md-main__inner md-grid" open="" style="text-align: center"><div class="md-content" data-md-component="content" open="" style="text-align: center"><article class="md-content__inner md-typeset" open="" style="text-align: center"><div class="admonition algos" open="" style="text-align: center"><div class="mkdocstrings" open="" style="text-align: center"><div class="doc doc-object doc-function" open="" style="text-align: center"><div class="doc doc-contents first" open="" style="text-align: center"><details class="quote" open="" style="text-align: center"><div class="highlight" open="" style="text-align: center"><table><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_regex_on_care_site_description</span><span class="p">(</span>
+    <span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">subset_care_site_type_source_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">set</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"UDS"</span><span class="p">}</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Use regular expressions on `care_site_name` to decide if it an ICU care site.</span>
+
+<span class="sd">    This relies on [this function][eds_scikit.structures.attributes.add_care_site_attributes].</span>
+<span class="sd">    The regular expression used to detect ICU is</span>
+<span class="sd">    `r"\bUSI|\bREA[N\s]|\bREA\b|\bUSC\b|SOINS.*INTENSIF|SURV.{0,15}CONT|\bSI\b|\bSC\b"`.</span>
+
+<span class="sd">    !!! aphp "Keeping only 'UDS'"</span>
+<span class="sd">         At AP-HP, all ICU are **UDS** (*Unité De Soins*).</span>
+<span class="sd">         Therefore, this function filters care sites by default to only keep UDS.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    care_site: DataFrame</span>
+<span class="sd">        Should at least contains the `care_site_name` and `care_site_type_source_value` columns</span>
+<span class="sd">    subset_care_site_type_source_value: Union[list, set]</span>
+<span class="sd">        Acceptable values for `care_site_type_source_value`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    care_site: DataFrame</span>
+<span class="sd">        Dataframe with 1 added column corresponding to the following concept:</span>
+
+<span class="sd">        - `"IS_ICU"`</span>
+
+<span class="sd">    """</span>  <span class="c1"># noqa</span>
+
+    <span class="n">care_site</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">add_care_site_attributes</span><span class="p">(</span>
+        <span class="n">care_site</span><span class="p">,</span> <span class="n">only_attributes</span><span class="o">=</span><span class="p">[</span><span class="s2">"IS_ICU"</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Filtering matches</span>
+
+    <span class="k">if</span> <span class="n">subset_care_site_type_source_value</span><span class="p">:</span>
+        <span class="n">care_site</span><span class="p">[</span><span class="s2">"IS_ICU"</span><span class="p">]</span> <span class="o">=</span> <span class="n">care_site</span><span class="p">[</span><span class="s2">"IS_ICU"</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span>
+            <span class="n">care_site</span><span class="o">.</span><span class="n">care_site_type_source_value</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+                <span class="n">subset_care_site_type_source_value</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">care_site</span>
+</code></pre></div></td></tr></table></div></details></div></div></div></div></article></div></div></main></div></html>
