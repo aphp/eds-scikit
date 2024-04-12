@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## v0.1.7 (2024-04-12)
 ### Changed
 - Support for pyarrow > 0.17.0
 
