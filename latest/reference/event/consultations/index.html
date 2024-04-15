@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3596,7 +3596,15 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates</span><span class="p">(</span><span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">note_nlp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nlp&#39;</span><span class="p">],</span> <span class="n">max_timedelta</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span> <span class="n">structured_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="n">nlp_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates</span><span class="p">(</span>
+    <span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">note</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">note_nlp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">algo</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nlp&quot;</span><span class="p">],</span>
+    <span class="n">max_timedelta</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+    <span class="n">structured_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span>
+    <span class="n">nlp_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4010,7 +4018,16 @@ report coming from the considered visit.</li>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates_structured</span><span class="p">(</span><span class="n">note</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">vo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">kept_note_class_source_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="s1">&#39;CR-CONS&#39;</span><span class="p">,</span> <span class="n">kept_visit_source_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="s1">&#39;consultation externe&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates_structured</span><span class="p">(</span>
+    <span class="n">note</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">vo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kept_note_class_source_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;CR-CONS&quot;</span><span class="p">,</span>
+    <span class="n">kept_visit_source_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;consultation externe&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4278,7 +4295,9 @@ with at least the following columns:</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates_nlp</span><span class="p">(</span><span class="n">note_nlp</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">dates_to_keep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;min&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">get_consultation_dates_nlp</span><span class="p">(</span>
+    <span class="n">note_nlp</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">dates_to_keep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

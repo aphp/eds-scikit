@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3638,7 +3638,11 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">prepare_relationship_table</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">source_terminologies</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">mapping</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">ks</span><span class="o">.</span><span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">prepare_relationship_table</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span>
+    <span class="n">source_terminologies</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ks</span><span class="o">.</span><span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3919,7 +3923,9 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">filter_concept_sets_relationship_table</span><span class="p">(</span><span class="n">relationship_table</span><span class="p">,</span> <span class="n">concept_sets</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">filter_concept_sets_relationship_table</span><span class="p">(</span>
+    <span class="n">relationship_table</span><span class="p">,</span> <span class="n">concept_sets</span>
+<span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4096,7 +4102,11 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">concept_sets_columns</span><span class="p">(</span><span class="n">relationship_table</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">],</span> <span class="n">extra_terminologies</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">concept_sets_columns</span><span class="p">(</span>
+    <span class="n">relationship_table</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">],</span>
+    <span class="n">extra_terminologies</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4245,7 +4255,11 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">prepare_biology_relationship_table</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">get_all_terminologies</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">prepare_biology_relationship_table</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span>
+    <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">get_all_terminologies</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

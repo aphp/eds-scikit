@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3624,7 +3624,24 @@ Check out the new [Biology][] module !</p>
   </span>
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">ATTRIBUTE_REGEX_PATTERNS</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;attribute&#39;</span><span class="p">:</span> <span class="s1">&#39;IS_EMERGENCY&#39;</span><span class="p">,</span> <span class="s1">&#39;pattern&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">bURG|</span><span class="se">\\</span><span class="s1">bSAU</span><span class="se">\\</span><span class="s1">b|</span><span class="se">\\</span><span class="s1">bUHCD</span><span class="se">\\</span><span class="s1">b|</span><span class="se">\\</span><span class="s1">bZHTCD</span><span class="se">\\</span><span class="s1">b&#39;</span><span class="p">,</span> <span class="s1">&#39;true_examples&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;URG&#39;</span><span class="p">,</span> <span class="s1">&#39;URGENCES&#39;</span><span class="p">,</span> <span class="s1">&#39;SAU&#39;</span><span class="p">],</span> <span class="s1">&#39;false_examples&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CHIRURGIE&#39;</span><span class="p">]},</span> <span class="p">{</span><span class="s1">&#39;attribute&#39;</span><span class="p">:</span> <span class="s1">&#39;IS_ICU&#39;</span><span class="p">,</span> <span class="s1">&#39;pattern&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">bUSI|</span><span class="se">\\</span><span class="s1">bREA[N</span><span class="se">\\</span><span class="s1">s]|</span><span class="se">\\</span><span class="s1">bREA</span><span class="se">\\</span><span class="s1">b|</span><span class="se">\\</span><span class="s1">bUSC</span><span class="se">\\</span><span class="s1">b|SOINS.*INTENSIF|SURV.{0,15}CONT|</span><span class="se">\\</span><span class="s1">bSI</span><span class="se">\\</span><span class="s1">b|</span><span class="se">\\</span><span class="s1">bSC</span><span class="se">\\</span><span class="s1">b&#39;</span><span class="p">,</span> <span class="s1">&#39;true_examples&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;REA&#39;</span><span class="p">,</span> <span class="s1">&#39;REA NEURO&#39;</span><span class="p">,</span> <span class="s1">&#39;REANIMATION&#39;</span><span class="p">],</span> <span class="s1">&#39;false_examples&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CARREAU&#39;</span><span class="p">]}]</span>
+<div class="highlight"><pre><span></span><code><span class="n">ATTRIBUTE_REGEX_PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;attribute&quot;</span><span class="p">:</span> <span class="s2">&quot;IS_EMERGENCY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">bURG|</span><span class="se">\\</span><span class="s2">bSAU</span><span class="se">\\</span><span class="s2">b|</span><span class="se">\\</span><span class="s2">bUHCD</span><span class="se">\\</span><span class="s2">b|</span><span class="se">\\</span><span class="s2">bZHTCD</span><span class="se">\\</span><span class="s2">b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;true_examples&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;URG&quot;</span><span class="p">,</span> <span class="s2">&quot;URGENCES&quot;</span><span class="p">,</span> <span class="s2">&quot;SAU&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;false_examples&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;CHIRURGIE&quot;</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;attribute&quot;</span><span class="p">:</span> <span class="s2">&quot;IS_ICU&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pattern&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">bUSI|</span><span class="se">\\</span><span class="s2">bREA[N</span><span class="se">\\</span><span class="s2">s]|</span><span class="se">\\</span><span class="s2">bREA</span><span class="se">\\</span><span class="s2">b|</span><span class="se">\\</span><span class="s2">bUSC</span><span class="se">\\</span><span class="s2">b|SOINS.*INTENSIF|SURV.{0,15}CONT|</span><span class="se">\\</span><span class="s2">bSI</span><span class="se">\\</span><span class="s2">b|</span><span class="se">\\</span><span class="s2">bSC</span><span class="se">\\</span><span class="s2">b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;true_examples&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;REA&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;REA NEURO&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;REANIMATION&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;false_examples&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;CARREAU&quot;</span><span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3662,7 +3679,11 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">add_care_site_attributes</span><span class="p">(</span><span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">only_attributes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">attribute_regex_patterns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">add_care_site_attributes</span><span class="p">(</span>
+    <span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">only_attributes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">attribute_regex_patterns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4006,7 +4027,12 @@ each attribute. These examples will be tested against the provided regular expre
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">get_parent_attributes</span><span class="p">(</span><span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">only_attributes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parent_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Unité Fonctionnelle (UF)&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">get_parent_attributes</span><span class="p">(</span>
+    <span class="n">care_site</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">only_attributes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">parent_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Unité Fonctionnelle (UF)&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

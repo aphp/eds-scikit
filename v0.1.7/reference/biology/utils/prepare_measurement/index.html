@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3570,7 +3570,15 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">prepare_measurement_table</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">start_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">get_all_terminologies</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">convert_units</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">compute_table</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">prepare_measurement_table</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">concept_sets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConceptsSet</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">get_all_terminologies</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">convert_units</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">compute_table</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

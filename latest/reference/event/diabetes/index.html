@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3584,7 +3584,20 @@ Check out the new [Biology][] module !</p>
   </span>
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">codes</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">DIABETES_TYPE_I</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;E10&#39;</span><span class="p">),</span> <span class="n">DIABETES_TYPE_II</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;E11&#39;</span><span class="p">),</span> <span class="n">DIABETES_MALNUTRITION</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;E12&#39;</span><span class="p">),</span> <span class="n">DIABETES_IN_PREGNANCY</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;O24&#39;</span><span class="p">),</span> <span class="n">OTHER_DIABETES_MELLITUS</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;E13&#39;</span><span class="p">,</span> <span class="s1">&#39;E14&#39;</span><span class="p">]),</span> <span class="n">DIABETES_INSIPIDUS</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">exact</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;E232&#39;</span><span class="p">,</span> <span class="s1">&#39;N251&#39;</span><span class="p">])),</span> <span class="n">date_from_visit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">additional_filtering</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">condition_status_source_value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DP&#39;</span><span class="p">,</span> <span class="s1">&#39;DAS&#39;</span><span class="p">}))</span>
+<div class="highlight"><pre><span></span><code><span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">codes</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">DIABETES_TYPE_I</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;E10&quot;</span><span class="p">),</span>
+        <span class="n">DIABETES_TYPE_II</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;E11&quot;</span><span class="p">),</span>
+        <span class="n">DIABETES_MALNUTRITION</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;E12&quot;</span><span class="p">),</span>
+        <span class="n">DIABETES_IN_PREGNANCY</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;O24&quot;</span><span class="p">),</span>
+        <span class="n">OTHER_DIABETES_MELLITUS</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;E13&quot;</span><span class="p">,</span> <span class="s2">&quot;E14&quot;</span><span class="p">]),</span>
+        <span class="n">DIABETES_INSIPIDUS</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">exact</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;E232&quot;</span><span class="p">,</span> <span class="s2">&quot;N251&quot;</span><span class="p">]),</span>
+    <span class="p">),</span>
+    <span class="n">date_from_visit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">additional_filtering</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">condition_status_source_value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;DP&quot;</span><span class="p">,</span> <span class="s2">&quot;DAS&quot;</span><span class="p">}</span>
+    <span class="p">),</span>
+<span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3605,7 +3618,23 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">diabetes_from_icd10</span><span class="p">(</span><span class="n">condition_occurrence</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">visit_occurrence</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">date_min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">date_max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">codes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span><span class="s1">&#39;codes&#39;</span><span class="p">],</span> <span class="n">date_from_visit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span><span class="s1">&#39;date_from_visit&#39;</span><span class="p">],</span> <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span><span class="s1">&#39;additional_filtering&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">diabetes_from_icd10</span><span class="p">(</span>
+    <span class="n">condition_occurrence</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">visit_occurrence</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">date_min</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">date_max</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">codes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
+        <span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span><span class="s2">&quot;codes&quot;</span><span class="p">],</span>
+    <span class="n">date_from_visit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span>
+        <span class="s2">&quot;date_from_visit&quot;</span>
+    <span class="p">],</span>
+    <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span>
+        <span class="nb">str</span><span class="p">,</span> <span class="n">Any</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_DIABETE_FROM_ICD10_CONFIG</span><span class="p">[</span>
+        <span class="s2">&quot;additional_filtering&quot;</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

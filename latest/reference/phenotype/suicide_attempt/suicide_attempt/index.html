@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3609,7 +3609,9 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">SuicideAttemptFromICD10</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">BaseData</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Haguenoer2008&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">SuicideAttemptFromICD10</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">BaseData</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Haguenoer2008&quot;</span>
+<span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3733,7 +3735,19 @@ Should be either "Haguenoer2008" or "X60-X84"</p>
   </span>
 
 </h4>
-<div class="highlight"><pre><span></span><code><span class="n">ICD10_CODES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;X60-X84&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">codes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;X60-X84&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X[67]&#39;</span><span class="p">,</span> <span class="s1">&#39;X8[0-4]&#39;</span><span class="p">])}),</span> <span class="s1">&#39;Haguenoer2008&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">codes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Haguenoer2008&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;T[0-9]&#39;</span><span class="p">])},</span> <span class="n">additional_filtering</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">condition_status_source_value</span><span class="o">=</span><span class="s1">&#39;DP&#39;</span><span class="p">))}</span>
+<div class="highlight"><pre><span></span><code><span class="n">ICD10_CODES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;X60-X84&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">codes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;X60-X84&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X[67]&quot;</span><span class="p">,</span> <span class="s2">&quot;X8[0-4]&quot;</span><span class="p">])}</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;Haguenoer2008&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">codes</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;Haguenoer2008&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T[0-9]&quot;</span><span class="p">])</span>
+        <span class="p">},</span>
+        <span class="n">additional_filtering</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">condition_status_source_value</span><span class="o">=</span><span class="s2">&quot;DP&quot;</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">}</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

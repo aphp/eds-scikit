@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3568,7 +3568,14 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">tagging</span><span class="p">(</span><span class="n">tag_to_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">tag_from_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">concept_to_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_to_date_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;t_start&#39;</span><span class="p">,</span> <span class="s1">&#39;t_end&#39;</span><span class="p">],</span> <span class="n">tag_from_date_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;t_start&#39;</span><span class="p">,</span> <span class="s1">&#39;t_end&#39;</span><span class="p">],</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;intersection&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">tagging</span><span class="p">(</span>
+    <span class="n">tag_to_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">tag_from_df</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">concept_to_tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">tag_to_date_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;t_start&quot;</span><span class="p">,</span> <span class="s2">&quot;t_end&quot;</span><span class="p">],</span>
+    <span class="n">tag_from_date_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;t_start&quot;</span><span class="p">,</span> <span class="s2">&quot;t_end&quot;</span><span class="p">],</span>
+    <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;intersection&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

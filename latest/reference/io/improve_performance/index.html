@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3627,7 +3627,11 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">improve_performances</span><span class="p">(</span><span class="n">to_add_conf</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">quiet_spark</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SparkSession</span><span class="p">,</span> <span class="n">SparkContext</span><span class="p">,</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">sql</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">improve_performances</span><span class="p">(</span>
+    <span class="n">to_add_conf</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">quiet_spark</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">app_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SparkSession</span><span class="p">,</span> <span class="n">SparkContext</span><span class="p">,</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">sql</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3596,7 +3596,13 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">cleaning</span><span class="p">(</span><span class="n">vo</span><span class="p">,</span> <span class="n">long_stay_threshold</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">long_stay_filtering</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">remove_deleted_visits</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="n">cleaning</span><span class="p">(</span>
+    <span class="n">vo</span><span class="p">,</span>
+    <span class="n">long_stay_threshold</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
+    <span class="n">long_stay_filtering</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">remove_deleted_visits</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3747,7 +3753,18 @@ undergo the merging procedure:</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">merge_visits</span><span class="p">(</span><span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">remove_deleted_visits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">long_stay_threshold</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">365</span><span class="p">),</span> <span class="n">long_stay_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_timedelta</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">merge_different_hospitals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">merge_different_source_values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hospitalisés&#39;</span><span class="p">,</span> <span class="s1">&#39;urgence&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">merge_visits</span><span class="p">(</span>
+    <span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">remove_deleted_visits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">long_stay_threshold</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">365</span><span class="p">),</span>
+    <span class="n">long_stay_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_timedelta</span><span class="p">:</span> <span class="n">timedelta</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">merge_different_hospitals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">merge_different_source_values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+        <span class="nb">bool</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hospitalisés&quot;</span><span class="p">,</span> <span class="s2">&quot;urgence&quot;</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -4578,7 +4595,12 @@ because those stays are often never closed.</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">get_stays_duration</span><span class="p">(</span><span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;sum_of_visits_duration&#39;</span><span class="p">,</span> <span class="n">missing_end_date_handling</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;fill&#39;</span><span class="p">,</span> <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">get_stays_duration</span><span class="p">(</span>
+    <span class="n">vo</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">algo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sum_of_visits_duration&quot;</span><span class="p">,</span>
+    <span class="n">missing_end_date_handling</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+    <span class="n">open_stay_end_datetime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

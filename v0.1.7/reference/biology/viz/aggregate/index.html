@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3584,7 +3584,15 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">aggregate_measurement</span><span class="p">(</span><span class="n">measurement</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">stats_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">overall_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">value_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unit_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">category_columns</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">aggregate_measurement</span><span class="p">(</span>
+    <span class="n">measurement</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">stats_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">overall_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">value_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">unit_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">category_columns</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3873,7 +3881,12 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">add_mad_minmax</span><span class="p">(</span><span class="n">measurement</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">category_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">value_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;value_as_number&#39;</span><span class="p">,</span> <span class="n">unit_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;unit_source_value&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+<div class="highlight"><pre><span></span><code><span class="n">add_mad_minmax</span><span class="p">(</span>
+    <span class="n">measurement</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">category_cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">value_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value_as_number&quot;</span><span class="p">,</span>
+    <span class="n">unit_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;unit_source_value&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">

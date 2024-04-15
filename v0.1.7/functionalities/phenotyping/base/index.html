@@ -36,7 +36,7 @@
 <aside class="md-banner">
 <div class="md-banner__inner md-grid md-typeset">
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 </div>
 </aside>
 </div>
@@ -1626,7 +1626,12 @@ the name of the class will be used instead</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.add_code_feature">
 <span class="doc doc-object-name doc-function-name">add_code_feature</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">add_code_feature</span><span class="p">(</span><span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">codes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'icd10'</span><span class="p">,</span> <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">add_code_feature</span><span class="p">(</span>
+    <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">codes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"icd10"</span><span class="p">,</span>
+    <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <p>Adds a feature from either ICD10 or CCAM codes</p>
@@ -1723,7 +1728,13 @@ stored in self.features[output_feature]</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.agg_single_feature">
 <span class="doc doc-object-name doc-function-name">agg_single_feature</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">agg_single_feature</span><span class="p">(</span><span class="n">input_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_feature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'patient'</span><span class="p">,</span> <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
+<div class="highlight"><pre><span></span><code><span class="n">agg_single_feature</span><span class="p">(</span>
+    <span class="n">input_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_feature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"patient"</span><span class="p">,</span>
+    <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <p>Simple aggregation rule on a feature:</p>
@@ -1849,7 +1860,15 @@ stored in self.features[output_feature]</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.agg_two_features">
 <span class="doc doc-object-name doc-function-name">agg_two_features</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">agg_two_features</span><span class="p">(</span><span class="n">input_feature_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">input_feature_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'AND'</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'patient'</span><span class="p">,</span> <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">thresholds</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
+<div class="highlight"><pre><span></span><code><span class="n">agg_two_features</span><span class="p">(</span>
+    <span class="n">input_feature_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">input_feature_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"AND"</span><span class="p">,</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"patient"</span><span class="p">,</span>
+    <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">thresholds</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <ul>

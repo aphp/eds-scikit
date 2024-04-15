@@ -89,7 +89,7 @@
             
 
 <p><strong>New features: </strong>
-Check out the new [Biology][] module !</p>
+Check out the new Biology module !</p>
 
           </div>
         </aside>
@@ -3623,7 +3623,13 @@ Check out the new [Biology][] module !</p>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">PsychiatricDisorderFromICD10</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">disorder_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;patient&#39;</span><span class="p">,</span> <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">PsychiatricDisorderFromICD10</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">disorder_types</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;patient&quot;</span><span class="p">,</span>
+    <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -3840,7 +3846,12 @@ either "patient" or "visit"</p>
   </span>
 
 </h4>
-<div class="highlight"><pre><span></span><code><span class="n">ICD10_CODES</span> <span class="o">=</span> <span class="p">{</span><span class="n">disorder_group</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;exact&#39;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">ICD10_Code</span><span class="o">.</span><span class="n">to_list</span><span class="p">()}</span> <span class="k">for</span> <span class="p">(</span><span class="n">disorder_group</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ICD10_CODES_DF</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;disorder_group&#39;</span><span class="p">)}</span>
+<div class="highlight"><pre><span></span><code><span class="n">ICD10_CODES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">disorder_group</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">ICD10_Code</span><span class="o">.</span><span class="n">to_list</span><span class="p">()}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">disorder_group</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ICD10_CODES_DF</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="s2">&quot;disorder_group&quot;</span>
+    <span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
