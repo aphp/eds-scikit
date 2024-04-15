@@ -1,2 +1,2 @@
 **New features: **
-Check out the new [Biology][Biology] module !
+Check out the new [Biology] module !
