@@ -1,6 +1,11 @@
 # Changelog
 
 ## Unreleased
+### Added
+- sort_values_first_koalas function fo perform correctly sort_values(...).first() wehn using koalas dataframe
+
+### Fixed
+- merge_visit sort_values(...).first() issue is corrected
 
 ## v0.1.7 (2024-04-12)
 ### Changed

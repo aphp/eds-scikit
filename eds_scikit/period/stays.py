@@ -6,6 +6,7 @@ from numpy import nan as NaN
 from eds_scikit.utils.checks import MissingConceptError, algo_checker, concept_checker
 from eds_scikit.utils.datetime_helpers import substract_datetime
 from eds_scikit.utils.framework import get_framework
+from eds_scikit.utils.sort_first_koalas import sort_values_first_koalas
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -291,21 +292,19 @@ def merge_visits(
             how="inner",
         )
 
-        # Getting the corresponding first visit
-        first_visit = (
-            merged.sort_values(
-                by=[flag_name, "visit_start_datetime_1"], ascending=[False, False]
-            )
-            .groupby("visit_occurrence_id_2")
-            .first()["visit_occurrence_id_1"]
-            .reset_index()
-            .rename(
-                columns={
-                    "visit_occurrence_id_1": f"{concept_prefix}STAY_ID",
-                    "visit_occurrence_id_2": "visit_occurrence_id",
-                }
-            )
-        )
+        first_visit = sort_values_first_koalas(
+            merged,
+            by_cols=["visit_occurrence_id_2"],
+            cols=[flag_name, "visit_start_datetime_1"],
+            ascending=False,
+        ).rename(
+            columns={
+                "visit_occurrence_id_1": f"{concept_prefix}STAY_ID",
+                "visit_occurrence_id_2": "visit_occurrence_id",
+            }
+        )[
+            [f"{concept_prefix}STAY_ID", "visit_occurrence_id"]
+        ]
 
         return merged, first_visit
 
