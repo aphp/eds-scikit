@@ -1,0 +1,74 @@
+.md-header__button.md-logo :-webkit-any(img, svg) {
+  height: 2.5rem;
+}
+
+:root {
+    --md-admonition-icon--aphp: url('data:image/svg+xml;charset=utf-8,<svg width="109" height="116" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"><path fill="%230060AF" d="M55.2 20.2c11.1.5 19.9 11 19.9 23.8 0 13.2-9.3 23.8-20.8 23.8S33.5 57.1 33.5 44c0-12.9 8.9-23.3 20.1-23.8C29.1 3.1 1.9 18.4 0 48.4c.9 42.3 43.8 49.7 54.3 68 11.6-19 52.1-27.3 54.2-67.4C107 13.5 73.3 5.9 55.2 20.2m-24.5 4.5c-1.7 0-3-1.2-3-2.6 0-1.4 1.4-2.6 3-2.6 1.7 0 3 1.2 3 2.6 0 1.4-1.4 2.6-3 2.6" class="st0"/><path fill="%230060AF" d="M40.8 0c-10.4 16.2-8 28.8 6.7 46.6-3.7 4.6-4.6 7.7-4.3 12 4.9-.6 6.7-4 7.4-9.2 5.2 4.6 13.2 6.4 18.4 6.1-1.1-9.2-8.2-16.2-19.6-11-8.9-12-18.1-24.2-7.1-43.2L40.8 0z" class="st0"/></svg>')
+  }
+  .md-typeset .admonition.aphp,
+  .md-typeset details.aphp {
+    border-color: rgb(0, 107, 182);
+  }
+  .md-typeset .aphp > .admonition-title,
+  .md-typeset .aphp > summary {
+    background-color: rgba(0, 107, 182, 0.1);
+    border-color: rgb(0, 107, 182);
+  }
+  .md-typeset .aphp > .admonition-title::before,
+  .md-typeset .aphp > summary::before {
+    background-color:rgb(0, 107, 182);
+    -webkit-mask-image: var(--md-admonition-icon--aphp);
+            mask-image: var(--md-admonition-icon--aphp);
+  }
+
+:root {
+    --md-admonition-icon--edsnlp: url('data:image/svg+xml;charset=utf-8,<svg width="55" height="58" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"><text style="cursor:move" font-weight="bold" fill="%230060af" stroke="%23000" stroke-width="0" x=".2" y="25.8" font-size="24" font-family="\'Arial\'" xml:space="preserve">EDS</text><text style="cursor:move" font-weight="bold" xml:space="preserve" font-family="\'Arial\'" font-size="24" y="51.1" stroke-width="0" stroke="%23000" fill="%230060af">NLP</text></svg>')
+    }
+    .md-typeset .admonition.edsnlp,
+    .md-typeset details.edsnlp {
+    border-color: rgb(0, 107, 182);
+    }
+    .md-typeset .edsnlp > .admonition-title,
+    .md-typeset .edsnlp > summary {
+    background-color: rgba(0, 107, 182, 0.1);
+    border-color: rgb(0, 107, 182);
+    }
+    .md-typeset .edsnlp > .admonition-title::before,
+    .md-typeset .edsnlp > summary::before {
+    background-color:rgb(0, 107, 182);
+    -webkit-mask-image: var(--md-admonition-icon--edsnlp);
+            mask-image: var(--md-admonition-icon--edsnlp);
+    }
+
+:root {
+  --md-admonition-icon--algos: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc.--><path d="M286 155a129 129 0 0 1 0 42l23 20c7 6 9 15 6 25l-8 15-3 6-10 14c-5 8-15 10-24 7l-29-9c-10 9-23 16-36 21l-7 29c-1 9-8 17-18 18a172 172 0 0 1-40 0c-10-1-18-9-19-18l-7-29c-12-5-24-12-35-21l-28 9c-9 3-19 1-25-7l-10-14-3-6-8-15c-3-10-1-19 7-25l22-20c-1-7-3-14-3-22l3-20-22-20c-8-7-10-16-7-25l8-15 3-5 10-15c6-8 16-10 25-7l28 9c11-9 23-16 35-21l7-29c1-9 9-17 19-18a169 169 0 0 1 40 0c10 1 17 9 18 18l7 29c13 5 26 12 36 21l29-9c9-3 19-1 24 7l10 14 3 6 8 15c3 9 1 18-6 25l-23 20zm-126-28c-26 0-48 23-48 48 0 28 22 48 48 48 27 0 48-20 48-48 0-25-21-48-48-48zm325 351a131 131 0 0 1-42 0l-20 23c-7 7-16 9-25 6l-15-8-6-3-14-10c-8-5-10-15-7-24l9-29c-9-10-16-23-21-36l-29-7c-9-1-17-8-18-18a172 172 0 0 1 0-40c1-10 9-18 18-19l29-7c5-12 12-24 21-35l-9-28c-3-9-1-19 7-25 5-4 10-8 15-10l5-3 15-8c9-3 18 0 25 7l20 22a131 131 0 0 1 42 0l20-22c6-7 15-10 25-7l15 8 6 3c5 2 9 6 14 10 8 6 10 16 7 25l-9 28c9 11 16 23 21 35l29 7c9 1 17 9 18 19a172 172 0 0 1 0 40c-1 10-9 17-18 18l-29 7c-5 13-12 26-21 36l9 29c3 9 1 19-7 24l-14 10-6 3-15 8c-10 3-19 1-25-6l-20-23zm27-126a48 48 0 1 0-96 0 48 48 0 0 0 96 0z"/></svg>')
+  }
+  .md-typeset .admonition.algos,
+  .md-typeset details.algos {
+  border-color: rgb(32, 3, 136);
+  }
+  .md-typeset .algos > .admonition-title,
+  .md-typeset .algos > summary {
+  background-color: rgba(32, 3, 136, 0.1);
+  border-color: rgb(32, 3, 136);
+  }
+  .md-typeset .algos > .admonition-title::before,
+  .md-typeset .algos > summary::before {
+  background-color:rgb(32, 3, 136);
+  -webkit-mask-image: var(--md-admonition-icon--algos);
+          mask-image: var(--md-admonition-icon--algos);
+  }
+
+[data-md-color-scheme="default"] {
+--md-primary-fg-color:        #006bb6;
+--md-primary-fg-color--light: #006bb6;
+--md-accent-fg-color:         #006bb6;
+--md-accent-fg-color--light:  #006bb6;
+}
+
+[data-md-color-scheme="slate"] {
+--md-primary-fg-color:        #006bb6;
+--md-primary-fg-color--dark: #006bb6;
+--md-accent-fg-color:         #006bb6;
+--md-accent-fg-color--light:  #006bb6;
+}
