@@ -1,0 +1,1377 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../_static/scikit_logo.svg" rel="icon"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.2.16" name="generator"/>
+<title>Biology - eds-scikit</title>
+<link href="../../assets/stylesheets/main.1c3799f8.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.cc9b2e1e.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/_mkdocstrings.css" rel="stylesheet"/>
+<link href="../../_static/extra.css" rel="stylesheet"/>
+<link href="../../_static/cards.css" rel="stylesheet"/>
+<link href="../../_static/termynal/termynal.css" rel="stylesheet"/>
+<link href="../../css/ansi-colours.css" rel="stylesheet"/>
+<link href="../../css/jupyter-cells.css" rel="stylesheet"/>
+<link href="../../css/pandas-dataframe.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>html.glightbox-open { overflow: initial; height: 100%; }</style><script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="" data-md-color-primary="" data-md-color-scheme="slate" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#biology">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+<aside class="md-banner">
+<div class="md-banner__inner md-grid md-typeset">
+<p><strong>New features: </strong>
+Check out the new Biology module !</p>
+</div>
+</aside>
+</div>
+<div data-md-component="outdated" hidden="">
+<aside class="md-banner md-banner--warning">
+</aside>
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="eds-scikit" class="md-header__button md-logo" data-md-component="logo" href="../.." title="eds-scikit">
+<img alt="logo" src="../../_static/scikit_logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            eds-scikit
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Biology
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="" data-md-color-media="" data-md-color-primary="" data-md-color-scheme="default" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/aphp/eds-scikit" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    eds-scikit
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="eds-scikit" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="eds-scikit">
+<img alt="logo" src="../../_static/scikit_logo.svg"/>
+</a>
+    eds-scikit
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/aphp/eds-scikit" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    eds-scikit
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+          Understanding eds-scikit
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Understanding eds-scikit" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Understanding eds-scikit
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../project_description/">
+        Project description
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../generic/introduction/">
+        A gentle demo
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Functionalities
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Functionalities" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Functionalities
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../generic/io/">
+        Connectors
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Phenotyping
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Phenotyping" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Phenotyping
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../phenotyping/base/">
+        The `Phenotype` class
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" id="__nav_3_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_2">
+          Available phenotypes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Available phenotypes" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Available phenotypes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../phenotyping/phenotypes/cancer/">
+        Cancer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../phenotyping/phenotypes/diabetes/">
+        Diabetes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../phenotyping/phenotypes/suicide_attempt/">
+        Suicide Attempt
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../phenotyping/phenotypes/psychiatric_disorder/">
+        Psychiatric disorder
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          Patient's Course
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Patient's Course" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Patient's Course
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../patients-course/is_icu/">
+        ICU
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../patients-course/is_emergency/">
+        Emergency Units
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../patients-course/visit_merging/">
+        Visit merging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../patients-course/consultation_dates/">
+        Consultation dates
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../omop-explorer/">OMOP explorer</a>
+<label for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="OMOP explorer" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          OMOP explorer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../omop-explorer/quick-use-omop/">
+        Quick use - OMOP Explorer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../omop-explorer/configuration-omop/">
+        OMOP Explorer - Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../omop-explorer/custom-explorer/">
+        Quick use General
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index md-nav__link--active">
+<a href="./">Biology</a>
+<label for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="Biology" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+          Biology
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="quick-use/">
+        Quick use
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="visualization/">
+        Visualizing measurements
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="preparing-measurement/">
+        Detailed use
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="exploring-relationship/">
+        Terminologies relationships
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="concepts_sets/">
+        Predefined concepts sets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="about_measurement/">
+        About measurement
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6">
+          Plotting
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Plotting" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Plotting
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../plotting/event_sequences/">
+        Event sequence
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../plotting/flowchart/">
+        Generating inclusion/exclusion flowchart
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../plotting/age_pyramid/">
+        Age pyramid
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Recipes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Recipes" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Recipes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../recipes/small-cohorts/">
+        Saving small cohorts locally
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          Resources
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Resources" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Resources
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../datasets/private-resources/">
+        A note on private resources
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2">
+          Biology
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Biology" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Biology
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../datasets/concepts-sets/">
+        Concept sets
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3">
+          Care sites
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Care sites" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Care sites
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../datasets/care-site-hierarchy/">
+        Hierarchy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../datasets/care-site-emergency/">
+        Emergency
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../datasets/synthetic-data/">
+        Synthetic data
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Code Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Code Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Code Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" id="__nav_6_1" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/">eds_scikit</a>
+<label for="__nav_6_1">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="eds_scikit" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_1">
+<span class="md-nav__icon md-icon"></span>
+          eds_scikit
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_2" id="__nav_6_1_2" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/biology/">biology</a>
+<label for="__nav_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="biology" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+          biology
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_2_2" id="__nav_6_1_2_2" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/biology/cleaning/">cleaning</a>
+<label for="__nav_6_1_2_2">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="cleaning" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_2_2">
+<span class="md-nav__icon md-icon"></span>
+          cleaning
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/cleaning/cohort/">
+        cohort
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/cleaning/main/">
+        main
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_2_3" id="__nav_6_1_2_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/biology/utils/">utils</a>
+<label for="__nav_6_1_2_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="utils" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_2_3">
+<span class="md-nav__icon md-icon"></span>
+          utils
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/check_data/">
+        check_data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/config/">
+        config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/prepare_measurement/">
+        prepare_measurement
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/prepare_relationship/">
+        prepare_relationship
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/process_concepts/">
+        process_concepts
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/process_measurement/">
+        process_measurement
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/utils/process_units/">
+        process_units
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_2_4" id="__nav_6_1_2_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/biology/viz/">viz</a>
+<label for="__nav_6_1_2_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="viz" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_2_4">
+<span class="md-nav__icon md-icon"></span>
+          viz
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/viz/aggregate/">
+        aggregate
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/viz/plot/">
+        plot
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/viz/stats_summary/">
+        stats_summary
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/biology/viz/wrapper/">
+        wrapper
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_3" id="__nav_6_1_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/datasets/">datasets</a>
+<label for="__nav_6_1_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="datasets" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_3">
+<span class="md-nav__icon md-icon"></span>
+          datasets
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_3_2" id="__nav_6_1_3_2" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/datasets/generation_scripts/">generation_scripts</a>
+<label for="__nav_6_1_3_2">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="generation_scripts" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_3_2">
+<span class="md-nav__icon md-icon"></span>
+          generation_scripts
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/generation_scripts/care_site_hierarchy/">
+        care_site_hierarchy
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_3_3" id="__nav_6_1_3_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/datasets/synthetic/">synthetic</a>
+<label for="__nav_6_1_3_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="synthetic" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_3_3">
+<span class="md-nav__icon md-icon"></span>
+          synthetic
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/base_dataset/">
+        base_dataset
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/biology/">
+        biology
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/ccam/">
+        ccam
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/consultation_dates/">
+        consultation_dates
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/event_sequences/">
+        event_sequences
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/hierarchy/">
+        hierarchy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/icd10/">
+        icd10
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/person/">
+        person
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/stay_duration/">
+        stay_duration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/suicide_attempt/">
+        suicide_attempt
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/tagging/">
+        tagging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/datasets/synthetic/visit_merging/">
+        visit_merging
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_4" id="__nav_6_1_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/emergency/">emergency</a>
+<label for="__nav_6_1_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="emergency" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_4">
+<span class="md-nav__icon md-icon"></span>
+          emergency
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/emergency/emergency_care_site/">
+        emergency_care_site
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/emergency/emergency_visit/">
+        emergency_visit
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_5" id="__nav_6_1_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/event/">event</a>
+<label for="__nav_6_1_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="event" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_5">
+<span class="md-nav__icon md-icon"></span>
+          event
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/ccam/">
+        ccam
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/consultations/">
+        consultations
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/diabetes/">
+        diabetes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/from_code/">
+        from_code
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/icd10/">
+        icd10
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/event/suicide_attempt/">
+        suicide_attempt
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_6" id="__nav_6_1_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/icu/">icu</a>
+<label for="__nav_6_1_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="icu" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_6">
+<span class="md-nav__icon md-icon"></span>
+          icu
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/icu/icu_care_site/">
+        icu_care_site
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/icu/icu_visit/">
+        icu_visit
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_7" id="__nav_6_1_7" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/io/">io</a>
+<label for="__nav_6_1_7">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="io" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_7">
+<span class="md-nav__icon md-icon"></span>
+          io
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/base/">
+        base
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/data_quality/">
+        data_quality
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/files/">
+        files
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/hive/">
+        hive
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/i2b2_mapping/">
+        i2b2_mapping
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/improve_performance/">
+        improve_performance
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/omop_explorer_default_config/">
+        omop_explorer_default_config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/postgres/">
+        postgres
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/io/settings/">
+        settings
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_8" id="__nav_6_1_8" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/period/">period</a>
+<label for="__nav_6_1_8">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="period" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_8">
+<span class="md-nav__icon md-icon"></span>
+          period
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/period/stays/">
+        stays
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/period/tagging_functions/">
+        tagging_functions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_9" id="__nav_6_1_9" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/phenotype/">phenotype</a>
+<label for="__nav_6_1_9">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="phenotype" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_9">
+<span class="md-nav__icon md-icon"></span>
+          phenotype
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/phenotype/base/">
+        base
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_9_3" id="__nav_6_1_9_3" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/phenotype/cancer/">cancer</a>
+<label for="__nav_6_1_9_3">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="cancer" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_9_3">
+<span class="md-nav__icon md-icon"></span>
+          cancer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/phenotype/cancer/cancer/">
+        cancer
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_9_4" id="__nav_6_1_9_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/phenotype/diabetes/">diabetes</a>
+<label for="__nav_6_1_9_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="diabetes" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_9_4">
+<span class="md-nav__icon md-icon"></span>
+          diabetes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/phenotype/diabetes/diabetes/">
+        diabetes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_9_5" id="__nav_6_1_9_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/phenotype/psychiatric_disorder/">psychiatric_disorder</a>
+<label for="__nav_6_1_9_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="psychiatric_disorder" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_9_5">
+<span class="md-nav__icon md-icon"></span>
+          psychiatric_disorder
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/phenotype/psychiatric_disorder/psychiatric_disorder/">
+        psychiatric_disorder
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_9_6" id="__nav_6_1_9_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/phenotype/suicide_attempt/">suicide_attempt</a>
+<label for="__nav_6_1_9_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="suicide_attempt" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_9_6">
+<span class="md-nav__icon md-icon"></span>
+          suicide_attempt
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/phenotype/suicide_attempt/suicide_attempt/">
+        suicide_attempt
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_10" id="__nav_6_1_10" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/plot/">plot</a>
+<label for="__nav_6_1_10">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="plot" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_10">
+<span class="md-nav__icon md-icon"></span>
+          plot
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/plot/age_pyramid/">
+        age_pyramid
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/plot/altair_utils/">
+        altair_utils
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/plot/event_sequences/">
+        event_sequences
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/plot/omop_explorer/">
+        omop_explorer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/plot/table_viz/">
+        table_viz
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_11" id="__nav_6_1_11" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/resources/">resources</a>
+<label for="__nav_6_1_11">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="resources" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_11">
+<span class="md-nav__icon md-icon"></span>
+          resources
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/resources/reg/">
+        reg
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/resources/utils/">
+        utils
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_12" id="__nav_6_1_12" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/structures/">structures</a>
+<label for="__nav_6_1_12">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="structures" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_12">
+<span class="md-nav__icon md-icon"></span>
+          structures
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/structures/attributes/">
+        attributes
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/structures/description/">
+        description
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_13" id="__nav_6_1_13" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/utils/">utils</a>
+<label for="__nav_6_1_13">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="utils" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_6_1_13">
+<span class="md-nav__icon md-icon"></span>
+          utils
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/bunch/">
+        bunch
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/checks/">
+        checks
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_13_4" id="__nav_6_1_13_4" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/utils/custom_implem/">custom_implem</a>
+<label for="__nav_6_1_13_4">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="custom_implem" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_13_4">
+<span class="md-nav__icon md-icon"></span>
+          custom_implem
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/custom_implem/custom_implem/">
+        custom_implem
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/custom_implem/cut/">
+        cut
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/datetime_helpers/">
+        datetime_helpers
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1_13_6" id="__nav_6_1_13_6" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../reference/utils/flowchart/">flowchart</a>
+<label for="__nav_6_1_13_6">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="flowchart" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_6_1_13_6">
+<span class="md-nav__icon md-icon"></span>
+          flowchart
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/flowchart/flowchart/">
+        flowchart
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/framework/">
+        framework
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/hierarchy/">
+        hierarchy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/logging/">
+        logging
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/test_utils/">
+        test_utils
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../reference/utils/typing/">
+        typing
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../contributing/">
+        Contributing
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/">
+        Changelog
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/aphp/eds-scikit/edit/master/docs/functionalities/biology/index.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
+</a>
+<h1 id="biology">Biology</h1>
+<p>The biology module of <a href="https://github.com/aphp/eds-scikit">eds-scikit</a> supports data scientists working on biological data. Its main objectives are to:</p>
+<ul>
+<li>Provide predefined biology <strong>concept sets</strong> based on AP-HP coding system</li>
+<li>Facilitate <strong>codes mapping</strong> between different terminologies and referentials</li>
+<li>Provide data <strong>visualization tools</strong> and <strong>statistic summary</strong></li>
+<li>Allows <strong>automatic units</strong> conversion from heterogenous units system</li>
+</ul>
+<!-- --8<-- [start:biology] -->
+<div class="card-set" data-cards="1:6"><a class="card-content" href="quick-use"><p><span class="twemoji"><svg viewbox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M240.5 224H352c13.3 0 25.3 8.3 29.1 20.7 5.5 12.5 2 26.6-8 35.4l-256 224c-11.3 9.8-27.83 10.6-39.91 1.8-12.09-8.8-16.49-24.8-10.6-38.5L143.5 288H31.1c-12.43 0-24.367-8.3-29.056-20.7a32.094 32.094 0 0 1 8.886-35.4L266.9 7.918c11.3-9.838 27.8-10.587 39.9-1.804 12.1 8.786 16.5 24.756 10.6 38.496L240.5 224z"></path></svg></span>
+<strong>Quick use</strong></p><hr/><p>Simple mapping of measurement table codes to ANABIO terminology.</p></a><a class="card-content" href="visualization"><p><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M64 400c0 8.8 7.16 16 16 16h400c17.7 0 32 14.3 32 32s-14.3 32-32 32H80c-44.18 0-80-35.8-80-80V64c0-17.67 14.33-32 32-32s32 14.33 32 32v336zm278.6-121.4c-12.5 12.5-32.7 12.5-45.2 0L240 221.3l-89.4 89.3c-12.5 12.5-32.7 12.5-45.2 0-12.52-12.5-12.52-32.7 0-45.2l112-112c12.5-12.5 32.7-12.5 45.2 0l57.4 57.3 105.4-105.3c12.5-12.52 32.7-12.52 45.2 0 12.5 12.5 12.5 32.7 0 45.2l-128 128z"></path></svg></span>
+<strong>Visualizing measurements</strong></p><hr/><p>Useful measurement visualizations.</p></a><a class="card-content" href="preparing-measurement"><p><span class="twemoji"><svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M286.3 155.1c1.1 6.8 1.7 13.8 1.7 20 0 8-.6 15-1.7 21.8l22.2 19.8c7 6.3 9.9 15.4 6.2 25-2.3 4.4-4.8 10.5-7.6 15.5l-3.1 5.4c-3.9 5-6.3 9.8-9.8 14.5-5.7 7.6-15.7 10.1-24.7 7.1l-28.3-9.3c-10.7 8.9-22.9 16-36.2 21l-6.9 29c-1.1 9.3-8.3 16.7-17.7 17.9-6.7.8-13.5 1.2-20.4 1.2-6.9 0-13.7-.4-20.4-1.2-9.4-1.2-17.5-8.6-18.6-17.9l-6.9-29c-12.4-5-24.6-12.1-35.35-21l-28.22 9.3c-8.99 3-19.01.5-24.71-7.1-3.54-4.7-6.84-9.6-9.88-14.6l-3.02-5.3c-2.79-5-5.328-10.2-7.596-15.5-3.704-9.6-.866-18.7 6.196-25l22.18-19.8c-1.12-6.8-2.6-13.8-2.6-21.8 0-6.2 1.48-13.2 2.6-20l-22.18-19.8c-7.062-7.2-9.9-16.3-6.196-25 2.268-6.2 4.806-10.51 7.586-15.54l3.04-5.25c3.03-5.05 6.33-9.93 9.87-14.62 5.7-7.55 15.72-10.06 24.71-7.1l28.22 9.3c10.75-8.84 22.95-15.96 35.35-20.94l6.9-29.07c1.1-9.28 9.2-16.71 18.6-17.849A169.2 169.2 0 0 1 160 8c6.9 0 13.7.418 20.4 1.23 9.4 1.14 16.6 8.57 17.7 17.85l6.9 29.07c13.3 4.98 25.5 12.1 36.2 20.94l28.3-9.3c9-2.96 19-.45 24.7 7.1 3.5 4.67 5.9 9.53 9.8 14.55l3.1 5.39c2.8 5.01 5.3 10.17 7.6 15.47 3.7 8.7.8 17.8-6.2 25l-22.2 19.8zm-126.3-28c-26.5 0-48 22.4-48 48 0 27.4 21.5 48 48 48s48-20.6 48-48c0-25.6-21.5-48-48-48zm324.9 351.2c-6.8 1.1-13.8 1.7-20.9 1.7-7.1 0-14.1-.6-20.9-1.7l-19.8 22.2c-7.2 7-16.3 9.9-25 6.2-5.3-2.3-10.5-4.8-15.5-7.6l-5.4-3.1c-5-3.9-9.8-6.3-14.5-9.8-7.6-5.7-10.1-15.7-7.1-24.7l9.3-28.3c-8.9-10.7-16-22.9-21-36.2l-29-6.9c-9.3-1.1-16.7-8.3-17.9-17.7-.8-6.7-1.2-13.5-1.2-20.4 0-6.9.4-13.7 1.2-20.4 1.2-9.4 8.6-17.5 17.9-18.6l29-6.9c5-12.4 12.1-24.6 21-35.3l-9.3-28.3c-3-9-.5-19 7.1-24.7 4.7-3.5 9.6-7.7 14.6-9.9l5.3-3c5-2.8 9.3-5.3 15.5-7.6 8.7-3.7 17.8-.8 25 6.2l19.8 22.2c6.8-1.1 13.8-1.7 20.9-1.7 7.1 0 14.1.6 20.9 1.7l19.8-22.2c6.3-7 15.4-9.9 25-6.2 5.3 2.3 10.5 4.8 15.5 7.6l5.3 3c5 2.2 9.9 6.4 14.6 9.9 7.6 5.7 10.1 15.7 7.1 24.7l-9.3 28.3c8.9 10.7 16 22.9 21 35.3l29 6.9c9.3 1.1 16.7 9.2 17.9 18.6.8 6.7 1.2 13.5 1.2 20.4 0 6.9-.4 13.7-1.2 20.4-1.2 9.4-8.6 16.6-17.9 17.7l-29 6.9c-5 13.3-12.1 25.5-21 36.2l9.3 28.3c3 9 .5 19-7.1 24.7-4.7 3.5-9.5 5.9-14.5 9.8l-5.4 3.1c-5 2.8-11.1 5.3-15.5 7.6-9.6 3.7-18.7.8-25-6.2l-19.8-22.2zM512 352c0-26.5-21.5-48-48-48s-48 21.5-48 48 21.5 48 48 48 48-21.5 48-48z"></path></svg></span>
+<strong>Detailed use</strong></p><hr/><p>Preparing measurements workflow : codes mapping, units conversion, outliers detection.</p></a><a class="card-content" href="exploring-relationship"><p><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M32 160h319.9l.08 72c0 9.547 5.651 18.19 14.41 22a24.037 24.037 0 0 0 25.93-4.406l112-104c10.24-9.5 10.24-25.69 0-35.19l-112-104a24.038 24.038 0 0 0-25.93-4.408 23.997 23.997 0 0 0-14.41 22L351.9 96H32c-17.69 0-32 14.3-32 31.1S14.31 160 32 160zm448 192H160.1l-.1-72.9c0-9.547-5.652-18.19-14.41-22-8.69-2.9-18.89-1.2-25.89 5.3l-112 104c-10.24 9.5-10.24 25.69 0 35.19l112 104a24.03 24.03 0 0 0 25.93 4.406C154.4 506.2 160 497.5 160 488l.1-72H480c17.69 0 32-14.31 32-32s-14.3-32-32-32z"></path></svg></span>
+<strong>Terminologies relationships</strong></p><hr/><p>Explore concept codes relationships between different terminologies.</p></a><a class="card-content" href="concepts_sets"><p><span class="twemoji"><svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M448 336V48c0-26.51-21.5-48-48-48H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-31.1 0-11.72-6.607-21.52-16-27.1v-81.36c9.8-9.64 16-22.24 16-36.44zM128 166c0-8.838 7.164-16 16-16h53.1V96c0-8.838 7.164-16 16-16h52c8.836 0 16 7.162 16 16v54H336c8.836 0 16 7.162 16 16v52c0 8.836-7.164 16-16 16h-54v54c0 8.836-7.164 16-16 16h-52c-8.836 0-16-7.164-16-16v-54h-54c-8.836 0-16-7.164-16-16v-52zm256 282H96c-17.67 0-32-14.33-32-32s14.33-32 32-32h288v64z"></path></svg></span>
+<strong>Predefined concept sets</strong></p><hr/><p>Explore predefined concept sets.</p></a><a class="card-content" href="about_measurement"><p><span class="twemoji"><svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 400c-18 0-32-14-32-32s13.1-32 32-32c17.1 0 32 14 32 32s-14.9 32-32 32zm69.1-142L280 286v2c0 13-11 24-24 24s-24-11-24-24v-16c0-8 4-16 12-21l57-34c7-4 11-11 11-19 0-12-10.9-22-22.9-22H238c-12.9 0-22 10-22 22 0 13-11 24-24 24s-24-11-24-24c0-39 31-70 69.1-70h51.1c40.8 0 71.8 31 71.8 70 0 24-13 47-34.9 60z"></path></svg></span>
+<strong>About measurement table</strong></p><hr/><p>Knowledge about measurement table.</p></a></div>
+<!-- --8<-- [end:biology] -->
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" data-md-state="hidden" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Back to top
+          </a>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Quick use General" class="md-footer__link md-footer__link--prev" href="../omop-explorer/custom-explorer/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Quick use General
+            </div>
+</div>
+</a>
+<a aria-label="Next: Quick use" class="md-footer__link md-footer__link--next" href="quick-use/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Quick use
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.tracking", "navigation.instant", "navigation.indexes", "navigation.top", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.3a4b43e5.min.js"></script>
+<script src="../../js/mkdocs-charts-plugin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="../../_static/extra.js"></script>
+<script src="../../_static/termynal/termynal.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "width": "100%", "height": "1000px", "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom"});})</script></body>
+</html>
