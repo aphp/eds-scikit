@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 import pyarrow
+import pyarrow.ipc
 import pyspark
 from packaging import version
 from pyspark import SparkContext
@@ -48,6 +49,36 @@ def set_env_variables() -> None:
 
     if version.parse(pyarrow.__version__) >= version.parse("2.0.0"):
         os.environ["PYARROW_IGNORE_TIMEZONE"] = "0"
+
+
+def pyarrow_fix():
+    """
+    Fixing error 'pyarrow has no attributes open_stream' due to PySpark 2 incompatibility with pyarrow > 0.17
+    """
+
+    # Setting path to our patched pyarrow module
+    pyarrow.open_stream = pyarrow.ipc.open_stream
+
+    sys.path.insert(
+        0, (Path(__file__).parent / "package-override").absolute().as_posix()
+    )
+    os.environ["PYTHONPATH"] = ":".join(sys.path)
+
+    # Setting this path for Pyspark executors
+    global spark, sc, sql
+
+    spark = SparkSession.builder.getOrCreate()
+
+    conf = spark.sparkContext.getConf()
+    conf.set(
+        "spark.executorEnv.PYTHONPATH",
+        f"{Path(__file__).parent.parent}/package-override:{conf.get('spark.executorEnv.PYTHONPATH')}",
+    )
+    spark = SparkSession.builder.enableHiveSupport().config(conf=conf).getOrCreate()
+
+    sc = spark.sparkContext
+
+    sql = spark.sql
 
 
 def improve_performances(
