@@ -55,7 +55,8 @@ def test_visit_merging(module, params, results):
     vo = framework.to(module, ds.visit_occurrence)
     merged = merge_visits(vo, **params)
     merged = framework.pandas(merged)
-
+    
     assert_equal_no_order(
-        merged[["visit_occurrence_id", "STAY_ID", "CONTIGUOUS_STAY_ID"]], results
+        merged, results,
+        check_dtype=False
     )

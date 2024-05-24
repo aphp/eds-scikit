@@ -296,6 +296,7 @@ def merge_visits(
             merged,
             by_cols=["visit_occurrence_id_2"],
             cols=[flag_name, "visit_start_datetime_1"],
+            disambiguate_col="visit_occurrence_id_1",
             ascending=False,
         ).rename(
             columns={
