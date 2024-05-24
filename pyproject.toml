@@ -128,3 +128,27 @@ unauthorized_licenses = [
 dependencies = true
 optional_dependencies = ["dev", "doc"]
 as_regex = true
+
+[tool.coverage.report]
+include = ["eds_scikit/*"]
+omit = [
+    "tests/*",
+]
+exclude_lines = [
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "@overload",
+    "pragma: no cover",
+    "raise .*Error",
+    "raise .*Exception",
+    "warn\\(",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.run]
+include = ["eds_scikit/*"]
+concurrency = ["multiprocessing"]
+parallel = true
