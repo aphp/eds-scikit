@@ -1,0 +1,84 @@
+Name                                                  Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------------
+eds_scikit/__init__.py                                   26      0   100%
+eds_scikit/biology/__init__.py                            8      0   100%
+eds_scikit/biology/cleaning/__init__.py                   1      0   100%
+eds_scikit/biology/cleaning/cohort.py                     9      1    89%   29
+eds_scikit/biology/cleaning/main.py                      21      0   100%
+eds_scikit/biology/utils/__init__.py                      1      0   100%
+eds_scikit/biology/utils/check_data.py                   23      0   100%
+eds_scikit/biology/utils/config.py                       35     22    37%   31-66, 74-75, 90-94
+eds_scikit/biology/utils/prepare_measurement.py          28      0   100%
+eds_scikit/biology/utils/prepare_relationship.py         54      0   100%
+eds_scikit/biology/utils/process_concepts.py             79      0   100%
+eds_scikit/biology/utils/process_measurement.py          51      0   100%
+eds_scikit/biology/utils/process_units.py                71      0   100%
+eds_scikit/biology/viz/__init__.py                        2      0   100%
+eds_scikit/biology/viz/aggregate.py                      97      2    98%   84, 209
+eds_scikit/biology/viz/plot.py                          130      3    98%   73, 719-720
+eds_scikit/biology/viz/stats_summary.py                  22      0   100%
+eds_scikit/biology/viz/wrapper.py                        33      0   100%
+eds_scikit/datasets/__init__.py                          26      4    85%   39, 53-56, 68
+eds_scikit/datasets/synthetic/__init__.py                 0      0   100%
+eds_scikit/datasets/synthetic/base_dataset.py             2      0   100%
+eds_scikit/datasets/synthetic/biology.py                132      7    95%   38-44
+eds_scikit/datasets/synthetic/ccam.py                    18      0   100%
+eds_scikit/datasets/synthetic/consultation_dates.py      27      0   100%
+eds_scikit/datasets/synthetic/event_sequences.py         10      0   100%
+eds_scikit/datasets/synthetic/hierarchy.py               14      0   100%
+eds_scikit/datasets/synthetic/icd10.py                   23      0   100%
+eds_scikit/datasets/synthetic/person.py                  13      0   100%
+eds_scikit/datasets/synthetic/stay_duration.py           14      0   100%
+eds_scikit/datasets/synthetic/suicide_attempt.py         19      0   100%
+eds_scikit/datasets/synthetic/tagging.py                 16      0   100%
+eds_scikit/datasets/synthetic/visit_merging.py           10      0   100%
+eds_scikit/emergency/__init__.py                          2      0   100%
+eds_scikit/emergency/emergency_care_site.py              31      2    94%   55, 167
+eds_scikit/emergency/emergency_visit.py                  18      0   100%
+eds_scikit/event/__init__.py                              6      0   100%
+eds_scikit/event/ccam.py                                 13      0   100%
+eds_scikit/event/consultations.py                        61      1    98%   69
+eds_scikit/event/diabetes.py                             10      4    60%   89-102
+eds_scikit/event/from_code.py                            42      3    93%   109-111
+eds_scikit/event/icd10.py                                17      0   100%
+eds_scikit/event/suicide_attempt.py                      27      0   100%
+eds_scikit/icu/__init__.py                                2      0   100%
+eds_scikit/icu/icu_care_site.py                          21      0   100%
+eds_scikit/icu/icu_visit.py                               8      0   100%
+eds_scikit/io/__init__.py                                 6      0   100%
+eds_scikit/io/base.py                                     9      1    89%   14
+eds_scikit/io/data_quality.py                             9      0   100%
+eds_scikit/io/files.py                                    4      0   100%
+eds_scikit/io/hive.py                                    17      0   100%
+eds_scikit/io/i2b2_mapping.py                            79     69    13%   39-211, 231-234
+eds_scikit/io/improve_performance.py                     51      0   100%
+eds_scikit/io/postgres.py                                 5      0   100%
+eds_scikit/io/settings.py                                 9      0   100%
+eds_scikit/period/__init__.py                             2      0   100%
+eds_scikit/period/stays.py                               86      1    99%   410
+eds_scikit/period/tagging_functions.py                   36      6    83%   61-63, 120-123
+eds_scikit/plot/__init__.py                               0      0   100%
+eds_scikit/plot/age_pyramid.py                           49      0   100%
+eds_scikit/plot/event_sequences.py                       54      0   100%
+eds_scikit/resources/__init__.py                          2      0   100%
+eds_scikit/resources/reg.py                              16      4    75%   51-78
+eds_scikit/resources/utils.py                             6      1    83%   20
+eds_scikit/structures/__init__.py                         0      0   100%
+eds_scikit/structures/attributes.py                      53      0   100%
+eds_scikit/structures/description.py                     19      0   100%
+eds_scikit/utils/__init__.py                              0      0   100%
+eds_scikit/utils/bunch.py                                11      5    55%   33, 36, 39-41
+eds_scikit/utils/checks.py                               71     10    86%   128, 150, 173-189
+eds_scikit/utils/custom_implem/__init__.py                0      0   100%
+eds_scikit/utils/custom_implem/custom_implem.py          22      1    95%   55
+eds_scikit/utils/custom_implem/cut.py                     8      0   100%
+eds_scikit/utils/datetime_helpers.py                     16      0   100%
+eds_scikit/utils/flowchart/__init__.py                    1      0   100%
+eds_scikit/utils/flowchart/flowchart.py                 131      1    99%   153
+eds_scikit/utils/framework.py                            94      0   100%
+eds_scikit/utils/hierarchy.py                            54      0   100%
+eds_scikit/utils/logging.py                              17      0   100%
+eds_scikit/utils/test_utils.py                           54      5    91%   51, 89-90, 115-116
+eds_scikit/utils/typing.py                                8      0   100%
+-----------------------------------------------------------------------------------
+TOTAL                                                  2272    153    93%
