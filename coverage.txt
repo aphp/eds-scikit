@@ -1,6 +1,6 @@
 Name                                                  Stmts   Miss  Cover   Missing
 -----------------------------------------------------------------------------------
-eds_scikit/__init__.py                                   26      0   100%
+eds_scikit/__init__.py                                   21      0   100%
 eds_scikit/biology/__init__.py                            8      0   100%
 eds_scikit/biology/cleaning/__init__.py                   1      0   100%
 eds_scikit/biology/cleaning/cohort.py                     9      1    89%   29
@@ -51,7 +51,7 @@ eds_scikit/io/data_quality.py                             9      0   100%
 eds_scikit/io/files.py                                    4      0   100%
 eds_scikit/io/hive.py                                    17      0   100%
 eds_scikit/io/i2b2_mapping.py                            79     69    13%   39-211, 231-234
-eds_scikit/io/improve_performance.py                     51      0   100%
+eds_scikit/io/improve_performance.py                     62      0   100%
 eds_scikit/io/postgres.py                                 5      0   100%
 eds_scikit/io/settings.py                                 9      0   100%
 eds_scikit/period/__init__.py                             2      0   100%
@@ -81,4 +81,4 @@ eds_scikit/utils/logging.py                              17      0   100%
 eds_scikit/utils/test_utils.py                           54      5    91%   51, 89-90, 115-116
 eds_scikit/utils/typing.py                                8      0   100%
 -----------------------------------------------------------------------------------
-TOTAL                                                  2272    153    93%
+TOTAL                                                  2278    153    93%
