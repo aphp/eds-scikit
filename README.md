@@ -9,23 +9,15 @@
 #
 
 <p align="center">
-<a href="https://aphp.github.io/eds-scikit/" target="_blank">
-    <img src="https://img.shields.io/badge/docs-passed-brightgreen" alt="Documentation">
-</a>
-<a href="https://github.com/aphp/eds-scikit/commits/main" target="_blank">
-    <img src="https://github.com/aphp/eds-scikit/actions/workflows/testing.yml/badge.svg" alt="Pipeline Status">
-</a>
-<a href="https://codecov.io/github/aphp/eds-scikit?branch=main">
-    <img src="https://codecov.io/github/aphp/eds-scikit/coverage.svg?branch=main" alt="Coverage" >
-</a>
-<a href="https://github.com/psf/black" target="_blank">
-    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Black">
-</a>
 
-<a href="https://www.python.org/" target="_blank">
-    <img src="https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen" alt="Supported Python versions">
-</a>
-<a href="https://zenodo.org/badge/latestdoi/571584236"><img src="https://zenodo.org/badge/571584236.svg" alt="DOI"></a>
+![Tests](https://img.shields.io/github/actions/workflow/status/aphp/eds-scikit/testing.yml?branch=main&label=tests&style=flat-square)
+[![Documentation](https://img.shields.io/github/actions/workflow/status/aphp/eds-scikit/publish_doc.yml?branch=main&label=docs&style=flat-square)](https://aphp.github.io/eds-scikit/latest/)
+[![PyPI](https://img.shields.io/pypi/v/eds-scikit?color=blue&style=flat-square)](https://pypi.org/project/eds-scikit/)
+[![Supported Python](https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen?style=flat-square)](https://www.python.org/)
+[![Black](https://img.shields.io/badge/code%20style-black-black?style=flat-square)]([https://www.python.org/](https://github.com/psf/black))
+[![Coverage](https://codecov.io/github/aphp/eds-scikit/coverage.svg)](https://raw.githubusercontent.com/aphp/eds-scikit/coverage/coverage.txt)
+[![DOI](https://zenodo.org/badge/571584236.svg)](https://zenodo.org/badge/latestdoi/571584236&style=flat-square)
+
 </p>
 </div>
 
