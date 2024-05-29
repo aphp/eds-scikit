@@ -25,7 +25,14 @@ def sort_values_first_koalas(
     """
     cols = [*cols, disambiguate_col]
     dataframe = dataframe[[*by_cols, *cols]]
-    _dtypes = dataframe.dtypes.to_dict()
+    _dtypes = dataframe.dtypes
+    
+    if "O" in _dtypes.values:
+        object_col = _dtypes[_dtypes == "O"].index.tolist()
+        raise TypeError(f"Found unsupported object type in data types : {object_col}")
+    else:
+        _dtypes = _dtypes.to_dict()
+    
     dataframe[by_cols] = dataframe[by_cols].fillna("NA")
     for col in cols:
         dataframe_min_max = dataframe.groupby(by_cols, as_index=False)[col]
