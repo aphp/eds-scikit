@@ -15,7 +15,7 @@
 [![PyPI](https://img.shields.io/pypi/v/eds-scikit?color=blue&style=flat-square)](https://pypi.org/project/eds-scikit/)
 [![Supported Python](https://img.shields.io/badge/python-%3E%3D%203.7.1%20%7C%20%3C%203.8-brightgreen?style=flat-square)](https://www.python.org/)
 [![Black](https://img.shields.io/badge/code%20style-black-black?style=flat-square)]([https://www.python.org/](https://github.com/psf/black))
-[![Coverage](https://codecov.io/github/aphp/eds-scikit/coverage.svg)](https://raw.githubusercontent.com/aphp/eds-scikit/coverage/coverage.txt)
+[![Coverage](https://raw.githubusercontent.com/aphp/eds-scikit/coverage/coverage.svg)](https://raw.githubusercontent.com/aphp/eds-scikit/coverage/coverage.txt)
 [![DOI](https://zenodo.org/badge/571584236.svg)](https://zenodo.org/badge/latestdoi/571584236&style=flat-square)
 
 </p>
