@@ -44,7 +44,7 @@ all_params = dict(
     ascending=[True, False],
     cols=["A", ["A", "B"]],
     by_cols=[["B", "C", "D"], ["C", "D"]],
-    disambiguate_col="E"
+    disambiguate_col="E",
 )
 all_params = pd.DataFrame(all_params).to_dict("records")
 
@@ -64,5 +64,5 @@ def test_sort_values_first_koalas(module, params, inputs):
     inputs = framework.to(module, inputs)
     results = sort_values_first_koalas(inputs, **params)
     results = framework.pandas(results)
-        
+
     assert_equal_no_order(results, expected_results, check_dtype=False)

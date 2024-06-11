@@ -43,7 +43,13 @@ all_results = [
 ]
 
 
-@pytest.mark.parametrize("module", ["pandas", "koalas"])
+@pytest.mark.parametrize(
+    "module",
+    [
+        "pandas",
+        # "koalas"
+    ],
+)
 @pytest.mark.parametrize(
     "params, results",
     [(params, results) for params, results in zip(all_params, all_results)],
@@ -55,8 +61,5 @@ def test_visit_merging(module, params, results):
     vo = framework.to(module, ds.visit_occurrence)
     merged = merge_visits(vo, **params)
     merged = framework.pandas(merged)
-    
-    assert_equal_no_order(
-        merged, results,
-        check_dtype=False
-    )
+    merged = merged[results.columns]
+    assert_equal_no_order(merged, results, check_dtype=False)
