@@ -120,3 +120,6 @@ ENV/
 Biology_summary/*
 my_custom_config.csv
 eds_scikit/biology/viz_other/
+
+# Plot test
+omop_teva/*

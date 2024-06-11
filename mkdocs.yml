@@ -46,6 +46,14 @@ nav:
       - Emergency Units: functionalities/patients-course/is_emergency.md
       - Visit merging: functionalities/patients-course/visit_merging.md
       - Consultation dates: functionalities/patients-course/consultation_dates.md
+    - OMOP Teva:
+      - functionalities/omop-teva/index.md
+      - functionalities/omop-teva/quick-use-omop.md
+      # - functionalities/omop-teva/quick-use-general.md
+      - functionalities/omop-teva/configuration-omop.md
+      - functionalities/omop-teva/custom-teva.md
+      - functionalities/omop-teva/omop-teva-example.md
+      # - functionalities/omop-teva/detailed-use-omop.md
     - Biology:
       - functionalities/biology/index.md
       - functionalities/biology/quick-use.md
@@ -92,6 +100,7 @@ extra_javascript:
 
 plugins:
   - search
+  - charts
   - markdown-filter
   - macros:
       module_name: docs/macros
@@ -129,9 +138,13 @@ hooks:
 
 markdown_extensions:
   - admonition
-  - pymdownx.superfences
   - pymdownx.highlight
   - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: vegalite
+          class: vegalite
+          format: !!python/name:mkdocs_charts_plugin.fences.fence_vegalite
   - pymdownx.snippets:
       base_path: ['docs/', '.']
       check_paths: true

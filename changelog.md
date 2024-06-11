@@ -6,6 +6,9 @@
 - Pyarrow fix now work on spark executors.
 - Fix OMOP _date columns issue
 
+### Added
+- omop teva module
+
 ## v0.1.7 (2024-04-12)
 ### Changed
 - Support for pyarrow > 0.17.0
