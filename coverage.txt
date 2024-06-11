@@ -52,14 +52,18 @@ eds_scikit/io/files.py                                    4      0   100%
 eds_scikit/io/hive.py                                    20      0   100%
 eds_scikit/io/i2b2_mapping.py                            79     69    13%   39-211, 231-234
 eds_scikit/io/improve_performance.py                     62      0   100%
+eds_scikit/io/omop_teva_default_config.py                 1      0   100%
 eds_scikit/io/postgres.py                                 5      0   100%
 eds_scikit/io/settings.py                                 9      0   100%
 eds_scikit/period/__init__.py                             2      0   100%
 eds_scikit/period/stays.py                               86      1    99%   410
 eds_scikit/period/tagging_functions.py                   36      6    83%   61-63, 120-123
-eds_scikit/plot/__init__.py                               0      0   100%
+eds_scikit/plot/__init__.py                               3      0   100%
 eds_scikit/plot/age_pyramid.py                           49      0   100%
+eds_scikit/plot/altair_utils.py                          21      0   100%
 eds_scikit/plot/event_sequences.py                       54      0   100%
+eds_scikit/plot/omop_teva.py                             40      1    98%   109
+eds_scikit/plot/table_viz.py                             88      0   100%
 eds_scikit/resources/__init__.py                          2      0   100%
 eds_scikit/resources/reg.py                              16      4    75%   51-78
 eds_scikit/resources/utils.py                             6      1    83%   20
@@ -81,4 +85,4 @@ eds_scikit/utils/logging.py                              17      0   100%
 eds_scikit/utils/test_utils.py                           54      5    91%   51, 89-90, 115-116
 eds_scikit/utils/typing.py                                8      0   100%
 -----------------------------------------------------------------------------------
-TOTAL                                                  2281    153    93%
+TOTAL                                                  2434    154    94%
