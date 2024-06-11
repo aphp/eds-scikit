@@ -47,7 +47,7 @@ all_results = [
     "module",
     [
         "pandas",
-        # "koalas"
+        "koalas"
     ],
 )
 @pytest.mark.parametrize(
