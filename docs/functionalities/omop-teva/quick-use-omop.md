@@ -4,6 +4,9 @@ This tutorial demonstrates how the OMOP teva module can be quickly used to gener
 
 Simply apply ```generate_omop_teva``` function after loading the data. It will create a directory with one HTML per OMOP table.
 
+??? warning "Avoid Jupyter Notebook"
+    Koalas framework with high volumetry processing in Jupyter Notebook might cause computationnal delay and memory issues. Prefer spark-submit script to run OMOP Teva.
+
 ??? tip "Loading dataset"
 
     ```python
