@@ -4,6 +4,9 @@ This tutorial demonstrates how the OMOP teva module can be quickly used to gener
 
 Simply apply ```generate_omop_teva``` function after loading the data. It will create a directory with one HTML per OMOP table.
 
+!!! warning "It is recommended to run generate_omop_teva within spark-submit script"
+    Koalas framework with high volumetry processing might cause computationnal delays and memory issues.
+
 ??? tip "Loading dataset"
 
     ```python
