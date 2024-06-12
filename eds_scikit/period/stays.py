@@ -6,7 +6,6 @@ from numpy import nan as NaN
 from eds_scikit.utils.checks import MissingConceptError, algo_checker, concept_checker
 from eds_scikit.utils.datetime_helpers import substract_datetime
 from eds_scikit.utils.framework import get_framework
-from eds_scikit.utils.sort_first_koalas import sort_values_first_koalas
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -292,20 +291,47 @@ def merge_visits(
             how="inner",
         )
 
-        first_visit = sort_values_first_koalas(
-            merged,
-            by_cols=["visit_occurrence_id_2"],
-            cols=[flag_name, "visit_start_datetime_1"],
-            disambiguate_col="visit_occurrence_id_1",
-            ascending=False,
-        ).rename(
+        # Replacement for :
+        # first_visit = merged.sort_values(visit_start_datetime_1, ascending=False)
+        #                     .groupby([flag_name, visit_occurrence_id_2]).first()
+        # Which is not deterministic in Koalas
+
+        df1 = (
+            merged[merged[flag_name]]
+            .groupby("visit_occurrence_id_2", as_index=False)[
+                ["visit_start_datetime_1"]
+            ]
+            .max()
+        )
+        df1 = merged[merged[flag_name]].merge(
+            df1, on=["visit_occurrence_id_2", "visit_start_datetime_1"], how="right"
+        )
+        df1["flagged"] = True
+        df2 = (
+            merged[~merged[flag_name]]
+            .groupby("visit_occurrence_id_2", as_index=False)[
+                ["visit_start_datetime_1"]
+            ]
+            .max()
+        )
+        df2 = merged[~merged[flag_name]].merge(
+            df2, on=["visit_occurrence_id_2", "visit_start_datetime_1"], how="right"
+        )
+        df2 = df2.merge(
+            df1[["visit_occurrence_id_2", "flagged"]],
+            on="visit_occurrence_id_2",
+            how="left",
+        )
+        df2 = df2[df2.flagged.isna()]
+        first_visit = fw.concat((df1, df2), axis=0)
+
+        first_visit = first_visit.rename(
             columns={
                 "visit_occurrence_id_1": f"{concept_prefix}STAY_ID",
                 "visit_occurrence_id_2": "visit_occurrence_id",
             }
-        )[
-            [f"{concept_prefix}STAY_ID", "visit_occurrence_id"]
-        ]
+        )
+        first_visit = first_visit[["visit_occurrence_id", f"{concept_prefix}STAY_ID"]]
 
         return merged, first_visit
 
