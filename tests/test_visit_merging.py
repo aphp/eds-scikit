@@ -45,10 +45,7 @@ all_results = [
 
 @pytest.mark.parametrize(
     "module",
-    [
-        "pandas",
-        "koalas"
-    ],
+    ["pandas", "koalas"],
 )
 @pytest.mark.parametrize(
     "params, results",
