@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.1.8 (2024-06-13)
 
 ### Fixed
 - Pyarrow fix now work on spark executors.
