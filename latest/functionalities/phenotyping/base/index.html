@@ -36,7 +36,7 @@
 <aside class="md-banner">
 <div class="md-banner__inner md-grid md-typeset">
 <p><strong>New features: </strong>
-Check out the new Biology module !</p>
+Check out the new OMOP Teva module !</p>
 </div>
 </aside>
 </div>
@@ -366,13 +366,50 @@ Check out the new Biology module !</p>
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
 <div class="md-nav__link md-nav__link--index">
-<a href="../../biology/">Biology</a>
+<a href="../../omop-teva/">OMOP Teva</a>
 <label for="__nav_3_4">
 <span class="md-nav__icon md-icon"></span>
 </label>
 </div>
-<nav aria-label="Biology" class="md-nav" data-md-level="2">
+<nav aria-label="OMOP Teva" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          OMOP Teva
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../omop-teva/quick-use-omop/">
+        OMOP Teva - Quick use
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../omop-teva/configuration-omop/">
+        OMOP Teva - Config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../omop-teva/custom-teva/">
+        Custom Teva
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../omop-teva/omop-teva-example/">
+        OMOP Teva example
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" id="__nav_3_5" type="checkbox"/>
+<div class="md-nav__link md-nav__link--index">
+<a href="../../biology/">Biology</a>
+<label for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-label="Biology" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
 <span class="md-nav__icon md-icon"></span>
           Biology
         </label>
@@ -411,13 +448,13 @@ Check out the new Biology module !</p>
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" id="__nav_3_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_3_5">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6">
           Plotting
           <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-label="Plotting" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_3_5">
+<label class="md-nav__title" for="__nav_3_6">
 <span class="md-nav__icon md-icon"></span>
           Plotting
         </label>
@@ -954,6 +991,11 @@ Check out the new Biology module !</p>
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../../reference/io/omop_teva_default_config/">
+        omop_teva_default_config
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../../reference/io/postgres/">
         postgres
       </a>
@@ -1123,8 +1165,23 @@ Check out the new Biology module !</p>
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../../reference/plot/altair_utils/">
+        altair_utils
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../../reference/plot/event_sequences/">
         event_sequences
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../reference/plot/omop_teva/">
+        omop_teva
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../reference/plot/table_viz/">
+        table_viz
       </a>
 </li>
 </ul>
@@ -1626,12 +1683,7 @@ the name of the class will be used instead</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.add_code_feature">
 <span class="doc doc-object-name doc-function-name">add_code_feature</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">add_code_feature</span><span class="p">(</span>
-    <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">codes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"icd10"</span><span class="p">,</span>
-    <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">add_code_feature</span><span class="p">(</span><span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">codes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'icd10'</span><span class="p">,</span> <span class="n">additional_filtering</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <p>Adds a feature from either ICD10 or CCAM codes</p>
@@ -1728,13 +1780,7 @@ stored in self.features[output_feature]</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.agg_single_feature">
 <span class="doc doc-object-name doc-function-name">agg_single_feature</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">agg_single_feature</span><span class="p">(</span>
-    <span class="n">input_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">output_feature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"patient"</span><span class="p">,</span>
-    <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
+<div class="highlight"><pre><span></span><code><span class="n">agg_single_feature</span><span class="p">(</span><span class="n">input_feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_feature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'patient'</span><span class="p">,</span> <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <p>Simple aggregation rule on a feature:</p>
@@ -1860,15 +1906,7 @@ stored in self.features[output_feature]</p>
 <h3 class="doc doc-heading" id="eds_scikit.phenotype.base.Phenotype.agg_two_features">
 <span class="doc doc-object-name doc-function-name">agg_two_features</span>
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">agg_two_features</span><span class="p">(</span>
-    <span class="n">input_feature_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">input_feature_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"AND"</span><span class="p">,</span>
-    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"patient"</span><span class="p">,</span>
-    <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">thresholds</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
+<div class="highlight"><pre><span></span><code><span class="n">agg_two_features</span><span class="p">(</span><span class="n">input_feature_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">input_feature_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_feature</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">how</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'AND'</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'patient'</span><span class="p">,</span> <span class="n">subphenotype</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">thresholds</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Phenotype</span>
 </code></pre></div>
 <div class="doc doc-contents">
 <ul>
@@ -2167,6 +2205,7 @@ If no key is provided, uses the last added feature</p>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["header.autohide", "navigation.tracking", "navigation.instant", "navigation.indexes", "navigation.top", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
 <script src="../../../assets/javascripts/bundle.3a4b43e5.min.js"></script>
+<script src="../../../js/mkdocs-charts-plugin.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
