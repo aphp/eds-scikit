@@ -73,10 +73,10 @@ def cleaning(
 @concept_checker(concepts=["STAY_ID", "CONTIGUOUS_STAY_ID"])
 def merge_visits(
     vo: DataFrame,
+    open_stay_end_datetime: Optional[datetime],
     remove_deleted_visits: bool = True,
     long_stay_threshold: timedelta = timedelta(days=365),
     long_stay_filtering: Optional[str] = "all",
-    open_stay_end_datetime: Optional[datetime] = None,
     max_timedelta: timedelta = timedelta(days=2),
     merge_different_hospitals: bool = False,
     merge_different_source_values: Union[bool, List[str]] = ["hospitalisés", "urgence"],
@@ -108,6 +108,11 @@ def merge_visits(
         - care_site_id (if ``merge_different_hospitals == True``)
         - visit_source_value (if ``merge_different_source_values != False``)
         - row_status_source_value (if ``remove_deleted_visits= True``)
+    open_stay_end_datetime: Optional[datetime]
+        Datetime to use in order to fill the `visit_end_datetime` of open visits. This is necessary in
+        order to compute stay duration and to filter long stays.
+        You might provide the extraction date of your data or datetime.now()
+        (be aware it will produce undeterministic outputs).
     remove_deleted_visits: bool
         Wether to remove deleted visits from the merging procedure.
         Deleted visits are extracted via the `row_status_source_value` column
@@ -126,10 +131,6 @@ def merge_visits(
         Long stays are determined by the ``long_stay_threshold`` value.
     long_stay_threshold : timedelta
         Minimum visit duration value to consider a visit as candidate for "long visits filtering"
-    open_stay_end_datetime: Optional[datetime]
-        Datetime to use in order to fill the `visit_end_datetime` of open visits. This is necessary in
-        order to compute stay duration and to filter long stays. If not provided `datetime.now()` will be used.
-        You might provide the extraction date of your data here.
     max_timedelta : timedelta
         Maximum time difference between the end of a visit and the start of another to consider
         them as belonging to the same stay. This duration is internally converted in seconds before
@@ -214,9 +215,7 @@ def merge_visits(
         remove_deleted_visits=remove_deleted_visits,
         long_stay_threshold=long_stay_threshold,
         long_stay_filtering=long_stay_filtering,
-        open_stay_end_datetime=open_stay_end_datetime
-        if open_stay_end_datetime is not None
-        else datetime.now(),
+        open_stay_end_datetime=open_stay_end_datetime,
     )
 
     fw = get_framework(vo_to_merge)
@@ -292,38 +291,41 @@ def merge_visits(
         )
 
         # Replacement for :
-        # first_visit = merged.sort_values(visit_start_datetime_1, ascending=False)
-        #                     .groupby([flag_name, visit_occurrence_id_2]).first()
-        # Which is not deterministic in Koalas
+        # first_visit = merged.sort_values(by=[flag_name, "visit_start_datetime_1"],
+        #                                  ascending=[False, False])
+        #                     .groupby(visit_occurrence_id_2).first()["visit_occurrence_id_1"]
+        # which is not deterministic in Koalas
 
-        df1 = (
+        flagged = (
             merged[merged[flag_name]]
             .groupby("visit_occurrence_id_2", as_index=False)[
                 ["visit_start_datetime_1"]
             ]
             .max()
         )
-        df1 = merged[merged[flag_name]].merge(
-            df1, on=["visit_occurrence_id_2", "visit_start_datetime_1"], how="right"
+        flagged = merged[merged[flag_name]].merge(
+            flagged, on=["visit_occurrence_id_2", "visit_start_datetime_1"], how="right"
         )
-        df1["flagged"] = True
-        df2 = (
+        flagged["flagged"] = True
+        unflagged = (
             merged[~merged[flag_name]]
             .groupby("visit_occurrence_id_2", as_index=False)[
                 ["visit_start_datetime_1"]
             ]
             .max()
         )
-        df2 = merged[~merged[flag_name]].merge(
-            df2, on=["visit_occurrence_id_2", "visit_start_datetime_1"], how="right"
+        unflagged = merged[~merged[flag_name]].merge(
+            unflagged,
+            on=["visit_occurrence_id_2", "visit_start_datetime_1"],
+            how="right",
         )
-        df2 = df2.merge(
-            df1[["visit_occurrence_id_2", "flagged"]],
+        unflagged = unflagged.merge(
+            flagged[["visit_occurrence_id_2", "flagged"]],
             on="visit_occurrence_id_2",
             how="left",
         )
-        df2 = df2[df2.flagged.isna()]
-        first_visit = fw.concat((df1, df2), axis=0)
+        unflagged = unflagged[unflagged.flagged.isna()]
+        first_visit = fw.concat((flagged, unflagged), axis=0)
 
         first_visit = first_visit.rename(
             columns={
