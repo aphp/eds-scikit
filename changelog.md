@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix merge_visits sort_values.groupby.first
+
 ## v0.1.8 (2024-06-13)
 
 ### Fixed

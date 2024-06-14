@@ -6,6 +6,7 @@ from numpy import nan as NaN
 from eds_scikit.utils.checks import MissingConceptError, algo_checker, concept_checker
 from eds_scikit.utils.datetime_helpers import substract_datetime
 from eds_scikit.utils.framework import get_framework
+from eds_scikit.utils.sort_values_first import sort_values_first
 from eds_scikit.utils.typing import DataFrame
 
 
@@ -73,10 +74,10 @@ def cleaning(
 @concept_checker(concepts=["STAY_ID", "CONTIGUOUS_STAY_ID"])
 def merge_visits(
     vo: DataFrame,
+    open_stay_end_datetime: Optional[datetime],
     remove_deleted_visits: bool = True,
     long_stay_threshold: timedelta = timedelta(days=365),
     long_stay_filtering: Optional[str] = "all",
-    open_stay_end_datetime: Optional[datetime] = None,
     max_timedelta: timedelta = timedelta(days=2),
     merge_different_hospitals: bool = False,
     merge_different_source_values: Union[bool, List[str]] = ["hospitalisés", "urgence"],
@@ -108,6 +109,11 @@ def merge_visits(
         - care_site_id (if ``merge_different_hospitals == True``)
         - visit_source_value (if ``merge_different_source_values != False``)
         - row_status_source_value (if ``remove_deleted_visits= True``)
+    open_stay_end_datetime: Optional[datetime]
+        Datetime to use in order to fill the `visit_end_datetime` of open visits. This is necessary in
+        order to compute stay duration and to filter long stays.
+        You might provide the extraction date of your data or datetime.now()
+        (be aware it will produce undeterministic outputs).
     remove_deleted_visits: bool
         Wether to remove deleted visits from the merging procedure.
         Deleted visits are extracted via the `row_status_source_value` column
@@ -126,10 +132,6 @@ def merge_visits(
         Long stays are determined by the ``long_stay_threshold`` value.
     long_stay_threshold : timedelta
         Minimum visit duration value to consider a visit as candidate for "long visits filtering"
-    open_stay_end_datetime: Optional[datetime]
-        Datetime to use in order to fill the `visit_end_datetime` of open visits. This is necessary in
-        order to compute stay duration and to filter long stays. If not provided `datetime.now()` will be used.
-        You might provide the extraction date of your data here.
     max_timedelta : timedelta
         Maximum time difference between the end of a visit and the start of another to consider
         them as belonging to the same stay. This duration is internally converted in seconds before
@@ -291,21 +293,18 @@ def merge_visits(
             how="inner",
         )
 
-        # Getting the corresponding first visit
-        first_visit = (
-            merged.sort_values(
-                by=[flag_name, "visit_start_datetime_1"], ascending=[False, False]
-            )
-            .groupby("visit_occurrence_id_2")
-            .first()["visit_occurrence_id_1"]
-            .reset_index()
-            .rename(
-                columns={
-                    "visit_occurrence_id_1": f"{concept_prefix}STAY_ID",
-                    "visit_occurrence_id_2": "visit_occurrence_id",
-                }
-            )
+        first_visit = sort_values_first(
+            merged,
+            by_cols=["visit_occurrence_id_2"],
+            cols=[flag_name, "visit_start_datetime_1", "visit_occurrence_id_1"],
         )
+        first_visit = first_visit.rename(
+            columns={
+                "visit_occurrence_id_1": f"{concept_prefix}STAY_ID",
+                "visit_occurrence_id_2": "visit_occurrence_id",
+            }
+        )
+        first_visit = first_visit[["visit_occurrence_id", f"{concept_prefix}STAY_ID"]]
 
         return merged, first_visit
 

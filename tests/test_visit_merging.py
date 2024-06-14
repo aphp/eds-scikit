@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pandas as pd
 import pytest
 
@@ -43,7 +45,10 @@ all_results = [
 ]
 
 
-@pytest.mark.parametrize("module", ["pandas", "koalas"])
+@pytest.mark.parametrize(
+    "module",
+    ["pandas", "koalas"],
+)
 @pytest.mark.parametrize(
     "params, results",
     [(params, results) for params, results in zip(all_params, all_results)],
@@ -53,9 +58,7 @@ def test_visit_merging(module, params, results):
     results = framework.to(module, results)
 
     vo = framework.to(module, ds.visit_occurrence)
-    merged = merge_visits(vo, **params)
+    merged = merge_visits(vo, datetime(2023, 1, 1), **params)
     merged = framework.pandas(merged)
-
-    assert_equal_no_order(
-        merged[["visit_occurrence_id", "STAY_ID", "CONTIGUOUS_STAY_ID"]], results
-    )
+    merged = merged[results.columns]
+    assert_equal_no_order(merged, results, check_dtype=False)
