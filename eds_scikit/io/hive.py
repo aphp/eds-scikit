@@ -6,11 +6,15 @@ from typing import Dict, Iterable, List, Optional, Union
 
 import pandas as pd
 import pyarrow.parquet as pq
+import pyspark.sql.functions as F
+import pyspark.sql.types as T
 from databricks import koalas
 from loguru import logger
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.types import LongType, StructField, StructType
+
+from eds_scikit.utils.framework import cache
 
 from . import settings
 from .base import BaseData
@@ -33,6 +37,8 @@ class HiveData(BaseData):  # pragma: no cover
             Union[Dict[str, Optional[List[str]]], List[str]]
         ] = None,
         database_type: Optional[str] = "OMOP",
+        prune_omop_date_columns: bool = True,
+        cache: bool = True,
     ):
         """Spark interface for OMOP data stored in a Hive database.
 
@@ -54,6 +60,12 @@ class HiveData(BaseData):  # pragma: no cover
             *deprecated*
         database_type: Optional[str] = 'OMOP'. Must be 'OMOP' or 'I2B2'
             Whether to use the native OMOP schema or to convert I2B2 inputs to OMOP.
+        prune_omop_date_columns: bool, default=True
+            In OMOP, most date values are stored both in a `<str>_date` and `<str>_datetime` column
+            Koalas has trouble handling the `date` time, so we only keep the `datetime` column
+        cache: bool, default=True
+            Whether to cache each table after preprocessing or not.
+            Will speed-up subsequent calculations, but can be long/infeasable for very large tables
 
         Attributes
         ----------
@@ -125,6 +137,8 @@ class HiveData(BaseData):  # pragma: no cover
             for omop_table, i2b2_table in self.omop_to_i2b2.items():
                 self.i2b2_to_omop[i2b2_table].append(omop_table)
 
+        self.prune_omop_date_columns = prune_omop_date_columns
+        self.cache = cache
         self.user = os.environ["USER"]
         self.person_ids, self.person_ids_df = self._prepare_person_ids(person_ids)
         self.available_tables = self.list_available_tables()
@@ -224,9 +238,26 @@ class HiveData(BaseData):  # pragma: no cover
         if "person_id" in df.columns and person_ids is not None:
             df = df.join(person_ids, on="person_id", how="inner")
 
-        df = df.cache().to_koalas()
+        if self.prune_omop_date_columns:
+
+            # Keeping only _datetime column if corresponding _date exists
+            cols = [
+                c
+                for c in df.columns
+                if not ((c.endswith("_date") and (f"{c}time" in df.columns)))
+            ]
+            df = df.select(cols)
+
+            # Casting the single _date columns to timestamp:
+            for col in df.schema:
+                if col.dataType == T.DateType():
+                    df = df.withColumn(col.name, F.col(col.name).cast("timestamp"))
+        df = df.to_koalas()
 
         df = clean_dates(df)
+
+        if self.cache:
+            df = cache(df)
 
         return df
 

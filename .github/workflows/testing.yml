@@ -68,12 +68,25 @@ jobs:
       - name: Run tests
         shell: bash {0}
         run: ./build_tools/github/test.sh
-      - name: Upload coverage to CodeCov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-data-${{ matrix.python-version }}
+          path: .coverage.*
+          if-no-files-found: ignore
         if: success()
       - name: Check dependencies licenses
         run: |
           liccheck
+  Coverage:
+    needs: Testing
+    uses: aphp/foldedtensor/.github/workflows/coverage.yml@main
+    with:
+      base-branch: main
+      coverage-data-pattern: coverage-data-*
+      coverage-report: coverage.txt
+      coverage-badge: coverage.svg
+      coverage-branch: coverage
 
   Documentation:
     needs: check_skip

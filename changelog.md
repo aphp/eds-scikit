@@ -1,11 +1,17 @@
 # Changelog
 
 ## Unreleased
-### Added
-- sort_values_first_koalas function fo perform correctly sort_values(...).first() wehn using koalas dataframe
-
 ### Fixed
 - merge_visit sort_values(...).first() issue is corrected
+
+## v0.1.8 (2024-06-13)
+
+### Fixed
+- Pyarrow fix now work on spark executors.
+- Fix OMOP _date columns issue
+
+### Added
+- omop teva module
 
 ## v0.1.7 (2024-04-12)
 ### Changed
