@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Fixed
+- Quartiles computed from plot_concepts_set does not depend on value selection anymore
+
 ## v0.1.8 (2024-06-13)
 
 ### Fixed

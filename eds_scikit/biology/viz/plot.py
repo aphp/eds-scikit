@@ -327,7 +327,7 @@ def plot_interactive_distribution(measurement: DataFrame):
                         ),
                     ],
                 )
-            )
+            ).transform_filter(value_selection)
 
             terminology_outlier_base = (
                 terminology_dist_base.transform_joinaggregate(
@@ -502,7 +502,7 @@ def plot_interactive_distribution(measurement: DataFrame):
             lambda terminology_distribution_1, terminology_distribution_2: terminology_distribution_1
             | terminology_distribution_2,
             terminologies_distribution,
-        ).transform_filter(value_selection)
+        )
         overall_densities = reduce(
             lambda overall_density_1, overall_density_2: alt.hconcat(
                 overall_density_1, overall_density_2, spacing=75
