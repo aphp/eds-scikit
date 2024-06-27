@@ -1,6 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+### Added
+- Functions tag_table_with_age, tag_table_period_length, tag_table_by_type
+
 ### Fixed
 - Quartiles computed from plot_concepts_set does not depend on value selection anymore
 
